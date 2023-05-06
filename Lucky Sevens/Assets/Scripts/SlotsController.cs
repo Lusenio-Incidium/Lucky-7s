@@ -79,23 +79,7 @@ public class SlotsController : MonoBehaviour
         }
         else if(_isSpinning && canStop && currSpinDelay <= 0)
         {
-            //if ((int)(slot1Timer * 1000 / 50) + 1 == (int)_wheelOneResult)
-            //{
-            //    Debug.Log((int)_wheelOneResult);
-            //    _slot1.GetComponent<Animator>().enabled = false;
-            //}
-            //if ((int)(slot2Timer * 1000 / 50) + 1 == (int)_wheelTwoResult && _slot1.GetComponent<Animator>().enabled == false)
-            //{
-            //    Debug.Log((int)_wheelTwoResult);
-            //    _slot2.GetComponent<Animator>().enabled = false;
-            //}
-            //if ((int)(slot3Timer * 1000 / 50) + 1== (int)_wheelThreeResult && _slot2.GetComponent<Animator>().enabled == false)
-            //{
-            //    Debug.Log((int)_wheelThreeResult);
-            //    _slot3.GetComponent<Animator>().enabled = false;
-            //    _isSpinning = false;
-            //    currSpinDelay = spinDelay;
-            //}
+            //Detection Code
         }
         else
         {
@@ -115,7 +99,7 @@ public class SlotsController : MonoBehaviour
         wheel3Spin = true;
 
 
-        if(Random.Range(1,100) < currJackpotOdds)
+        if(Random.Range(1,100) < currJackpotOdds) //I promise it's still not rigged, just ignore the rigging code ;3
         {
             int jackpot = Random.Range(1, 20);
             _wheelOneResult = _wheelTwoResult = _wheelThreeResult = (SlotResults)jackpot;
