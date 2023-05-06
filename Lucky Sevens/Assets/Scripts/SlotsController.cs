@@ -29,6 +29,10 @@ public enum SlotResults {
 
 public class SlotsController : MonoBehaviour
 {
+    struct SpawnInfo {
+        [SerializeField] GameObject SpawnObject;
+
+    }
     [Header("--- Wheel Input ---")]
     [SerializeField] GameObject _slot1;
     [SerializeField] GameObject _slot2;
@@ -40,12 +44,16 @@ public class SlotsController : MonoBehaviour
     [Range(0, 100)][SerializeField] int jackpotOdds; //How likely it is to get 3 in a row
     [Range(0, 100)][SerializeField] int jackpodMod; //How much the likelyhood of getting 3 in a row goes up after missing
 
+    [Header("--- Spawn ---")]
+    [SerializeField] SpawnInfo[] SpawnConditions;
+
     float currSpinDelay;
     bool _isSpinning;
     bool canStop;
     SlotResults _wheelOneResult;
     SlotResults _wheelTwoResult;
     SlotResults _wheelThreeResult;
+    int currJackpotOdds;
     float slot1TimerStache;
     float slot2TimerStache;
     float slot3TimerStache;
@@ -63,7 +71,9 @@ public class SlotsController : MonoBehaviour
         _slot2.GetComponent<Animator>().enabled = false;
         _slot3.GetComponent<Animator>().enabled = false;
         _isSpinning = false;
+
         currSpinDelay = spinDelay;
+        currJackpotOdds = jackpotOdds;
     }
 
     // Update is called once per frame
@@ -132,6 +142,11 @@ public class SlotsController : MonoBehaviour
         _slot1.GetComponent<Animator>().enabled = true;
         _slot2.GetComponent<Animator>().enabled = true;
         _slot3.GetComponent<Animator>().enabled = true;
+        if(Random.Range(1,100) < currJackpotOdds)
+        {
+            int jackpot = Random.Range(1, 20);
+            _wheelOneResult = _wheelTwoResult = _wheelThreeResult = (SlotResults)jackpot;
+        }
         _wheelOneResult = (SlotResults)Random.Range(1, 20);
         _wheelTwoResult = (SlotResults)Random.Range(1, 20);
         _wheelThreeResult = (SlotResults)Random.Range(1, 20);
