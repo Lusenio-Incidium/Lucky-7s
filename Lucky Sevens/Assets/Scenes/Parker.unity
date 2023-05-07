@@ -324,6 +324,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 709473201}
+  - component: {fileID: 709473202}
   - component: {fileID: 709473199}
   - component: {fileID: 709473198}
   - component: {fileID: 709473197}
@@ -410,8 +411,22 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &709473202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709473196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0754b47be17c8b840b16b07d7d6be6af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 100
+  model: {fileID: 709473198}
 --- !u!1 &834137435
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,12 +553,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmg: 10
   timeBetweenShots: 0
-  timeBetweenShooting: 0
-  range: 0
-  reloadTime: 0
-  magSize: 100
-  triggerHold: 1
+  timeBetweenShooting: 0.2
+  range: 10
+  reloadTime: 3
+  spread: 0
+  bulletsPerTap: 0
+  magSize: 50
   bulletsLeft: 0
+  bulletsShot: 0
+  allowButtonHolding: 1
 --- !u!4 &1253126791 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 581697804788486951, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
@@ -570,7 +588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 581697804747712965, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 581697804747712965, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
       propertyPath: m_LocalPosition.x

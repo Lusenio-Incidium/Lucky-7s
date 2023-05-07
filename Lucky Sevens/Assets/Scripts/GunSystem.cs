@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GunSystem : MonoBehaviour
+public class GunSystem : MonoBehaviour 
 {
     //Stats
     [Header("----- Gun Stats -----")]
@@ -13,12 +13,14 @@ public class GunSystem : MonoBehaviour
     [SerializeField] float timeBetweenShooting;
     [SerializeField] float range;
     [SerializeField] float reloadTime;
+    [SerializeField] float spread;
+    [SerializeField] int bulletsPerTap;
     [SerializeField] int magSize;
-    [SerializeField] bool triggerHold;
     [SerializeField] int bulletsLeft;
+    [SerializeField] int bulletsShot;
 
     //bools to ask game
-    bool allowButtonHolding;
+    public bool allowButtonHolding;
     bool isShooting;
     bool readyToShoot;
     bool reloading;
@@ -38,13 +40,13 @@ public class GunSystem : MonoBehaviour
     private void myInput()
     {
         //hold to fire or single shot
-        if (allowButtonHolding)
+        if (allowButtonHolding == true)
         {
-            isShooting = Input.GetKey(KeyCode.Mouse0);
+            isShooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
         else
         {
-            isShooting = Input.GetKeyDown(KeyCode.Mouse0);
+            isShooting = Input.GetKey(KeyCode.Mouse0);
         }
 
         //reloading
@@ -59,7 +61,7 @@ public class GunSystem : MonoBehaviour
             Shoot();
         }
     }
-    
+
     //shoot function
     private void Shoot()
     {
@@ -79,6 +81,8 @@ public class GunSystem : MonoBehaviour
             }
         }
         bulletsLeft--;
+
+        readyToShoot = true;
         Invoke("ResetShot", timeBetweenShooting);
     }
 
