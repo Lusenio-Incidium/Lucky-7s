@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Authentication.ExtendedProtection;
 using UnityEngine;
 
 public class BlockHighlight : MonoBehaviour, IRandomizeHighlight
@@ -27,9 +28,9 @@ public class BlockHighlight : MonoBehaviour, IRandomizeHighlight
     public void OnSelect()
     {
         _currBlinkPeriod -= Time.deltaTime;
-        if(_currBlinkPeriod <= 0)
+        if (_currBlinkPeriod <= 0)
         {
-            if(blinkOn)
+            if (blinkOn)
             {
                 gameObject.GetComponent<Renderer>().material = _whileNotHighlighted;
                 blinkOn = false;

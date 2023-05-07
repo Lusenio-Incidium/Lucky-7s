@@ -5,20 +5,22 @@ using UnityEngine;
 
 public class RandomSelection : MonoBehaviour
 {
-    //[SerializeField] GameObject[] _randomObjects;
+    List<IRandomizeAction> _actionObjects;
     List<IRandomizeHighlight> _lightObjects;
     int selection;
     [Header("--- Roll Stats ---")]
-    [Range(0.1f,10)][SerializeField] float idleShiftTime;
-    [Range(0.1f,10)][SerializeField] float activeShiftTime;
-    [Range(1,10)][SerializeField] float rollTime;
-    [SerializeField] bool randomizeOrder;
+    [Range(0.1f,10)][SerializeField] float idleShiftTime; //How long it takes for the light to change when not rolling
+    [Range(0.1f,10)][SerializeField] float activeShiftTime; //How long it takes for the light to change when rolling
+    [Range(1,10)][SerializeField] float rollTimeMin; //Min roll time
+    [Range(1, 10)][SerializeField] float rollTimeMax; //Max roll time
+
+    [SerializeField] bool randomizeOrder; //Will it go 1 -> 2 -> 3 -> 4 or will it choose a random one every shift.
     bool rolling;
     int result;
     int highlight;
     float currShiftTime;
     bool actionRun;
-
+    bool critErr;
 
     [Header("--- Rigged Settings ---")]
     [SerializeField] bool rigged;
@@ -26,13 +28,17 @@ public class RandomSelection : MonoBehaviour
     void Start()
     {
         _lightObjects = new List<IRandomizeHighlight>();
+        _actionObjects = new List<IRandomizeAction>();
         actionRun = false;
         result = -1;
+        if(rollTimeMin > rollTimeMax)
+        {
+            Debug.LogError("CRITICAL RANDOMIZER ERR - rollTimeMin is greater than rollTimeMax");
+            critErr = true;
+        }
         GameObject[] temp = GameObject.FindGameObjectsWithTag("RandomizerLight");
-        Debug.Log(temp.Length);
         foreach (GameObject obj in temp)
         {
-            Debug.Log(obj.GetComponent<IRandomizeHighlight>());
             IRandomizeHighlight tempRandomHighlight = obj.GetComponent<IRandomizeHighlight>();
             if (tempRandomHighlight != null)
             {
@@ -41,7 +47,7 @@ public class RandomSelection : MonoBehaviour
                 {
                     if (_lightObjects[x].GetPosition() == tempRandomHighlight.GetPosition())
                     {
-                        Debug.LogError("RANDOMIZER ERROR - Two objects share the same position!");
+                        Debug.LogWarning("RANDOMIZER ERROR - Two Highlight Objects share the same position!");
                         inserted = true;
                         break;
                     }
@@ -59,19 +65,62 @@ public class RandomSelection : MonoBehaviour
             }
              else
              {
-                 Debug.LogError("RANDOMIZER ERR - Object \"" + obj.name +"\" has tag \"RandomizerLight\" and does not have IRandomizeHighlight");
+                 Debug.LogWarning("RANDOMIZER ERR - Object \"" + obj.name +"\" has tag \"RandomizerLight\" and does not have IRandomizeHighlight");
              }
         }
-        //if(_randomObjects == null)
-        //{
-        //    _randomObjects = GameObject.FindGameObjectsWithTag("RandomizerActions");
-        //}
+        temp = GameObject.FindGameObjectsWithTag("RandomizerActions");
+        foreach (GameObject obj in temp)
+        {
+            IRandomizeAction tempRandomHighlight = obj.GetComponent<IRandomizeAction>();
+            if (tempRandomHighlight != null)
+            {
+                bool inserted = false;
+                for (int x = 0; x < _actionObjects.Count; x++)
+                {
+                    if (_actionObjects[x].GetPosition() == tempRandomHighlight.GetPosition())
+                    {
+                        Debug.LogWarning("RANDOMIZER ERROR - Two Action Objects share the same position!");
+                        inserted = true;
+                        break;
+                    }
+                    if (_actionObjects[x].GetPosition() > tempRandomHighlight.GetPosition())
+                    {
+                        _actionObjects.Insert(x, tempRandomHighlight);
+                        inserted = true;
+                        break;
+                    }
+                }
+                if (!inserted)
+                {
+                    _actionObjects.Add(tempRandomHighlight);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("RANDOMIZER ERR - Object \"" + obj.name + "\" has tag \"RandomizerActions\" and does not have IRandomizeAction");
+            }
+        }
+
+        if(_actionObjects.Count != _lightObjects.Count)
+        {
+            Debug.LogError("CRITICAL RANDOMIZER ERR - There are not equal numbers of Action Objects and Light Objects");
+            critErr = true;
+        }
     }
     void Update()
     {
+        if (critErr)
+        {
+            return;
+        }
         currShiftTime -= Time.deltaTime;
         if (result != -1)
         {
+            if (!actionRun)
+            {
+                _actionObjects[result].OnSelect();
+                actionRun = true;
+            }
             _lightObjects[result].OnSelect();
         }
         else if (currShiftTime <= 0 && result == -1)
@@ -124,7 +173,7 @@ public class RandomSelection : MonoBehaviour
     IEnumerator Roll()
     {
         rolling = true;
-        yield return new WaitForSeconds(rollTime);
+        yield return new WaitForSeconds(Random.Range(rollTimeMin, rollTimeMax));
         
         if (rigged && riggedNum < _lightObjects.Count && riggedNum >= 0)
         {
@@ -135,7 +184,7 @@ public class RandomSelection : MonoBehaviour
             }
             else
             {
-                Debug.LogError("RANDOMIZER ERROR - In order to rig randomizeOrder must be enabled.");
+                Debug.LogWarning("RANDOMIZER ERROR - In order to rig randomizeOrder must be enabled.");
                 result = highlight;
             }
         }
