@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RandomSelection : MonoBehaviour
@@ -11,7 +12,7 @@ public class RandomSelection : MonoBehaviour
     [Range(0.1f,10)][SerializeField] float idleShiftTime;
     [Range(0.1f,10)][SerializeField] float activeShiftTime;
     [Range(1,10)][SerializeField] float rollTime;
-
+    [SerializeField] bool randomizeOrder;
     bool rolling;
     int result;
     int highlight;
@@ -22,7 +23,6 @@ public class RandomSelection : MonoBehaviour
     [Header("--- Rigged Settings ---")]
     [SerializeField] bool rigged;
     [SerializeField] int riggedNum;
-
     void Start()
     {
         _lightObjects = new List<IRandomizeHighlight>();
@@ -69,11 +69,17 @@ public class RandomSelection : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log(_lightObjects.Count);
         currShiftTime -= Time.deltaTime;
-        if(currShiftTime <= 0 && result == -1)
+        if (result != -1)
         {
-            Shift();
+            _lightObjects[result].OnSelect();
+        }
+        else if (currShiftTime <= 0 && result == -1)
+        {
+            if (!randomizeOrder)
+                Shift();
+            else
+                RandomSelect();
             if (rolling != true)
             {
                 currShiftTime = idleShiftTime;
@@ -82,10 +88,6 @@ public class RandomSelection : MonoBehaviour
             {
                 currShiftTime = activeShiftTime;
             }
-        }
-        else if (result != -1)
-        {
-            _lightObjects[result].OnSelect();
         }
         if (Input.GetButtonDown("Submit") && result == -1)
         {
@@ -103,13 +105,39 @@ public class RandomSelection : MonoBehaviour
         }
         _lightObjects[highlight].OnHighlight();
     }
+
+    void RandomSelect()
+    {
+        int currNum = highlight;
+        _lightObjects[highlight].OffHighlight();
+        highlight = Random.Range(0, _lightObjects.Count);
+        if(highlight == currNum)
+        {
+            highlight++;
+            if (highlight >= _lightObjects.Count)
+            {
+                highlight = 0;
+            }
+        }
+        _lightObjects[highlight].OnHighlight();
+    }
     IEnumerator Roll()
     {
         rolling = true;
         yield return new WaitForSeconds(rollTime);
-        if(rigged && riggedNum !>= _lightObjects.Count)
+        
+        if (rigged && riggedNum < _lightObjects.Count && riggedNum >= 0)
         {
-            result = riggedNum;
+            if (randomizeOrder)
+            {
+                _lightObjects[highlight].OffHighlight();
+                result = highlight = riggedNum;
+            }
+            else
+            {
+                Debug.LogError("RANDOMIZER ERROR - In order to rig randomizeOrder must be enabled.");
+                result = highlight;
+            }
         }
         else
         {
