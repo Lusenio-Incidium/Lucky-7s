@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GunSystem : MonoBehaviour
@@ -13,7 +15,7 @@ public class GunSystem : MonoBehaviour
     [SerializeField] float reloadTime;
     [SerializeField] int magSize;
     [SerializeField] bool triggerHold;
-    int bulletsLeft;
+    [SerializeField] int bulletsLeft;
 
     //bools to ask game
     bool allowButtonHolding;
@@ -21,6 +23,13 @@ public class GunSystem : MonoBehaviour
     bool readyToShoot;
     bool reloading;
 
+    public RaycastHit rayHit;
+
+    private void Awake()
+    {
+        bulletsLeft = magSize;
+        readyToShoot = true;
+    }
     private void Update()
     {
         myInput();
@@ -55,6 +64,20 @@ public class GunSystem : MonoBehaviour
     private void Shoot()
     {
         readyToShoot = false;
+
+        //Raycasting bullets
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, range))
+        {
+            if (rayHit.collider.CompareTag("Enemy"))
+            {
+                IDamage damageable = hit.collider.GetComponent<IDamage>();
+                if (damageable != null)
+                {
+                    damageable.takeDamage(dmg);
+                }
+            }
+        }
         bulletsLeft--;
         Invoke("ResetShot", timeBetweenShooting);
     }
