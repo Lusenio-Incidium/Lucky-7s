@@ -75,6 +75,10 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
                     takeDamage(hitEffect.damage);
                 }
             }
+            if (Time.time - timePassed >= hitEffect.duration)
+            {
+                RemoveEffect();
+            }
         }
     }
 
