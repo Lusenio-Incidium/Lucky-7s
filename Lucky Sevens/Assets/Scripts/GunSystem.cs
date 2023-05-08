@@ -17,6 +17,7 @@ public class GunSystem : MonoBehaviour
     [SerializeField] int magSize;
     [SerializeField] int bulletsLeft;
     [SerializeField] int bulletsShot;
+    [SerializeField] StatusEffectObj statusEffect;
 
     //bools to ask game
     [SerializeField] bool allowButtonHolding;
@@ -73,9 +74,14 @@ public class GunSystem : MonoBehaviour
             if (hit.collider.CompareTag("Enemy"))
             {
                 IDamage damageable = hit.collider.GetComponent<IDamage>();
+                IStatusEffect effectable = hit.collider.GetComponent<IStatusEffect>();
                 if (damageable != null)
                 {
                     damageable.takeDamage(dmg);
+                }
+                if(effectable != null)
+                {
+                    effectable.ApplyStatusEffect(statusEffect);
                 }
             }
         }

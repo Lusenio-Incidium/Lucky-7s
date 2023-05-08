@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "NewStatusEffect")]
 public class StatusEffectObj : ScriptableObject
 {
-    public string name;
+    public string spellName;
     public int duration;
     public int damage;
     public int slowEffect;
-    public int damagespeed;
+    public float damagespeed;
 }

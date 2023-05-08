@@ -228,6 +228,10 @@ PrefabInstance:
       propertyPath: dmg
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -3958245059960863497, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
+      propertyPath: statusEffect
+      value: 
+      objectReference: {fileID: 11400000, guid: e0a5cb6732c61ce458411b1bafa596bd, type: 2}
     - target: {fileID: 581697804747712965, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -375,6 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 10
   model: {fileID: 1571787481}
+  hitEffect: {fileID: 0}
 --- !u!4 &1571787484
 Transform:
   m_ObjectHideFlags: 0
