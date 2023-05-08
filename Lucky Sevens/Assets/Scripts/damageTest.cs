@@ -6,7 +6,7 @@ public class damageTest : MonoBehaviour, IDamage
 {
     [SerializeField] int HP;
     [SerializeField] Renderer model;
-    Color colorOrig;
+    Color colorOrig = Color.white;
     public void takeDamage(int dmg)
     {
         HP -= dmg;

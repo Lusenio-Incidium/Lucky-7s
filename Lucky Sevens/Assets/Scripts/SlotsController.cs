@@ -38,6 +38,10 @@ public class SlotsController : MonoBehaviour
     [SerializeField] GameObject _slot1;
     [SerializeField] GameObject _slot2;
     [SerializeField] GameObject _slot3;
+
+    float _wheel1Rotation;
+    float _wheel2Rotation;
+    float _wheel3Rotation;
     [Range(1,100)][SerializeField] float _spinSpeed;
     [Range(0.1f, 1)][SerializeField] float _spinStartDelay;
    
@@ -48,42 +52,51 @@ public class SlotsController : MonoBehaviour
     [Range(0, 100)][SerializeField] int jackpotMod; //How much the likelyhood of getting 3 in a row goes up after missing
 
     [Header("--- Spawn ---")]
-    [SerializeField] SpawnInfo[] SpawnConditions;
+    [SerializeField] GameObject[] SpawnConditions;
 
-    float currSpinDelay;
+    float _currSpinDelay;
     bool _isSpinning;
-    bool canStop;
-    bool wheel1Spin;
-    bool wheel2Spin;
-    bool wheel3Spin;
+    bool _canStop;
+    bool _wheel1Spin;
+    bool _wheel2Spin;
+    bool _wheel3Spin;
     SlotResults _wheelOneResult;
     SlotResults _wheelTwoResult;
     SlotResults _wheelThreeResult;
-    int currJackpotOdds;
+    int _currJackpotOdds;
 
     // Start is called before the first frame update
     void Start()
     {
-        _isSpinning = wheel1Spin = wheel2Spin = wheel3Spin = false;
-        currSpinDelay = spinDelay;
-        currJackpotOdds = jackpotOdds;
+        _isSpinning = _wheel1Spin = _wheel2Spin = _wheel3Spin = false;
+        _currSpinDelay = spinDelay;
+        _currJackpotOdds = jackpotOdds;
+        _wheel1Rotation = 90;
+        _wheel2Rotation = 90;
+        _wheel3Rotation = 90;
     }
 
     // Update is called once per frame
     void Update()
     {
         AnimateSpin();
-        if (!_isSpinning && currSpinDelay <= 0)
+        if (!_isSpinning && _currSpinDelay <= 0)
         {
             StartCoroutine(Spin());
         }
-        else if(_isSpinning && canStop && currSpinDelay <= 0)
+        else if(_isSpinning && _canStop && _currSpinDelay <= 0)
         {
-            //Detection Code
+            Debug.Log((int)_wheelOneResult);
+            _slot1.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelOneResult) + (90 - (360 /20)), 0 ,0);
+            _slot2.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelTwoResult) + (90 - (360 / 20)), 0, 0);
+            _slot3.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelThreeResult) + (90 - (360 / 20)), 0, 0);
+            _wheel1Spin = _wheel2Spin = _wheel3Spin = false;
+            _isSpinning = false;
+            _currSpinDelay = spinDelay;
         }
         else
         {
-            currSpinDelay -= Time.deltaTime;
+            _currSpinDelay -= Time.deltaTime;
         }
     }
 
@@ -91,45 +104,62 @@ public class SlotsController : MonoBehaviour
     {
 
         _isSpinning = true;
-        canStop = false;
-        wheel1Spin = true;
+        _canStop = false;
+        _wheel1Spin = true;
         yield return new WaitForSeconds(_spinStartDelay);
-        wheel2Spin = true;
+        _wheel2Spin = true;
         yield return new WaitForSeconds(_spinStartDelay);
-        wheel3Spin = true;
+        _wheel3Spin = true;
 
 
-        if(Random.Range(1,100) < currJackpotOdds) //I promise it's still not rigged, just ignore the rigging code ;3
+        if(Random.Range(1,100) < _currJackpotOdds) //I promise it's still not rigged, just ignore the rigging code ;3
         {
             int jackpot = Random.Range(1, 20);
             _wheelOneResult = _wheelTwoResult = _wheelThreeResult = (SlotResults)jackpot;
-            currJackpotOdds = jackpotOdds;
+            _currJackpotOdds = jackpotOdds;
         }
         else
         {
             _wheelOneResult = (SlotResults)Random.Range(1, 20);
             _wheelTwoResult = (SlotResults)Random.Range(1, 20);
             _wheelThreeResult = (SlotResults)Random.Range(1, 20);
-            currJackpotOdds += jackpotMod;
+            _currJackpotOdds += jackpotMod;
             
         }
 
         yield return new WaitForSeconds(spinTime);
-        canStop = true;
+        _canStop = true;
+        
     }
     void AnimateSpin()
     {
-        if (wheel1Spin)
+        if (_wheel1Spin)
         {
             _slot1.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
+            _wheel1Rotation += (_spinSpeed * Time.deltaTime) * 100;
+            if(_wheel1Rotation >= 360)
+            {
+                _wheel1Rotation -= 360;
+            }
+            Debug.Log("Rotation: " + _slot1.transform.rotation.eulerAngles.x + "Tracked Angle: " + _wheel1Rotation);
         }
-        if (wheel2Spin)
+        if (_wheel2Spin)
         {
             _slot2.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
+            _wheel2Rotation += (_spinSpeed * Time.deltaTime) * 100;
+            if (_wheel2Rotation >= 360)
+            {
+                _wheel2Rotation -= 360;
+            }
         }
-        if (wheel3Spin)
+        if (_wheel3Spin)
         {
             _slot3.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
+            _wheel3Rotation += (_spinSpeed * Time.deltaTime) * 100;
+            if (_wheel3Rotation >= 360)
+            {
+                _wheel3Rotation -= 360;
+            }
         }
     }
 }
