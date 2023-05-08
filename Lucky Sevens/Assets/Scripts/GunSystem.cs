@@ -71,7 +71,7 @@ public class GunSystem : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, range))
         {
-            if (rayHit.collider.CompareTag("Enemy"))
+            if (hit.collider.CompareTag("Enemy"))
             {
                 IDamage damageable = hit.collider.GetComponent<IDamage>();
                 if (damageable != null)
