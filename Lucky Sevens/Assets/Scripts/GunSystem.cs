@@ -82,7 +82,6 @@ public class GunSystem : MonoBehaviour
         bulletsLeft--;
         bulletsShot++;
 
-        readyToShoot = true;
         Invoke("ResetShot", timeBetweenShooting);
     }
 
