@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -20,7 +19,7 @@ public class GunSystem : MonoBehaviour
     [SerializeField] int bulletsShot;
 
     //bools to ask game
-    public bool allowButtonHolding;
+    [SerializeField] bool allowButtonHolding;
     bool isShooting;
     bool readyToShoot;
     bool reloading;
@@ -42,11 +41,11 @@ public class GunSystem : MonoBehaviour
         //hold to fire or single shot
         if (allowButtonHolding == true)
         {
-            isShooting = Input.GetKeyDown(KeyCode.Mouse0);
+            isShooting = Input.GetKey(KeyCode.Mouse0);
         }
         else
         {
-            isShooting = Input.GetKey(KeyCode.Mouse0);
+            isShooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
 
         //reloading
@@ -71,7 +70,7 @@ public class GunSystem : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, range))
         {
-            if (rayHit.collider.CompareTag("Enemy"))
+            if (hit.collider.CompareTag("Enemy"))
             {
                 IDamage damageable = hit.collider.GetComponent<IDamage>();
                 if (damageable != null)
@@ -81,6 +80,7 @@ public class GunSystem : MonoBehaviour
             }
         }
         bulletsLeft--;
+        bulletsShot++;
 
         readyToShoot = true;
         Invoke("ResetShot", timeBetweenShooting);

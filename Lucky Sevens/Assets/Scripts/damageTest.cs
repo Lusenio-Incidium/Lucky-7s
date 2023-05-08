@@ -6,18 +6,18 @@ public class damageTest : MonoBehaviour, IDamage
 {
     [SerializeField] int HP;
     [SerializeField] Renderer model;
-    Color colorOrig;
+    Color colorOrig = Color.white;
     public void takeDamage(int dmg)
     {
         HP -= dmg;
-        StartCoroutine(flashColor());
+        StartCoroutine(FlashColor());
 
         if (HP <= 0)
         {
             Destroy(gameObject);
         }
     }
-    IEnumerator flashColor()
+    IEnumerator FlashColor()
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);

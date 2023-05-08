@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 709473197}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -557,7 +557,7 @@ MonoBehaviour:
   range: 10
   reloadTime: 3
   spread: 0
-  bulletsPerTap: 0
+  bulletsPerTap: 1
   magSize: 50
   bulletsLeft: 0
   bulletsShot: 0
@@ -581,6 +581,10 @@ PrefabInstance:
     - target: {fileID: -3958245059960863497, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
       propertyPath: timeBetweenShots
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3958245059960863497, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
+      propertyPath: allowButtonHolding
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3958245059960863497, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
       propertyPath: timeBetweenShooting
