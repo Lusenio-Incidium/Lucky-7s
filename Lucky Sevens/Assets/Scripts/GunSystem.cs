@@ -64,7 +64,7 @@ public class GunSystem : MonoBehaviour
 
     //shoot function
     private void Shoot()
-    {
+    { 
         readyToShoot = false;
 
         //Raycasting bullets
