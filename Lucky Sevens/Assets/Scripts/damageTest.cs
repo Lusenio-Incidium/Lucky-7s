@@ -32,6 +32,7 @@ public class damageTest : MonoBehaviour, IDamage,IStatusEffect
     {
         hitEffect = data;
         StartCoroutine(BurnEffect());
+        RemoveEffect();
     }
 
     public void RemoveEffect()
