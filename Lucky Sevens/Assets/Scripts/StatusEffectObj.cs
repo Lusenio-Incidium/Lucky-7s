@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "NewStatusEffect")]
-public class SEffectObj : ScriptableObject
+public class StatusEffectObj : ScriptableObject
 {
     public string name;
     public int duration;
