@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject errorMenu;
     public GameObject errorMenuText;
     public GameObject comfirmMenuText;
+    //public Text ammoDisplay;
 
     public bool isPaused;
     float timeScaleOrig;
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
             activeMenu.SetActive(isPaused);
             pauseState();
         }
+        
     }
 
     public void pauseState()
@@ -94,4 +97,8 @@ public class GameManager : MonoBehaviour
         activeMenu.SetActive(true);
         isPaused = !isPaused;
     }
+    //public void AmmoCount()
+    //{
+       
+    //}
 }
