@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GunSystem : MonoBehaviour 
+public class GunSystem : MonoBehaviour
 {
     //Stats
     [Header("----- Gun Stats -----")]
@@ -64,7 +64,7 @@ public class GunSystem : MonoBehaviour
 
     //shoot function
     private void Shoot()
-    { 
+    {
         readyToShoot = false;
 
         //Raycasting bullets
@@ -72,18 +72,15 @@ public class GunSystem : MonoBehaviour
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, range))
         {
             //TODO: Fix this to look for IDamage please and thank you!
-            if (hit.collider.CompareTag("Enemy"))
+            IDamage damageable = hit.collider.GetComponent<IDamage>();
+            IStatusEffect effectable = hit.collider.GetComponent<IStatusEffect>();
+            if (damageable != null)
             {
-                IDamage damageable = hit.collider.GetComponent<IDamage>();
-                IStatusEffect effectable = hit.collider.GetComponent<IStatusEffect>();
-                if (damageable != null)
-                {
-                    damageable.takeDamage(dmg);
-                }
-                if(effectable != null)
-                {
-                    effectable.ApplyStatusEffect(statusEffect);
-                }
+                damageable.takeDamage(dmg);
+            }
+            if (effectable != null)
+            {
+                effectable.ApplyStatusEffect(statusEffect);
             }
         }
         bulletsLeft--;
