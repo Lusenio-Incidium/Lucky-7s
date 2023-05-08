@@ -32,7 +32,6 @@ public class damageTest : MonoBehaviour, IDamage,IStatusEffect
     {
         hitEffect = data;
         StartCoroutine(BurnEffect());
-        RemoveEffect();
     }
 
     public void RemoveEffect()
@@ -42,12 +41,19 @@ public class damageTest : MonoBehaviour, IDamage,IStatusEffect
     public IEnumerator BurnEffect()
     {
         timePassed = Time.time;
-        while (Time.time - timePassed <= hitEffect.duration)
+        if (hitEffect.duration != 0)
         {
-            if (hitEffect.damage != 0)
+            while (Time.time - timePassed <= hitEffect.duration)
             {
-                yield return new WaitForSeconds(hitEffect.damagespeed);
-                takeDamage(hitEffect.damage);
+                if (hitEffect.damage != 0)
+                {
+                    yield return new WaitForSeconds(hitEffect.damagespeed);
+                    takeDamage(hitEffect.damage);
+                    if (timePassed >= hitEffect.duration)
+                    {
+                        RemoveEffect();
+                    }
+                }
             }
         }
     }

@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] GameObject gunProjectile;
 
     bool isShooting = true;
-    private StatusEffectObj hitEffect;
+    [SerializeField] StatusEffectObj hitEffect;
     private float timePassed = 0;
     private float OrigSpeed;
     Color colorOrig;
@@ -55,23 +55,25 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     {
         hitEffect = data;
         StartCoroutine(BurnEffect());
-        RemoveEffect();
 
     }
 
     public IEnumerator BurnEffect()
     {
-        if(hitEffect.slowEffect != 0)
+        if (hitEffect.duration != 0)
         {
-            agent.speed /= hitEffect.slowEffect;
-        }
-        timePassed = Time.time;
-        while (Time.time - timePassed <= hitEffect.duration)
-        {
-            if(hitEffect.damage != 0)
+            if (hitEffect.slowEffect != 0)
             {
-                yield return new WaitForSeconds(hitEffect.damage);
-                takeDamage(hitEffect.damage);
+                agent.speed /= hitEffect.slowEffect;
+            }
+            timePassed = Time.time;
+            while (Time.time - timePassed <= hitEffect.duration)
+            {
+                if (hitEffect.damage != 0)
+                {
+                    yield return new WaitForSeconds(hitEffect.damagespeed);
+                    takeDamage(hitEffect.damage);
+                }
             }
         }
     }

@@ -83,6 +83,7 @@ public class GunSystem : MonoBehaviour
                 if(effectable != null)
                 {
                     effectable.ApplyStatusEffect(statusEffect);
+                    
                 }
             }
         }
