@@ -71,6 +71,7 @@ public class GunSystem : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, range))
         {
+            //TODO: Fix this to look for IDamage please and thank you!
             if (hit.collider.CompareTag("Enemy"))
             {
                 IDamage damageable = hit.collider.GetComponent<IDamage>();

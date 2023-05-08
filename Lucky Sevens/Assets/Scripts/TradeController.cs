@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TradeController : MonoBehaviour
+public class TradeController : MonoBehaviour, IDamage
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,11 @@ public class TradeController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void takeDamage(int ammount)
+    {
+        Debug.Log("I HAVE BEEN HIT");
+        GameManager.instance.ErrorMenu("TESTING ERROR");
     }
 }

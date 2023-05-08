@@ -17,8 +17,10 @@ public class GameManager : MonoBehaviour
     public GameObject activeMenu;
     public GameObject pauseMenu;
     //public GameObject loseMenu;
-    public GameObject storeComfirmMenu;
-    public GameObject storeErrorMenu;
+    public GameObject comfirmMenu;
+    public GameObject errorMenu;
+    public GameObject errorMenuText;
+    public GameObject comfirmMenuText;
 
     public bool isPaused;
     float timeScaleOrig;
@@ -69,21 +71,27 @@ public class GameManager : MonoBehaviour
     //    activeMenu.SetActive(true);
     //}
 
-    public void tradeAmmo(int ammount) 
+    public void TradeAmmo(int ammount) 
     {
-        bool tradeAllow = false;
-        if (ammount <= playerAmmo) 
-        {
-            //Show a comfirm menu here:
-            if (tradeAllow) 
-            {
-                playerAmmo -= ammount;
-                storeTokens += ammount;
-            }
-        }
-        else
-        {
-            //Show "Not Enough Chips" Menu here
-        }
+        playerAmmo -= ammount;
+        storeTokens += ammount;
+    }
+
+    public void ErrorMenu(string errorText) 
+    {
+        pauseState();
+        activeMenu = errorMenu;
+        errorMenuText.GetComponent<TextMesh>().text = errorText;
+        activeMenu.SetActive(true);
+        isPaused = !isPaused;
+    }
+
+    public void ComfirmMenu(string actionText)
+    {
+        pauseState();
+        activeMenu = comfirmMenu;
+        errorMenuText.GetComponent<TextMesh>().text = actionText;
+        activeMenu.SetActive(true);
+        isPaused = !isPaused;
     }
 }
