@@ -131,6 +131,6 @@ public class GunSystem : MonoBehaviour
 
     public void AddBullets(int amount)
     {
-        ammunition += amount;
+        ammunition += GameManager.instance.playerAmmo;
     }
 }
