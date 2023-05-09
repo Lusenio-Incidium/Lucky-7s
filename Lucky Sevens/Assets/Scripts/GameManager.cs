@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI errorMenuText;
     public TextMeshProUGUI comfirmMenuText;
     public GameObject retical;
+    public GameObject ShopMenu;
     //public Text ammoDisplay;
 
     public bool isPaused;
@@ -100,6 +101,13 @@ public class GameManager : MonoBehaviour
         comfirmMenuText.text = actionText;
         activeMenu.SetActive(true);
         isPaused = !isPaused;
+    }
+
+    public void Shop() 
+    {
+        pauseState();
+        activeMenu = ShopMenu;
+        activeMenu.SetActive(true);
     }
     //public void AmmoCount()
     //{
