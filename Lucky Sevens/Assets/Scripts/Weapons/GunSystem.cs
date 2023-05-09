@@ -90,6 +90,7 @@ public class GunSystem : MonoBehaviour
         }
         bulletsLeft--;
         bulletsShot++;
+        GetMagCount();
 
         Invoke("ResetShot", timeBetweenShooting);
     }
@@ -125,12 +126,20 @@ public class GunSystem : MonoBehaviour
                 bulletsLeft = magSize;
             }
         }
-
+        GetAmmoCount();
         reloading = false;
     }
 
     public void AddBullets(int amount)
     {
         ammunition += GameManager.instance.playerAmmo;
+    }
+    public int GetAmmoCount()
+    {
+        return ammunition;
+    }
+    public int GetMagCount()
+    {
+        return bulletsLeft;
     }
 }

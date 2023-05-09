@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public PlayerController playerScript;
     public GameObject playerSpawnPos;
+    public GunSystem gunSystem;
     public int storeTokens;
     public int playerAmmo;
 
@@ -26,11 +27,14 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI comfirmMenuText;
     public GameObject retical;
     public GameObject ShopMenu;
-    //public Text ammoDisplay;
+    public TextMeshProUGUI ammoDisplay;
+    public TextMeshProUGUI ammoMagCount;
 
     public int enemiesRemaining;
     public bool isPaused;
     float timeScaleOrig;
+    int magSize;
+    int playerammo;
 
     // Start is called before the first frame update
     void Awake()
@@ -40,6 +44,7 @@ public class GameManager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
+        gunSystem = player.GetComponent<GunSystem>();
     }
 
     // Update is called once per frame
@@ -52,7 +57,7 @@ public class GameManager : MonoBehaviour
             activeMenu.SetActive(isPaused);
             pauseState();
         }
-        
+        UpdateAmmoCount();
     }
 
     public void pauseState()
@@ -128,8 +133,9 @@ public class GameManager : MonoBehaviour
         activeMenu.SetActive(true);
         pauseState();
     }
-    //public void AmmoCount()
-    //{
-
-    //}
+    public void UpdateAmmoCount()
+    {
+        ammoDisplay.text = gunSystem.GetAmmoCount().ToString();
+        ammoMagCount.text = gunSystem.GetMagCount().ToString();
+    }
 }
