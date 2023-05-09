@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public PlayerController playerScript;
     public GameObject playerSpawnPos;
+    public GameObject GUN;
     public GunSystem gunSystem;
     public int storeTokens;
     public int playerAmmo;
@@ -44,7 +46,8 @@ public class GameManager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
-        gunSystem = player.GetComponent<GunSystem>();
+        gunSystem = player.GetComponentInChildren<GunSystem>();
+
     }
 
     // Update is called once per frame
