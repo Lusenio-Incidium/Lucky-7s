@@ -14,12 +14,11 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] int enemySpeed;
 
     [Header("----- EnemyWeapons -----")]
-    [SerializeField] int damage;
     [SerializeField] float shootSpeed;
     [SerializeField] int range;
     [SerializeField] GameObject gunProjectile;
 
-    bool isShooting = true;
+    bool isShooting;
     [SerializeField] StatusEffectObj hitEffect;
     private float timePassed = 0;
     private float OrigSpeed;
