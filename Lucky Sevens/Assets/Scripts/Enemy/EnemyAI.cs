@@ -28,6 +28,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     {
         colorOrig = model.material.color;
         OrigSpeed = agent.speed;
+        GameManager.instance.updateGameGoal(1);
     }
 
     // Update is called once per frame
@@ -96,6 +97,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         if(HP <= 0)
         {
             Destroy(gameObject);
+            GameManager.instance.updateGameGoal(-1);
         }
     }
     IEnumerator FlashColor()
