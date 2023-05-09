@@ -20,8 +20,9 @@ public class ButtonFunctions : MonoBehaviour
         Application.Quit();
     }
 
-    //public void respawnPlayer()
-    //{
-    //    GameManager.instance.unPauseState();
-    //}
+    public void respawnPlayer()
+    {
+        GameManager.instance.unPauseState();
+        GameManager.instance.playerScript.spawnPlayer();
+    }
 }

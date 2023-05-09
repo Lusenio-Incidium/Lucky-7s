@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [Header("----- UI Stuff -----")]
     public GameObject activeMenu;
     public GameObject pauseMenu;
-    //public GameObject loseMenu;
+    public GameObject loseMenu;
     public GameObject comfirmMenu;
     public GameObject errorMenu;
     public TextMeshProUGUI errorMenuText;
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-        //playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
     }
 
@@ -72,12 +72,12 @@ public class GameManager : MonoBehaviour
         retical.SetActive(true);
     }
 
-    //public void youLose()
-    //{
-    //    pauseState();
-    //    activeMenu = loseMenu;
-    //    activeMenu.SetActive(true);
-    //}
+    public void youLose()
+    {
+        pauseState();
+        activeMenu = loseMenu;
+        activeMenu.SetActive(true);
+    }
 
     public void TradeAmmo(int ammount) 
     {
