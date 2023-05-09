@@ -12,9 +12,9 @@ public class AmmoPickup : MonoBehaviour, ICollectable
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.CompareTag("Player")) 
+        if (other.CompareTag("Player")) 
         {
             onCollect();
         }
