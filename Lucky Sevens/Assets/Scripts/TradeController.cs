@@ -34,60 +34,11 @@ public class TradeController : MonoBehaviour, IDamage
         tokenCost = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        updateText();
-    }
 
     public void takeDamage(int ammount)
     {
         GameManager.instance.Shop();
     }
 
-    public void setChip() 
-    {
-        chipTotal = (int)(chip.value * 10);
 
-    }
-
-    public void setPlinko() 
-    {
-        plinkoTotal = (int)(plinko.value * 10) * 5;
-        updateText();
-    }
-    public void setCoin()
-    {
-        coinTotal = (int)(coin.value * 10) * 10;
-        updateText();
-    }
-    public void setHealth()
-    {
-        healthTotal = (int)(health.value * 3) * 5;
-        updateText();
-    }
-    public void setSpeed()
-    {
-        speedTotal = (int)(speed.value * 5) * 10;
-        updateText();
-    }
-    public void setSheild()
-    {
-        sheildTotal = (int)(sheild.value * 5) * 100;
-        updateText();
-    }
-    public void setGun()
-    {
-        gunTotal = (int)(gun.value) * 200;
-        updateText();
-    }
-
-    void updateText() 
-    {
-        tokenCost = (plinkoTotal + coinTotal);
-        coinCost = (chipTotal + healthTotal + speedTotal + sheildTotal + gunTotal);
-
-        chipText.text = tokenCost.ToString();
-        coinText.text = coinCost.ToString();
-    }
 }
