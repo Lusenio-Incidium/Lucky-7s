@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,11 +18,13 @@ public class GameManager : MonoBehaviour
     [Header("----- UI Stuff -----")]
     public GameObject activeMenu;
     public GameObject pauseMenu;
-    //public GameObject loseMenu;
+    public GameObject loseMenu;
     public GameObject comfirmMenu;
     public GameObject errorMenu;
-    public GameObject errorMenuText;
-    public GameObject comfirmMenuText;
+    public TextMeshProUGUI errorMenuText;
+    public TextMeshProUGUI comfirmMenuText;
+    public GameObject retical;
+    public GameObject ShopMenu;
     //public Text ammoDisplay;
 
     public bool isPaused;
@@ -33,7 +36,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-        //playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
     }
 
@@ -55,6 +58,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+        retical.SetActive(false);
     }
 
     public void unPauseState()
@@ -65,14 +69,15 @@ public class GameManager : MonoBehaviour
         isPaused = !isPaused;
         activeMenu.SetActive(false);
         activeMenu = null;
+        retical.SetActive(true);
     }
 
-    //public void youLose()
-    //{
-    //    pauseState();
-    //    activeMenu = loseMenu;
-    //    activeMenu.SetActive(true);
-    //}
+    public void youLose()
+    {
+        pauseState();
+        activeMenu = loseMenu;
+        activeMenu.SetActive(true);
+    }
 
     public void TradeAmmo(int ammount) 
     {
@@ -84,7 +89,7 @@ public class GameManager : MonoBehaviour
     {
         pauseState();
         activeMenu = errorMenu;
-        errorMenuText.GetComponent<TextMesh>().text = errorText;
+        errorMenuText.text = errorText;
         activeMenu.SetActive(true);
         isPaused = !isPaused;
     }
@@ -93,9 +98,16 @@ public class GameManager : MonoBehaviour
     {
         pauseState();
         activeMenu = comfirmMenu;
-        errorMenuText.GetComponent<TextMesh>().text = actionText;
+        comfirmMenuText.text = actionText;
         activeMenu.SetActive(true);
         isPaused = !isPaused;
+    }
+
+    public void Shop() 
+    {
+        pauseState();
+        activeMenu = ShopMenu;
+        activeMenu.SetActive(true);
     }
     //public void AmmoCount()
     //{

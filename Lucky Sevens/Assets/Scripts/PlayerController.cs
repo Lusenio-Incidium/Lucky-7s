@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CharacterController controller;
 
     [Header("- - - Atributes - - -")]
+    [Range(1, 50)][SerializeField] int HP;
     [SerializeField][Range(1.0f, 10.0f)] float playerSpeed;
     [SerializeField][Range(1.5f, 5.0f)] float sprintMod;
     [SerializeField][Range(1.0f, 20.0f)] float jumpHeight;
@@ -21,11 +22,13 @@ public class PlayerController : MonoBehaviour
     Vector3 move;
     bool isGrounded;
     int jumpTimes;
+    private int HPOrig;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        HPOrig = HP;
+        spawnPlayer();
     }
 
     // Update is called once per frame
@@ -61,6 +64,23 @@ public class PlayerController : MonoBehaviour
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
+    public void takeDamage(int amount)
+    {
+        HP -= amount;
+        
+        if(HP <= 0)
+        {
+            GameManager.instance.youLose();
+        }
+    }
+
+    public void spawnPlayer()
+    {
+        controller.enabled = false;
+        transform.position = GameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
+        HP = HPOrig;
+    }
     void sprint()
     {
         if (Input.GetButtonDown("Sprint"))
