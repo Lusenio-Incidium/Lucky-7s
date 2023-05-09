@@ -11,7 +11,6 @@ public class AmmoPickup : MonoBehaviour, ICollectable
         GameManager.instance.playerAmmo += ammoAmount;
         Destroy(gameObject);
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) 
