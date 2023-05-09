@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -17,6 +18,7 @@ public class GunSystem : MonoBehaviour
     [SerializeField] int magSize;
     [SerializeField] int bulletsLeft;
     [SerializeField] int bulletsShot;
+    [SerializeField] int ammunition;
     [SerializeField] StatusEffectObj statusEffect;
 
     //bools to ask game
@@ -30,6 +32,7 @@ public class GunSystem : MonoBehaviour
     private void Awake()
     {
         bulletsLeft = magSize;
+        ammunition = magSize * 2;
         readyToShoot = true;
     }
     private void Update()
@@ -105,7 +108,27 @@ public class GunSystem : MonoBehaviour
     //after reloading is complete
     private void ReloadDone()
     {
-        bulletsLeft = magSize;
+        int bulletsToReload = magSize - bulletsLeft;
+
+        if (ammunition > 0 && bulletsLeft < magSize)
+        {
+            ammunition -= bulletsToReload;
+            if (ammunition < magSize)
+            {
+                bulletsLeft = ammunition;
+                ammunition = ammunition -= bulletsLeft;
+            }
+            else
+            {
+                bulletsLeft = magSize;
+            }
+        }
+
         reloading = false;
+    }
+
+    public void AddBullets(int amount)
+    {
+        ammunition += amount;
     }
 }
