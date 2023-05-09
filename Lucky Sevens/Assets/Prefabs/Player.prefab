@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 581697804747712966}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,13 +51,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 10
-  timeBetweenShots: 3
+  timeBetweenShots: 0.5
   timeBetweenShooting: 3
-  range: 3
+  range: 10
   reloadTime: 3
+  spread: 0
+  bulletsPerTap: 0
   magSize: 10
-  triggerHold: 1
-  bulletsLeft: 0
+  bulletsLeft: 5
+  bulletsShot: 0
+  statusEffect: {fileID: 11400000, guid: 83747c1b43c2f1b4c839a32a76b0a47d, type: 2}
+  allowButtonHolding: 0
 --- !u!114 &581697804747712964
 MonoBehaviour:
   m_ObjectHideFlags: 0
