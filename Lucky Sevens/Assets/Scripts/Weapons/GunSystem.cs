@@ -21,6 +21,7 @@ public class GunSystem : MonoBehaviour
     [SerializeField] int bulletsShot;
     [SerializeField] int ammunition;
     [SerializeField] StatusEffectObj statusEffect;
+    [SerializeField] GameObject Bullet;
 
     //bools to ask game
     [SerializeField] bool allowButtonHolding;
