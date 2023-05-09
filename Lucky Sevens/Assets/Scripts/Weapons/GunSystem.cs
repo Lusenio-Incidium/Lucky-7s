@@ -34,7 +34,7 @@ public class GunSystem : MonoBehaviour
     private void Awake()
     {
         bulletsLeft = magSize;
-        ammunition = magSize * 2;
+        ammunition = magSize * 4;
         readyToShoot = true;
     }
     private void Update()
@@ -115,16 +115,19 @@ public class GunSystem : MonoBehaviour
 
         if (ammunition > 0 && bulletsLeft < magSize)
         {
-            ammunition -= bulletsToReload;
-            if (ammunition < magSize)
-            {
-                bulletsLeft = ammunition;
-                ammunition = ammunition -= bulletsLeft;
-            }
-            else
-            {
-                bulletsLeft = magSize;
-            }
+            //ammunition -= bulletsToReload;
+            //if (ammunition < magSize)
+            //{
+            //    bulletsLeft = ammunition;
+            //    ammunition = ammunition -= bulletsLeft;
+            //}
+            //else
+            //{
+            //    bulletsLeft = magSize;
+            //}
+            int reservedAmmo = (int)MathF.Min(ammunition, bulletsToReload);
+            bulletsLeft += reservedAmmo;
+            ammunition -= reservedAmmo;
         }
         GetAmmoCount();
         reloading = false;
