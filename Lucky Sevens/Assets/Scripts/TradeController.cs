@@ -19,6 +19,6 @@ public class TradeController : MonoBehaviour, IDamage
     public void takeDamage(int ammount)
     {
         Debug.Log("I HAVE BEEN HIT");
-        GameManager.instance.ComfirmMenu("Are you sure you wish to trade your life for some cookies?");
+        GameManager.instance.ErrorMenu("You do not have enough [Soul] to gain [Cookies]");
     }
 }
