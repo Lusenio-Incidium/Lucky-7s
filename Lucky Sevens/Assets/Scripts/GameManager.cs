@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject activeMenu;
     public GameObject pauseMenu;
     public GameObject loseMenu;
+    public GameObject winMenu;
     public GameObject comfirmMenu;
     public GameObject errorMenu;
     public TextMeshProUGUI errorMenuText;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject ShopMenu;
     //public Text ammoDisplay;
 
+    public int enemiesRemaining;
     public bool isPaused;
     float timeScaleOrig;
 
@@ -109,8 +111,25 @@ public class GameManager : MonoBehaviour
         activeMenu = ShopMenu;
         activeMenu.SetActive(true);
     }
+    public void updateGameGoal(int amount)
+    {
+        enemiesRemaining += amount;
+
+        if (enemiesRemaining <= 0)
+        {
+            StartCoroutine(youWin());
+        }
+    }
+
+    IEnumerator youWin()
+    {
+        yield return new WaitForSeconds(1);
+        activeMenu = winMenu;
+        activeMenu.SetActive(true);
+        pauseState();
+    }
     //public void AmmoCount()
     //{
-       
+
     //}
 }
