@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.EditorTools;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int playerAmmo;
 
     [Header("----- UI Stuff -----")]
+    public GameObject ReloadText;
     public GameObject activeMenu;
     public GameObject pauseMenu;
     public GameObject loseMenu;
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         retical.SetActive(false);
+        
     }
 
     public void unPauseState()
@@ -141,5 +144,17 @@ public class GameManager : MonoBehaviour
         ammoDisplay.text = gunSystem.GetAmmoCount().ToString();
         ammoMagCount.text = gunSystem.GetMagCount().ToString();
         
+    }
+
+    public void WhileReload()
+    {
+        activeMenu = ReloadText;
+        activeMenu.SetActive(true);
+    }
+
+    public void AfterReload()
+    {
+        activeMenu = ReloadText;
+        activeMenu.SetActive(false);
     }
 }

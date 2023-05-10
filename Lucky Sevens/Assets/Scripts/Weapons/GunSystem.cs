@@ -103,6 +103,7 @@ public class GunSystem : MonoBehaviour
     //reloading function
     private void Reload()
     {
+        GameManager.instance.WhileReload();
         reloading = true;
         Invoke("ReloadDone", reloadTime);
     }
@@ -119,6 +120,7 @@ public class GunSystem : MonoBehaviour
             ammunition -= reservedAmmo;
         }
         GetAmmoCount();
+        GameManager.instance.AfterReload();
         reloading = false;
     }
 
