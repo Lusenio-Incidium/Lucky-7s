@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,14 +9,19 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] Transform headPos;
+    [SerializeField] Transform shootPos;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] int HP;
     [SerializeField] int enemySpeed;
+    [SerializeField] float viewAngle;
+    [SerializeField] int playerFaceSpeed;
 
     [Header("----- EnemyWeapons -----")]
     [SerializeField] float shootSpeed;
     [SerializeField] int range;
+    [SerializeField] float attackAngle;
     [SerializeField] GameObject gunProjectile;
 
     bool isShooting;
@@ -23,6 +29,10 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     private float timePassed = 0;
     private float OrigSpeed;
     Color colorOrig;
+    Vector3 playerDir;
+    float angleOfPlayer;
+    bool playerInRange;
+    bool destination;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,16 +44,51 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(GameManager.instance.player.transform.position);
-        if (!isShooting)
-            StartCoroutine(Shoot());
+        if (destination)
+            FacePlayer();
+        if(playerInRange && CanSeePlayer())
+        {
+
+        }
     }
+
+    bool CanSeePlayer()
+    {
+        playerDir = GameManager.instance.player.transform.position - headPos.position;
+        angleOfPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
+
+        Debug.DrawRay(headPos.position, playerDir);
+        Debug.Log(angleOfPlayer);
+
+        RaycastHit hit;
+
+        if(Physics.Raycast(headPos.position,playerDir,out hit))
+        {
+            if(hit.collider.CompareTag("Player") && angleOfPlayer <= viewAngle)
+            {
+                agent.SetDestination(GameManager.instance.player.transform.position);
+                if(agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    destination = true;
+                    FacePlayer();
+                }
+                if(!isShooting && angleOfPlayer <= attackAngle)
+                {
+                    StartCoroutine(Shoot());
+                }
+
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     IEnumerator Shoot()
     {
         isShooting = true;
 
-        Instantiate(gunProjectile, transform.position, transform.rotation);
+        Instantiate(gunProjectile, shootPos.position, transform.rotation);
 
         yield return new WaitForSeconds(shootSpeed);
 
@@ -93,6 +138,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     {
         HP -= dmg;
         StartCoroutine(FlashColor());
+        destination = true;
 
         if(HP <= 0)
         {
@@ -105,5 +151,25 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         model.material.color = Color.red;
         yield return new WaitForSeconds(.1f);
         model.material.color = colorOrig;
+    }
+    public void FacePlayer()
+    {
+        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            playerInRange = true;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            destination = false;
+        }
     }
 }
