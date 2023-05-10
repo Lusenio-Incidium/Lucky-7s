@@ -152,4 +152,16 @@ public class GameManager : MonoBehaviour
         activeMenu = ReloadText;
         activeMenu.SetActive(false);
     }
+
+    public void WhileReload()
+    {
+        activeMenu = ReloadText;
+        activeMenu.SetActive(true);
+    }
+
+    public void AfterReload()
+    {
+        activeMenu = ReloadText;
+        activeMenu.SetActive(false);
+    }
 }
