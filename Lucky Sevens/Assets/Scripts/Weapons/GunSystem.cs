@@ -17,8 +17,8 @@ public class GunSystem : MonoBehaviour
     [SerializeField] int bulletsPerTap;
     [SerializeField] int magSize;
     [SerializeField] int bulletsLeft;
-    [SerializeField] int bulletsShot;
     [SerializeField] int ammunition;
+    [SerializeField] int bulletsShot;
     [SerializeField] StatusEffectObj statusEffect;
     [SerializeField] Rigidbody Bullet;
 

@@ -5,7 +5,6 @@ using UnityEngine;
 public class StatusPickUp : MonoBehaviour,ICollectable
 {
     [SerializeField] StatusEffectObj statusToGive;
-    GunSystem playerGun;
     public void onCollect()
     {
         GameManager.instance.gunSystem.AddStatus(statusToGive);
