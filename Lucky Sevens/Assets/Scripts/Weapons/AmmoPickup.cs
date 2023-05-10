@@ -6,15 +6,18 @@ public class AmmoPickup : MonoBehaviour, ICollectable
 {
     [SerializeField] int ammoAmount;
 
+    GunSystem gunSystem;
+
     public void onCollect() 
     {
-        GameManager.instance.playerAmmo += ammoAmount;
+        gunSystem.AddBullets(ammoAmount);
         Destroy(gameObject);
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) 
         {
+            gunSystem = other.GetComponent<GunSystem>();
             onCollect();
         }
     }

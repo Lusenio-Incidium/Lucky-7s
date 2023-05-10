@@ -5,10 +5,11 @@ using UnityEngine;
 public class RandomizerDoor : MonoBehaviour, IRandomizeAction
 {
     [SerializeField] int position;
+    [SerializeField] Animator animator;
 
     public void OnSelect()
     {
-        gameObject.GetComponent<Animator>().enabled = true;
+        animator.SetTrigger("SetOff");
     }
     public int GetPosition()
     {

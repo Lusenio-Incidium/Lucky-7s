@@ -115,16 +115,6 @@ public class GunSystem : MonoBehaviour
 
         if (ammunition > 0 && bulletsLeft < magSize)
         {
-            //ammunition -= bulletsToReload;
-            //if (ammunition < magSize)
-            //{
-            //    bulletsLeft = ammunition;
-            //    ammunition = ammunition -= bulletsLeft;
-            //}
-            //else
-            //{
-            //    bulletsLeft = magSize;
-            //}
             int reservedAmmo = (int)MathF.Min(ammunition, bulletsToReload);
             bulletsLeft += reservedAmmo;
             ammunition -= reservedAmmo;
@@ -135,7 +125,8 @@ public class GunSystem : MonoBehaviour
 
     public void AddBullets(int amount)
     {
-        ammunition += GameManager.instance.playerAmmo;
+        ammunition += amount;
+        GameManager.instance.playerAmmo = ammunition;
     }
     public int GetAmmoCount()
     {

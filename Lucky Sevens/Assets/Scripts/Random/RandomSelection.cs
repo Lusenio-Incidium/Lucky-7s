@@ -138,10 +138,6 @@ public class RandomSelection : MonoBehaviour
                 currShiftTime = activeShiftTime;
             }
         }
-        if (Input.GetButtonDown("Submit") && result == -1)
-        {
-            StartCoroutine(Roll());
-        }
     }
 
     void Shift()
@@ -153,6 +149,15 @@ public class RandomSelection : MonoBehaviour
             highlight = 0;
         }
         _lightObjects[highlight].OnHighlight();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(!other.CompareTag("Player") || result != -1)
+        {
+           return;
+        }
+        StartCoroutine(Roll());
     }
 
     void RandomSelect()
