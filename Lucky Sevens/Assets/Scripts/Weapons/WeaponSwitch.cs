@@ -63,6 +63,7 @@ public class WeaponSwitch : MonoBehaviour
             {
                 weapon.gameObject.SetActive(true);
                 GameManager.instance.gunSystem = weapon.gameObject.GetComponent<GunSystem>();
+                GameManager.instance.UpdateAmmoCount();
             }
 
             else
