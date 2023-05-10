@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public GameObject ShopMenu;
     public TextMeshProUGUI ammoDisplay;
     public TextMeshProUGUI ammoMagCount;
+    public TextMeshProUGUI HPDisplay;
 
     public int enemiesRemaining;
     public bool isPaused;
@@ -155,5 +156,9 @@ public class GameManager : MonoBehaviour
         activeMenu = ReloadText;
         activeMenu.SetActive(false);
         activeMenu = null;
+    }
+    public void UpdatePlayerHP()
+    {
+        HPDisplay.text = playerScript.GetPlayerHP().ToString();
     }
 }
