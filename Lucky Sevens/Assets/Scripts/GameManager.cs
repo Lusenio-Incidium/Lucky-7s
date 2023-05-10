@@ -46,7 +46,8 @@ public class GameManager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
-        gunSystem = player.GetComponentInChildren<GunSystem>();
+        gunSystem = player.GetComponent<GunSystem>();
+        playerammo = gunSystem.GetAmmoCount();
 
     }
 
@@ -140,5 +141,6 @@ public class GameManager : MonoBehaviour
     {
         ammoDisplay.text = gunSystem.GetAmmoCount().ToString();
         ammoMagCount.text = gunSystem.GetMagCount().ToString();
+        
     }
 }
