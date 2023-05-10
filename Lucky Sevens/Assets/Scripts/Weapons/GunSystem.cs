@@ -130,6 +130,10 @@ public class GunSystem : MonoBehaviour
         ammunition += amount;
         GameManager.instance.playerAmmo = ammunition;
     }
+    public void AddStatus(StatusEffectObj data)
+    {
+        statusEffect = data;
+    }
     public int GetAmmoCount()
     {
         return ammunition;

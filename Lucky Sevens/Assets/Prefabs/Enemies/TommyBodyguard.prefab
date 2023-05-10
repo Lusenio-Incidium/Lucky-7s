@@ -2065,11 +2065,11 @@ MonoBehaviour:
   headPos: {fileID: 0}
   shootPos: {fileID: 0}
   HP: 45
-  viewAngle: 0
-  playerFaceSpeed: 0
-  shootSpeed: 15
+  viewAngle: 90
+  playerFaceSpeed: 5
+  shootSpeed: 1
   range: 10
-  attackAngle: 0
+  attackAngle: 25
   gunProjectile: {fileID: 0}
   hitEffect: {fileID: 0}
 --- !u!195 &-5233866372763302201
@@ -2086,7 +2086,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

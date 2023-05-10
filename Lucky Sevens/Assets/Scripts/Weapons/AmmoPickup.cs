@@ -11,6 +11,7 @@ public class AmmoPickup : MonoBehaviour, ICollectable
     public void onCollect() 
     {
         gunSystem.AddBullets(ammoAmount);
+        GameManager.instance.UpdateAmmoCount();
         Destroy(gameObject);
     }
     private void OnTriggerEnter(Collider other)

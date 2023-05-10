@@ -97,7 +97,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
 
     public void ApplyStatusEffect(StatusEffectObj data)
     {
-        if (data != null)
+        if (data != null && hitEffect == null)
         {
             hitEffect = data;
             StartCoroutine(BurnEffect());
