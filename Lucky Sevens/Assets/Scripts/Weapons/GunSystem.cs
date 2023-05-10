@@ -11,7 +11,6 @@ public class GunSystem : MonoBehaviour
     [Header("----- Gun Stats -----")]
     [SerializeField] int dmg;
     [SerializeField] float timeBetweenShots;
-    [SerializeField] float timeBetweenShooting;
     [SerializeField] float range;
     [SerializeField] float reloadTime;
     [SerializeField] float spread;
@@ -92,7 +91,7 @@ public class GunSystem : MonoBehaviour
         bulletsShot++;
         GetMagCount();
 
-        Invoke("ResetShot", timeBetweenShooting);
+        Invoke("ResetShot", timeBetweenShots);
     }
 
     //while not shooting
