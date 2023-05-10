@@ -120,6 +120,8 @@ public class GunSystem : MonoBehaviour
             ammunition -= reservedAmmo;
         }
         GetAmmoCount();
+        GameManager.instance.Reload(false);
+        GameManager.instance.activeMenu = null;
         reloading = false;
     }
 
