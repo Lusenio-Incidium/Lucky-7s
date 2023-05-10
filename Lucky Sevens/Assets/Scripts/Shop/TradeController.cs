@@ -4,24 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TradeController : MonoBehaviour, IDamage
+public class TradeController : MonoBehaviour, IInteractable
 {
-    
-
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-     
-    }
-
-
-    public void takeDamage(int ammount)
+    public void onInteract()
     {
         GameManager.instance.Shop();
     }
-
-
 }
