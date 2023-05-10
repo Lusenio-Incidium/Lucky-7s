@@ -17,7 +17,7 @@ public class AmmoPickup : MonoBehaviour, ICollectable
     {
         if (other.CompareTag("Player")) 
         {
-            gunSystem = other.GetComponentInChildren<GunSystem>(other);
+            gunSystem = GameManager.instance.gunSystem;
             onCollect();
         }
     }

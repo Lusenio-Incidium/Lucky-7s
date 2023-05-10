@@ -490,9 +490,9 @@ GameObject:
   - component: {fileID: 7105732984617070719}
   - component: {fileID: 7105732984610135557}
   - component: {fileID: 8590236787653104023}
+  - component: {fileID: 1503622401}
   - component: {fileID: 1503622407}
   - component: {fileID: 1503622408}
-  - component: {fileID: 1503622401}
   m_Layer: 6
   m_Name: PistolBodyguard
   m_TagString: Untagged
@@ -559,7 +559,6 @@ MonoBehaviour:
   headPos: {fileID: 7105732984617071087}
   shootPos: {fileID: 7105732984617070995}
   HP: 50
-  enemySpeed: 2
   viewAngle: 90
   playerFaceSpeed: 5
   shootSpeed: 1
@@ -567,6 +566,28 @@ MonoBehaviour:
   attackAngle: 25
   gunProjectile: {fileID: 5603250820081392756, guid: 47db62ab3c2a813478b9f2589733de21, type: 3}
   hitEffect: {fileID: 0}
+--- !u!195 &1503622401
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7105732984617561183}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 60
+  avoidancePriority: 50
+  m_AngularSpeed: 600
+  m_StoppingDistance: 5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!135 &1503622407
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -594,28 +615,6 @@ CapsuleCollider:
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!195 &1503622401
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7105732984617561183}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 60
-  avoidancePriority: 50
-  m_AngularSpeed: 600
-  m_StoppingDistance: 5
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &7105732984617561185
 GameObject:
   m_ObjectHideFlags: 0

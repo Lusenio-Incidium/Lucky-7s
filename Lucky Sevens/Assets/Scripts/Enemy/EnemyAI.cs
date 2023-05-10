@@ -14,7 +14,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] int HP;
-    [SerializeField] int enemySpeed;
     [SerializeField] float viewAngle;
     [SerializeField] int playerFaceSpeed;
 
@@ -120,6 +119,11 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
                 {
                     yield return new WaitForSeconds(hitEffect.damagespeed);
                     takeDamage(hitEffect.damage);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(hitEffect.duration);
+                    RemoveEffect();
                 }
             }
             if (Time.time - timePassed >= hitEffect.duration)
