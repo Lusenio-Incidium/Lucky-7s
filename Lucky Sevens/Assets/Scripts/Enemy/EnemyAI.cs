@@ -45,6 +45,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     {
         if (destination)
             FacePlayer();
+
         if(playerInRange && CanSeePlayer())
         {
 

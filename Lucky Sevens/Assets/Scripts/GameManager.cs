@@ -34,8 +34,6 @@ public class GameManager : MonoBehaviour
     public int enemiesRemaining;
     public bool isPaused;
     float timeScaleOrig;
-    int magSize;
-    int playerammo;
 
     // Start is called before the first frame update
     void Awake()
@@ -46,7 +44,6 @@ public class GameManager : MonoBehaviour
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
         gunSystem = player.GetComponentInChildren<GunSystem>(player);
-        playerammo = gunSystem.GetAmmoCount();
 
     }
 
@@ -60,7 +57,6 @@ public class GameManager : MonoBehaviour
             activeMenu.SetActive(isPaused);
             pauseState();
         }
-        UpdateAmmoCount();
     }
 
     public void pauseState()
@@ -140,6 +136,5 @@ public class GameManager : MonoBehaviour
     {
         ammoDisplay.text = gunSystem.GetAmmoCount().ToString();
         ammoMagCount.text = gunSystem.GetMagCount().ToString();
-        
     }
 }

@@ -89,7 +89,7 @@ public class GunSystem : MonoBehaviour
         }
         bulletsLeft--;
         bulletsShot++;
-        GetMagCount();
+        GameManager.instance.UpdateAmmoCount();
 
         Invoke("ResetShot", timeBetweenShots);
     }
@@ -118,7 +118,7 @@ public class GunSystem : MonoBehaviour
             bulletsLeft += reservedAmmo;
             ammunition -= reservedAmmo;
         }
-        GetAmmoCount();
+        GameManager.instance.UpdateAmmoCount();
         reloading = false;
     }
 
