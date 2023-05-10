@@ -30,69 +30,98 @@ public enum SlotResults {
 
 public class SlotsController : MonoBehaviour
 {
-    struct SpawnInfo {
-        [SerializeField] GameObject SpawnObject;
-
-    }
     [Header("--- Wheel Stats ---")]
     [SerializeField] GameObject _slot1;
     [SerializeField] GameObject _slot2;
     [SerializeField] GameObject _slot3;
 
-    float _wheel1Rotation;
-    float _wheel2Rotation;
-    float _wheel3Rotation;
-    [Range(1,100)][SerializeField] float _spinSpeed;
-    [Range(0.1f, 1)][SerializeField] float _spinStartDelay;
-   
-    [Header("--- Slot Stats ---")]
-    [Range(1, 10)][SerializeField] float spinTime; //How long it spins before it stops
-    [Range(1, 10)][SerializeField] float spinDelay; //How long it takes to spin up again
-    [Range(0, 100)][SerializeField] int jackpotOdds; //How likely it is to get 3 in a row
-    [Range(0, 100)][SerializeField] int jackpotMod; //How much the likelyhood of getting 3 in a row goes up after missing
-
-    [Header("--- Spawn ---")]
-    [SerializeField] GameObject[] SpawnConditions;
-
     float _currSpinDelay;
+    float _currStopDelay;
     bool _isSpinning;
     bool _canStop;
     bool _wheel1Spin;
     bool _wheel2Spin;
     bool _wheel3Spin;
+
+    [Header("--- Slot Stats ---")]
+    [Range(1,100)][SerializeField] float _spinSpeed;
+    [Range(0.1f, 1)][SerializeField] float _spinStartDelay;
+   
+    [Range(1, 10)][SerializeField] float spinTimeMax; //How long it spins before it stops
+    [Range(1, 10)][SerializeField] float spinTimeMin; 
+    [Range(1, 10)][SerializeField] float spinDelayMax; //How long it takes to spin up again
+    [Range(1, 10)][SerializeField] float spinDelayMin; //How long it takes to spin up again
+    [Range(0.1f, 10)][SerializeField] float wheelStopDelayMax;
+    [Range(0.1f, 10)][SerializeField] float wheelStopDelayMin;
+
+
+
+
+    [Range(0, 100)][SerializeField] int jackpotOdds; //How likely it is to get 3 in a row
+    [Range(0, 100)][SerializeField] int jackpotMod; //How much the likelyhood of getting 3 in a row goes up after missing
+
+    [Header("Boss Stats")]
+
+
+    [Header("--- Spawn ---")]
+    [SerializeField] GameObject[] SpawnConditions;
+
+
     SlotResults _wheelOneResult;
     SlotResults _wheelTwoResult;
     SlotResults _wheelThreeResult;
     int _currJackpotOdds;
+    bool isStunned;
 
     // Start is called before the first frame update
     void Start()
     {
         _isSpinning = _wheel1Spin = _wheel2Spin = _wheel3Spin = false;
-        _currSpinDelay = spinDelay;
+        _currSpinDelay = Random.Range(spinDelayMin, spinDelayMax);
         _currJackpotOdds = jackpotOdds;
-        _wheel1Rotation = 90;
-        _wheel2Rotation = 90;
-        _wheel3Rotation = 90;
+        isStunned = false;
     }
 
     // Update is called once per frame
     void Update()
+    {
+        if (!isStunned)
+        {
+            SlotsLogic();
+        }
+        
+    }
+
+    void SlotsLogic()
     {
         AnimateSpin();
         if (!_isSpinning && _currSpinDelay <= 0)
         {
             StartCoroutine(Spin());
         }
-        else if(_isSpinning && _canStop && _currSpinDelay <= 0)
+        else if (_isSpinning && _canStop && _currSpinDelay <= 0)
         {
+            _currStopDelay -= Time.deltaTime;
             Debug.Log((int)_wheelOneResult);
-            _slot1.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelOneResult) + (90 - (360 /20)), 0 ,0);
-            _slot2.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelTwoResult) + (90 - (360 / 20)), 0, 0);
-            _slot3.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelThreeResult) + (90 - (360 / 20)), 0, 0);
-            _wheel1Spin = _wheel2Spin = _wheel3Spin = false;
-            _isSpinning = false;
-            _currSpinDelay = spinDelay;
+            if (_wheel1Spin)
+            {
+                _wheel1Spin = false;
+                _slot1.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelOneResult) + (90 - (360 / 20)), 0, 0);
+                _currStopDelay = Random.Range(wheelStopDelayMin, wheelStopDelayMax);
+            }
+
+            if (!_wheel1Spin && _currStopDelay <= 0 && _wheel2Spin)
+            {
+                _wheel2Spin = false;
+                _slot2.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelTwoResult) + (90 - (360 / 20)), 0, 0);
+                _currStopDelay = Random.Range(wheelStopDelayMin, wheelStopDelayMax);
+            }
+            if (!_wheel2Spin && _currStopDelay <= 0 && _wheel3Spin) { 
+                _slot3.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelThreeResult) + (90 - (360 / 20)), 0, 0);
+                _wheel3Spin = false;
+                _isSpinning = false;
+                _currSpinDelay = Random.Range(spinDelayMin, spinDelayMax);
+            }
         }
         else
         {
@@ -127,39 +156,23 @@ public class SlotsController : MonoBehaviour
             
         }
 
-        yield return new WaitForSeconds(spinTime);
+        yield return new WaitForSeconds(Random.Range(spinTimeMin, spinTimeMax));
         _canStop = true;
         
     }
     void AnimateSpin()
     {
-        if (_wheel1Spin)
+        if (_wheel1Spin )
         {
             _slot1.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
-            _wheel1Rotation += (_spinSpeed * Time.deltaTime) * 100;
-            if(_wheel1Rotation >= 360)
-            {
-                _wheel1Rotation -= 360;
-            }
-            Debug.Log("Rotation: " + _slot1.transform.rotation.eulerAngles.x + "Tracked Angle: " + _wheel1Rotation);
         }
         if (_wheel2Spin)
         {
             _slot2.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
-            _wheel2Rotation += (_spinSpeed * Time.deltaTime) * 100;
-            if (_wheel2Rotation >= 360)
-            {
-                _wheel2Rotation -= 360;
-            }
         }
         if (_wheel3Spin)
         {
             _slot3.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
-            _wheel3Rotation += (_spinSpeed * Time.deltaTime) * 100;
-            if (_wheel3Rotation >= 360)
-            {
-                _wheel3Rotation -= 360;
-            }
         }
     }
 }
