@@ -19,7 +19,6 @@ public class ButtonFunctions : MonoBehaviour
     {
         Application.Quit();
     }
-
     public void respawnPlayer()
     {
         GameManager.instance.unPauseState();

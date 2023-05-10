@@ -17,8 +17,8 @@ public class GunSystem : MonoBehaviour
     [SerializeField] int bulletsPerTap;
     [SerializeField] int magSize;
     [SerializeField] int bulletsLeft;
-    [SerializeField] int bulletsShot;
     [SerializeField] int ammunition;
+    [SerializeField] int bulletsShot;
     [SerializeField] StatusEffectObj statusEffect;
     [SerializeField] Rigidbody Bullet;
 
@@ -56,8 +56,16 @@ public class GunSystem : MonoBehaviour
         //reloading
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && !reloading)
         {
-            GameManager.instance.CharReloading();
-            Reload();
+            if(ammunition == 0)
+            {
+                GameManager.instance.CharZeroAmmo();
+            }
+            else
+            {
+                GameManager.instance.CharReloading();
+                Reload();
+            }
+            
         }
 
         //shooting
@@ -129,6 +137,10 @@ public class GunSystem : MonoBehaviour
     {
         ammunition += amount;
         GameManager.instance.playerAmmo = ammunition;
+    }
+    public void AddStatus(StatusEffectObj data)
+    {
+        statusEffect = data;
     }
     public int GetAmmoCount()
     {

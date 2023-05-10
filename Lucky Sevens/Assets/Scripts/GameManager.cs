@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI comfirmMenuText;
     public GameObject retical;
     public GameObject ShopMenu;
+    public GameObject emptyAmmo;
     public TextMeshProUGUI ammoDisplay;
     public TextMeshProUGUI ammoMagCount;
     public TextMeshProUGUI HPDisplay;
@@ -160,5 +161,23 @@ public class GameManager : MonoBehaviour
     public void UpdatePlayerHP()
     {
         HPDisplay.text = playerScript.GetPlayerHP().ToString();
+    }
+
+    public void CharZeroAmmo()
+    {
+        StartCoroutine(ZeroAmmo());
+    }
+    IEnumerator ZeroAmmo()
+    {
+        activeMenu = ReloadText;
+        activeMenu.SetActive(false);
+        activeMenu = emptyAmmo;
+        activeMenu.SetActive(true);
+        ammoDisplay.color = Color.red;
+        yield return new WaitForSeconds(2);
+        ammoDisplay.color = Color.white;
+        activeMenu = emptyAmmo;
+        activeMenu.SetActive(false);
+        activeMenu = null;
     }
 }
