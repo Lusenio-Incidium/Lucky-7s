@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 3183338237888154054}
   - component: {fileID: 8322122317373063641}
   - component: {fileID: 3183338237888154052}
-  - component: {fileID: 3183338237888154055}
+  - component: {fileID: 6268798629370806207}
   m_Layer: 0
   m_Name: BossDoor1
   m_TagString: RandomizerActions
@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 0
-  animator: {fileID: 3183338237888154055}
+  animator: {fileID: 0}
 --- !u!33 &8322122317373063641
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -563,7 +563,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &3183338237888154055
+--- !u!95 &6268798629370806207
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -573,7 +573,7 @@ Animator:
   m_GameObject: {fileID: 3347525631220772844}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 841efec5f7c96d5408d843c3d54d4e92, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3aaea717d2d837e4d9e58e15e5ae572c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -947,9 +947,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5343996073677772702}
   - component: {fileID: 5343996073677772674}
-  - component: {fileID: 5343996073677772675}
   - component: {fileID: 5343996073677772672}
   - component: {fileID: 5343996073677772673}
+  - component: {fileID: 2464446277926345963}
   m_Layer: 0
   m_Name: BossDoor3
   m_TagString: RandomizerActions
@@ -987,28 +987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 2
-  animator: {fileID: 5343996073677772675}
---- !u!95 &5343996073677772675
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5343996073677772703}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 841efec5f7c96d5408d843c3d54d4e92, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  animator: {fileID: 0}
 --- !u!33 &5343996073677772672
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1059,6 +1038,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &2464446277926345963
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5343996073677772703}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3aaea717d2d837e4d9e58e15e5ae572c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5343996074053217657
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,9 +1663,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5343996075496278392}
   - component: {fileID: 5343996075496278396}
-  - component: {fileID: 5343996075496278397}
   - component: {fileID: 5343996075496278394}
   - component: {fileID: 5343996075496278395}
+  - component: {fileID: 3675985619806695083}
   m_Layer: 0
   m_Name: BossDoor4
   m_TagString: RandomizerActions
@@ -1703,28 +1703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 3
-  animator: {fileID: 5343996075496278397}
---- !u!95 &5343996075496278397
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5343996075496278393}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 841efec5f7c96d5408d843c3d54d4e92, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  animator: {fileID: 0}
 --- !u!33 &5343996075496278394
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1775,6 +1754,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &3675985619806695083
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5343996075496278393}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3aaea717d2d837e4d9e58e15e5ae572c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5343996075708692233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1785,9 +1785,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5343996075708692232}
   - component: {fileID: 5343996075708692236}
-  - component: {fileID: 5343996075708692237}
   - component: {fileID: 5343996075708692234}
   - component: {fileID: 5343996075708692235}
+  - component: {fileID: 5780405061508814962}
   m_Layer: 0
   m_Name: BossDoor2
   m_TagString: RandomizerActions
@@ -1825,28 +1825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 1
-  animator: {fileID: 5343996075708692237}
---- !u!95 &5343996075708692237
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5343996075708692233}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 841efec5f7c96d5408d843c3d54d4e92, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  animator: {fileID: 0}
 --- !u!33 &5343996075708692234
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1897,6 +1876,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &5780405061508814962
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5343996075708692233}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3aaea717d2d837e4d9e58e15e5ae572c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7415300648500259074
 GameObject:
   m_ObjectHideFlags: 0
