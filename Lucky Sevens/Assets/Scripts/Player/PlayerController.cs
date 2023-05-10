@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour,IDamage
     [SerializeField][Range(1.0f, 20.0f)] float jumpHeight;
     [SerializeField][Range(5.0f, 30.0f)] float gravityScale;
     [SerializeField][Range(1, 4)] int maxJumpAmmount;
+    [SerializeField] int interactDist;
 
     //private variables
     Vector3 playerVelocity;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour,IDamage
     void Update()
     {
         movement();
+        interact();
         sprint();
     }
 
@@ -90,6 +92,26 @@ public class PlayerController : MonoBehaviour,IDamage
         else if (Input.GetButtonUp("Sprint"))
         {
             playerSpeed /= sprintMod;
+        }
+    }
+
+    void interact() 
+    {
+        Debug.Log("This works");
+        RaycastHit hit;
+        Debug.DrawRay(transform.position, transform.forward);
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, interactDist)) 
+        {
+            Debug.Log("This works too");
+            if (hit.collider.GetComponent<IInteractable>() != null)
+            {
+                Debug.Log("Press E to interact");
+
+                if (Input.GetButtonDown("Interact")) 
+                {
+                    hit.collider.GetComponent<IInteractable>().onInteract();
+                }
+            }
         }
     }
 }

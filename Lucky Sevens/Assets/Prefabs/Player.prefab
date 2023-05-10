@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 581697804747713018}
   - component: {fileID: 581697804747713017}
   - component: {fileID: 581697804747712966}
+  - component: {fileID: 205655149}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -56,6 +57,7 @@ MonoBehaviour:
   jumpHeight: 9
   gravityScale: 15.5
   maxJumpAmmount: 2
+  interactDist: 5
 --- !u!33 &581697804747713019
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -138,6 +140,31 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &205655149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581697804747713016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c7f0821f057cd40bd38a4ed540c499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 10
+  timeBetweenShots: 0.5
+  range: 10
+  reloadTime: 1
+  spread: 19
+  bulletsPerTap: 5
+  magSize: 10
+  bulletsLeft: 100
+  bulletsShot: 0
+  ammunition: 100
+  statusEffect: {fileID: 11400000, guid: 83747c1b43c2f1b4c839a32a76b0a47d, type: 2}
+  Bullet: {fileID: 5603250820081392757, guid: 47db62ab3c2a813478b9f2589733de21, type: 3}
+  allowButtonHolding: 0
 --- !u!1 &581697804788486948
 GameObject:
   m_ObjectHideFlags: 0
