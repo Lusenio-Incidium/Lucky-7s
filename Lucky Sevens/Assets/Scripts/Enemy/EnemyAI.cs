@@ -76,7 +76,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
                 {
                     StartCoroutine(Shoot());
                 }
-
                 return true;
             }
         }

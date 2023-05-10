@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
         gunSystem = player.GetComponentInChildren<GunSystem>(player);
+        GameManager.instance.UpdateAmmoCount();
 
     }
 
@@ -149,19 +150,7 @@ public class GameManager : MonoBehaviour
 
     public void AfterReload()
     {
-        activeMenu = ReloadText;
         activeMenu.SetActive(false);
-    }
-
-    public void WhileReload()
-    {
-        activeMenu = ReloadText;
-        activeMenu.SetActive(true);
-    }
-
-    public void AfterReload()
-    {
-        activeMenu = ReloadText;
-        activeMenu.SetActive(false);
+        activeMenu = null;
     }
 }
