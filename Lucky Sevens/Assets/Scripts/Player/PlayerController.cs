@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour,IDamage
     [SerializeField] CharacterController controller;
 
     [Header("- - - Atributes - - -")]
-    [Range(1, 50)][SerializeField] int HP;
+    [Range(1, 100)][SerializeField] int HP;
     [SerializeField][Range(1.0f, 10.0f)] float playerSpeed;
     [SerializeField][Range(1.5f, 5.0f)] float sprintMod;
     [SerializeField][Range(1.0f, 20.0f)] float jumpHeight;
@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour,IDamage
     void Start()
     {
         HPOrig = HP;
+        GetPlayerHP();
+        GameManager.instance.UpdatePlayerHP();
         spawnPlayer();
     }
 
@@ -69,7 +71,8 @@ public class PlayerController : MonoBehaviour,IDamage
     public void takeDamage(int amount)
     {
         HP -= amount;
-        
+        GetPlayerHP();
+        GameManager.instance.UpdatePlayerHP();
         if(HP <= 0)
         {
             GameManager.instance.youLose();
@@ -113,5 +116,10 @@ public class PlayerController : MonoBehaviour,IDamage
                 }
             }
         }
+    }
+
+    public int GetPlayerHP()
+    {
+        return HP;
     }
 }
