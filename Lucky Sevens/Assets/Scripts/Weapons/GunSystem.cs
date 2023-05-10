@@ -56,6 +56,7 @@ public class GunSystem : MonoBehaviour
         //reloading
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && !reloading)
         {
+            GameManager.instance.Reload(true);
             Reload();
         }
 
@@ -89,7 +90,7 @@ public class GunSystem : MonoBehaviour
         }
         bulletsLeft--;
         bulletsShot++;
-        GameManager.instance.UpdateAmmoCount();
+        GetMagCount();
 
         Invoke("ResetShot", timeBetweenShots);
     }
@@ -108,7 +109,7 @@ public class GunSystem : MonoBehaviour
     }
 
     //after reloading is complete
-    private void ReloadDone()
+    public void ReloadDone()
     {
         int bulletsToReload = magSize - bulletsLeft;
 
@@ -118,7 +119,7 @@ public class GunSystem : MonoBehaviour
             bulletsLeft += reservedAmmo;
             ammunition -= reservedAmmo;
         }
-        GameManager.instance.UpdateAmmoCount();
+        GetAmmoCount();
         reloading = false;
     }
 
