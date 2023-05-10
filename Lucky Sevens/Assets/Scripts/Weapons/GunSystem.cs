@@ -56,8 +56,16 @@ public class GunSystem : MonoBehaviour
         //reloading
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && !reloading)
         {
-            GameManager.instance.CharReloading();
-            Reload();
+            if(ammunition == 0)
+            {
+                GameManager.instance.CharZeroAmmo();
+            }
+            else
+            {
+                GameManager.instance.CharReloading();
+                Reload();
+            }
+            
         }
 
         //shooting
