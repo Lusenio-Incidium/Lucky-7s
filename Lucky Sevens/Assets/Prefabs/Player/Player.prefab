@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 581697804747713018}
   - component: {fileID: 581697804747713017}
   - component: {fileID: 581697804747712966}
-  - component: {fileID: 205655149}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -140,31 +139,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &205655149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 581697804747713016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56c7f0821f057cd40bd38a4ed540c499, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dmg: 10
-  timeBetweenShots: 0.5
-  range: 10
-  reloadTime: 1
-  spread: 19
-  bulletsPerTap: 5
-  magSize: 10
-  bulletsLeft: 100
-  bulletsShot: 0
-  ammunition: 100
-  statusEffect: {fileID: 11400000, guid: 83747c1b43c2f1b4c839a32a76b0a47d, type: 2}
-  Bullet: {fileID: 5603250820081392757, guid: 47db62ab3c2a813478b9f2589733de21, type: 3}
-  allowButtonHolding: 0
 --- !u!1 &581697804788486948
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,13 +298,17 @@ PrefabInstance:
       value: CurrentWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 3558362174592598020, guid: 8222284e724ec084b8ae3a222559f7e1, type: 3}
+      propertyPath: Bullet
+      value: 
+      objectReference: {fileID: 5603250820081392757, guid: 47db62ab3c2a813478b9f2589733de21, type: 3}
+    - target: {fileID: 3558362174592598020, guid: 8222284e724ec084b8ae3a222559f7e1, type: 3}
       propertyPath: magSize
       value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 3558362174592598020, guid: 8222284e724ec084b8ae3a222559f7e1, type: 3}
       propertyPath: statusEffect
       value: 
-      objectReference: {fileID: 11400000, guid: e0a5cb6732c61ce458411b1bafa596bd, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3558362174592598020, guid: 8222284e724ec084b8ae3a222559f7e1, type: 3}
       propertyPath: timeBetweenShots
       value: 0.15
@@ -340,9 +318,13 @@ PrefabInstance:
       value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 3558362174676118436, guid: 8222284e724ec084b8ae3a222559f7e1, type: 3}
+      propertyPath: Bullet
+      value: 
+      objectReference: {fileID: 5603250820081392757, guid: 47db62ab3c2a813478b9f2589733de21, type: 3}
+    - target: {fileID: 3558362174676118436, guid: 8222284e724ec084b8ae3a222559f7e1, type: 3}
       propertyPath: statusEffect
       value: 
-      objectReference: {fileID: 11400000, guid: e0a5cb6732c61ce458411b1bafa596bd, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3558362174676118436, guid: 8222284e724ec084b8ae3a222559f7e1, type: 3}
       propertyPath: timeBetweenShots
       value: 0.3
