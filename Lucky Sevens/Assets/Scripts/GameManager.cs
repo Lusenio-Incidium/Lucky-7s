@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
 
     public void youLose()
     {
+        isPaused = !isPaused;
         pauseState();
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
