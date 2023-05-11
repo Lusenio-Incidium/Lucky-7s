@@ -2001,7 +2001,8 @@ GameObject:
   - component: {fileID: -5233866372763302201}
   - component: {fileID: 294471186711770525}
   - component: {fileID: -7562770930332195691}
-  m_Layer: 0
+  - component: {fileID: 30561859}
+  m_Layer: 6
   m_Name: TommyBodyguard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2017,8 +2018,8 @@ Transform:
   m_GameObject: {fileID: 294471186704467911}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.5, y: 0, z: -1.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 294471186704505469}
   - {fileID: 294471186704505471}
@@ -2050,7 +2051,7 @@ MonoBehaviour:
   playerFaceSpeed: 10
   shootSpeed: 0.25
   range: 10
-  attackAngle: 45
+  attackAngle: 25
   gunProjectile: {fileID: 5603250820081392756, guid: 47db62ab3c2a813478b9f2589733de21, type: 3}
   hitEffect: {fileID: 0}
 --- !u!195 &-5233866372763302201
@@ -2109,6 +2110,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &30561859
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294471186704467911}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &294471186704467913
 GameObject:
   m_ObjectHideFlags: 0
@@ -3022,7 +3037,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4518557941116026471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25, y: -0.012, z: -0.227}
+  m_LocalPosition: {x: 0.306, y: -0.126, z: -0.006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
