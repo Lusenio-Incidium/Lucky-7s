@@ -24,7 +24,7 @@ public class CardSpawner : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
+            other.GetComponent<PlayerController>().takeDamage(5);
         }
         if (!spawnPending)
         {

@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum SpawnStyles
 {
-    SpawnFromSlotsBottom,
-    SpawnParabolaScatter,
-    SpawnParabolaPlayerTarget,
-    SpawnAbovePlayer,
-    SpawnRandomAcrossField
+    RandomScatter,
+    FireAtPlayer,
+    BatchScatter,
+    FireOnAllFronts
 }
 
 [System.Serializable]
@@ -16,6 +15,7 @@ public class SpawnConditions
 {
     [SerializeField] GameObject spawnObject;
     [SerializeField] int spawnCount;
+    [Range(1,10)][SerializeField] int batchSize;
     [SerializeField][Range(0, 50)] float spawnDelay;
     [SerializeField] SpawnStyles spawnMethod;
     [SerializeField] bool waitForSpawner;
@@ -36,13 +36,16 @@ public class SpawnConditions
     {
         return spawnMethod;
     }
-    public bool GetSpawner()
+    public bool GetWaitForSpawner()
     {
         return waitForSpawner;
     }
-
     public float GetAccuracy()
     {
         return accuracy;
+    }
+    public int GetBatchSize()
+    {
+        return batchSize;
     }
 }

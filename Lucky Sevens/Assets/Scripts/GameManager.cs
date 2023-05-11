@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.EditorTools;
 
 public class GameManager : MonoBehaviour
 {
@@ -87,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     public void youLose()
     {
+        isPaused = !isPaused;
         pauseState();
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
