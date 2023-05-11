@@ -13,7 +13,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     void Start()
     {
         active = false;
-        SlotsController.instance.UpdateWeakPoints(1);
+
     }
     private void Update()
     {
@@ -28,9 +28,14 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * trackSpeed);
         Debug.DrawRay(transform.position, GameManager.instance.player.transform.position);
     }
-    public void SetActiveStatus(bool status) 
+    public void Activate() 
     {
-        
+        if(active == true)
+        {
+            return;
+        }
+        SlotsController.instance.UpdateWeakPoints(1);
+        active = true;
     }
 
     public void takeDamage(int count)
@@ -38,8 +43,8 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
         health -= count;
         if(health <= 0) 
         {
+            active = false;
             SlotsController.instance.UpdateWeakPoints(-1);
-            Destroy(gameObject);
         }
     }
     // Update is called once per frame

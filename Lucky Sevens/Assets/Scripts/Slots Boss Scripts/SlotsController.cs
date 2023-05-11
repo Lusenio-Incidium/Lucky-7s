@@ -12,7 +12,7 @@ public enum SlotResults {
     Coins,
     Chips,
     Slowdown,
-    Empty2,
+    Bombs,
     Empty3,
     Empty4,
     Empty5,
@@ -38,7 +38,7 @@ public class SlotsController : MonoBehaviour
     [SerializeField] GameObject _slot1;
     [SerializeField] GameObject _slot2;
     [SerializeField] GameObject _slot3;
-    [SerializeField] GameObject _weakPointPrefab;
+    [SerializeField] GameObject[] _weakPoints;
     [SerializeField] ArenaSpawner spawner1;
     [SerializeField] ArenaSpawner spawner2;
     [SerializeField] ArenaSpawner spawner3;
@@ -92,7 +92,7 @@ public class SlotsController : MonoBehaviour
         _isSpinning = _wheel1Spin = _wheel2Spin = _wheel3Spin = false;
         _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
         _currJackpotOdds = jackpotOdds;
-        isStunned = false;
+        isStunned = true;
         Health = 3;
         instance = this;
         weakPointCount = 0;
@@ -107,6 +107,12 @@ public class SlotsController : MonoBehaviour
         }
         
     }
+    public void Begin()
+    {
+        isStunned = false;
+        activateWeakPoints();
+    }
+
     public void UpdateWeakPoints(int count)
     {
         weakPointCount += count;
@@ -126,7 +132,10 @@ public class SlotsController : MonoBehaviour
     }
     void activateWeakPoints()
     {
-        
+        foreach(GameObject obj in _weakPoints)
+        {
+            obj.GetComponent<SlotsWeakPoint>().Activate();
+        }
     }
     public void DamageWheel()
     {
@@ -206,16 +215,16 @@ public class SlotsController : MonoBehaviour
     {
         if (_wheelOneResult == _wheelTwoResult && _wheelTwoResult == _wheelThreeResult)
         {
-            spawner1.SetSpawnConditions(jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnObj(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnCount(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnDelay(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnStyles(), jackpotFaceStats[(int)_wheelOneResult - 1].GetAccuracy());
+            spawner1.SetSpawnConditions(jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnObj(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnCount(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnDelay(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnStyles(), jackpotFaceStats[(int)_wheelOneResult - 1].GetAccuracy(), jackpotFaceStats[(int)_wheelOneResult - 1].GetBatchSize()); //This is stupid but it's 5:30 and I'll fix it when I don't wanna kms
             if (jackpotFaceStats[(int)_wheelOneResult - 1].GetWaitForSpawner())
             {
                 waitingForSpawner1 = true;
             }
             return;
         }
-        spawner1.SetSpawnConditions(normalFaceStats[(int)_wheelOneResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelOneResult - 1].GetAccuracy());
-        spawner2.SetSpawnConditions(normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelTwoResult - 1].GetAccuracy());
-        spawner3.SetSpawnConditions(normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelThreeResult - 1].GetAccuracy());
+        spawner1.SetSpawnConditions(normalFaceStats[(int)_wheelOneResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelOneResult - 1].GetAccuracy(), normalFaceStats[(int)_wheelOneResult - 1].GetBatchSize());
+        spawner2.SetSpawnConditions(normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelTwoResult - 1].GetAccuracy(), normalFaceStats[(int)_wheelTwoResult - 1].GetBatchSize());
+        spawner3.SetSpawnConditions(normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelThreeResult - 1].GetAccuracy(), normalFaceStats[(int)_wheelThreeResult - 1].GetBatchSize());
         if (normalFaceStats[(int)_wheelOneResult - 1].GetWaitForSpawner())
         {
             waitingForSpawner1 = true;

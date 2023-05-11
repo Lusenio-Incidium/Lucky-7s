@@ -12,6 +12,7 @@ public class ArenaSpawner : MonoBehaviour
 
     [SerializeField] GameObject prefab;
     [SerializeField] int spawnAmount;
+    [SerializeField] int batchSize;
     [SerializeField][Range(0, 5)] float intervalTime;
     [SerializeField][Range(0, 100)] float rangeRadius;
     [SerializeField] SpawnStyles spawnMethod;
@@ -27,14 +28,14 @@ public class ArenaSpawner : MonoBehaviour
             StartCoroutine(spawn());
         }
     }
-    public void SetSpawnConditions(GameObject obj, int spawnNum, float spawnBreak, SpawnStyles style, float radius)
+    public void SetSpawnConditions(GameObject obj, int spawnNum, float spawnBreak, SpawnStyles style, float radius, int batch)
     {
         prefab = obj;
         spawnAmount = spawnNum;
         intervalTime = spawnBreak;
         spawnMethod = style;
         rangeRadius = radius;
-        
+        batchSize = batch;
     }
     IEnumerator spawn()
     {
@@ -43,6 +44,13 @@ public class ArenaSpawner : MonoBehaviour
         else if (spawnMethod == SpawnStyles.FireAtPlayer) {
             int rand = Random.Range(0, machineSpawnLocations.Length);
             Instantiate(prefab, machineSpawnLocations[rand].position, machineSpawnLocations[rand].rotation);
+        }
+        else if (spawnMethod == SpawnStyles.BatchScatter)
+        {
+            for(int x = 0; x < batchSize; x++)
+            {
+                Instantiate(prefab, new Vector3(gameObject.transform.position.x + Random.Range(-1 * rangeRadius, rangeRadius), gameObject.transform.position.y, gameObject.transform.position.z + Random.Range(-1 * rangeRadius, rangeRadius)), prefab.transform.rotation);
+            }
         }
         spawnAmount--;
         if(spawnAmount <= 0)
