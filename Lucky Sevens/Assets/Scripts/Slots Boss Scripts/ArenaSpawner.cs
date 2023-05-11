@@ -52,6 +52,14 @@ public class ArenaSpawner : MonoBehaviour
                 Instantiate(prefab, new Vector3(gameObject.transform.position.x + Random.Range(-1 * rangeRadius, rangeRadius), gameObject.transform.position.y, gameObject.transform.position.z + Random.Range(-1 * rangeRadius, rangeRadius)), prefab.transform.rotation);
             }
         }
+        else if (spawnMethod == SpawnStyles.FireOnAllFronts)
+        {
+            foreach (Transform location in machineSpawnLocations)
+            {
+                Instantiate(prefab, location.position, location.rotation);
+            }
+
+        }
         spawnAmount--;
         if(spawnAmount <= 0)
         {

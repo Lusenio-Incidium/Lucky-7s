@@ -7,6 +7,7 @@ public enum SpawnStyles
     RandomScatter,
     FireAtPlayer,
     BatchScatter,
+    FireOnAllFronts
 }
 
 [System.Serializable]
