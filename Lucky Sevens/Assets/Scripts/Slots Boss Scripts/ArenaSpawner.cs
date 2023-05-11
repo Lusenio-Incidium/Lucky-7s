@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class ArenaSpawner : MonoBehaviour
 {
+    [Header("--- Spawner Info ---")]
+    [Range(1,3)][SerializeField] int SpawnerNum;
+
+
     [SerializeField] GameObject prefab;
     [SerializeField] int spawnAmount;
     [SerializeField][Range(0, 5)] float intervalTime;
     [SerializeField][Range(0, 100)] float rangeRadius;
     [SerializeField] SpawnStyles spawnMethod;
-    [SerializeField] Transform machineSpawnLocation;
+    [SerializeField] Transform[] machineSpawnLocations;
     // Start is called before the first frame update
 
     bool spawning = false;
@@ -22,22 +27,27 @@ public class ArenaSpawner : MonoBehaviour
             StartCoroutine(spawn());
         }
     }
-    public void SetSpawnConditions(GameObject obj, int spawnNum, float spawnBreak, SpawnStyles style)
+    public void SetSpawnConditions(GameObject obj, int spawnNum, float spawnBreak, SpawnStyles style, float radius)
     {
         prefab = obj;
         spawnAmount = spawnNum;
         intervalTime = spawnBreak;
+        spawnMethod = style;
+        rangeRadius = radius;
+        
     }
     IEnumerator spawn()
     {
-        if (spawnMethod == SpawnStyles.SpawnRandomAcrossField)
+        if (spawnMethod == SpawnStyles.RandomScatter)
             Instantiate(prefab, new Vector3(gameObject.transform.position.x + Random.Range(-1 * rangeRadius, rangeRadius), gameObject.transform.position.y, gameObject.transform.position.z + Random.Range(-1 * rangeRadius, rangeRadius)), prefab.transform.rotation);
-        else if (spawnMethod == SpawnStyles.SpawnAbovePlayer)
-            Instantiate(prefab, new Vector3(GameManager.instance.player.transform.position.x, GameManager.instance.player.transform.position.y + 5, GameManager.instance.player.transform.position.z), prefab.transform.rotation);
+        else if (spawnMethod == SpawnStyles.FireAtPlayer) {
+            int rand = Random.Range(0, machineSpawnLocations.Length);
+            Instantiate(prefab, machineSpawnLocations[rand].position, machineSpawnLocations[rand].rotation);
+        }
         spawnAmount--;
         if(spawnAmount <= 0)
         {
-            SlotsController.instance.SpawningFinished();
+            SlotsController.instance.SpawningFinished(SpawnerNum);
         }
         spawning = true;
         yield return new WaitForSeconds(intervalTime);

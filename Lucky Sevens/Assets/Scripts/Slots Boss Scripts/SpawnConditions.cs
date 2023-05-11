@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum SpawnStyles
 {
-    SpawnFromSlotsBottom,
-    SpawnParabolaScatter,
-    SpawnParabolaPlayerTarget,
-    SpawnAbovePlayer,
-    SpawnRandomAcrossField
+    RandomScatter,
+    FireAtPlayer
 }
 
 [System.Serializable]
@@ -36,11 +33,10 @@ public class SpawnConditions
     {
         return spawnMethod;
     }
-    public bool GetSpawner()
+    public bool GetWaitForSpawner()
     {
         return waitForSpawner;
     }
-
     public float GetAccuracy()
     {
         return accuracy;

@@ -38,9 +38,10 @@ public class SlotsController : MonoBehaviour
     [SerializeField] GameObject _slot1;
     [SerializeField] GameObject _slot2;
     [SerializeField] GameObject _slot3;
-    [SerializeField] GameObject _WeakPointPrefab;
-    [SerializeField] GameObject spawner;
-
+    [SerializeField] GameObject _weakPointPrefab;
+    [SerializeField] ArenaSpawner spawner1;
+    [SerializeField] ArenaSpawner spawner2;
+    [SerializeField] ArenaSpawner spawner3;
 
     float _currSpinDelay;
     float _currStopDelay;
@@ -81,7 +82,9 @@ public class SlotsController : MonoBehaviour
     int _currJackpotOdds;
     bool isStunned;
     int weakPointCount;
-    bool waitingForSpawner;
+    bool waitingForSpawner1;
+    bool waitingForSpawner2;
+    bool waitingForSpawner3;
     int NumMod;
     // Start is called before the first frame update
     void Start()
@@ -112,11 +115,16 @@ public class SlotsController : MonoBehaviour
             StunWheel();
         }
     }
-    public void SpawningFinished()
+    public void SpawningFinished(int spawnerNum)
     {
-        waitingForSpawner = false;
+        if(spawnerNum ==1)
+        waitingForSpawner1 = false;
+        else if(spawnerNum == 2)
+            waitingForSpawner2 = false;
+        else
+            waitingForSpawner3 = false;
     }
-    void createWeakPoints()
+    void activateWeakPoints()
     {
         
     }
@@ -125,22 +133,23 @@ public class SlotsController : MonoBehaviour
         Health--;
         if(Health == 2)
         {
-            _slot1.GetComponent<Rigidbody>().useGravity = true;
+            
            // Destroy(_slot1);
             _wheel1Spin = false;
             isStunned = false;
         }
         if(Health == 1)
         {
-            _slot3.GetComponent<Rigidbody>().useGravity = true;
+
 
             //Destroy(_slot3); //Sumthin has to be out of order for this to work.
+            _wheel3Spin = false;
             isStunned = false;
         }
         if (Health == 0)
         {
             //Instert Win Condition
-            _slot2.GetComponent<Rigidbody>().useGravity = true;
+            
 
            // Destroy(_slot2);
         }
@@ -184,9 +193,10 @@ public class SlotsController : MonoBehaviour
                 _wheel3Spin = false;
                 _isSpinning = false;
                 _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
+                SpinAction();
             }
         }
-        else if (!waitingForSpawner)
+        else if (!waitingForSpawner1 && !waitingForSpawner2 && !waitingForSpawner3)
         {
             _currSpinDelay -= Time.deltaTime;
         }
@@ -196,9 +206,28 @@ public class SlotsController : MonoBehaviour
     {
         if (_wheelOneResult == _wheelTwoResult && _wheelTwoResult == _wheelThreeResult)
         {
+            spawner1.SetSpawnConditions(jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnObj(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnCount(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnDelay(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnStyles(), jackpotFaceStats[(int)_wheelOneResult - 1].GetAccuracy());
+            if (jackpotFaceStats[(int)_wheelOneResult - 1].GetWaitForSpawner())
+            {
+                waitingForSpawner1 = true;
+            }
             return;
         }
-
+        spawner1.SetSpawnConditions(normalFaceStats[(int)_wheelOneResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelOneResult - 1].GetAccuracy());
+        spawner2.SetSpawnConditions(normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelTwoResult - 1].GetAccuracy());
+        spawner3.SetSpawnConditions(normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelThreeResult - 1].GetAccuracy());
+        if (normalFaceStats[(int)_wheelOneResult - 1].GetWaitForSpawner())
+        {
+            waitingForSpawner1 = true;
+        }
+        if (normalFaceStats[(int)_wheelTwoResult - 1].GetWaitForSpawner())
+        {
+            waitingForSpawner2 = true;
+        }
+        if (normalFaceStats[(int)_wheelThreeResult - 1].GetWaitForSpawner())
+        {
+            waitingForSpawner3 = true;
+        }
     }
 
     IEnumerator Spin()
