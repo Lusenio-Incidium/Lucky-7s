@@ -30,12 +30,14 @@ public class GunSystem : MonoBehaviour
 
     public RaycastHit rayHit;
 
+    //TODO: Add way to carry these stats (bullets left and ammunition) through the game manager to let ammo go through GameManager
     private void Awake()
     {
         bulletsLeft = magSize;
         ammunition = magSize * 4;
         readyToShoot = true;
     }
+
     private void Update()
     {
         myInput();

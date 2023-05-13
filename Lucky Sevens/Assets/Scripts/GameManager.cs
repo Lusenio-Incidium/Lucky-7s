@@ -40,13 +40,34 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     public float timeElapsed;
     float timeScaleOrig;
-    int magSize;
+    int AmmoLoaded;
     bool reloading;
 
     // Start is called before the first frame update
     void Awake()
     {
-        instance = this;
+        if (instance != null) 
+        {
+            Destroy(gameObject.transform.parent.gameObject);
+        }
+        else 
+        {
+            instance = this;
+            player = GameObject.FindGameObjectWithTag("Player");
+            playerScript = player.GetComponent<PlayerController>();
+            playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+            timeScaleOrig = Time.timeScale;
+            gunSystem = player.GetComponentInChildren<GunSystem>(player);
+            AmmoLoaded = gunSystem.GetMagCount();
+            UpdateAmmoCount();
+        }
+
+        DontDestroyOnLoad(this.transform.parent);
+
+    }
+
+    public void refreshGameManager() 
+    {
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");

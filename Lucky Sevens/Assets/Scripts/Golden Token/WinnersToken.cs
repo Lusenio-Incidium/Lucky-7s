@@ -37,14 +37,14 @@ public class WinnersToken : MonoBehaviour
     TokenCollect tokenInfo;
     int step;
     bool isSpawned;
-    private void Start()
+    private void Awake()
     {
         step = -1;
         instance = this;
         isSpawned = false;
         if(winStyle == WinConditions.KillXEnemies)
         {
-            timeOrKills = (int)timeOrKills;
+           // timeOrKills = (int)timeOrKills;
         }
     }
 
