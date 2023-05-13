@@ -122,22 +122,18 @@ public class GameManager : MonoBehaviour
         activeMenu = ShopMenu;
         activeMenu.SetActive(true);
     }
-    public void updateGameGoal(int amount)
+    public void UpdateEnemyCount(int amount) //Was UpdateGameGoal, this now just handles the enemy count. call youWin() from TokenObject - Luse
     {
         enemiesRemaining += amount;
+    }  
 
-        if (enemiesRemaining <= 0)
-        {
-            StartCoroutine(youWin());
-        }
-    }
-
-    IEnumerator youWin()
+    public IEnumerator youWin()
     {
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1); Now handled by Token
         activeMenu = winMenu;
         activeMenu.SetActive(true);
         pauseState();
+        yield return null;
     }
     public void UpdateAmmoCount()
     {
