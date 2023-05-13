@@ -27,7 +27,7 @@ public class LevelWarp : MonoBehaviour
     {
         anim.SetTrigger("Transition");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
 
         anim.ResetTrigger("Transition");
         SceneManager.LoadScene(WarpToScene);

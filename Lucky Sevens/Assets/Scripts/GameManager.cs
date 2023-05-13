@@ -43,9 +43,10 @@ public class GameManager : MonoBehaviour
     int AmmoLoaded;
     bool reloading;
 
-    // Start is called before the first frame update
     void Awake()
     {
+        //Code to check if a new game manager is made, and if it is delete it.
+        //Used for keeping the game manager and player UI throughout different scenes
         if (instance != null && instance != this) 
         {
             Destroy(gameObject.transform.parent.gameObject);
@@ -66,6 +67,9 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //Refereshes the game manger on a new scene loaded. Just to get all the prefabs re-loaded.
+    
+    //TODO: Make player not be destroyed between scenes? Just a thought.
     public void refreshGameManager() 
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -76,7 +80,6 @@ public class GameManager : MonoBehaviour
         UpdateAmmoCount();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetButton("Cancel") && activeMenu == null)

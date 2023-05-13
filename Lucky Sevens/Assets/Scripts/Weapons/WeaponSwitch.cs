@@ -17,6 +17,12 @@ public class WeaponSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        weaponSwap();
+    }
+
+    //Added this function to clean up the Update function from what the teacher wanted from most people.
+    void weaponSwap() 
+    {
         int previousSelectedWeapon = selectedWeapon;
 
         //seeing what gun player is on to go both directions with mouse wheel
@@ -48,8 +54,8 @@ public class WeaponSwitch : MonoBehaviour
         {
             SelectWeapon();
         }
-
     }
+
     private void SelectWeapon()
     {
         int childCount = transform.childCount;
