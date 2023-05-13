@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
         gunSystem = player.GetComponentInChildren<GunSystem>(player);
+        enemiesRemaining = 0;
         UpdateAmmoCount();
     }
 

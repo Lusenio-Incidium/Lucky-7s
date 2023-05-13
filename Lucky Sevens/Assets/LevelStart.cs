@@ -5,8 +5,11 @@ using UnityEngine;
 public class LevelStart : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        GameManager.instance.refreshGameManager();
+        if(GameManager.instance != null) 
+        {
+            GameManager.instance.refreshGameManager();
+        }
     }
 }
