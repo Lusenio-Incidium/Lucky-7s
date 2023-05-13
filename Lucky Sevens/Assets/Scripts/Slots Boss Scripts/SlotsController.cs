@@ -157,7 +157,7 @@ public class SlotsController : MonoBehaviour
         }
         if (Health == 0)
         {
-            //Instert Win Condition
+            WinnersToken.instance.Spawn();
             
 
            // Destroy(_slot2);

@@ -35,18 +35,12 @@ public class TokenCollect : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (other.CompareTag("Player"))
         {
             SpeedUp();
-            StartCoroutine(YouWinDelay());
+            StartCoroutine(GameManager.instance.youWin(youWinDelay));
 
         }
-    }
-
-    IEnumerator YouWinDelay()
-    {
-        yield return new WaitForSeconds(youWinDelay);
-        StartCoroutine(GameManager.instance.youWin());
     }
 }

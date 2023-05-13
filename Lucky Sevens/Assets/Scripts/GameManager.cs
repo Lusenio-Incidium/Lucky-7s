@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -34,8 +35,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI ammoMagCount;
     public TextMeshProUGUI HPDisplay;
 
+
     public int enemiesRemaining;
     public bool isPaused;
+    public float timeElapsed;
     float timeScaleOrig;
     int magSize;
     bool reloading;
@@ -62,6 +65,7 @@ public class GameManager : MonoBehaviour
             activeMenu.SetActive(isPaused);
             pauseState();
         }
+        timeElapsed += Time.deltaTime;
     }
 
     public void pauseState()
@@ -122,14 +126,20 @@ public class GameManager : MonoBehaviour
         activeMenu = ShopMenu;
         activeMenu.SetActive(true);
     }
-    public void UpdateEnemyCount(int amount) //Was UpdateGameGoal, this now just handles the enemy count. call youWin() from TokenObject - Luse
+    public void UpdateEnemyCount(int amount)
     {
+        int enemiesKilled = 0;
         enemiesRemaining += amount;
-    }  
+        if(amount < 0)
+        {
+            enemiesKilled += amount * -1;
+        }
+        WinnersToken.instance.UpdateEnemyCount(enemiesKilled);
+    }
 
-    public IEnumerator youWin()
+    public IEnumerator youWin(float time)
     {
-        //yield return new WaitForSeconds(1); Now handled by Token
+       yield return new WaitForSeconds(time); 
         activeMenu = winMenu;
         activeMenu.SetActive(true);
         pauseState();
