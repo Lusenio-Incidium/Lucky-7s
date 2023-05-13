@@ -25,4 +25,10 @@ public class ButtonFunctions : MonoBehaviour
         GameManager.instance.playerScript.spawnPlayer();
         GameManager.instance.UpdatePlayerHP();
     }
+
+    public void ReturnToLobby()
+    {
+        GameManager.instance.unPauseState();
+        SceneManager.LoadScene("TheHub");
+    }
 }
