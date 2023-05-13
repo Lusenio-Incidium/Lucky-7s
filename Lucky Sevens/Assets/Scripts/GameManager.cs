@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (instance != null) 
+        if (instance != null && instance != this) 
         {
             Destroy(gameObject.transform.parent.gameObject);
         }
