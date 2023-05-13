@@ -9,7 +9,7 @@ public class LevelWarp : MonoBehaviour
 
     private Animator anim;
 
-    private void Start()
+    private void Awake()
     {
         anim = GameObject.FindGameObjectWithTag("Transition").GetComponent<Animator>();
     }
@@ -25,6 +25,7 @@ public class LevelWarp : MonoBehaviour
 
     IEnumerator loadScene() 
     {
+        GameManager.instance.loadingScreen.SetActive(true);
         anim.SetTrigger("Transition");
 
         yield return new WaitForSeconds(3f);

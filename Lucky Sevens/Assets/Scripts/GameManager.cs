@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI ammoDisplay;
     public TextMeshProUGUI ammoMagCount;
     public TextMeshProUGUI HPDisplay;
-
+    public GameObject loadingScreen;
 
     public int enemiesRemaining;
     public bool isPaused;
@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
             gunSystem = player.GetComponentInChildren<GunSystem>(player);
             AmmoLoaded = gunSystem.GetMagCount();
             UpdateAmmoCount();
+            
         }
 
         DontDestroyOnLoad(this.transform.parent);
