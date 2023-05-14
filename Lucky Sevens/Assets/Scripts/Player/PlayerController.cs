@@ -131,4 +131,9 @@ public class PlayerController : MonoBehaviour,IDamage
             HP = 100;
         }
     }
+
+    public void speedChange(float amount)
+    {
+        playerSpeed += amount;
+    }
 }
