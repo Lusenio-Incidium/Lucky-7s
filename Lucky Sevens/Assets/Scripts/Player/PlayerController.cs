@@ -122,4 +122,18 @@ public class PlayerController : MonoBehaviour,IDamage
     {
         return HP;
     }
+
+    public void playerHeal(int amount)
+    {
+        HP += amount;
+        if (HP > 100)
+        {
+            HP = 100;
+        }
+    }
+
+    public void speedChange(float amount)
+    {
+        playerSpeed += amount;
+    }
 }
