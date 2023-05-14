@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI ammoDisplay;
     public TextMeshProUGUI ammoMagCount;
     public TextMeshProUGUI HPDisplay;
+    public TextMeshProUGUI timerDisplay;
     public GameObject loadingScreen;
 
     public int enemiesRemaining;
@@ -92,6 +93,7 @@ public class GameManager : MonoBehaviour
             pauseState();
         }
         timeElapsed += Time.deltaTime;
+        updateTimer();
     }
 
     public void pauseState()
@@ -175,6 +177,11 @@ public class GameManager : MonoBehaviour
     {
         ammoDisplay.text = gunSystem.GetAmmoCount().ToString();
         ammoMagCount.text = gunSystem.GetMagCount().ToString();
+    }
+
+    public void updateTimer()
+    {
+        timerDisplay.text = timeElapsed.ToString("#.##");
     }
     public void CharReloading()
     {
