@@ -17,12 +17,15 @@ public class WinnersToken : MonoBehaviour
     [SerializeField] GameObject goldenTokenPrefab;
     [SerializeField] Transform spawnLocation;
     [SerializeField] Transform restLocation;
-    [Header("----- Coin Timing -----")]
+    [Header("----- Coin Pathing -----")]
     [Range(0.1f, 10)][SerializeField] float travelTime;
     [Range(0.1f, 10)][SerializeField] float pauseTime;
     [Range(0.1f, 10)][SerializeField] float riseTime;
+    [Range(0.1f, 10)][SerializeField] float riseHeight;
+    [Range(0.1f, 10)][SerializeField] float travelArcHeight;
 
-
+    float step1Height;
+    float distanceMid;
     [Header("----- Coin Spin -----")]
     [Range(0.1f, 1000)][SerializeField] float spinSpeed;
     [Range(1, 100)][SerializeField] int spinMod;
@@ -42,21 +45,26 @@ public class WinnersToken : MonoBehaviour
         step = -1;
         instance = this;
         isSpawned = false;
-        if(winStyle == WinConditions.KillXEnemies)
-        {
-           // timeOrKills = (int)timeOrKills;
-        }
+        step1Height = spawnLocation.transform.position.y + riseHeight;
+        distanceMid = (Mathf.Sqrt(Mathf.Pow(restLocation.position.x - spawnLocation.position.x, 2) + Mathf.Pow(restLocation.position.z - spawnLocation.position.z, 2))) / 2; //Distance Formula divided by 2
     }
 
     private void Update()
     {
         if (step == 0)
         {
-            token.transform.position = Vector3.Lerp(token.transform.position, new Vector3(token.transform.position.x, token.transform.position.y + 1, token.transform.position.z), Time.deltaTime * riseTime);
+            token.transform.position = Vector3.Lerp(token.transform.position, new Vector3(token.transform.position.x, riseHeight, token.transform.position.z), Time.deltaTime * riseTime);
         }
         else if (step == 2)
         {
-            token.transform.position = Vector3.Lerp(token.transform.position, restLocation.position, travelTime * Time.deltaTime);
+            if ((Mathf.Sqrt(Mathf.Pow(restLocation.position.x - token.transform.position.x, 2) + Mathf.Pow(restLocation.position.z - token.transform.position.z, 2))) > distanceMid)
+            {
+                token.transform.position = Vector3.Lerp(token.transform.position, new Vector3(restLocation.position.x,  restLocation.position.y + (travelArcHeight * 2), restLocation.position.z), travelTime * Time.deltaTime);
+            }
+            else
+            {
+                token.transform.position = Vector3.Lerp(token.transform.position, restLocation.position, travelTime * Time.deltaTime);
+            }
         }
 
         if (winStyle == WinConditions.SurviveXTime)
