@@ -60,7 +60,7 @@ public class GunSystem : MonoBehaviour
         {
             if(ammunition == 0)
             {
-                GameManager.instance.CharZeroAmmo();
+                GameManager.instance.CharZeroReserve();
             }
             else
             {
@@ -71,9 +71,17 @@ public class GunSystem : MonoBehaviour
         }
 
         //shooting
-        if (readyToShoot && isShooting && !reloading && bulletsLeft > 0)
+        
+        if (readyToShoot && isShooting && !reloading)
         {
-            Shoot();
+            if(bulletsLeft > 0)
+            {
+               Shoot();
+            }
+            else
+            {
+               GameManager.instance.CharEmtpyMag();
+            }
         }
     }
 
