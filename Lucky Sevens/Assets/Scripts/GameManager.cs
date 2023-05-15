@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI comfirmMenuText;
     public GameObject retical;
     public GameObject ShopMenu;
-    public GameObject emptyAmmo;
+    public GameObject emptyReserve;
+    public GameObject emptyMag;
     public TextMeshProUGUI ammoDisplay;
     public TextMeshProUGUI ammoMagCount;
     public TextMeshProUGUI HPDisplay;
@@ -202,20 +203,36 @@ public class GameManager : MonoBehaviour
         HPDisplay.text = playerScript.GetPlayerHP().ToString();
     }
 
-    public void CharZeroAmmo()
+    public void CharZeroReserve()
     {
-        StartCoroutine(ZeroAmmo());
+        StartCoroutine(ZeroReserve());
     }
-    IEnumerator ZeroAmmo()
+    IEnumerator ZeroReserve()
     {
         activeMenu = ReloadText;
         activeMenu.SetActive(false);
-        activeMenu = emptyAmmo;
+        activeMenu = emptyReserve;
         activeMenu.SetActive(true);
         ammoDisplay.color = Color.red;
         yield return new WaitForSeconds(2);
         ammoDisplay.color = Color.white;
-        activeMenu = emptyAmmo;
+        activeMenu = emptyReserve;
+        activeMenu.SetActive(false);
+        activeMenu = null;
+    }
+
+    public void CharEmtpyMag()
+    {
+         StartCoroutine(EmptyMag());
+    }
+    IEnumerator EmptyMag()
+    {
+        activeMenu = emptyMag;
+        activeMenu.SetActive(true);
+        ammoMagCount.color = Color.red;
+        yield return new WaitForSeconds(1);
+        ammoMagCount.color = Color.white;
+        activeMenu = emptyMag;
         activeMenu.SetActive(false);
         activeMenu = null;
     }
