@@ -12,11 +12,6 @@ public class spawner : MonoBehaviour
     int prefabsSpawnCount;
     bool playerInRange;
     bool isSpawning;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()

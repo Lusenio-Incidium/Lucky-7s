@@ -25,4 +25,23 @@ public class ButtonFunctions : MonoBehaviour
         GameManager.instance.playerScript.spawnPlayer();
         GameManager.instance.UpdatePlayerHP();
     }
+
+    public void ReturnToLobby()
+    {
+        GameManager.instance.unPauseState();
+        if(SceneManager.GetActiveScene().name != "TheHub")
+            StartCoroutine(loadHub());
+    }
+
+    IEnumerator loadHub() 
+    {
+        Animator anim = GameObject.FindGameObjectWithTag("Transition").GetComponent<Animator>();
+
+        anim.SetTrigger("Transition");
+
+        yield return new WaitForSeconds(3f);
+
+        anim.ResetTrigger("Transition");
+        SceneManager.LoadScene("TheHub");
+    }
 }

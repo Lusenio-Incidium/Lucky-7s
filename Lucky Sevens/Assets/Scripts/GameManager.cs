@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -29,30 +30,60 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI comfirmMenuText;
     public GameObject retical;
     public GameObject ShopMenu;
-    public GameObject emptyAmmo;
+    public GameObject emptyReserve;
+    public GameObject emptyMag;
     public TextMeshProUGUI ammoDisplay;
     public TextMeshProUGUI ammoMagCount;
     public TextMeshProUGUI HPDisplay;
+    public TextMeshProUGUI timerDisplay;
+    public GameObject loadingScreen;
 
     public int enemiesRemaining;
     public bool isPaused;
+    public float timeElapsed;
     float timeScaleOrig;
-    int magSize;
+    int AmmoLoaded;
     bool reloading;
 
-    // Start is called before the first frame update
     void Awake()
     {
-        instance = this;
+        //Code to check if a new game manager is made, and if it is delete it.
+        //Used for keeping the game manager and player UI throughout different scenes
+        if (instance != null && instance != this) 
+        {
+            Destroy(gameObject.transform.parent.gameObject);
+        }
+        else 
+        {
+            instance = this;
+            player = GameObject.FindGameObjectWithTag("Player");
+            playerScript = player.GetComponent<PlayerController>();
+            playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+            timeScaleOrig = Time.timeScale;
+            gunSystem = player.GetComponentInChildren<GunSystem>(player);
+            AmmoLoaded = gunSystem.GetMagCount();
+            UpdateAmmoCount();
+            
+        }
+
+        DontDestroyOnLoad(this.transform.parent);
+
+    }
+
+    //Refereshes the game manger on a new scene loaded. Just to get all the prefabs re-loaded.
+    
+    //TODO: Make player not be destroyed between scenes? Just a thought.
+    public void refreshGameManager() 
+    {
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
         gunSystem = player.GetComponentInChildren<GunSystem>(player);
+        enemiesRemaining = 0;
         UpdateAmmoCount();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetButton("Cancel") && activeMenu == null)
@@ -62,6 +93,8 @@ public class GameManager : MonoBehaviour
             activeMenu.SetActive(isPaused);
             pauseState();
         }
+        timeElapsed += Time.deltaTime;
+        updateTimer();
     }
 
     public void pauseState()
@@ -122,27 +155,34 @@ public class GameManager : MonoBehaviour
         activeMenu = ShopMenu;
         activeMenu.SetActive(true);
     }
-    public void updateGameGoal(int amount)
+    public void UpdateEnemyCount(int amount)
     {
+        int enemiesKilled = 0;
         enemiesRemaining += amount;
-
-        if (enemiesRemaining <= 0)
+        if(amount < 0)
         {
-            StartCoroutine(youWin());
+            enemiesKilled += amount * -1;
         }
+        WinnersToken.instance.UpdateEnemyCount(enemiesKilled);
     }
 
-    IEnumerator youWin()
+    public IEnumerator youWin(float time)
     {
-        yield return new WaitForSeconds(1);
+       yield return new WaitForSeconds(time); 
         activeMenu = winMenu;
         activeMenu.SetActive(true);
         pauseState();
+        yield return null;
     }
     public void UpdateAmmoCount()
     {
         ammoDisplay.text = gunSystem.GetAmmoCount().ToString();
         ammoMagCount.text = gunSystem.GetMagCount().ToString();
+    }
+
+    public void updateTimer()
+    {
+        timerDisplay.text = timeElapsed.ToString("#.##");
     }
     public void CharReloading()
     {
@@ -163,20 +203,36 @@ public class GameManager : MonoBehaviour
         HPDisplay.text = playerScript.GetPlayerHP().ToString();
     }
 
-    public void CharZeroAmmo()
+    public void CharZeroReserve()
     {
-        StartCoroutine(ZeroAmmo());
+        StartCoroutine(ZeroReserve());
     }
-    IEnumerator ZeroAmmo()
+    IEnumerator ZeroReserve()
     {
         activeMenu = ReloadText;
         activeMenu.SetActive(false);
-        activeMenu = emptyAmmo;
+        activeMenu = emptyReserve;
         activeMenu.SetActive(true);
         ammoDisplay.color = Color.red;
         yield return new WaitForSeconds(2);
         ammoDisplay.color = Color.white;
-        activeMenu = emptyAmmo;
+        activeMenu = emptyReserve;
+        activeMenu.SetActive(false);
+        activeMenu = null;
+    }
+
+    public void CharEmtpyMag()
+    {
+         StartCoroutine(EmptyMag());
+    }
+    IEnumerator EmptyMag()
+    {
+        activeMenu = emptyMag;
+        activeMenu.SetActive(true);
+        ammoMagCount.color = Color.red;
+        yield return new WaitForSeconds(1);
+        ammoMagCount.color = Color.white;
+        activeMenu = emptyMag;
         activeMenu.SetActive(false);
         activeMenu = null;
     }

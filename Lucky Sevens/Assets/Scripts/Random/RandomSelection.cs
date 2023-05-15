@@ -33,7 +33,7 @@ public class RandomSelection : MonoBehaviour
         result = -1;
         if(rollTimeMin > rollTimeMax)
         {
-            Debug.LogError("CRITICAL RANDOMIZER ERR - rollTimeMin is greater than rollTimeMax");
+            GameManager.instance.ErrorMenu("CRITICAL RANDOMIZER ERR - rollTimeMin is greater than rollTimeMax");
             critErr = true;
         }
         GameObject[] temp = GameObject.FindGameObjectsWithTag("RandomizerLight");
@@ -103,7 +103,7 @@ public class RandomSelection : MonoBehaviour
 
         if(_actionObjects.Count != _lightObjects.Count)
         {
-            Debug.LogError("CRITICAL RANDOMIZER ERR - There are not equal numbers of Action Objects and Light Objects");
+            GameManager.instance.ErrorMenu("CRITICAL RANDOMIZER ERR - There are not equal numbers of Action Objects and Light Objects");
             critErr = true;
         }
     }
