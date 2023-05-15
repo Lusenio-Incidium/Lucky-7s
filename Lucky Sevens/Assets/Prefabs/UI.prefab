@@ -1329,6 +1329,7 @@ GameObject:
   - component: {fileID: 969591961}
   - component: {fileID: 969591960}
   - component: {fileID: 969591959}
+  - component: {fileID: 969591964}
   m_Layer: 5
   m_Name: Scene Transition
   m_TagString: Transition
@@ -1428,6 +1429,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &969591964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969591957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb6b08fb99c59748bcde76317191a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1030834152
 GameObject:
   m_ObjectHideFlags: 0
@@ -8168,7 +8181,7 @@ MonoBehaviour:
   ammoMagCount: {fileID: 1355724885}
   HPDisplay: {fileID: 2073443738}
   timerDisplay: {fileID: 1496905108}
-  loadingScreen: {fileID: 0}
+  loadingScreen: {fileID: 969591957}
   enemiesRemaining: 0
   isPaused: 0
   timeElapsed: 0
