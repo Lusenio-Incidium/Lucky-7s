@@ -731,7 +731,7 @@ RectTransform:
   m_Children:
   - {fileID: 1496905107}
   m_Father: {fileID: 1974690381126021408}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1329,6 +1329,7 @@ GameObject:
   - component: {fileID: 969591961}
   - component: {fileID: 969591960}
   - component: {fileID: 969591959}
+  - component: {fileID: 969591964}
   m_Layer: 5
   m_Name: Scene Transition
   m_TagString: Transition
@@ -1350,7 +1351,7 @@ RectTransform:
   m_Children:
   - {fileID: 1488812889}
   m_Father: {fileID: 1974690381126021408}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1428,6 +1429,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &969591964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969591957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb6b08fb99c59748bcde76317191a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1030834152
 GameObject:
   m_ObjectHideFlags: 0
@@ -8225,7 +8238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   playerScript: {fileID: 0}
-  playerSpawnPos: {fileID: 2826349424917417883, guid: 3bab19a6c45a0f946bdd9b2f17c2e0a3, type: 3}
+  playerSpawnPos: {fileID: 0}
   gunSystem: {fileID: 0}
   storeTokens: 0
   playerAmmo: 0
@@ -8246,7 +8259,7 @@ MonoBehaviour:
   ammoMagCount: {fileID: 1355724885}
   HPDisplay: {fileID: 2073443738}
   timerDisplay: {fileID: 1496905108}
-  loadingScreen: {fileID: 0}
+  loadingScreen: {fileID: 969591957}
   enemiesRemaining: 0
   isPaused: 0
   timeElapsed: 0
@@ -8440,8 +8453,8 @@ RectTransform:
   - {fileID: 1514460524}
   - {fileID: 1862284187}
   - {fileID: 1322491327}
-  - {fileID: 969591958}
   - {fileID: 589696534}
+  - {fileID: 969591958}
   - {fileID: 3015911909012915249}
   m_Father: {fileID: 0}
   m_RootOrder: 0
