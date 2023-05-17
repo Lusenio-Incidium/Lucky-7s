@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
     [SerializeField] Transform shootPos;
 
@@ -16,6 +17,9 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] int HP;
     [SerializeField] float viewAngle;
     [SerializeField] int playerFaceSpeed;
+    [SerializeField] int roamDistance;
+    [SerializeField] int roamPauseTime;
+    [SerializeField] int animTransSpeed;
 
     [Header("----- EnemyWeapons -----")]
     [SerializeField] float shootSpeed;
@@ -32,26 +36,57 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     float angleOfPlayer;
     bool playerInRange;
     bool destination;
+    Vector3 startingPos;
+    bool destinationChosen;
+    float stoppingDistanceOrig;
+    float speed;
     // Start is called before the first frame update
     void Start()
     {
         colorOrig = model.material.color;
         OrigSpeed = agent.speed;
         GameManager.instance.UpdateEnemyCount(1);
+        startingPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (destination)
-            FacePlayer();
-
-        if(playerInRange && CanSeePlayer())
+        if (agent.isActiveAndEnabled)
         {
+            speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
 
+            if (destination)
+                FacePlayer();
+
+            if (playerInRange && !CanSeePlayer())
+            {
+                StartCoroutine(Roam());
+            }
+            else if (agent.destination != GameManager.instance.player.transform.position)
+            {
+                StartCoroutine(Roam());
+            }
         }
     }
+    IEnumerator Roam()
+    {
+        if(!destinationChosen && agent.remainingDistance <0.05f)
+        {
+            destinationChosen = true;
+            agent.stoppingDistance = 0;
+            yield return new WaitForSeconds(roamPauseTime);
+            destinationChosen = false;
 
+            Vector3 ranPos = UnityEngine.Random.insideUnitSphere * roamDistance;
+            ranPos += startingPos;
+
+            NavMeshHit hit;
+            NavMesh.SamplePosition(ranPos, out hit, roamDistance,1);
+
+            agent.SetDestination(hit.position);
+        }
+    }
     bool CanSeePlayer()
     {
         playerDir = GameManager.instance.player.transform.position - headPos.position;
@@ -160,6 +195,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     }
     public void FacePlayer()
     {
+        playerDir = GameManager.instance.player.transform.position - headPos.position;
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * playerFaceSpeed);
     }
