@@ -24,7 +24,7 @@ public class GunSystem : MonoBehaviour
     Rigidbody Bullet;
 
     //bools to ask game
-    [SerializeField] bool allowButtonHolding;
+    bool allowButtonHolding;
     bool isShooting;
     bool readyToShoot;
     bool reloading;
@@ -62,7 +62,7 @@ public class GunSystem : MonoBehaviour
         //reloading
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && !reloading)
         {
-            if(ammunition == 0)
+            if (ammunition == 0)
             {
                 GameManager.instance.CharZeroReserve();
             }
@@ -71,23 +71,23 @@ public class GunSystem : MonoBehaviour
                 GameManager.instance.CharReloading();
                 Reload();
             }
-            
+
         }
 
         //shooting
-        
+
         if (readyToShoot && isShooting && !reloading)
         {
-            if(bulletsLeft > 0)
+            if (bulletsLeft > 0)
             {
-               Shoot();
+                Shoot();
             }
             else
             {
-               GameManager.instance.CharEmtpyMag();
+                GameManager.instance.CharEmtpyMag();
             }
         }
-        if (Input.GetAxis("Mouse ScrollWheel")> 0)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             currentWeapon = (currentWeapon + 1) % weapons.Count;
             EquipWeapon(currentWeapon);
@@ -124,7 +124,15 @@ public class GunSystem : MonoBehaviour
         bulletsShot++;
         GameManager.instance.UpdateAmmoCount();
 
-        Invoke("ResetShot", timeBetweenShots);
+        if (allowButtonHolding && bulletsLeft > 0)
+        {
+            Invoke("Shoot", timeBetweenShots);
+        }
+        else
+        {
+            Invoke("ResetShot", timeBetweenShots);
+
+        }
     }
 
     //while not shooting
@@ -161,7 +169,7 @@ public class GunSystem : MonoBehaviour
         weapons.Add(gunStat);
         if (weapons.Count == 1)
         {
-            EquipWeapon(0); 
+            EquipWeapon(0);
         }
     }
 
@@ -174,11 +182,11 @@ public class GunSystem : MonoBehaviour
         range = weapons[index].range;
         reloadTime = weapons[index].reloadTime;
         spread = weapons[index].spread;
-        bulletsPerTap= weapons[index].bulletsPerTap;
-        magSize= weapons[index].magSize;
+        bulletsPerTap = weapons[index].bulletsPerTap;
+        magSize = weapons[index].magSize;
         bulletsLeft = weapons[index].magSize;
-        ammunition= weapons[index].magSize * 4;
-        statusEffect= weapons[index].statusEffect;
+        ammunition = weapons[index].magSize * 4;
+        statusEffect = weapons[index].statusEffect;
         Bullet = weapons[index].bulletPreFab;
 
         GameManager.instance.UpdateAmmoCount();
