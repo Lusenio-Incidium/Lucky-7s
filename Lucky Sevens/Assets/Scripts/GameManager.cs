@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 
 
@@ -105,6 +106,21 @@ public class GameManager : MonoBehaviour
         retical.SetActive(false);
         
     }
+
+
+    public IEnumerator loadScene(string sceen)
+    {
+        isPaused = true;
+        Animator anim = loadingScreen.GetComponent<Animator>();
+        activeMenu = loadingScreen;
+        GameManager.instance.loadingScreen.SetActive(true);
+        anim.SetTrigger("Transition");
+
+        yield return new WaitForSeconds(3f);
+        anim.ResetTrigger("Transition");
+        SceneManager.LoadScene(sceen);
+    }
+
 
     public void unPauseState()
     {
