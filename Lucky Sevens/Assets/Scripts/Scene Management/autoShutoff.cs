@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class autoShutoff : MonoBehaviour
 {
-    void Start()
+    [SerializeField] bool refresh;
+
+    private void Update()
     {
-        this.gameObject.SetActive(false); 
+       if(refresh == true) 
+        {
+            GameManager.instance.unPauseState();
+            refresh = false;
+        }
     }
 }
