@@ -9,18 +9,19 @@ public class GunSystem : MonoBehaviour
 {
     //Stats
     [Header("----- Gun Stats -----")]
-    [SerializeField] int dmg;
-    [SerializeField] float timeBetweenShots;
-    [SerializeField] float range;
-    [SerializeField] float reloadTime;
-    [SerializeField] float spread;
-    [SerializeField] int bulletsPerTap;
-    [SerializeField] int magSize;
-    [SerializeField] int bulletsLeft;
-    [SerializeField] int ammunition;
-    [SerializeField] int bulletsShot;
-    [SerializeField] StatusEffectObj statusEffect;
-    [SerializeField] Rigidbody Bullet;
+    //keeping these stats serialized until i can figure out how to get the newpickup gun to work like in class
+    int dmg;
+    float timeBetweenShots;
+    float range;
+    float reloadTime;
+    float spread;
+    int bulletsPerTap;
+    int magSize;
+    int bulletsLeft;
+    int ammunition;
+    int bulletsShot;
+    StatusEffectObj statusEffect;
+    Rigidbody Bullet;
 
     //bools to ask game
     [SerializeField] bool allowButtonHolding;
@@ -29,6 +30,9 @@ public class GunSystem : MonoBehaviour
     bool reloading;
 
     public RaycastHit rayHit;
+
+    public List<GunStats> weapons;
+    public int currentWeapon = 0;
 
     //TODO: Add way to carry these stats (bullets left and ammunition) through the game manager to let ammo go through GameManager
     private void Awake()
@@ -82,6 +86,16 @@ public class GunSystem : MonoBehaviour
             {
                GameManager.instance.CharEmtpyMag();
             }
+        }
+        if (Input.GetAxis("Mouse ScrollWheel")> 0)
+        {
+            currentWeapon = (currentWeapon + 1) % weapons.Count;
+            EquipWeapon(currentWeapon);
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            currentWeapon = (currentWeapon - 1 + weapons.Count) % weapons.Count;
+            EquipWeapon(currentWeapon);
         }
     }
 
@@ -141,6 +155,33 @@ public class GunSystem : MonoBehaviour
         reloading = false;
         GameManager.instance.UpdateAmmoCount();
         GameManager.instance.activeMenu = null;
+    }
+    public void PickUpWeapon(GunStats gunStat)
+    {
+        weapons.Add(gunStat);
+        if (weapons.Count == 1)
+        {
+            EquipWeapon(0); 
+        }
+    }
+
+    public void EquipWeapon(int index)
+    {
+        currentWeapon = index;
+
+        dmg = weapons[index].damage;
+        timeBetweenShots = weapons[index].timeBetweenShots;
+        range = weapons[index].range;
+        reloadTime = weapons[index].reloadTime;
+        spread = weapons[index].spread;
+        bulletsPerTap= weapons[index].bulletsPerTap;
+        magSize= weapons[index].magSize;
+        bulletsLeft = weapons[index].magSize;
+        ammunition= weapons[index].magSize * 4;
+        statusEffect= weapons[index].statusEffect;
+        Bullet = weapons[index].bulletPreFab;
+
+        GameManager.instance.UpdateAmmoCount();
     }
 
     public void AddBullets(int amount)

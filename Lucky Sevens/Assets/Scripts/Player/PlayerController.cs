@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour,IDamage
+public class PlayerController : MonoBehaviour, IDamage
 {
 
     //Variables
@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour,IDamage
     [SerializeField] CharacterController controller;
 
     [Header("- - - Atributes - - -")]
+    public List<GunStats> gunList = new List<GunStats>();
     [Range(1, 100)][SerializeField] int HP;
     [SerializeField][Range(1.0f, 10.0f)] float playerSpeed;
     [SerializeField][Range(1.5f, 5.0f)] float sprintMod;
@@ -25,6 +26,9 @@ public class PlayerController : MonoBehaviour,IDamage
     int jumpTimes;
     private int HPOrig;
 
+    int selectedGunNum = 0;
+    GunSystem gunSystem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,8 @@ public class PlayerController : MonoBehaviour,IDamage
         GetPlayerHP();
         GameManager.instance.UpdatePlayerHP();
         spawnPlayer();
+
+        gunSystem = GetComponent<GunSystem>();
     }
 
     // Update is called once per frame
@@ -40,6 +46,7 @@ public class PlayerController : MonoBehaviour,IDamage
         movement();
         interact();
         sprint();
+        switchGun();
     }
 
     void movement()
@@ -73,7 +80,7 @@ public class PlayerController : MonoBehaviour,IDamage
         HP -= amount;
         GetPlayerHP();
         GameManager.instance.UpdatePlayerHP();
-        if(HP <= 0)
+        if (HP <= 0)
         {
             GameManager.instance.youLose();
         }
@@ -98,25 +105,46 @@ public class PlayerController : MonoBehaviour,IDamage
         }
     }
 
-    void interact() 
+    void interact()
     {
         Debug.Log("This works");
         RaycastHit hit;
         Debug.DrawRay(transform.position, transform.forward);
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, interactDist)) 
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, interactDist))
         {
             Debug.Log("This works too");
             if (hit.collider.GetComponent<IInteractable>() != null)
             {
                 Debug.Log("Press E to interact");
 
-                if (Input.GetButtonDown("Interact")) 
+                if (Input.GetButtonDown("Interact"))
                 {
                     hit.collider.GetComponent<IInteractable>().onInteract();
                 }
             }
         }
     }
+    void switchGun()
+    {
+        int previousGunNum = selectedGunNum;
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            selectedGunNum = (selectedGunNum + 1) % gunList.Count;
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            selectedGunNum--;
+            if (selectedGunNum < 0)
+            {
+                selectedGunNum = gunList.Count - 1;
+            }
+        }
+        if (previousGunNum != selectedGunNum)
+        {
+            gunSystem.EquipWeapon(selectedGunNum);
+        }
+    }
+
 
     public int GetPlayerHP()
     {

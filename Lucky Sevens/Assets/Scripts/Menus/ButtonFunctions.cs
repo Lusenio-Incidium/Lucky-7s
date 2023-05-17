@@ -30,18 +30,7 @@ public class ButtonFunctions : MonoBehaviour
     {
         GameManager.instance.unPauseState();
         if(SceneManager.GetActiveScene().name != "TheHub")
-            StartCoroutine(loadHub());
+            StartCoroutine(GameManager.instance.loadScene("TheHub"));
     }
 
-    IEnumerator loadHub() 
-    {
-        Animator anim = GameObject.FindGameObjectWithTag("Transition").GetComponent<Animator>();
-
-        anim.SetTrigger("Transition");
-
-        yield return new WaitForSeconds(3f);
-
-        anim.ResetTrigger("Transition");
-        SceneManager.LoadScene("TheHub");
-    }
 }
