@@ -15,11 +15,12 @@ public class DamageButton : MonoBehaviour
         }
         hit = true;
         StartCoroutine(SlotsController.instance.OpenHatch());
-        press.Reset();
+
     }
 
     public void primeButton()
     {
         hit = false;
+        press.Reset();
     }
 }

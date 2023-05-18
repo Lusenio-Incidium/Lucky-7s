@@ -19,6 +19,7 @@ public class WinnersToken : MonoBehaviour
     [SerializeField] Transform restLocation;
     [Header("----- Coin Pathing -----")]
     [Range(0.1f, 10)][SerializeField] float travelTime;
+    [Range(1, 100)][SerializeField] float tokenSpeed;
     [Range(0.1f, 10)][SerializeField] float pauseTime;
     [Range(0.1f, 10)][SerializeField] float riseTime;
     [Range(0.1f, 10)][SerializeField] float riseHeight;
@@ -58,14 +59,10 @@ public class WinnersToken : MonoBehaviour
         }
         else if (step == 2)
         {
-            if ((Mathf.Sqrt(Mathf.Pow(restLocation.position.x - token.transform.position.x, 2) + Mathf.Pow(restLocation.position.z - token.transform.position.z, 2))) > distanceMid)
-            {
-                token.transform.position = Vector3.Lerp(token.transform.position, new Vector3(restLocation.position.x,  restLocation.position.y + (travelArcHeight * 2), restLocation.position.z), travelTime * Time.deltaTime);
-            }
-            else
-            {
-                token.transform.position = Vector3.Lerp(token.transform.position, restLocation.position, travelTime * Time.deltaTime);
-            }
+            float distCur = Vector3.Distance(token.transform.position, restLocation.position);
+
+            Vector3 endPosition = new Vector3(restLocation.position.x, restLocation.position.y + (distCur / 2f), restLocation.position.z);
+            token.transform.position = Vector3.MoveTowards(token.transform.position, endPosition, Time.deltaTime * tokenSpeed);
         }
 
         if (winStyle == WinConditions.SurviveXTime)

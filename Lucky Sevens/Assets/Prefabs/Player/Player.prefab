@@ -50,19 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c7f0821f057cd40bd38a4ed540c499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 0
-  timeBetweenShots: 0
-  range: 0
-  reloadTime: 0
-  spread: 0
-  bulletsPerTap: 0
-  magSize: 0
-  bulletsLeft: 0
-  ammunition: 0
-  bulletsShot: 0
-  statusEffect: {fileID: 0}
-  Bullet: {fileID: 0}
-  allowButtonHolding: 0
   weapons: []
   currentWeapon: 0
 --- !u!114 &581697804747712964
@@ -78,11 +65,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 581697804747712966}
+  gunList: []
   HP: 15
-  playerSpeed: 5
-  sprintMod: 1.5
-  jumpHeight: 8
-  gravityScale: 15.5
+  playerSpeed: 10
+  sprintMod: 2
+  jumpHeight: 10
+  gravityScale: 19.5
   maxJumpAmmount: 2
   interactDist: 5
 --- !u!33 &581697804747713019
