@@ -33,10 +33,12 @@ public class GunSystem : MonoBehaviour
 
     public List<GunStats> weapons;
     public int currentWeapon = 0;
+    public bool hasGun;
 
     //TODO: Add way to carry these stats (bullets left and ammunition) through the game manager to let ammo go through GameManager
     private void Awake()
     {
+        hasGun = false;
         bulletsLeft = magSize;
         ammunition = magSize * 4;
         readyToShoot = true;
@@ -171,6 +173,7 @@ public class GunSystem : MonoBehaviour
         {
             EquipWeapon(0);
         }
+        hasGun = true;
     }
 
     public void EquipWeapon(int index)

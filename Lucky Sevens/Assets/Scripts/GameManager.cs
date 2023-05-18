@@ -202,7 +202,8 @@ public class GameManager : MonoBehaviour
     }
     public void CharReloading()
     {
-        StartCoroutine(Reload());
+        if(gunSystem.hasGun == true)
+           StartCoroutine(Reload());
     }
 
     IEnumerator Reload()
@@ -221,7 +222,8 @@ public class GameManager : MonoBehaviour
 
     public void CharZeroReserve()
     {
-        StartCoroutine(ZeroReserve());
+        if (gunSystem.hasGun == true)
+            StartCoroutine(ZeroReserve());
     }
     IEnumerator ZeroReserve()
     {
@@ -239,7 +241,8 @@ public class GameManager : MonoBehaviour
 
     public void CharEmtpyMag()
     {
-         StartCoroutine(EmptyMag());
+        if (gunSystem.hasGun == true)
+            StartCoroutine(EmptyMag());
     }
     IEnumerator EmptyMag()
     {
