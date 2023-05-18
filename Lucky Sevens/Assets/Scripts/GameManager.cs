@@ -121,18 +121,22 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         anim.ResetTrigger("Transition");
         SceneManager.LoadScene(sceen);
+        loadingScreen.GetComponent<autoShutoff>().enabled = true;
     }
 
 
     public void unPauseState()
     {
-        Time.timeScale = timeScaleOrig;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        isPaused = !isPaused;
-        activeMenu.SetActive(false);
-        activeMenu = null;
-        retical.SetActive(true);
+        if(activeMenu != null) 
+        {
+            Time.timeScale = timeScaleOrig;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            isPaused = !isPaused;
+            activeMenu.SetActive(false);
+            activeMenu = null;
+            retical.SetActive(true);
+        } 
     }
 
     public void youLose()
