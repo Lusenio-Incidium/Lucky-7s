@@ -107,21 +107,27 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void interact()
     {
-        Debug.Log("This works");
         RaycastHit hit;
         Debug.DrawRay(transform.position, transform.forward);
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, interactDist))
         {
-            Debug.Log("This works too");
             if (hit.collider.GetComponent<IInteractable>() != null)
             {
-                Debug.Log("Press E to interact");
+                GameManager.instance.interactTxt.gameObject.SetActive(true);
 
                 if (Input.GetButtonDown("Interact"))
                 {
                     hit.collider.GetComponent<IInteractable>().onInteract();
                 }
             }
+            else 
+            {
+                GameManager.instance.interactTxt.gameObject.SetActive(false);
+            }
+        }
+        else 
+        {
+            GameManager.instance.interactTxt.gameObject.SetActive(false);
         }
     }
     void switchGun()

@@ -10,7 +10,7 @@ public class autoShutoff : MonoBehaviour
     {
        if(refresh == true) 
         {
-            GameManager.instance.unPauseState();
+            //GameManager.instance.unPauseState();
             refresh = false;
         }
     }

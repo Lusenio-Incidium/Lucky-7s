@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI HPDisplay;
     public TextMeshProUGUI timerDisplay;
     public GameObject loadingScreen;
+    public GameObject interactTxt;
 
     public int enemiesRemaining;
     public bool isPaused;
