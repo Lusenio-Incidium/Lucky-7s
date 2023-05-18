@@ -7,6 +7,7 @@ public class RandomSelection : MonoBehaviour
 {
     List<IRandomizeAction> _actionObjects;
     List<IRandomizeHighlight> _lightObjects;
+    [SerializeField] int _cycleID;
     int selection;
     [Header("--- Roll Stats ---")]
     [Range(0.1f,10)][SerializeField] float idleShiftTime; //How long it takes for the light to change when not rolling
@@ -40,7 +41,7 @@ public class RandomSelection : MonoBehaviour
         foreach (GameObject obj in temp)
         {
             IRandomizeHighlight tempRandomHighlight = obj.GetComponent<IRandomizeHighlight>();
-            if (tempRandomHighlight != null)
+            if (tempRandomHighlight != null && tempRandomHighlight.GetID() == _cycleID)
             {
                 bool inserted = false;
                 for(int x = 0; x < _lightObjects.Count; x++)
@@ -63,8 +64,8 @@ public class RandomSelection : MonoBehaviour
                     _lightObjects.Add(tempRandomHighlight);
                 }
             }
-             else
-             {
+             else if (tempRandomHighlight == null)
+            {
                  Debug.LogWarning("RANDOMIZER ERR - Object \"" + obj.name +"\" has tag \"RandomizerLight\" and does not have IRandomizeHighlight");
              }
         }
@@ -72,7 +73,7 @@ public class RandomSelection : MonoBehaviour
         foreach (GameObject obj in temp)
         {
             IRandomizeAction tempRandomHighlight = obj.GetComponent<IRandomizeAction>();
-            if (tempRandomHighlight != null)
+            if (tempRandomHighlight != null && tempRandomHighlight.GetID() == _cycleID)
             {
                 bool inserted = false;
                 for (int x = 0; x < _actionObjects.Count; x++)
@@ -95,7 +96,7 @@ public class RandomSelection : MonoBehaviour
                     _actionObjects.Add(tempRandomHighlight);
                 }
             }
-            else
+            else if (tempRandomHighlight == null)
             {
                 Debug.LogWarning("RANDOMIZER ERR - Object \"" + obj.name + "\" has tag \"RandomizerActions\" and does not have IRandomizeAction");
             }

@@ -8,4 +8,6 @@ public interface IRandomizeHighlight
     public void OffHighlight();
     public void OnSelect();
     public int GetPosition();
+
+    public int GetID();
 }

@@ -16,7 +16,7 @@ public class ArenaSpawner : MonoBehaviour
     [SerializeField][Range(0, 5)] float intervalTime;
     [SerializeField][Range(0, 100)] float rangeRadius;
     [SerializeField] SpawnStyles spawnMethod;
-    [SerializeField] Transform[] machineSpawnLocations;
+    [SerializeField] Transform[] spawnLocations;
     // Start is called before the first frame update
 
     bool spawning = false;
@@ -28,38 +28,25 @@ public class ArenaSpawner : MonoBehaviour
             StartCoroutine(spawn());
         }
     }
-    public void SetSpawnConditions(GameObject obj, int spawnNum, float spawnBreak, SpawnStyles style, float radius, int batch)
+    public void SetSpawnConditions(SpawnConditions conditions)
     {
-        prefab = obj;
-        spawnAmount = spawnNum;
-        intervalTime = spawnBreak;
-        spawnMethod = style;
-        rangeRadius = radius;
-        batchSize = batch;
+        prefab = conditions.GetSpawnObj();
+        spawnAmount = conditions.GetSpawnCount();
+        intervalTime = conditions.GetSpawnDelay();
+        spawnMethod = conditions.GetSpawnStyles();
+        rangeRadius = conditions.GetAccuracy();
+        batchSize = conditions.GetBatchSize();
     }
     IEnumerator spawn()
     {
         if (spawnMethod == SpawnStyles.RandomScatter)
-            Instantiate(prefab, new Vector3(gameObject.transform.position.x + Random.Range(-1 * rangeRadius, rangeRadius), gameObject.transform.position.y, gameObject.transform.position.z + Random.Range(-1 * rangeRadius, rangeRadius)), prefab.transform.rotation);
-        else if (spawnMethod == SpawnStyles.FireAtPlayer) {
-            int rand = Random.Range(0, machineSpawnLocations.Length);
-            Instantiate(prefab, machineSpawnLocations[rand].position, machineSpawnLocations[rand].rotation);
-        }
+            RandomScatter();
+        else if (spawnMethod == SpawnStyles.FireAtPlayer)
+            FireAtPlayer();
         else if (spawnMethod == SpawnStyles.BatchScatter)
-        {
-            for(int x = 0; x < batchSize; x++)
-            {
-                Instantiate(prefab, new Vector3(gameObject.transform.position.x + Random.Range(-1 * rangeRadius, rangeRadius), gameObject.transform.position.y, gameObject.transform.position.z + Random.Range(-1 * rangeRadius, rangeRadius)), prefab.transform.rotation);
-            }
-        }
+            BatchScatter();
         else if (spawnMethod == SpawnStyles.FireOnAllFronts)
-        {
-            foreach (Transform location in machineSpawnLocations)
-            {
-                Instantiate(prefab, location.position, location.rotation);
-            }
-
-        }
+            FireOnAllFronts();
         spawnAmount--;
         if(spawnAmount <= 0)
         {
@@ -68,6 +55,39 @@ public class ArenaSpawner : MonoBehaviour
         spawning = true;
         yield return new WaitForSeconds(intervalTime);
         spawning = false;
+    }
+
+
+    // SPAWN METHODS HERE! Add to Enum in SpawnConditions and spawn() as well
+    void RandomScatter()
+    {
+        Instantiate(prefab, 
+            new Vector3(gameObject.transform.position.x + Random.Range(-1 * rangeRadius, rangeRadius), gameObject.transform.position.y, gameObject.transform.position.z + Random.Range(-1 * rangeRadius, rangeRadius)), 
+            prefab.transform.rotation);
+    }
+
+    void FireAtPlayer()
+    {
+        int rand = Random.Range(0, spawnLocations.Length);
+        Instantiate(prefab, spawnLocations[rand].position, spawnLocations[rand].rotation);
+    }
+
+    void BatchScatter()
+    {
+        for (int x = 0; x < batchSize; x++)
+        {
+            Instantiate(prefab, 
+            new Vector3(gameObject.transform.position.x + Random.Range(-1 * rangeRadius, rangeRadius), gameObject.transform.position.y, gameObject.transform.position.z + Random.Range(-1 * rangeRadius, rangeRadius)), 
+            prefab.transform.rotation);
+        }
+    }
+
+    void FireOnAllFronts()
+    {
+        foreach (Transform location in spawnLocations)
+        {
+            Instantiate(prefab, location.position, location.rotation);
+        }
     }
 }
 

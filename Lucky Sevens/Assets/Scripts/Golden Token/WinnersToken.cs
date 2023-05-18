@@ -51,6 +51,7 @@ public class WinnersToken : MonoBehaviour
 
     private void Update()
     {
+        
         if (step == 0)
         {
             token.transform.position = Vector3.Lerp(token.transform.position, new Vector3(token.transform.position.x, riseHeight, token.transform.position.z), Time.deltaTime * riseTime);

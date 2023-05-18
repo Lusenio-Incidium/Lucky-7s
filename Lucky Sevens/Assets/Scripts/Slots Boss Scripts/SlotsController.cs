@@ -35,22 +35,20 @@ public class SlotsController : MonoBehaviour
 
     public static SlotsController instance;
     [Header("--- Wheel Objects ---")]
-    [SerializeField] GameObject _slot1;
-    [SerializeField] GameObject _slot2;
-    [SerializeField] GameObject _slot3;
-    [SerializeField] GameObject[] _weakPoints;
+    [SerializeField] GameObject _leftSlot;
+    [SerializeField] GameObject _middleSlot;
+    [SerializeField] GameObject _rightSlot;
+    [SerializeField] Animator _LeftHatch;
+    [SerializeField] Animator _RightHatch;
+    [SerializeField] Animator _BottomHatch;
+    [SerializeField] Animator _TopHatch;
     [SerializeField] ArenaSpawner spawner1;
     [SerializeField] ArenaSpawner spawner2;
     [SerializeField] ArenaSpawner spawner3;
 
-    float _currSpinDelay;
-    float _currStopDelay;
-    bool _isSpinning;
-    bool _canStop;
-    bool _wheel1Spin;
-    bool _wheel2Spin;
-    bool _wheel3Spin;
+
     [Header("--- Slot Stats ---")]
+    [Range(1, 50)][SerializeField] float _hatchOpenTime;
     [Range(1,100)][SerializeField] float _spinSpeed;
     [Range(0.1f, 1)][SerializeField] float _spinStartDelay;
    
@@ -62,8 +60,15 @@ public class SlotsController : MonoBehaviour
     [Range(0.1f, 10)][SerializeField] float wheelStopDelayMin;
 
 
-
-
+    float _currSpinDelay;
+    float _currStopDelay;
+    bool _isSpinning;
+    bool _canStop;
+    bool _wheel1Spin;
+    bool _wheel2Spin;
+    bool _wheel3Spin;
+    float _currHatchOpenTime;
+    bool _hatchOpen;
     [Range(0, 100)][SerializeField] int jackpotOdds; //How likely it is to get 3 in a row
     [Range(0, 100)][SerializeField] int jackpotMod; //How much the likelyhood of getting 3 in a row goes up after missing
 
@@ -110,7 +115,7 @@ public class SlotsController : MonoBehaviour
     public void Begin()
     {
         isStunned = false;
-        activateWeakPoints();
+        
     }
 
     public void UpdateWeakPoints(int count)
@@ -130,13 +135,7 @@ public class SlotsController : MonoBehaviour
         else
             waitingForSpawner3 = false;
     }
-    void activateWeakPoints()
-    {
-        foreach(GameObject obj in _weakPoints)
-        {
-            obj.GetComponent<SlotsWeakPoint>().Activate();
-        }
-    }
+
     public void DamageWheel()
     {
         Health--;
@@ -187,18 +186,18 @@ public class SlotsController : MonoBehaviour
             if (_wheel1Spin && Health >= 3)
             {
                 _wheel1Spin = false;
-                _slot1.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelOneResult) + (90 - (360 / 20)), 0, 0);
+                _leftSlot.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelOneResult) + (90 - (360 / 20)), 0, 0);
                 _currStopDelay = UnityEngine.Random.Range(wheelStopDelayMin, wheelStopDelayMax);
             }
 
             if (!_wheel1Spin && _currStopDelay <= 0 && _wheel2Spin)
             {
                 _wheel2Spin = false;
-                _slot2.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelTwoResult) + (90 - (360 / 20)), 0, 0);
+                _rightSlot.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelTwoResult) + (90 - (360 / 20)), 0, 0);
                 _currStopDelay = UnityEngine.Random.Range(wheelStopDelayMin, wheelStopDelayMax);
             }
             if (!_wheel2Spin && _currStopDelay <= 0 && _wheel3Spin) { 
-                _slot3.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelThreeResult) + (90 - (360 / 20)), 0, 0);
+                _rightSlot.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelThreeResult) + (90 - (360 / 20)), 0, 0);
                 _wheel3Spin = false;
                 _isSpinning = false;
                 _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
@@ -215,16 +214,16 @@ public class SlotsController : MonoBehaviour
     {
         if (_wheelOneResult == _wheelTwoResult && _wheelTwoResult == _wheelThreeResult)
         {
-            spawner1.SetSpawnConditions(jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnObj(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnCount(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnDelay(), jackpotFaceStats[(int)_wheelOneResult - 1].GetSpawnStyles(), jackpotFaceStats[(int)_wheelOneResult - 1].GetAccuracy(), jackpotFaceStats[(int)_wheelOneResult - 1].GetBatchSize()); //This is stupid but it's 5:30 and I'll fix it when I don't wanna kms
+            spawner1.SetSpawnConditions(jackpotFaceStats[(int)_wheelOneResult - 1]);
             if (jackpotFaceStats[(int)_wheelOneResult - 1].GetWaitForSpawner())
             {
                 waitingForSpawner1 = true;
             }
             return;
         }
-        spawner1.SetSpawnConditions(normalFaceStats[(int)_wheelOneResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelOneResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelOneResult - 1].GetAccuracy(), normalFaceStats[(int)_wheelOneResult - 1].GetBatchSize());
-        spawner2.SetSpawnConditions(normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelTwoResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelTwoResult - 1].GetAccuracy(), normalFaceStats[(int)_wheelTwoResult - 1].GetBatchSize());
-        spawner3.SetSpawnConditions(normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnObj(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnCount(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnDelay(), normalFaceStats[(int)_wheelThreeResult - 1].GetSpawnStyles(), normalFaceStats[(int)_wheelThreeResult - 1].GetAccuracy(), normalFaceStats[(int)_wheelThreeResult - 1].GetBatchSize());
+        spawner1.SetSpawnConditions(normalFaceStats[(int)_wheelOneResult - 1]);
+        spawner2.SetSpawnConditions(normalFaceStats[(int)_wheelTwoResult - 1]);
+        spawner3.SetSpawnConditions(normalFaceStats[(int)_wheelThreeResult - 1]);
         if (normalFaceStats[(int)_wheelOneResult - 1].GetWaitForSpawner())
         {
             waitingForSpawner1 = true;
@@ -239,6 +238,42 @@ public class SlotsController : MonoBehaviour
         }
     }
 
+    public IEnumerator OpenHatch()
+    {
+        if(Health == 3)
+        {
+            _LeftHatch.SetBool("HatchOpen", true);
+        }
+        if (Health == 2)
+        {
+            _RightHatch.SetBool("HatchOpen", true);
+        }
+        if (Health == 1)
+        {
+            _BottomHatch.SetBool("HatchOpen", true);
+        }
+        yield return new WaitForSeconds(_hatchOpenTime);
+        SealHatch();
+    }
+
+    void SealHatch()
+    {
+        _hatchOpen = true;
+
+        if(Health >= 2)
+        {
+            _LeftHatch.SetBool("HatchOpen", false);
+        }
+        if (Health >= 1)
+        {
+            _LeftHatch.SetBool("HatchOpen", false);
+        }
+        if (Health >= 0)
+        {
+            _LeftHatch.SetBool("HatchOpen", false);
+        }
+        _hatchOpen = false;
+    }
     IEnumerator Spin()
     {
 
@@ -279,15 +314,15 @@ public class SlotsController : MonoBehaviour
     {
         if (_wheel1Spin )
         {
-            _slot1.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
+            _leftSlot.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
         }
         if (_wheel2Spin)
         {
-            _slot2.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
+            _rightSlot.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
         }
         if (_wheel3Spin)
         {
-            _slot3.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
+            _rightSlot.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
         }
     }
 }

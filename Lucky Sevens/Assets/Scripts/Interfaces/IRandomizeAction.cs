@@ -6,4 +6,6 @@ public interface IRandomizeAction
 {
     public int GetPosition();
     public void OnSelect();
+
+    public int GetID();
 }

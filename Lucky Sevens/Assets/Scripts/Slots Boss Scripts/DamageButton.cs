@@ -5,6 +5,8 @@ using UnityEngine;
 public class DamageButton : MonoBehaviour
 {
     bool hit = false;
+    [SerializeField] PhysicalButtonPress press;
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player") || hit)
@@ -12,6 +14,12 @@ public class DamageButton : MonoBehaviour
             return;
         }
         hit = true;
-        SlotsController.instance.DamageWheel();
+        StartCoroutine(SlotsController.instance.OpenHatch());
+        press.Reset();
+    }
+
+    public void primeButton()
+    {
+        hit = false;
     }
 }

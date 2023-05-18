@@ -6,6 +6,7 @@ using UnityEngine;
 public class BlockHighlight : MonoBehaviour, IRandomizeHighlight
 {
     [SerializeField] int _position;
+    [SerializeField] int ID;
     [Range(0.1f, 1)][SerializeField] float _blinkPeriod;
     [SerializeField] Material _whileHighlighted;
     [SerializeField] Material _whileNotHighlighted;
@@ -46,5 +47,10 @@ public class BlockHighlight : MonoBehaviour, IRandomizeHighlight
     public int GetPosition()
     {
         return _position;
+    }
+
+    public int GetID()
+    {
+        return ID;
     }
 }

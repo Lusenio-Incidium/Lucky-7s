@@ -5,6 +5,7 @@ using UnityEngine;
 public class RandomizerDoor : MonoBehaviour, IRandomizeAction
 {
     [SerializeField] int position;
+    [SerializeField] int ID;
     [SerializeField] Animator animator;
 
     public void OnSelect()
@@ -14,5 +15,10 @@ public class RandomizerDoor : MonoBehaviour, IRandomizeAction
     public int GetPosition()
     {
         return position;
+    }
+
+    public int GetID()
+    {
+        return ID;
     }
 }
