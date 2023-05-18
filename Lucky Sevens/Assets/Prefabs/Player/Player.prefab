@@ -79,9 +79,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 581697804747712966}
   HP: 15
-  playerSpeed: 10
-  sprintMod: 3
-  jumpHeight: 9
+  playerSpeed: 5
+  sprintMod: 1.5
+  jumpHeight: 8
   gravityScale: 15.5
   maxJumpAmmount: 2
   interactDist: 5
@@ -193,8 +193,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581697804788486948}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0028457642, y: 1, z: 0.0028840303}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -214,8 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6be8e2db6052245a9c51ab7cac34b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensHor: 1000
-  sensVert: 500
+  sensHor: 400
+  sensVert: 400
   lockVerMin: -65
   lockVerMax: 65
   invertY: 0
