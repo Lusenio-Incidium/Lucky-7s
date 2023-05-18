@@ -174,6 +174,7 @@ public class GunSystem : MonoBehaviour
             EquipWeapon(0);
         }
         hasGun = true;
+        GameManager.instance.DisplayAmmo();
     }
 
     public void EquipWeapon(int index)

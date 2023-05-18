@@ -33,7 +33,8 @@ public class GameManager : MonoBehaviour
     public GameObject ShopMenu;
     public GameObject emptyReserve;
     public GameObject emptyMag;
-    public TextMeshProUGUI ammoDisplay;
+    public GameObject ammoDisplay;
+    public TextMeshProUGUI ammoReserveCount;
     public TextMeshProUGUI ammoMagCount;
     public TextMeshProUGUI HPDisplay;
     public TextMeshProUGUI timerDisplay;
@@ -192,7 +193,7 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateAmmoCount()
     {
-        ammoDisplay.text = gunSystem.GetAmmoCount().ToString();
+        ammoReserveCount.text = gunSystem.GetAmmoCount().ToString();
         ammoMagCount.text = gunSystem.GetMagCount().ToString();
     }
 
@@ -204,6 +205,13 @@ public class GameManager : MonoBehaviour
     {
         if(gunSystem.hasGun == true)
            StartCoroutine(Reload());
+    }
+    public void DisplayAmmo()
+    {
+        if(gunSystem.hasGun == true)
+        {
+            ammoDisplay.SetActive(true);
+        }
     }
 
     IEnumerator Reload()
@@ -231,9 +239,9 @@ public class GameManager : MonoBehaviour
         activeMenu.SetActive(false);
         activeMenu = emptyReserve;
         activeMenu.SetActive(true);
-        ammoDisplay.color = Color.red;
+        ammoReserveCount.color = Color.red;
         yield return new WaitForSeconds(2);
-        ammoDisplay.color = Color.white;
+        ammoReserveCount.color = Color.white;
         activeMenu = emptyReserve;
         activeMenu.SetActive(false);
         activeMenu = null;
