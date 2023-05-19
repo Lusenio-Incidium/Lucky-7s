@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
         gunSystem = player.GetComponentInChildren<GunSystem>(player);
         enemiesRemaining = 0;
+        timeElapsed = 0;
         UpdateAmmoCount();
     }
 
