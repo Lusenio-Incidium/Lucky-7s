@@ -13,6 +13,7 @@ public class GunStats : ScriptableObject
     public float spread;
     public int bulletsPerTap;
     public int magSize;
+    public int bulletsLeft;
     public int ammunition;
     public StatusEffectObj statusEffect;
     public Rigidbody bulletPreFab;

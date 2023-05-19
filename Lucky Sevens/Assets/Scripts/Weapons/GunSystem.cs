@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ public class GunSystem : MonoBehaviour
     public RaycastHit rayHit;
 
     public List<GunStats> weapons;
-    private Dictionary<int, int> ammoCounts = new Dictionary<int, int>();
+    //private Dictionary<int, int> ammoCounts = new Dictionary<int, int>();
     public int currentWeapon = 0;
     public bool hasGun;
 
@@ -125,10 +126,11 @@ public class GunSystem : MonoBehaviour
                 effectable.ApplyStatusEffect(statusEffect);
             }
         }
-        int previousAmmoCount = bulletsLeft;
+        //int previousAmmoCount = bulletsLeft;
 
         bulletsLeft--;
         bulletsShot++;
+        bulletsLeft = weapons[currentWeapon].bulletsLeft = bulletsLeft;
         GameManager.instance.UpdateAmmoCount();
 
         if (allowButtonHolding && bulletsLeft > 0)
@@ -141,7 +143,7 @@ public class GunSystem : MonoBehaviour
 
         }
 
-        ammoCounts[currentWeapon] = previousAmmoCount;
+        //ammoCounts[currentWeapon] = previousAmmoCount;
 
     }
 
@@ -171,6 +173,8 @@ public class GunSystem : MonoBehaviour
             ammunition -= reservedAmmo;
         }
         reloading = false;
+        bulletsLeft = weapons[currentWeapon].bulletsLeft = bulletsLeft;
+        ammunition = weapons[currentWeapon].ammunition = ammunition;
         GameManager.instance.UpdateAmmoCount();
         GameManager.instance.activeMenu = null;
     }
@@ -197,12 +201,12 @@ public class GunSystem : MonoBehaviour
         spread = weapons[index].spread;
         bulletsPerTap = weapons[index].bulletsPerTap;
         magSize = weapons[index].magSize;
-        bulletsLeft = weapons[index].magSize;
-        ammunition = weapons[index].magSize * 4;
+        bulletsLeft = weapons[index].bulletsLeft;
+        ammunition = weapons[index].ammunition;
         statusEffect = weapons[index].statusEffect;
         Bullet = weapons[index].bulletPreFab;
 
-        if (ammoCounts.ContainsKey(currentWeapon))
+       /* if (ammoCounts.ContainsKey(currentWeapon))
         {
             bulletsLeft = Mathf.Clamp(ammoCounts[currentWeapon], 0, magSize);
         }
@@ -210,7 +214,7 @@ public class GunSystem : MonoBehaviour
         {
             bulletsLeft = magSize;
         }
-        weapons[currentWeapon].ammunition = magSize * 4 - bulletsShot;
+        weapons[currentWeapon].ammunition = magSize * 4 - bulletsShot;*/
         GameManager.instance.UpdateAmmoCount();
     }
 

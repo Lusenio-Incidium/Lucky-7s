@@ -5,7 +5,11 @@ using UnityEngine;
 public class GunPickup : MonoBehaviour
 {
     public GunStats gunStat;
-
+    private void Start()
+    {
+        gunStat.bulletsLeft = gunStat.magSize;
+        gunStat.ammunition = gunStat.magSize * 4;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

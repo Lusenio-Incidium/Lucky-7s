@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamage
+public class PlayerController : MonoBehaviour, IDamage,IPhysics
 {
 
     //Variables
@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField][Range(5.0f, 30.0f)] float gravityScale;
     [SerializeField][Range(1, 4)] int maxJumpAmmount;
     [SerializeField] int interactDist;
+    [SerializeField] float pushBackResolve;
 
     //private variables
     Vector3 playerVelocity;
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour, IDamage
     bool isGrounded;
     int jumpTimes;
     private int HPOrig;
-
+    Vector3 pushBack;
     int selectedGunNum = 0;
     GunSystem gunSystem;
 
@@ -72,7 +73,8 @@ public class PlayerController : MonoBehaviour, IDamage
 
         //gravity
         playerVelocity.y -= gravityScale * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        controller.Move((playerVelocity + pushBack) * Time.deltaTime);
+        pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
     }
 
     public void takeDamage(int amount)
@@ -169,5 +171,10 @@ public class PlayerController : MonoBehaviour, IDamage
     public void speedChange(float amount)
     {
         playerSpeed += amount;
+    }
+
+    public void TakePush(Vector3 dir)
+    {
+        pushBack += dir;
     }
 }

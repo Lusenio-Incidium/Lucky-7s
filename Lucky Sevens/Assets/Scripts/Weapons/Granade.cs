@@ -25,7 +25,7 @@ public class Granade : MonoBehaviour
         yield return new WaitForSeconds(timer);
         sc.enabled = true;
         sc.radius = range;
-        theRenderer.enabled = false;
+        //theRenderer.enabled = false;
         Destroy(gameObject, hitBoxTimer);
     }
 
