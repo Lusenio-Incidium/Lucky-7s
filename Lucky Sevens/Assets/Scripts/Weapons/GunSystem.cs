@@ -32,6 +32,7 @@ public class GunSystem : MonoBehaviour
     public RaycastHit rayHit;
 
     public List<GunStats> weapons;
+    private Dictionary<int, int> ammoCounts = new Dictionary<int, int>();
     public int currentWeapon = 0;
     public bool hasGun;
 
@@ -122,6 +123,8 @@ public class GunSystem : MonoBehaviour
                 effectable.ApplyStatusEffect(statusEffect);
             }
         }
+        int previousAmmoCount = bulletsLeft;
+
         bulletsLeft--;
         bulletsShot++;
         GameManager.instance.UpdateAmmoCount();
@@ -135,6 +138,9 @@ public class GunSystem : MonoBehaviour
             Invoke("ResetShot", timeBetweenShots);
 
         }
+
+        ammoCounts[currentWeapon] = previousAmmoCount;
+
     }
 
     //while not shooting
@@ -193,6 +199,15 @@ public class GunSystem : MonoBehaviour
         statusEffect = weapons[index].statusEffect;
         Bullet = weapons[index].bulletPreFab;
 
+        if (ammoCounts.ContainsKey(currentWeapon))
+        {
+            bulletsLeft = Mathf.Clamp(ammoCounts[currentWeapon], 0, magSize);
+        }
+        else
+        {
+            bulletsLeft = magSize;
+        }
+        weapons[currentWeapon].ammunition = magSize * 4 - bulletsShot;
         GameManager.instance.UpdateAmmoCount();
     }
 

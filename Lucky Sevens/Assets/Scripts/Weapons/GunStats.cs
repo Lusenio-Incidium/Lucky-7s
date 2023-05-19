@@ -17,4 +17,5 @@ public class GunStats : ScriptableObject
     public StatusEffectObj statusEffect;
     public Rigidbody bulletPreFab;
     public bool TriggerHold;
+    public int currentAmmoCount;
 }
