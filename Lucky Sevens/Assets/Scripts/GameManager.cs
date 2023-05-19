@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         //Code to check if a new game manager is made, and if it is delete it.
         //Used for keeping the game manager and player UI throughout different scenes
-        if (instance != null && instance != this) 
+        if (instance != null) 
         {
             Destroy(gameObject.transform.parent.gameObject);
         }
@@ -63,9 +63,11 @@ public class GameManager : MonoBehaviour
             playerScript = player.GetComponent<PlayerController>();
             playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
             timeScaleOrig = Time.timeScale;
-            gunSystem = player.GetComponentInChildren<GunSystem>(player);
+            gunSystem = player.GetComponent<GunSystem>();
             AmmoLoaded = gunSystem.GetMagCount();
             UpdateAmmoCount();
+
+            
             
         }
 
@@ -82,7 +84,7 @@ public class GameManager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
-        gunSystem = player.GetComponentInChildren<GunSystem>(player);
+        gunSystem = player.GetComponent<GunSystem>();
         enemiesRemaining = 0;
         timeElapsed = 0;
         UpdateAmmoCount();
@@ -200,8 +202,13 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateAmmoCount()
     {
+        Debug.Log("Update Ammo Called");
+
         ammoReserveCount.text = gunSystem.GetAmmoCount().ToString();
         ammoMagCount.text = gunSystem.GetMagCount().ToString();
+
+        Debug.Log("Mag Count = " + gunSystem.GetMagCount().ToString());
+        Debug.Log("Reserve Count = " + gunSystem.GetAmmoCount().ToString());
     }
 
     public void updateTimer()
@@ -212,13 +219,6 @@ public class GameManager : MonoBehaviour
     {
         if(gunSystem.hasGun == true)
            StartCoroutine(Reload());
-    }
-    public void DisplayAmmo()
-    {
-        if(gunSystem.hasGun == true)
-        {
-            ammoDisplay.SetActive(true);
-        }
     }
 
     IEnumerator Reload()
