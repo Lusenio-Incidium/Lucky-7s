@@ -136,7 +136,8 @@ public class GameManager : MonoBehaviour
             activeMenu.SetActive(false);
             activeMenu = null;
             retical.SetActive(true);
-        } 
+        }
+        
     }
 
     public void youLose()

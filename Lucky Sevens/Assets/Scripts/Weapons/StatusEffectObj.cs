@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "NewStatusEffect")]
+[CreateAssetMenu(menuName = "Status Effects/New Status Effect")]
 public class StatusEffectObj : ScriptableObject
 {
     public string spellName;

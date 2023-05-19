@@ -8,14 +8,12 @@ public class SliderControler : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI plinkoText;
     [SerializeField] TextMeshProUGUI chipText;
-    [SerializeField] TextMeshProUGUI coinText;
     [SerializeField] TextMeshProUGUI healthText;
     [SerializeField] TextMeshProUGUI speedText;
     [SerializeField] TextMeshProUGUI sheildText;
     [SerializeField] TextMeshProUGUI gunText;
     [SerializeField] Scrollbar plinko;
     [SerializeField] Scrollbar chip;
-    [SerializeField] Scrollbar coin;
     [SerializeField] Scrollbar health;
     [SerializeField] Scrollbar speed;
     [SerializeField] Scrollbar sheild;
@@ -25,13 +23,11 @@ public class SliderControler : MonoBehaviour
 
     int chipTotal;
     int plinkoTotal;
-    int coinTotal;
     int healthTotal;
     int speedTotal;
     int sheildTotal;
     int gunTotal;
 
-    int coinCost;
     int tokenCost;
 
     private void Update()
@@ -55,12 +51,6 @@ public class SliderControler : MonoBehaviour
         updateText();
     }
 
-    public void onCoin()
-    {
-        coinText.text = (coin.value * 10).ToString("0");
-        coinTotal = (int)(coin.value * 10) * 10;
-        updateText();
-    }
 
     public void onHealth()
     {
@@ -92,11 +82,8 @@ public class SliderControler : MonoBehaviour
 
     void updateText()
     {
-        tokenCost = (plinkoTotal + coinTotal);
-        coinCost = (chipTotal + healthTotal + speedTotal + sheildTotal + gunTotal);
-
+        tokenCost = (plinkoTotal + chipTotal + healthTotal + speedTotal + sheildTotal + gunTotal);
         chipTotText.text = tokenCost.ToString();
-        coinTotText.text = coinCost.ToString();
     }
 
 }
