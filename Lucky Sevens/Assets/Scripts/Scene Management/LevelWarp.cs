@@ -7,9 +7,6 @@ public class LevelWarp : MonoBehaviour
     [SerializeField] string WarpToScene;
     [SerializeField] int loadTime;
 
-
- 
-
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
@@ -19,5 +16,4 @@ public class LevelWarp : MonoBehaviour
         StartCoroutine(GameManager.instance.loadScene(WarpToScene));
     }
 
-    
 }

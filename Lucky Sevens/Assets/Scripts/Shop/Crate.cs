@@ -17,4 +17,3 @@ public class Crate : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 }
-
