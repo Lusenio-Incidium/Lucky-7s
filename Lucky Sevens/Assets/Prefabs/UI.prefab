@@ -4330,7 +4330,6 @@ GameObject:
   - component: {fileID: 1463731797}
   - component: {fileID: 1463731799}
   - component: {fileID: 1463731798}
-  - component: {fileID: 1463731800}
   m_Layer: 5
   m_Name: ShopMenu
   m_TagString: Untagged
@@ -4423,32 +4422,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1463731800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1463731796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59967ad5e848c5f43986ec8139f8a984, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plinkoText: {fileID: 6708430251067897743}
-  chipText: {fileID: 2676517424823790935}
-  healthText: {fileID: 7697021173258698266}
-  speedText: {fileID: 7982010575271908073}
-  sheildText: {fileID: 4920124575890458431}
-  gunText: {fileID: 8441519251159380226}
-  plinko: {fileID: 2522857054865129381}
-  chip: {fileID: 2181618198362805126}
-  health: {fileID: 3188251777664164814}
-  speed: {fileID: 865336377883817431}
-  sheild: {fileID: 5115094828133906356}
-  gun: {fileID: 5681951517620662412}
-  chipTotText: {fileID: 310758489711007835}
-  coinTotText: {fileID: 4571593390309227227}
 --- !u!1 &1488029577
 GameObject:
   m_ObjectHideFlags: 0
@@ -6664,7 +6637,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1463731800}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SliderControler, Assembly-CSharp
         m_MethodName: onGun
         m_Mode: 1
@@ -9329,7 +9302,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1463731800}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SliderControler, Assembly-CSharp
         m_MethodName: onSheild
         m_Mode: 1
@@ -9468,7 +9441,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1463731800}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SliderControler, Assembly-CSharp
         m_MethodName: onPlinko
         m_Mode: 1
@@ -9607,7 +9580,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1463731800}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SliderControler, Assembly-CSharp
         m_MethodName: onCoin
         m_Mode: 1
@@ -10425,7 +10398,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1463731800}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SliderControler, Assembly-CSharp
         m_MethodName: onHealth
         m_Mode: 1
@@ -10833,7 +10806,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1463731800}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SliderControler, Assembly-CSharp
         m_MethodName: onChip
         m_Mode: 1
@@ -11009,7 +10982,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1463731800}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SliderControler, Assembly-CSharp
         m_MethodName: onSpeed
         m_Mode: 1

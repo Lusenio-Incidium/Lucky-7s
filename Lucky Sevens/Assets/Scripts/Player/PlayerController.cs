@@ -47,7 +47,9 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         movement();
         interact();
         sprint();
-        switchGun();
+
+        if(gunList.Count > 0)
+            switchGun();
     }
 
     void movement()

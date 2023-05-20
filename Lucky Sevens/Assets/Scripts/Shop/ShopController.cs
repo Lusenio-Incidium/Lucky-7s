@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
-public class SliderControler : MonoBehaviour
+public class ShopController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI plinkoText;
     [SerializeField] TextMeshProUGUI chipText;
@@ -21,6 +20,8 @@ public class SliderControler : MonoBehaviour
     [SerializeField] TextMeshProUGUI chipTotText;
     [SerializeField] TextMeshProUGUI coinTotText;
 
+    bool hasShop;
+    [SerializeField] GameObject crate;
     int chipTotal;
     int plinkoTotal;
     int healthTotal;
@@ -30,12 +31,33 @@ public class SliderControler : MonoBehaviour
 
     int tokenCost;
 
-    private void Update()
+    private void Awake()
     {
-        updateText();
+        crate = GameObject.FindGameObjectWithTag("Crate");
+
+        if (crate == null)
+        {
+            GameManager.instance.ErrorMenu("No Crate Object Found!");
+            hasShop = false;
+        }
+        else
+        {
+            hasShop = true;
+            crate.SetActive(false);
+            //auto shutdown the shop menu
+            this.gameObject.SetActive(false);
+        }
+
+
     }
 
-    public void onPlinko() 
+    private void Update()
+    {
+        if (hasShop)
+            updateText();
+    }
+
+    public void onPlinko()
     {
         plinkoText.text = (plinko.value * 10).ToString("0");
 
@@ -86,4 +108,19 @@ public class SliderControler : MonoBehaviour
         chipTotText.text = tokenCost.ToString();
     }
 
+    public void onBuy()
+    {
+        Crate cs = crate.GetComponent<Crate>();
+
+        cs.pickup.healthAmount = (int)(health.value * 3);
+        cs.pickup.speedAmount = (int)(speed.value * 5);
+        cs.pickup.plinkoAmount = (int)(plinko.value * 10);
+        cs.pickup.shieldAmount = (int)(sheild.value * 5);
+        cs.pickup.tokenAmount = (int)(chip.value * 10);
+
+        crate.SetActive(true);
+
+        GameManager.instance.unPauseState();
+
+    }
 }

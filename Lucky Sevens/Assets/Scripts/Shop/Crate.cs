@@ -5,7 +5,7 @@ using UnityEngine;
 public class Crate : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] ShopPickup pickup;
+    public ShopPickup pickup;
 
     private void OnTriggerEnter(Collider other)
     {
