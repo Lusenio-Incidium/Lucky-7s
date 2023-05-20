@@ -93,12 +93,12 @@ public class GunSystem : MonoBehaviour
                 GameManager.instance.CharEmtpyMag();
             }
         }
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && weapons.Count > 0)
         {
             currentWeapon = (currentWeapon + 1) % weapons.Count;
             EquipWeapon(currentWeapon);
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weapons.Count > 0)
         {
             currentWeapon = (currentWeapon - 1 + weapons.Count) % weapons.Count;
             EquipWeapon(currentWeapon);
