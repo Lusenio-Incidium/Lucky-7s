@@ -240,4 +240,8 @@ public class GunSystem : MonoBehaviour
     {
         return reloadTime;
     }
+    public void SetReadyToShoot(bool boolean)
+    {
+        readyToShoot = boolean;
+    }
 }

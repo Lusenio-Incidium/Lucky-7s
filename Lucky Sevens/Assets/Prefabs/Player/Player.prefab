@@ -74,6 +74,7 @@ MonoBehaviour:
   gravityScale: 19.5
   maxJumpAmmount: 2
   interactDist: 5
+  pushBackResolve: 0
 --- !u!33 &581697804747713019
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -166,6 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 581697804788486951}
   - component: {fileID: 581697804788486944}
+  - component: {fileID: 2085391780119967725}
   - component: {fileID: 581697804788486950}
   - component: {fileID: 581697804788486949}
   m_Layer: 0
@@ -207,6 +209,24 @@ MonoBehaviour:
   lockVerMin: -65
   lockVerMax: 65
   invertY: 0
+--- !u!114 &2085391780119967725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581697804788486948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f818ffdfacaa16743a95e26e022f3046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objPicked: {fileID: 0}
+  cameraTrans: {fileID: 0}
+  canGrab: 0
+  isPickedUp: 0
+  rb: {fileID: 0}
+  throwPower: 0
 --- !u!20 &581697804788486950
 Camera:
   m_ObjectHideFlags: 0

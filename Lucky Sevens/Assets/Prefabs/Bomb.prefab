@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6037390980562041117}
   - component: {fileID: 6037390980562041119}
+  - component: {fileID: 8871614058291944448}
   - component: {fileID: 6037390980562041106}
   - component: {fileID: 6037390980562041107}
   - component: {fileID: 6037390980562041116}
@@ -58,6 +59,24 @@ MonoBehaviour:
   speed: 30
   damage: 5
   upVel: 1
+--- !u!114 &8871614058291944448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6037390980562041110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f818ffdfacaa16743a95e26e022f3046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objPicked: {fileID: 6037390980562041117}
+  cameraTrans: {fileID: 0}
+  canGrab: 0
+  isPickedUp: 0
+  rb: {fileID: 0}
+  throwPower: 0
 --- !u!33 &6037390980562041106
 MeshFilter:
   m_ObjectHideFlags: 0

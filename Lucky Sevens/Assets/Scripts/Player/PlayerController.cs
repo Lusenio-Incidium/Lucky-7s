@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     [SerializeField][Range(1, 4)] int maxJumpAmmount;
     [SerializeField] int interactDist;
     [SerializeField] float pushBackResolve;
+    [SerializeField] int throwPower;
 
     //private variables
     Vector3 playerVelocity;
@@ -178,5 +179,9 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     public void TakePush(Vector3 dir)
     {
         pushBack += dir;
+    }
+    public int GetThrowPower()
+    {
+        return throwPower * 10;
     }
 }
