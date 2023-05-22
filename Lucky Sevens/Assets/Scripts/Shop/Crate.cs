@@ -7,6 +7,11 @@ public class Crate : MonoBehaviour
     // Start is called before the first frame update
     public ShopPickup pickup;
 
+    private void Start()
+    {
+        this.gameObject.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) 

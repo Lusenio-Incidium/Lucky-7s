@@ -42,7 +42,6 @@ public class ShopController : MonoBehaviour
         else
         {
             hasShop = true;
-            crate.SetActive(false);
             //auto shutdown the shop menu
             this.gameObject.SetActive(false);
         }

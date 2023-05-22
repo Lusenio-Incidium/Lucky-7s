@@ -60,16 +60,7 @@ public class GameManager : MonoBehaviour
         else 
         {
             instance = this;
-            player = GameObject.FindGameObjectWithTag("Player");
-            playerScript = player.GetComponent<PlayerController>();
-            playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
-            timeScaleOrig = Time.timeScale;
-            gunSystem = player.GetComponent<GunSystem>();
-            AmmoLoaded = gunSystem.GetMagCount();
-            UpdateAmmoCount();
-
-          
-            
+            refreshGameManager();
         }
 
         DontDestroyOnLoad(this.transform.parent);
@@ -91,6 +82,16 @@ public class GameManager : MonoBehaviour
         UpdateAmmoCount();
         //shopRefresh
         ShopMenu.GetComponent<ShopController>().updateCrate();
+
+        //Timer Refresh
+        if(SceneManager.GetActiveScene().name != "TheHub") 
+        {
+            timerDisplay.gameObject.transform.parent.gameObject.SetActive(true);
+        }
+        else 
+        {
+            timerDisplay.gameObject.transform.parent.gameObject.SetActive(false);
+        }
 
         //player refresh
         playerScript.spawnPlayerOnLoad();
@@ -210,13 +211,11 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateAmmoCount()
     {
-        Debug.Log("Update Ammo Called");
+        
 
         ammoReserveCount.text = gunSystem.GetAmmoCount().ToString();
         ammoMagCount.text = gunSystem.GetMagCount().ToString();
 
-        Debug.Log("Mag Count = " + gunSystem.GetMagCount().ToString());
-        Debug.Log("Reserve Count = " + gunSystem.GetAmmoCount().ToString());
     }
 
     public void updateTimer()
