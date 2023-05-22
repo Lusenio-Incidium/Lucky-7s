@@ -128,6 +128,11 @@ public class ShopController : MonoBehaviour
         cs.pickup.shieldAmount = (int)(sheild.value * 5);
         cs.pickup.tokenAmount = (int)(chip.value * 10);
 
+        if(gun.value > 0) 
+        {
+            cs.pickup.addPistol = true;
+        }
+
         crate.SetActive(true);
 
         GameManager.instance.unPauseState();

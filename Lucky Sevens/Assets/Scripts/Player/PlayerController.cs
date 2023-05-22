@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     [SerializeField] float pushBackResolve;
     [SerializeField] int throwPower;
 
+    [Header("GunSpawnables")]
+    [SerializeField] GameObject pistolSpawn;
+    [SerializeField] GameObject tommySpawn;
+
     //private variables
     Vector3 playerVelocity;
     Vector3 move;
@@ -67,6 +71,11 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         //Add players health from shop
         playerHeal(updates.healthAmount);
 
+
+        if (updates.addPistol) 
+        {
+            Instantiate(pistolSpawn, transform.position, transform.rotation);
+        }
 
     }
 

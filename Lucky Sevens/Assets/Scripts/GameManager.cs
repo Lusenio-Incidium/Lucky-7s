@@ -194,6 +194,7 @@ public class GameManager : MonoBehaviour
 
     public void Shop() 
     {
+        isPaused = !isPaused;
         pauseState();
         activeMenu = ShopMenu;
         activeMenu.SetActive(true);
