@@ -23,7 +23,6 @@ public class ButtonFunctions : MonoBehaviour
     {
         GameManager.instance.unPauseState();
         GameManager.instance.playerScript.spawnPlayer();
-        GameManager.instance.UpdatePlayerHP();
     }
 
     public void ReturnToLobby()

@@ -17,7 +17,7 @@ public class SlotsBeginBattle : MonoBehaviour
         hit = true;
         Destroy(DestroyOnBegin);
         ArenaLight.SetActive(true);
-        startAnimation.SetTrigger("LockArena");
+        startAnimation.SetTrigger("CloseArena");
         SlotsController.instance.Begin();
     }
 }

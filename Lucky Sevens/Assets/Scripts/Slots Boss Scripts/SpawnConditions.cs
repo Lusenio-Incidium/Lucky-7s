@@ -13,13 +13,14 @@ public enum SpawnStyles
 [System.Serializable]
 public class SpawnConditions
 {
-    [SerializeField] GameObject spawnObject;
-    [SerializeField] int spawnCount;
-    [Range(1,10)][SerializeField] int batchSize;
-    [SerializeField][Range(0, 50)] float spawnDelay;
-    [SerializeField] SpawnStyles spawnMethod;
-    [SerializeField] bool waitForSpawner;
-    [SerializeField] float accuracy;
+    [SerializeField] public GameObject spawnObject;
+    [SerializeField] public int spawnCount;
+    [Range(1,10)][SerializeField]public  int batchSize;
+    [SerializeField][Range(0, 50)] public float spawnDelay;
+    [SerializeField] public SpawnStyles spawnMethod;
+    [SerializeField] public bool waitForSpawner;
+    [SerializeField] public float accuracy;
+    [SerializeField] public Transform[] SpawnLocations;
     public GameObject GetSpawnObj()
     {
         return spawnObject;

@@ -47,8 +47,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
 
 
         HPOrig = HP;
-        GetPlayerHP();
-        GameManager.instance.UpdatePlayerHP();
         spawnPlayer();
 
         gunSystem = GetComponent<GunSystem>();
@@ -105,8 +103,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     public void takeDamage(int amount)
     {
         HP -= amount;
-        GetPlayerHP();
-        GameManager.instance.UpdatePlayerHP();
+        updatePlayerUI();
         if (HP <= 0)
         {
             GameManager.instance.youLose();
@@ -119,6 +116,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
         controller.enabled = true;
         HP = HPOrig;
+        updatePlayerUI();
     }
 
     public void spawnPlayerOnLoad() 
@@ -198,9 +196,14 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         {
             HP = 100;
         }
-        GameManager.instance.UpdatePlayerHP();
+        updatePlayerUI();
     }
 
+    public void updatePlayerUI()
+    {
+        GameManager.instance.playerHPBar.fillAmount = (float) HP / HPOrig;
+        GameManager.instance.HPDisplay.text = HP.ToString();    
+    }
     public void speedChange(float amount)
     {
         playerSpeed += amount;

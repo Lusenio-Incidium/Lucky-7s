@@ -42,6 +42,11 @@ public class SlotsController : MonoBehaviour
     [SerializeField] Animator _RightHatch;
     [SerializeField] Animator _BottomHatch;
     [SerializeField] Animator _TopHatch;
+    [SerializeField] Animator _Lever;
+    [SerializeField] DamageButton _leftButton;
+    [SerializeField] DamageButton _middleButton;
+    [SerializeField] DamageButton _rightButton;
+
     [SerializeField] ArenaSpawner spawner1;
     [SerializeField] ArenaSpawner spawner2;
     [SerializeField] ArenaSpawner spawner3;
@@ -58,7 +63,7 @@ public class SlotsController : MonoBehaviour
     [Range(1, 10)][SerializeField] float spinDelayMin; //How long it takes to spin up again
     [Range(0.1f, 10)][SerializeField] float wheelStopDelayMax;
     [Range(0.1f, 10)][SerializeField] float wheelStopDelayMin;
-
+    [Range(1, 10)][SerializeField] int HaywireMod;
 
     float _currSpinDelay;
     float _currStopDelay;
@@ -67,6 +72,11 @@ public class SlotsController : MonoBehaviour
     bool _wheel1Spin;
     bool _wheel2Spin;
     bool _wheel3Spin;
+    private bool _wheel1HayWire = false;
+    private bool _wheel2HayWire = false;
+    private bool _wheel3HayWire = false;
+    int cannonCount;
+
     float _currHatchOpenTime;
     bool _hatchOpen;
     [Range(0, 100)][SerializeField] int jackpotOdds; //How likely it is to get 3 in a row
@@ -91,10 +101,15 @@ public class SlotsController : MonoBehaviour
     bool waitingForSpawner2;
     bool waitingForSpawner3;
     int NumMod;
+
     // Start is called before the first frame update
     void Start()
     {
         _isSpinning = _wheel1Spin = _wheel2Spin = _wheel3Spin = false;
+        _leftButton.DeactivateButton();
+        _middleButton.DeactivateButton();
+        _rightButton.DeactivateButton();
+
         _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
         _currJackpotOdds = jackpotOdds;
         isStunned = true;
@@ -118,14 +133,7 @@ public class SlotsController : MonoBehaviour
         
     }
 
-    public void UpdateWeakPoints(int count)
-    {
-        weakPointCount += count;
-        if(weakPointCount <= 0)
-        {
-            StunWheel();
-        }
-    }
+
     public void SpawningFinished(int spawnerNum)
     {
         if(spawnerNum ==1)
@@ -141,8 +149,8 @@ public class SlotsController : MonoBehaviour
         Health--;
         if(Health == 2)
         {
-            
-           // Destroy(_slot1);
+
+            _wheel1HayWire = true;
             _wheel1Spin = false;
             isStunned = false;
         }
@@ -150,26 +158,46 @@ public class SlotsController : MonoBehaviour
         {
 
 
-            //Destroy(_slot3); //Sumthin has to be out of order for this to work.
+            _wheel3HayWire = true;
             _wheel3Spin = false;
             isStunned = false;
         }
         if (Health == 0)
         {
             WinnersToken.instance.Spawn();
-            
+            _wheel2HayWire = true;
 
            // Destroy(_slot2);
         }
     }
 
-    void StunWheel()
+    public void StunWheel()
     {
         isStunned = true;
         _currStopDelay = 0;
         _isSpinning = false;
         _canStop = false;
         _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
+        if(cannonCount == 4)
+        {
+            DamageWheel();
+            cannonCount = 0;
+        }
+        else
+        {
+            if(Health == 3)
+            {
+                _leftButton.ActivateButton();
+            }
+            else if (Health == 2)
+            {
+                _rightButton.ActivateButton();
+            }
+            else
+            {
+                _middleButton.ActivateButton();
+            }
+        }
     }
 
     void SlotsLogic()
@@ -276,9 +304,12 @@ public class SlotsController : MonoBehaviour
     }
     IEnumerator Spin()
     {
-
+        _Lever.SetTrigger("Pull");
         _isSpinning = true;
         _canStop = false;
+        yield return new WaitForSeconds(.5f);
+
+
         if (Health >= 3)
         {
             _wheel1Spin = true;
@@ -291,7 +322,7 @@ public class SlotsController : MonoBehaviour
             _wheel3Spin = true;
         }
 
-        if(UnityEngine.Random.Range(1,100) < _currJackpotOdds) //I promise it's still not rigged, just ignore the rigging code ;3
+        if(UnityEngine.Random.Range(1,100) < _currJackpotOdds) 
         {
             int jackpot = UnityEngine.Random.Range(1, 20);
             _wheelOneResult = _wheelTwoResult = _wheelThreeResult = (SlotResults)jackpot;
@@ -316,13 +347,26 @@ public class SlotsController : MonoBehaviour
         {
             _leftSlot.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
         }
+        else if (_wheel1HayWire)
+        {
+            _leftSlot.transform.Rotate(_spinSpeed * HaywireMod, 0, 0 * Time.deltaTime);
+        }
         if (_wheel2Spin)
         {
-            _rightSlot.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
+            _middleSlot.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
+        }
+        else if (_wheel2HayWire)
+        {
+            _middleSlot.transform.Rotate(_spinSpeed * HaywireMod, 0, 0 * Time.deltaTime);
         }
         if (_wheel3Spin)
         {
             _rightSlot.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
         }
+        else if (_wheel3HayWire)
+        {
+            _rightSlot.transform.Rotate(_spinSpeed * HaywireMod, 0, 0 * Time.deltaTime);
+        }
+
     }
 }

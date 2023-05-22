@@ -59,6 +59,7 @@ public class WinnersToken : MonoBehaviour
         }
         else if (step == 2)
         {
+            //Parabola script was created by Rod Moye
             float distCur = Vector3.Distance(token.transform.position, restLocation.position);
 
             Vector3 endPosition = new Vector3(restLocation.position.x, restLocation.position.y + (distCur / 2f), restLocation.position.z);

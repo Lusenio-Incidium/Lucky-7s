@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timerDisplay;
     public GameObject loadingScreen;
     public GameObject interactTxt;
+    public Image playerHPBar;
 
     public int enemiesRemaining;
     public bool isPaused;
@@ -235,11 +236,6 @@ public class GameManager : MonoBehaviour
         activeMenu = null;
         
     }
-    public void UpdatePlayerHP()
-    {
-        HPDisplay.text = playerScript.GetPlayerHP().ToString();
-    }
-
     public void CharZeroReserve()
     {
         if (gunSystem.hasGun == true)
