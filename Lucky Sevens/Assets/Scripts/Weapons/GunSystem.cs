@@ -249,4 +249,9 @@ public class GunSystem : MonoBehaviour
     {
         readyToShoot = boolean;
     }
+    public void ChipPayment(int amount)
+    {
+        //ammunition = ammunition - amount;
+        ammunition -= amount;
+    }
 }

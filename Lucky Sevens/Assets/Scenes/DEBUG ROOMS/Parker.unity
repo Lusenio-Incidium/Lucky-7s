@@ -1397,6 +1397,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &466686067 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1785435777294800262, guid: 1f01a7aea7ce1e9419915423dfb24a86, type: 3}
+  m_PrefabInstance: {fileID: 1758691934}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &512895482
 Mesh:
   m_ObjectHideFlags: 0
@@ -2021,6 +2026,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 98720218313114664, guid: c3625386bac4f16478d0e662df4b6b5e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 279429874795257321, guid: c3625386bac4f16478d0e662df4b6b5e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1974690380797593765, guid: c3625386bac4f16478d0e662df4b6b5e, type: 3}
       propertyPath: playerSpawnPos
       value: 
@@ -2112,6 +2125,22 @@ PrefabInstance:
     - target: {fileID: 1974690381126021420, guid: c3625386bac4f16478d0e662df4b6b5e, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974729205609597865, guid: c3625386bac4f16478d0e662df4b6b5e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500346370597800045, guid: c3625386bac4f16478d0e662df4b6b5e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5652786682499255856, guid: c3625386bac4f16478d0e662df4b6b5e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7396606413154388385, guid: c3625386bac4f16478d0e662df4b6b5e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3625386bac4f16478d0e662df4b6b5e, type: 3}
@@ -4149,6 +4178,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1606106242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7252505967864177012, guid: 9cf7de5b1375a414297cd5561a0d4353, type: 3}
+  m_PrefabInstance: {fileID: 8414676217970836030}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1610178164
 Mesh:
   m_ObjectHideFlags: 0
@@ -6888,6 +6922,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistol_00
       objectReference: {fileID: 0}
+    - target: {fileID: 3966749245584006523, guid: d6fb0c14002272e4889793c1fc89cd56, type: 3}
+      propertyPath: gunModel
+      value: 
+      objectReference: {fileID: 466686067}
     - target: {fileID: 4343556641302841283, guid: d6fb0c14002272e4889793c1fc89cd56, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -6945,6 +6983,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rifle_00
       objectReference: {fileID: 0}
+    - target: {fileID: 8065317376368950220, guid: 9cf7de5b1375a414297cd5561a0d4353, type: 3}
+      propertyPath: gunModel
+      value: 
+      objectReference: {fileID: 1606106242}
     - target: {fileID: 8065317376368950222, guid: 9cf7de5b1375a414297cd5561a0d4353, type: 3}
       propertyPath: m_RootOrder
       value: 1
