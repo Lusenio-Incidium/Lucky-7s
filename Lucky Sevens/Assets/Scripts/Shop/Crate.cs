@@ -12,6 +12,8 @@ public class Crate : MonoBehaviour
         if (other.CompareTag("Player")) 
         {
             //Move data from pickup into the player/GameManager, whichever we decide to do.
+            GameManager.instance.playerScript.shopRegister(pickup);
+            GameManager.instance.gunSystem.updateShop(pickup);
         }
         //Instead of creating a new create every time, this one will just hide until its activated by the shop system.
         this.gameObject.SetActive(false);

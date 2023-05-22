@@ -33,11 +33,10 @@ public class ShopController : MonoBehaviour
 
     private void Awake()
     {
-        crate = GameObject.FindGameObjectWithTag("Crate");
+        updateCrate();
 
         if (crate == null)
         {
-            GameManager.instance.ErrorMenu("No Crate Object Found!");
             hasShop = false;
         }
         else
@@ -48,13 +47,17 @@ public class ShopController : MonoBehaviour
             this.gameObject.SetActive(false);
         }
 
-
     }
 
     private void Update()
     {
         if (hasShop)
             updateText();
+    }
+
+    public void updateCrate() 
+    {
+        crate = GameObject.FindGameObjectWithTag("Crate");
     }
 
     public void onPlinko()

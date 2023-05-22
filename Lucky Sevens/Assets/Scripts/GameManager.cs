@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
             AmmoLoaded = gunSystem.GetMagCount();
             UpdateAmmoCount();
 
-            
+          
             
         }
 
@@ -88,6 +88,8 @@ public class GameManager : MonoBehaviour
         enemiesRemaining = 0;
         timeElapsed = 0;
         UpdateAmmoCount();
+        //shopRefresh
+        ShopMenu.GetComponent<ShopController>().updateCrate();
     }
 
     void Update()

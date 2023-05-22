@@ -53,6 +53,15 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
             switchGun();
     }
 
+    public void shopRegister(ShopPickup updates) 
+    {
+        //Add players health from shop
+        playerHeal(updates.healthAmount);
+
+
+    }
+
+
     void movement()
     {
         //Check if player is grounded
@@ -169,6 +178,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         {
             HP = 100;
         }
+        GameManager.instance.UpdatePlayerHP();
     }
 
     public void speedChange(float amount)

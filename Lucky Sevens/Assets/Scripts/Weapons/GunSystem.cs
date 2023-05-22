@@ -39,7 +39,7 @@ public class GunSystem : MonoBehaviour
     public int currentWeapon = 0;
     public bool hasGun;
 
-    //TODO: Add way to carry these stats (bullets left and ammunition) through the game manager to let ammo go through GameManager
+    
     private void Awake()
     {
         hasGun = false;
@@ -188,6 +188,11 @@ public class GunSystem : MonoBehaviour
         
         GameManager.instance.ammoDisplay.SetActive(true);
         
+    }
+
+    public void updateShop(ShopPickup updates) 
+    {
+        ammunition += updates.tokenAmount;
     }
 
     public void EquipWeapon(int index)
