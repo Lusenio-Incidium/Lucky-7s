@@ -157,7 +157,7 @@ public class GunSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
-        //GameManager.instance.Reload(reloading);
+        GameManager.instance.CharReloading();
         Invoke("ReloadDone", reloadTime);
     }
 
@@ -185,7 +185,7 @@ public class GunSystem : MonoBehaviour
         {
             EquipWeapon(0);
         }
-        
+        hasGun = true;
         GameManager.instance.ammoDisplay.SetActive(true);
         
     }
