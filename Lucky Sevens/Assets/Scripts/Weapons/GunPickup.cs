@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class GunPickup : MonoBehaviour
 {
-    public GunStats gunStat;
+    [SerializeField] GunStats gunStat;
+    [SerializeField] MeshFilter model;
+    [SerializeField] MeshRenderer mat;
+
     private void Start()
     {
         gunStat.bulletsLeft = gunStat.magSize;
         gunStat.ammunition = gunStat.magSize * 4;
+
+        model.mesh = gunStat.model.GetComponent<MeshFilter>().sharedMesh;
+        mat.material = gunStat.model.GetComponent<MeshRenderer>().sharedMaterial;
     }
     private void OnTriggerEnter(Collider other)
     {

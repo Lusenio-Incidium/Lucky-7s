@@ -24,6 +24,8 @@ public class GunSystem : MonoBehaviour
     int ammunition;
     int bulletsShot;
     StatusEffectObj statusEffect;
+    [SerializeField] MeshFilter gunModel;
+    [SerializeField] MeshRenderer gunMat;
     Rigidbody Bullet;
 
     //bools to ask game
@@ -144,7 +146,6 @@ public class GunSystem : MonoBehaviour
         }
 
         //ammoCounts[currentWeapon] = previousAmmoCount;
-
     }
 
     //while not shooting
@@ -221,8 +222,9 @@ public class GunSystem : MonoBehaviour
         }
         weapons[currentWeapon].ammunition = magSize * 4 - bulletsShot;*/
         GameManager.instance.UpdateAmmoCount();
+        gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+        gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
     }
-
     public void AddBullets(int amount)
     {
         ammunition += amount;
