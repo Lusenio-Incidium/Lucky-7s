@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timerDisplay;
     public GameObject loadingScreen;
     public GameObject interactTxt;
+    public Image playerHPBar;
 
     public int enemiesRemaining;
     public bool isPaused;
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
     float timeScaleOrig;
     int AmmoLoaded;
     bool reloading;
+    bool timerInc;
 
     void Awake()
     {
@@ -59,16 +61,7 @@ public class GameManager : MonoBehaviour
         else 
         {
             instance = this;
-            player = GameObject.FindGameObjectWithTag("Player");
-            playerScript = player.GetComponent<PlayerController>();
-            playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
-            timeScaleOrig = Time.timeScale;
-            gunSystem = player.GetComponent<GunSystem>();
-            AmmoLoaded = gunSystem.GetMagCount();
-            UpdateAmmoCount();
-
-          
-            
+            refreshGameManager();
         }
 
         DontDestroyOnLoad(this.transform.parent);
@@ -90,6 +83,21 @@ public class GameManager : MonoBehaviour
         UpdateAmmoCount();
         //shopRefresh
         ShopMenu.GetComponent<ShopController>().updateCrate();
+
+        //Timer Refresh
+        if(SceneManager.GetActiveScene().name != "TheHub") 
+        {
+            timerDisplay.gameObject.transform.parent.gameObject.SetActive(true);
+        }
+        else 
+        {
+            timerDisplay.gameObject.transform.parent.gameObject.SetActive(false);
+        }
+
+        //player refresh
+        playerScript.spawnPlayerOnLoad();
+        playerScript.updatePlayerUI();
+
     }
 
     void Update()
@@ -101,7 +109,7 @@ public class GameManager : MonoBehaviour
             activeMenu.SetActive(isPaused);
             pauseState();
         }
-        timeElapsed += Time.deltaTime;
+        
         updateTimer();
     }
 
@@ -114,6 +122,13 @@ public class GameManager : MonoBehaviour
         
     }
 
+    IEnumerator timerIncrease() 
+    {
+        timerInc = true;
+        timeElapsed += Time.deltaTime;
+        yield return new WaitForSeconds(0.001f);
+        timerInc = false;
+    }
 
     public IEnumerator loadScene(string sceen)
     {
@@ -179,6 +194,7 @@ public class GameManager : MonoBehaviour
 
     public void Shop() 
     {
+        isPaused = !isPaused;
         pauseState();
         activeMenu = ShopMenu;
         activeMenu.SetActive(true);
@@ -204,18 +220,18 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateAmmoCount()
     {
-        Debug.Log("Update Ammo Called");
+        
 
         ammoReserveCount.text = gunSystem.GetAmmoCount().ToString();
         ammoMagCount.text = gunSystem.GetMagCount().ToString();
 
-        Debug.Log("Mag Count = " + gunSystem.GetMagCount().ToString());
-        Debug.Log("Reserve Count = " + gunSystem.GetAmmoCount().ToString());
     }
 
     public void updateTimer()
     {
-        timerDisplay.text = timeElapsed.ToString("#.##");
+        if (!timerInc)
+            StartCoroutine(timerIncrease());
+        timerDisplay.text = timeElapsed.ToString("F2");
     }
     public void CharReloading()
     {
@@ -231,12 +247,8 @@ public class GameManager : MonoBehaviour
         activeMenu = ReloadText;
         activeMenu.SetActive(false);
         activeMenu = null;
+        
     }
-    public void UpdatePlayerHP()
-    {
-        HPDisplay.text = playerScript.GetPlayerHP().ToString();
-    }
-
     public void CharZeroReserve()
     {
         if (gunSystem.hasGun == true)

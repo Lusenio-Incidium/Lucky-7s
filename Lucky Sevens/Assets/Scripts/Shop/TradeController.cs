@@ -8,6 +8,7 @@ public class TradeController : MonoBehaviour, IInteractable
 
     public void onInteract()
     {
+        
         GameManager.instance.Shop();
     }
 }

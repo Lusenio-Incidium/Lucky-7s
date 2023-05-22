@@ -35,7 +35,6 @@ public class healthPickup : MonoBehaviour, ICollectable
     public void onCollect()
     {
         GameManager.instance.playerScript.playerHeal(healAmount);
-        GameManager.instance.UpdatePlayerHP();
         Destroy(gameObject);
     }
 }

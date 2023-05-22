@@ -42,7 +42,6 @@ public class ShopController : MonoBehaviour
         else
         {
             hasShop = true;
-            crate.SetActive(false);
             //auto shutdown the shop menu
             this.gameObject.SetActive(false);
         }
@@ -58,6 +57,14 @@ public class ShopController : MonoBehaviour
     public void updateCrate() 
     {
         crate = GameObject.FindGameObjectWithTag("Crate");
+        if(crate == null) 
+        {
+            hasShop = false;
+        }
+        else 
+        {
+            hasShop = true;
+        }
     }
 
     public void onPlinko()
@@ -120,6 +127,11 @@ public class ShopController : MonoBehaviour
         cs.pickup.plinkoAmount = (int)(plinko.value * 10);
         cs.pickup.shieldAmount = (int)(sheild.value * 5);
         cs.pickup.tokenAmount = (int)(chip.value * 10);
+
+        if(gun.value > 0) 
+        {
+            cs.pickup.addPistol = true;
+        }
 
         crate.SetActive(true);
 

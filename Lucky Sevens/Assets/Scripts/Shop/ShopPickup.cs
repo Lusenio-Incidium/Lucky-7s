@@ -10,6 +10,7 @@ public class ShopPickup : ScriptableObject
     public int healthAmount;
     public int speedAmount;
     public int shieldAmount;
+    public bool addPistol;
     public bool addTommy;
     public bool addShotgun;
 }

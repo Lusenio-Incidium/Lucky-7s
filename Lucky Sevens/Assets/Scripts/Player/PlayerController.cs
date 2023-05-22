@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IDamage,IPhysics
 {
 
+    static PlayerController pc;
+
     //Variables
     [Header("- - - Componets - - -")]
     [SerializeField] CharacterController controller;
@@ -21,6 +23,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     [SerializeField] float pushBackResolve;
     [SerializeField] int throwPower;
 
+    [Header("GunSpawnables")]
+    [SerializeField] GameObject pistolSpawn;
+    [SerializeField] GameObject tommySpawn;
+
     //private variables
     Vector3 playerVelocity;
     Vector3 move;
@@ -34,12 +40,19 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     // Start is called before the first frame update
     void Start()
     {
-        HPOrig = HP;
-        GetPlayerHP();
-        GameManager.instance.UpdatePlayerHP();
-        spawnPlayer();
+        if(pc == null) 
+        {
+            pc = this;
+            HPOrig = HP;
+            spawnPlayer();
 
-        gunSystem = GetComponent<GunSystem>();
+            gunSystem = GetComponent<GunSystem>();
+        }
+        else 
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
@@ -58,6 +71,11 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         //Add players health from shop
         playerHeal(updates.healthAmount);
 
+
+        if (updates.addPistol) 
+        {
+            Instantiate(pistolSpawn, transform.position, transform.rotation);
+        }
 
     }
 
@@ -92,8 +110,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     public void takeDamage(int amount)
     {
         HP -= amount;
-        GetPlayerHP();
-        GameManager.instance.UpdatePlayerHP();
+        updatePlayerUI();
         if (HP <= 0)
         {
             GameManager.instance.youLose();
@@ -106,6 +123,15 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
         controller.enabled = true;
         HP = HPOrig;
+        updatePlayerUI();
+    }
+
+    public void spawnPlayerOnLoad() 
+    {
+        controller.enabled = false;
+        transform.position = GameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
+        
     }
     void sprint()
     {
@@ -178,9 +204,14 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         {
             HP = 100;
         }
-        GameManager.instance.UpdatePlayerHP();
+        updatePlayerUI();
     }
 
+    public void updatePlayerUI()
+    {
+        GameManager.instance.playerHPBar.fillAmount = (float) HP / HPOrig;
+        GameManager.instance.HPDisplay.text = HP.ToString();    
+    }
     public void speedChange(float amount)
     {
         playerSpeed += amount;

@@ -567,14 +567,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 581697804747712964, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
-      propertyPath: throwPower
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 581697804747712964, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
-      propertyPath: pushBackResolve
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 581697804747712965, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -623,9 +615,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 205655149, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
-    - {fileID: 2085391780119967725, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
 --- !u!1 &739123238
 GameObject:
@@ -835,29 +825,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c9f20bb0115101459704b1c0d7ab9a3, type: 3}
---- !u!1 &1085762388 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 581697804788486948, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
-  m_PrefabInstance: {fileID: 469974558}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1085762389 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 581697804788486951, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
   m_PrefabInstance: {fileID: 469974558}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1085762393
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1085762388}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1, z: 2}
-  m_Center: {x: 0, y: 0, z: 1}
 --- !u!1001 &1373508665
 PrefabInstance:
   m_ObjectHideFlags: 0
