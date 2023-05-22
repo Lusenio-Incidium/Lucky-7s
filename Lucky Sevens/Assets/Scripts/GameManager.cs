@@ -91,8 +91,11 @@ public class GameManager : MonoBehaviour
         UpdateAmmoCount();
         //shopRefresh
         ShopMenu.GetComponent<ShopController>().updateCrate();
+
         //player refresh
         playerScript.spawnPlayerOnLoad();
+        playerScript.updatePlayerUI();
+
     }
 
     void Update()

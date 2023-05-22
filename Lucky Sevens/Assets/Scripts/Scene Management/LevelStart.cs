@@ -12,4 +12,9 @@ public class LevelStart : MonoBehaviour
             GameManager.instance.refreshGameManager();
         }
     }
+
+    private void Start()
+    {
+        GameManager.instance.playerScript.updatePlayerUI();
+    }
 }

@@ -58,6 +58,14 @@ public class ShopController : MonoBehaviour
     public void updateCrate() 
     {
         crate = GameObject.FindGameObjectWithTag("Crate");
+        if(crate == null) 
+        {
+            hasShop = false;
+        }
+        else 
+        {
+            hasShop = true;
+        }
     }
 
     public void onPlinko()

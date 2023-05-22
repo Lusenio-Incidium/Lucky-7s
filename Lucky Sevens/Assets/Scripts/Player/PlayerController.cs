@@ -39,17 +39,15 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         if(pc == null) 
         {
             pc = this;
+            HPOrig = HP;
+            spawnPlayer();
+
+            gunSystem = GetComponent<GunSystem>();
         }
         else 
         {
             Destroy(gameObject);
         }
-
-
-        HPOrig = HP;
-        spawnPlayer();
-
-        gunSystem = GetComponent<GunSystem>();
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -124,6 +122,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         controller.enabled = false;
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
         controller.enabled = true;
+        
     }
     void sprint()
     {
