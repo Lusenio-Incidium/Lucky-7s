@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IDamage,IPhysics
 {
 
+    static PlayerController pc;
+
     //Variables
     [Header("- - - Componets - - -")]
     [SerializeField] CharacterController controller;
@@ -34,12 +36,23 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     // Start is called before the first frame update
     void Start()
     {
+        if(pc == null) 
+        {
+            pc = this;
+        }
+        else 
+        {
+            Destroy(gameObject);
+        }
+
+
         HPOrig = HP;
         GetPlayerHP();
         GameManager.instance.UpdatePlayerHP();
         spawnPlayer();
 
         gunSystem = GetComponent<GunSystem>();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
@@ -106,6 +119,13 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
         controller.enabled = true;
         HP = HPOrig;
+    }
+
+    public void spawnPlayerOnLoad() 
+    {
+        controller.enabled = false;
+        transform.position = GameManager.instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
     }
     void sprint()
     {

@@ -90,6 +90,8 @@ public class GameManager : MonoBehaviour
         UpdateAmmoCount();
         //shopRefresh
         ShopMenu.GetComponent<ShopController>().updateCrate();
+        //player refresh
+        playerScript.spawnPlayerOnLoad();
     }
 
     void Update()
@@ -231,6 +233,7 @@ public class GameManager : MonoBehaviour
         activeMenu = ReloadText;
         activeMenu.SetActive(false);
         activeMenu = null;
+        
     }
     public void UpdatePlayerHP()
     {
