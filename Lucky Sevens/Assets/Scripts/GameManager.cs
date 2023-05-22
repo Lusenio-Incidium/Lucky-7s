@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     float timeScaleOrig;
     int AmmoLoaded;
     bool reloading;
+    bool timerInc;
 
     void Awake()
     {
@@ -108,7 +109,7 @@ public class GameManager : MonoBehaviour
             activeMenu.SetActive(isPaused);
             pauseState();
         }
-        timeElapsed += Time.deltaTime;
+        
         updateTimer();
     }
 
@@ -121,6 +122,13 @@ public class GameManager : MonoBehaviour
         
     }
 
+    IEnumerator timerIncrease() 
+    {
+        timerInc = true;
+        timeElapsed += Time.deltaTime;
+        yield return new WaitForSeconds(0.001f);
+        timerInc = false;
+    }
 
     public IEnumerator loadScene(string sceen)
     {
@@ -220,7 +228,9 @@ public class GameManager : MonoBehaviour
 
     public void updateTimer()
     {
-        timerDisplay.text = timeElapsed.ToString("#.##");
+        if (!timerInc)
+            StartCoroutine(timerIncrease());
+        timerDisplay.text = timeElapsed.ToString("F2");
     }
     public void CharReloading()
     {
