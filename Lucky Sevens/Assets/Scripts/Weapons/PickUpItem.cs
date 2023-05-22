@@ -8,6 +8,7 @@ public class PickUpItem : MonoBehaviour
     [SerializeField] Transform cameraTrans;
 
     [SerializeField] bool canGrab;
+    [SerializeField] bool wasPickedUp;
     [SerializeField] bool isPickedUp;
 
     [SerializeField] Rigidbody rb;
@@ -17,6 +18,7 @@ public class PickUpItem : MonoBehaviour
         if(other.CompareTag("MainCamera"))
         {
             canGrab = true;
+            wasPickedUp = true;
             GameManager.instance.gunSystem.SetReadyToShoot(false);
         }
     }
@@ -60,5 +62,9 @@ public class PickUpItem : MonoBehaviour
                 }
             }
         }
+    }
+    public bool PickedUpByPlayer()
+    {
+        return wasPickedUp;
     }
 }
