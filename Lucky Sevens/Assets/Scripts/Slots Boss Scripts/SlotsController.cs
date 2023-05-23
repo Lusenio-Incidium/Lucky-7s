@@ -35,22 +35,36 @@ public class SlotsController : MonoBehaviour
 
     public static SlotsController instance;
     [Header("--- Wheel Objects ---")]
+    [Header("Wheels")]
+
     [SerializeField] GameObject _leftSlot;
     [SerializeField] GameObject _middleSlot;
     [SerializeField] GameObject _rightSlot;
+    [Header("Animators")]
+
     [SerializeField] Animator _LeftHatch;
     [SerializeField] Animator _RightHatch;
     [SerializeField] Animator _BottomHatch;
     [SerializeField] Animator _TopHatch;
     [SerializeField] Animator _Lever;
+
+    [Header("Buttons")]
+
     [SerializeField] DamageButton _leftButton;
     [SerializeField] DamageButton _middleButton;
     [SerializeField] DamageButton _rightButton;
+
+    [Header("Spawners")]
 
     [SerializeField] ArenaSpawner spawner1;
     [SerializeField] ArenaSpawner spawner2;
     [SerializeField] ArenaSpawner spawner3;
 
+    [Header("Cannons")]
+    [SerializeField] SlotsWeakPoint cannon1;
+    [SerializeField] SlotsWeakPoint cannon2;
+    [SerializeField] SlotsWeakPoint cannon3;
+    [SerializeField] SlotsWeakPoint cannon4;
 
     [Header("--- Slot Stats ---")]
     [Range(1, 50)][SerializeField] float _hatchOpenTime;
@@ -77,7 +91,6 @@ public class SlotsController : MonoBehaviour
     private bool _wheel3HayWire = false;
     int cannonCount;
 
-    float _currHatchOpenTime;
     bool _hatchOpen;
     [Range(0, 100)][SerializeField] int jackpotOdds; //How likely it is to get 3 in a row
     [Range(0, 100)][SerializeField] int jackpotMod; //How much the likelyhood of getting 3 in a row goes up after missing
@@ -130,9 +143,16 @@ public class SlotsController : MonoBehaviour
     public void Begin()
     {
         isStunned = false;
-        
+        SpawnCannons(false);
     }
 
+    void SpawnCannons(bool reinforced)
+    {
+        cannon1.Respawn(reinforced);
+        cannon2.Respawn(reinforced);
+        cannon3.Respawn(reinforced);
+        cannon4.Respawn(reinforced);
+    }
 
     public void SpawningFinished(int spawnerNum)
     {
@@ -180,7 +200,7 @@ public class SlotsController : MonoBehaviour
         _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
         if(cannonCount == 4)
         {
-            DamageWheel();
+            
             cannonCount = 0;
         }
         else
@@ -266,42 +286,6 @@ public class SlotsController : MonoBehaviour
         }
     }
 
-    public IEnumerator OpenHatch()
-    {
-        if(Health == 3)
-        {
-            _LeftHatch.SetBool("HatchOpen", true);
-        }
-        if (Health == 2)
-        {
-            _RightHatch.SetBool("HatchOpen", true);
-        }
-        if (Health == 1)
-        {
-            _BottomHatch.SetBool("HatchOpen", true);
-        }
-        yield return new WaitForSeconds(_hatchOpenTime);
-        SealHatch();
-    }
-
-    void SealHatch()
-    {
-        _hatchOpen = true;
-
-        if(Health >= 2)
-        {
-            _LeftHatch.SetBool("HatchOpen", false);
-        }
-        if (Health >= 1)
-        {
-            _LeftHatch.SetBool("HatchOpen", false);
-        }
-        if (Health >= 0)
-        {
-            _LeftHatch.SetBool("HatchOpen", false);
-        }
-        _hatchOpen = false;
-    }
     IEnumerator Spin()
     {
         _Lever.SetTrigger("Pull");
@@ -368,5 +352,41 @@ public class SlotsController : MonoBehaviour
             _rightSlot.transform.Rotate(_spinSpeed * HaywireMod, 0, 0 * Time.deltaTime);
         }
 
+    }
+    public IEnumerator OpenHatch()
+    {
+        if(Health == 3)
+        {
+            _LeftHatch.SetBool("HatchOpen", true);
+        }
+        if (Health == 2)
+        {
+            _RightHatch.SetBool("HatchOpen", true);
+        }
+        if (Health == 1)
+        {
+            _BottomHatch.SetBool("HatchOpen", true);
+        }
+        yield return new WaitForSeconds(_hatchOpenTime);
+        SealHatch();
+    }
+
+    void SealHatch()
+    {
+        _hatchOpen = true;
+
+        if(Health >= 2)
+        {
+            _LeftHatch.SetBool("HatchOpen", false);
+        }
+        if (Health >= 1)
+        {
+            _LeftHatch.SetBool("HatchOpen", false);
+        }
+        if (Health >= 0)
+        {
+            _LeftHatch.SetBool("HatchOpen", false);
+        }
+        _hatchOpen = false;
     }
 }

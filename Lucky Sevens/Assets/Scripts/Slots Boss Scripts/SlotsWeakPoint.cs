@@ -13,6 +13,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     [SerializeField] Animator animator;
     [SerializeField] SlotsCannonBase cannonBase;
     [SerializeField] GameObject explosion;
+    [SerializeField] BoxCollider boxCollider;
     bool active;
     int currHealth;
     // Start is called before the first frame update
@@ -20,7 +21,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     {
         active = false;
         currHealth = health;
-        Activate();
+        Hide();
     }
     private void Update()
     {
@@ -53,8 +54,11 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
         currHealth -= count;
         if(currHealth <= 0) 
         {
+            boxCollider.enabled = false;
             active = false;
             StartCoroutine(BlowUp());
+            SlotsController.instance.StunWheel();
+            
         }
     }
 
@@ -62,17 +66,22 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     {
         active = false;
         cannonBase.HideCannon();
+        boxCollider.enabled = false;
     }
-
     IEnumerator BlowUp()
     {
+        boxCollider.enabled = false;
         animator.enabled = true;
         animator.SetTrigger("BlowUpCannon");
         yield return new WaitForSeconds(2);
-        animator.SetTrigger("Retreat");
         cannonBase.HideCannon();
+
     }
     // Update is called once per frame
+    public void StartMoving()
+    {
+        cannonBase.StartMoving();
+    }
     public void Respawn(bool reinforced)
     {
         if(reinforced)
@@ -82,13 +91,18 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
             currHealth = health * 2;
         }
         animator.enabled = false;
-        active = false;
+        Activate();
     }
 
     
     public void IsOut()
     {
         active = true;
+        boxCollider.enabled = true;
+    }
+    public void GoingIn()
+    {
+        animator.SetTrigger("Retreat");
     }
     private void OnTriggerEnter(Collider other)
     {
