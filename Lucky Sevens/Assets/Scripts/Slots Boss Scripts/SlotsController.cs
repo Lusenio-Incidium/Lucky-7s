@@ -80,9 +80,6 @@ public class SlotsController : MonoBehaviour
     bool _wheel1Spin;
     bool _wheel2Spin;
     bool _wheel3Spin;
-    private bool _wheel1HayWire = false;
-    private bool _wheel2HayWire = false;
-    private bool _wheel3HayWire = false;
     int cannonCount;
 
     bool _hatchOpen;
@@ -107,7 +104,6 @@ public class SlotsController : MonoBehaviour
     bool waitingForSpawner1;
     bool waitingForSpawner2;
     bool waitingForSpawner3;
-    int NumMod;
 
     // Start is called before the first frame update
     void Start()
@@ -349,25 +345,13 @@ public class SlotsController : MonoBehaviour
         {
             _leftSlot.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
         }
-        else if (_wheel1HayWire)
-        {
-            _leftSlot.transform.Rotate(_spinSpeed * HaywireMod, 0, 0 * Time.deltaTime);
-        }
         if (_wheel2Spin)
         {
             _middleSlot.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
         }
-        else if (_wheel2HayWire)
-        {
-            _middleSlot.transform.Rotate(_spinSpeed * HaywireMod, 0, 0 * Time.deltaTime);
-        }
         if (_wheel3Spin)
         {
             _rightSlot.transform.Rotate(_spinSpeed, 0, 0 * Time.deltaTime);
-        }
-        else if (_wheel3HayWire)
-        {
-            _rightSlot.transform.Rotate(_spinSpeed * HaywireMod, 0, 0 * Time.deltaTime);
         }
 
     }
