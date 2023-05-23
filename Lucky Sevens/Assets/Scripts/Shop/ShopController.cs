@@ -29,6 +29,7 @@ public class ShopController : MonoBehaviour
     int gunTotal;
 
     int tokenCost;
+    bool buyTommy;
 
     private void Awake()
     {
@@ -104,8 +105,18 @@ public class ShopController : MonoBehaviour
 
     public void onGunTommy()
     {
-        TommygunText.text = "1";
-        gunTotal += 100;
+        if (!buyTommy) 
+        {
+            gunTotal += 100;
+            buyTommy = true;
+        }
+
+        else 
+        {
+            gunTotal -= 100;
+            buyTommy = false;
+        }
+            
         updateText();
     }
 
