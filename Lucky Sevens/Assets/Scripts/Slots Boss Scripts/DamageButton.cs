@@ -14,7 +14,7 @@ public class DamageButton : MonoBehaviour
             return;
         }
         hit = true;
-        StartCoroutine(SlotsController.instance.OpenHatch());
+        SlotsController.instance.OpenHatch();
 
     }
 

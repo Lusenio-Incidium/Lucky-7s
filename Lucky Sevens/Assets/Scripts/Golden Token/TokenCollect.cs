@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TokenCollect : MonoBehaviour
 {
-    float spinSpeed;
+    [SerializeField] float spinSpeed;
     int spinMod;
     float youWinDelay;
     private void Update()

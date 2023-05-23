@@ -16,11 +16,11 @@ public class SlotsCannonBase : MonoBehaviour
     [SerializeField] int displacment;
     [SerializeField] int retreatSpeed;
     [SerializeField] int moveSpeed;
-    bool move;
-    bool up;
-    bool isHome;
-    bool goInsideWall;
-    bool isInWall;
+    [SerializeField] bool move;
+    [SerializeField]bool up;
+    [SerializeField]bool isHome;
+    [SerializeField]bool goInsideWall;
+    [SerializeField]bool isInWall;
      bool actionOut;
     bool actionIn;
 

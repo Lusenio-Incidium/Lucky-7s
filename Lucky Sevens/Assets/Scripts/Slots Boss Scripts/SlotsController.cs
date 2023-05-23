@@ -48,13 +48,6 @@ public class SlotsController : MonoBehaviour
     [SerializeField] Animator _TopHatch;
     [SerializeField] Animator _Lever;
 
-    [Header("Buttons")]
-
-    [SerializeField] DamageButton _leftButton;
-    [SerializeField] DamageButton _middleButton;
-    [SerializeField] DamageButton _rightButton;
-    [SerializeField] DestroyButton _gameEnderButton;
-
     [Header("Spawners")]
 
     [SerializeField] ArenaSpawner spawner1;
@@ -66,11 +59,6 @@ public class SlotsController : MonoBehaviour
     [SerializeField] SlotsWeakPoint cannon2;
     [SerializeField] SlotsWeakPoint cannon3;
     [SerializeField] SlotsWeakPoint cannon4;
-
-    [Header("Damage Spots")]
-    [SerializeField] SlotsDamageSpot damageSpotLeft;
-    [SerializeField] SlotsDamageSpot damageSpotMiddle;
-    [SerializeField] SlotsDamageSpot damageSpotRight;
 
     [Header("--- Slot Stats ---")]
     [Range(1, 50)][SerializeField] float _hatchOpenTime;
@@ -125,16 +113,11 @@ public class SlotsController : MonoBehaviour
     void Start()
     {
         _isSpinning = _wheel1Spin = _wheel2Spin = _wheel3Spin = false;
-        _leftButton.DeactivateButton();
-        _middleButton.DeactivateButton();
-        _rightButton.DeactivateButton();
-
         _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
         _currJackpotOdds = jackpotOdds;
         isStunned = true;
         Health = 3;
         instance = this;
-        _gameEnderButton.DeactivateButton();
     }
 
     // Update is called once per frame
@@ -148,99 +131,94 @@ public class SlotsController : MonoBehaviour
     }
     public void Begin()
     {
-        isStunned = false;
-        SpawnCannons(false);
+        unStun();
     }
 
 
     public void SpawningFinished(int spawnerNum)
     {
         if(spawnerNum ==1)
-        waitingForSpawner1 = false;
+            waitingForSpawner1 = false;
         else if(spawnerNum == 2)
             waitingForSpawner2 = false;
         else
             waitingForSpawner3 = false;
     }
 
-    public void DamageWheel()
+    public IEnumerator DamageWheel()
     {
         Health--;
         if(Health == 2)
         {
+            yield return new WaitForSeconds(2f);
+            //_wheel1HayWire = true;
+            //_wheel1Spin = false;
+            unStun();
 
-            _wheel1HayWire = true;
-            _wheel1Spin = false;
-            isStunned = false;
-            SpawnCannons(false);
-            MoveCannons();
         }
         if(Health == 1)
         {
-            _wheel3HayWire = true;
-            _wheel3Spin = false;
-            isStunned = false;
-            SpawnCannons(true);
-            MoveCannons();
+            yield return new WaitForSeconds(2f);
+            //_wheel3HayWire = true;
+            //_wheel3Spin = false;
+            unStun();
+
         }
         if (Health == 0)
         {
-            _gameEnderButton.ActivateButton();
-            _TopHatch.SetTrigger("OpenHatch");
-            _wheel2HayWire = true;
-
-           // Destroy(_slot2);
+            WinnersToken.instance.Spawn();
+            Destroy(cannon1);
+            Destroy(cannon2);
+            Destroy(cannon3);
+            Destroy(cannon4);
         }
-        cannonCount = 0;
     }
 
-    public void StunWheel()
+    public IEnumerator StunWheel()
     {
-        isStunned = true;
-        _currStopDelay = 0;
-        _isSpinning = false;
-        _canStop = false;
-        DeactivateCannons();
         cannonCount++;
-        _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
-        if(cannonCount == 4)
+        if (cannonCount >= 4)
         {
-            if(Health == 3)
-            {
-                damageSpotLeft.InstaKill();
-            }
-            if (Health == 2)
-            {
-                damageSpotRight.InstaKill();
-            }
-            if (Health == 1)
-            {
-                damageSpotLeft.InstaKill();
-            }
+            isStunned = true;
+            _currStopDelay = 0;
+            _isSpinning = false;
+            _canStop = false;
+            OpenHatch();
+            _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
             cannonCount = 0;
-        }
-        else
-        {
-            if(Health == 3)
-            {
-                _leftButton.ActivateButton();
-            }
-            else if (Health == 2)
-            {
-                _rightButton.ActivateButton();
-            }
-            else
-            {
-                _middleButton.ActivateButton();
-            }
+            yield return new WaitForSeconds(_hatchOpenTime);
+            unStun();
+            
         }
     }
 
     void unStun()
     {
+        if (!isStunned || Health <= 0)
+        {
+            return;
+        }
         isStunned = false;
-        ActivateCannons();
+        SealHatch();
+        if (Health < 2)
+        {
+            SpawnCannons(true);
+        }
+        else
+        {
+            SpawnCannons(false);
+        }
+        if (Health < 3)
+        {
+            MoveCannons();
+        }
+
     }
+
+
+
+
+    //Slots Logic
     void SlotsLogic()
     {
         AnimateSpin();
@@ -393,11 +371,11 @@ public class SlotsController : MonoBehaviour
         }
 
     }
-    public IEnumerator OpenHatch()
+    public void OpenHatch()
     {
         if (_hatchOpen)
         {
-            yield return null;
+            return;
         }
         _hatchOpen = true;
 
@@ -414,14 +392,10 @@ public class SlotsController : MonoBehaviour
         {
             _BottomHatch.SetBool("HatchOpen", true);
         }
-        yield return new WaitForSeconds(_hatchOpenTime);
-        SealHatch();
     }
 
     void SealHatch()
     {
-
-
         if(Health >= 2)
         {
             _LeftHatch.SetBool("HatchOpen", false);
@@ -435,7 +409,6 @@ public class SlotsController : MonoBehaviour
             _LeftHatch.SetBool("HatchOpen", false);
         }
         _hatchOpen = false;
-        unStun();
     }
 
     //Here comes the Cannon Method Section.
@@ -445,30 +418,6 @@ public class SlotsController : MonoBehaviour
         cannon2.Respawn(reinforced);
         cannon3.Respawn(reinforced);
         cannon4.Respawn(reinforced);
-    }
-
-    void ActivateCannons()
-    {
-        if (cannon1.GetHealth() > 0)
-            cannon1.Activate();
-        if (cannon2.GetHealth() > 0)
-            cannon2.Activate();
-        if (cannon3.GetHealth() > 0)
-            cannon3.Activate();
-        if (cannon4.GetHealth() > 0)
-            cannon4.Activate();
-    }
-
-    void DeactivateCannons()
-    {
-        if (cannon1.GetHealth() > 0)
-            cannon1.Hide();
-        if (cannon2.GetHealth() > 0)
-            cannon2.Hide();
-        if (cannon3.GetHealth() > 0)
-            cannon3.Hide();
-        if (cannon4.GetHealth() > 0)
-            cannon4.Hide();
     }
     void MoveCannons()
     {
