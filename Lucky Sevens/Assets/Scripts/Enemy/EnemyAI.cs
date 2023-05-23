@@ -38,7 +38,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     bool destinationChosen;
     float stoppingDistanceOrig;
     float speed;
-    // Start is called before the first frame update
     void Start()
     {
         colorOrig = model.material.color;
@@ -76,7 +75,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
             yield return new WaitForSeconds(roamPauseTime);
             destinationChosen = false;
 
-            Vector3 ranPos = UnityEngine.Random.insideUnitSphere * roamDistance;
+            Vector3 ranPos = Random.insideUnitSphere * roamDistance;
             ranPos += startingPos;
 
             NavMeshHit hit;
@@ -89,9 +88,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     {
         playerDir = GameManager.instance.player.transform.position - headPos.position;
         angleOfPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
-
-        Debug.DrawRay(headPos.position, playerDir);
-        Debug.Log(angleOfPlayer);
 
         RaycastHit hit;
 
