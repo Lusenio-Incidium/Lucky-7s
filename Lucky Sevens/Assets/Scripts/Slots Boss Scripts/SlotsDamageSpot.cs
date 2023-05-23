@@ -17,7 +17,7 @@ public class SlotsDamageSpot : MonoBehaviour, IDamage
         if (health <= 0)
         {
             destroyed = true;
-            SlotsController.instance.DamageWheel();
+            StartCoroutine(SlotsController.instance.DamageWheel());
         }
     }
 

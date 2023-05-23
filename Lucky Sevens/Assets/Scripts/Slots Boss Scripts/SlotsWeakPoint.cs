@@ -57,7 +57,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
             boxCollider.enabled = false;
             active = false;
             StartCoroutine(BlowUp());
-            SlotsController.instance.StunWheel();
+            StartCoroutine(SlotsController.instance.StunWheel());
             
         }
     }
@@ -84,7 +84,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     }
     public void Respawn(bool reinforced)
     {
-        if(reinforced)
+        if(!reinforced)
         currHealth = health;
         else
         {
