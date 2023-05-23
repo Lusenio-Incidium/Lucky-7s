@@ -10,8 +10,8 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     [SerializeField] int trackSpeed;
     [SerializeField] Transform barrelPosition;
     [SerializeField] Transform NeturalTarget;
-    [SerializeField] Animator animator;
-    [SerializeField] SlotsCannonBase cannonBase;
+    [SerializeField] Animator cannonAnimator;
+    [SerializeField] Animator cannonBaseAnimator;
     [SerializeField] GameObject explosion;
     [SerializeField] BoxCollider boxCollider;
     bool active;
@@ -41,14 +41,24 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * trackSpeed);
     }
 
-    public void Activate() 
+    public IEnumerator Activate() 
     {
-        if(active == true)
-        {
-            return;
-        }
-        cannonBase.BringOutCannon();
+        cannonBaseAnimator.SetBool("Out", true);
+        yield return new WaitForSeconds(1);
+        active = true;
+        boxCollider.enabled = true;
     }
+    public void Hide()
+    {
+        active = false;
+        boxCollider.enabled = false;
+        cannonBaseAnimator.SetBool("Out", false);
+    }
+    public void StartMoving()
+    {
+        cannonBaseAnimator.SetBool("Moving", true);
+    }
+
     public void takeDamage(int count)
     {
         currHealth -= count;
@@ -62,26 +72,17 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
         }
     }
 
-    public void Hide()
-    {
-        active = false;
-        cannonBase.HideCannon();
-        boxCollider.enabled = false;
-    }
     IEnumerator BlowUp()
     {
         boxCollider.enabled = false;
-        animator.enabled = true;
-        animator.SetTrigger("BlowUpCannon");
+        cannonAnimator.enabled = true;
+        cannonAnimator.SetTrigger("BlowUpCannon");
         yield return new WaitForSeconds(2);
-        cannonBase.HideCannon();
+        cannonBaseAnimator.SetBool("Out", false);
+        cannonAnimator.SetTrigger("Retreat");
 
     }
-    // Update is called once per frame
-    public void StartMoving()
-    {
-        cannonBase.StartMoving();
-    }
+
     public void Respawn(bool reinforced)
     {
         if(!reinforced)
@@ -90,20 +91,8 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
         {
             currHealth = health * 2;
         }
-        animator.enabled = false;
-        Activate();
-    }
-
-    
-    public void IsOut()
-    {
-        active = true;
-        boxCollider.enabled = true;
-        animator.enabled = false;
-    }
-    public void GoingIn()
-    {
-        animator.SetTrigger("Retreat");
+        cannonAnimator.enabled = false;
+        StartCoroutine(Activate());
     }
     public int GetHealth()
     {
