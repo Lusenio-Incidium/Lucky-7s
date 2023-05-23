@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class GunStats : ScriptableObject
 {
-    public MeshFilter gunFilter;
-    public MeshRenderer gunModel;
     public GameObject model;
 
     public int damage;
