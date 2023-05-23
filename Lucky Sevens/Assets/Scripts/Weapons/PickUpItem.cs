@@ -41,6 +41,7 @@ public class PickUpItem : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Mouse0))
             {
                 rb.velocity = Vector3.zero;
+                rb.Sleep();
                 objPicked.parent = cameraTrans;
                 rb.useGravity = false;
                 isPickedUp = true;
@@ -57,7 +58,7 @@ public class PickUpItem : MonoBehaviour
                 {
                     objPicked.parent = null;
                     rb.useGravity = true;
-                    rb.velocity = cameraTrans.forward * GameManager.instance.playerScript.GetThrowPower() * Time.deltaTime;
+                    rb.velocity = GameManager.instance.playerScript.GetThrowPower() * cameraTrans.forward * Time.deltaTime;
                     isPickedUp = false;
                 }
             }
