@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 
 
 public class GameManager : MonoBehaviour
@@ -69,10 +67,9 @@ public class GameManager : MonoBehaviour
     }
 
     //Refereshes the game manger on a new scene loaded. Just to get all the prefabs re-loaded.
-    
-    //TODO: Make player not be destroyed between scenes? Just a thought.
     public void refreshGameManager() 
     {
+        //Initalize GameManager
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
@@ -81,6 +78,7 @@ public class GameManager : MonoBehaviour
         enemiesRemaining = 0;
         timeElapsed = 0;
         UpdateAmmoCount();
+
         //shopRefresh
         ShopMenu.GetComponent<ShopController>().updateCrate();
 
@@ -102,6 +100,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        //Pause Menu Code
         if(Input.GetButton("Cancel") && activeMenu == null)
         {
             isPaused = !isPaused;
@@ -132,6 +131,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator loadScene(string sceen)
     {
+        //Load a scene with the loadTransition so we have a cool loading screen.
         isPaused = true;
         Animator anim = loadingScreen.GetComponent<Animator>();
         activeMenu = loadingScreen;
@@ -147,6 +147,7 @@ public class GameManager : MonoBehaviour
 
     public void unPauseState()
     {
+        //Put this in an if check to stop some bugs.
         if(activeMenu != null) 
         {
             Time.timeScale = timeScaleOrig;
@@ -207,7 +208,9 @@ public class GameManager : MonoBehaviour
         {
             enemiesKilled += amount * -1;
         }
-        WinnersToken.instance.UpdateEnemyCount(enemiesKilled);
+        //Added a check so enemies stop bugging out
+        if(WinnersToken.instance != null && WinnersToken.instance.condition() == WinConditions.KillXEnemies || WinnersToken.instance.condition() == WinConditions.KillAllEnemies)
+            WinnersToken.instance.UpdateEnemyCount(enemiesKilled);
     }
 
     public IEnumerator youWin(float time)
@@ -220,11 +223,8 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateAmmoCount()
     {
-        
-
         ammoReserveCount.text = gunSystem.GetAmmoCount().ToString();
         ammoMagCount.text = gunSystem.GetMagCount().ToString();
-
     }
 
     public void updateTimer()

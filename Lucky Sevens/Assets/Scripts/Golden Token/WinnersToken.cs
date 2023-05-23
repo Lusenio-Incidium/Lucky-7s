@@ -124,4 +124,10 @@ public class WinnersToken : MonoBehaviour
         step = 2;
         token.GetComponent<SphereCollider>().enabled = true;
     }
+
+    public WinConditions condition() 
+    {
+        return winStyle;
+    }
+
 }
