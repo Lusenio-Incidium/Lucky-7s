@@ -16,11 +16,14 @@ public class SlotsCannonBase : MonoBehaviour
     [SerializeField] int displacment;
     [SerializeField] int retreatSpeed;
     [SerializeField] int moveSpeed;
-    [SerializeField]bool move;
-    [SerializeField]bool up;
-    [SerializeField]bool isHome;
-    [SerializeField]bool goInsideWall;
-    [SerializeField]bool isInWall;
+    bool move;
+    bool up;
+    bool isHome;
+    bool goInsideWall;
+    bool isInWall;
+     bool actionOut;
+    bool actionIn;
+
     Vector3 origLocation;
     private void Start()
     {
@@ -82,7 +85,16 @@ public class SlotsCannonBase : MonoBehaviour
             isHome = true;
             isInWall = false;
             transform.position = origLocation;
-            cannon.IsOut();
+            if (!goInsideWall && actionOut)
+            {
+                cannon.IsOut();
+                actionOut = false;
+            }
+            else if (actionIn)
+            {
+                cannon.GoingIn();
+                actionIn = false;
+            }
         }
         else
         {
@@ -93,11 +105,14 @@ public class SlotsCannonBase : MonoBehaviour
     {
         move = false;
         goInsideWall = true;
+        actionIn = true;
+        ReturnToNeutral();
     }
 
     public void BringOutCannon()
     {
         goInsideWall = false;
+        actionOut = true;
 
     }
     public void StartMoving()
