@@ -245,6 +245,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     public IEnumerator BurnEffect()
     {
+        int pop = activeEffect.duration;
         if (activeEffect.duration != 0)
         {
             if (activeEffect.slowEffect != 0)
@@ -252,20 +253,20 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
                 playerSpeed /= activeEffect.slowEffect;
             }
             timePassed = Time.time;
-            while (Time.time - timePassed <= activeEffect.duration)
+            while (Time.time - timePassed <= pop && activeEffect != null)
             {
-                if (activeEffect.damage != 0)
-                {
-                    yield return new WaitForSeconds(activeEffect.damagespeed);
-                    takeDamage(activeEffect.damage);
-                }
-                else
-                {
-                    yield return new WaitForSeconds(activeEffect.duration);
-                    RemoveEffect();
-                }
+                    if (activeEffect.damage != 0)
+                    {
+                        yield return new WaitForSeconds(activeEffect.damagespeed);
+                        takeDamage(activeEffect.damage);
+                    }
+                    else
+                    {
+                        yield return new WaitForSeconds(activeEffect.duration);
+                        RemoveEffect();
+                    }
             }
-            if (Time.time - timePassed >= activeEffect.duration)
+            if (activeEffect != null)
             {
                 RemoveEffect();
             }

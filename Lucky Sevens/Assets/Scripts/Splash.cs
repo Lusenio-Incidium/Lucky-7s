@@ -21,8 +21,6 @@ public class Splash : MonoBehaviour
         if (statusable != null)
         {
             statusable.ApplyStatusEffect(status);
-            sphere.enabled = false;
-            
         }
     }
     private void OnTriggerExit(Collider other)

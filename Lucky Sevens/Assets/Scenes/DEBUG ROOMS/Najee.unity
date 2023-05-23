@@ -510,9 +510,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 581697804747712964, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
-      propertyPath: playerSpeed
-      value: 10
+    - target: {fileID: 1085762393, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085762393, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085762393, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085762393, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
+      propertyPath: m_Center.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 581697804747712965, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
       propertyPath: m_RootOrder
@@ -720,11 +732,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 581697804788486951, guid: fc439579791d2ba4d82776e0793c0951, type: 3}
   m_PrefabInstance: {fileID: 469974558}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1214978077 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2094461737343936188, guid: 09ea95fcee1a56f4eba6b23333cb16e4, type: 3}
-  m_PrefabInstance: {fileID: 2094461736141946529}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1373508665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -736,13 +743,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeleeBodyguard
       objectReference: {fileID: 0}
+    - target: {fileID: 5610362864980099680, guid: b700668f773fcc3468c0cc82399cd6a4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.78
+      objectReference: {fileID: 0}
     - target: {fileID: 5610362864980100088, guid: b700668f773fcc3468c0cc82399cd6a4, type: 3}
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5610362864980100088, guid: b700668f773fcc3468c0cc82399cd6a4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.85
+      value: -6.81
       objectReference: {fileID: 0}
     - target: {fileID: 5610362864980100088, guid: b700668f773fcc3468c0cc82399cd6a4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1660,6 +1671,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatusPuddle
       objectReference: {fileID: 0}
+    - target: {fileID: 2094461737343936191, guid: 09ea95fcee1a56f4eba6b23333cb16e4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094461737343936191, guid: 09ea95fcee1a56f4eba6b23333cb16e4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09ea95fcee1a56f4eba6b23333cb16e4, type: 3}
 --- !u!1 &2246587383799953827
@@ -2047,7 +2066,11 @@ PrefabInstance:
     - target: {fileID: 5804980906652256745, guid: 50780c0024e83b748bd2db1dc72021b0, type: 3}
       propertyPath: puddle
       value: 
-      objectReference: {fileID: 1214978077}
+      objectReference: {fileID: 2094461737343936188, guid: 312ec2e4eda81674f9553b4aeda98fa5, type: 3}
+    - target: {fileID: 5804980906652256747, guid: 50780c0024e83b748bd2db1dc72021b0, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5804980906652256749, guid: 50780c0024e83b748bd2db1dc72021b0, type: 3}
       propertyPath: m_RootOrder
       value: 18

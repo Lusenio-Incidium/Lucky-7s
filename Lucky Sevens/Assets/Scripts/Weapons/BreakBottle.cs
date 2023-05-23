@@ -16,8 +16,8 @@ public class BreakBottle : MonoBehaviour
             if (yrue)
             {
                 Instantiate(puddle, gameObject.transform.position, other.transform.rotation);
-                Destroy(gameObject);
                 smashed = true;
+                Destroy(gameObject);
             }
         }
     }
