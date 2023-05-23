@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class SlotsWeakPoint : MonoBehaviour, IDamage
 {
@@ -11,6 +12,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     [SerializeField] Transform NeturalTarget;
     [SerializeField] Animator animator;
     [SerializeField] SlotsCannonBase cannonBase;
+    [SerializeField] GameObject explosion;
     bool active;
     int currHealth;
     // Start is called before the first frame update
@@ -49,7 +51,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     public void takeDamage(int count)
     {
         currHealth -= count;
-        if(health <= 0) 
+        if(currHealth <= 0) 
         {
             active = false;
             StartCoroutine(BlowUp());
@@ -91,9 +93,12 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     private void OnTriggerEnter(Collider other)
     {
         //Insert Bomb Script here.
-        if (false)
+        PickUpItem bomb = other.GetComponent<PickUpItem>();
+        if (bomb != null && bomb.PickedUpByPlayer())
         {
+            Instantiate(explosion, other.transform.position, transform.rotation.normalized);
             takeDamage(health);
+            Destroy(other.gameObject);
         }
     }
 }
