@@ -66,6 +66,11 @@ public class SlotsController : MonoBehaviour
     [SerializeField] SlotsWeakPoint cannon3;
     [SerializeField] SlotsWeakPoint cannon4;
 
+    [Header("Damage Spots")]
+    [SerializeField] SlotsDamageSpot damageSpotLeft;
+    [SerializeField] SlotsDamageSpot damageSpotMiddle;
+    [SerializeField] SlotsDamageSpot damageSpotRight;
+
     [Header("--- Slot Stats ---")]
     [Range(1, 50)][SerializeField] float _hatchOpenTime;
     [Range(1,100)][SerializeField] float _spinSpeed;
@@ -109,7 +114,7 @@ public class SlotsController : MonoBehaviour
     SlotResults _wheelThreeResult;
     int _currJackpotOdds;
     bool isStunned;
-    int weakPointCount;
+
     bool waitingForSpawner1;
     bool waitingForSpawner2;
     bool waitingForSpawner3;
@@ -128,7 +133,7 @@ public class SlotsController : MonoBehaviour
         isStunned = true;
         Health = 3;
         instance = this;
-        weakPointCount = 0;
+
     }
 
     // Update is called once per frame
@@ -146,13 +151,6 @@ public class SlotsController : MonoBehaviour
         SpawnCannons(false);
     }
 
-    void SpawnCannons(bool reinforced)
-    {
-        cannon1.Respawn(reinforced);
-        cannon2.Respawn(reinforced);
-        cannon3.Respawn(reinforced);
-        cannon4.Respawn(reinforced);
-    }
 
     public void SpawningFinished(int spawnerNum)
     {
@@ -173,14 +171,16 @@ public class SlotsController : MonoBehaviour
             _wheel1HayWire = true;
             _wheel1Spin = false;
             isStunned = false;
+            SpawnCannons(false);
+            MoveCannons();
         }
         if(Health == 1)
         {
-
-
             _wheel3HayWire = true;
             _wheel3Spin = false;
             isStunned = false;
+            SpawnCannons(true);
+            MoveCannons();
         }
         if (Health == 0)
         {
@@ -189,6 +189,7 @@ public class SlotsController : MonoBehaviour
 
            // Destroy(_slot2);
         }
+        cannonCount = 0;
     }
 
     public void StunWheel()
@@ -197,10 +198,23 @@ public class SlotsController : MonoBehaviour
         _currStopDelay = 0;
         _isSpinning = false;
         _canStop = false;
+        DeactivateCannons();
+        cannonCount++;
         _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
         if(cannonCount == 4)
         {
-            
+            if(Health == 3)
+            {
+                damageSpotLeft.InstaKill();
+            }
+            if (Health == 2)
+            {
+                damageSpotRight.InstaKill();
+            }
+            if (Health == 1)
+            {
+                damageSpotLeft.InstaKill();
+            }
             cannonCount = 0;
         }
         else
@@ -220,6 +234,11 @@ public class SlotsController : MonoBehaviour
         }
     }
 
+    void unStun()
+    {
+        isStunned = false;
+        ActivateCannons();
+    }
     void SlotsLogic()
     {
         AnimateSpin();
@@ -260,6 +279,7 @@ public class SlotsController : MonoBehaviour
 
     void SpinAction()
     {
+        UpdateSpawnLocations();
         if (_wheelOneResult == _wheelTwoResult && _wheelTwoResult == _wheelThreeResult)
         {
             spawner1.SetSpawnConditions(jackpotFaceStats[(int)_wheelOneResult - 1]);
@@ -286,6 +306,24 @@ public class SlotsController : MonoBehaviour
         }
     }
 
+    void UpdateSpawnLocations()
+    {
+        Transform[] SpawnLocations = GetActiveCannons();
+        foreach(SpawnConditions sc in normalFaceStats)
+        {
+            if(sc.GetSpawnStyles() == SpawnStyles.FireAtPlayer || sc.GetSpawnStyles() == SpawnStyles.FireOnAllFronts)
+            {
+                sc.SetSpawnLocations(SpawnLocations);
+            }
+        }
+        foreach (SpawnConditions sc in jackpotFaceStats)
+        {
+            if (sc.GetSpawnStyles() == SpawnStyles.FireAtPlayer || sc.GetSpawnStyles() == SpawnStyles.FireOnAllFronts)
+            {
+                sc.SetSpawnLocations(SpawnLocations);
+            }
+        }
+    }
     IEnumerator Spin()
     {
         _Lever.SetTrigger("Pull");
@@ -355,7 +393,14 @@ public class SlotsController : MonoBehaviour
     }
     public IEnumerator OpenHatch()
     {
-        if(Health == 3)
+        if (_hatchOpen)
+        {
+            yield return null;
+        }
+        _hatchOpen = true;
+
+
+        if (Health == 3)
         {
             _LeftHatch.SetBool("HatchOpen", true);
         }
@@ -373,7 +418,7 @@ public class SlotsController : MonoBehaviour
 
     void SealHatch()
     {
-        _hatchOpen = true;
+
 
         if(Health >= 2)
         {
@@ -388,5 +433,66 @@ public class SlotsController : MonoBehaviour
             _LeftHatch.SetBool("HatchOpen", false);
         }
         _hatchOpen = false;
+        unStun();
+    }
+
+    //Here comes the Cannon Method Section.
+    void SpawnCannons(bool reinforced)
+    {
+        cannon1.Respawn(reinforced);
+        cannon2.Respawn(reinforced);
+        cannon3.Respawn(reinforced);
+        cannon4.Respawn(reinforced);
+    }
+
+    void ActivateCannons()
+    {
+        if (cannon1.GetHealth() > 0)
+            cannon1.Activate();
+        if (cannon2.GetHealth() > 0)
+            cannon2.Activate();
+        if (cannon3.GetHealth() > 0)
+            cannon3.Activate();
+        if (cannon4.GetHealth() > 0)
+            cannon4.Activate();
+    }
+
+    void DeactivateCannons()
+    {
+        if (cannon1.GetHealth() > 0)
+            cannon1.Hide();
+        if (cannon2.GetHealth() > 0)
+            cannon2.Hide();
+        if (cannon3.GetHealth() > 0)
+            cannon3.Hide();
+        if (cannon4.GetHealth() > 0)
+            cannon4.Hide();
+    }
+    void MoveCannons()
+    {
+        if (cannon1.GetHealth() > 0)
+            cannon1.StartMoving();
+        if (cannon2.GetHealth() > 0)
+            cannon2.StartMoving();
+        if (cannon3.GetHealth() > 0)
+            cannon3.StartMoving();
+        if (cannon4.GetHealth() > 0)
+            cannon4.StartMoving();
+    }
+
+    Transform[] GetActiveCannons()
+    {
+        List<Transform> returnList = new List<Transform>();
+        if (cannon1.GetHealth() > 0 && cannon1.GetActive())
+            returnList.Add(cannon1.giveBarrel());
+        if (cannon2.GetHealth() > 0 && cannon2.GetActive())
+            returnList.Add(cannon2.giveBarrel());
+
+        if (cannon3.GetHealth() > 0 && cannon3.GetActive())
+            returnList.Add(cannon3.giveBarrel());
+
+        if (cannon4.GetHealth() > 0 && cannon4.GetActive())
+            returnList.Add(cannon4.giveBarrel());
+        return returnList.ToArray();
     }
 }

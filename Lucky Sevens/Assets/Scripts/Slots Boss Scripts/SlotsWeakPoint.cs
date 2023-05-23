@@ -99,10 +99,25 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     {
         active = true;
         boxCollider.enabled = true;
+        animator.enabled = false;
     }
     public void GoingIn()
     {
         animator.SetTrigger("Retreat");
+    }
+    public int GetHealth()
+    {
+        return currHealth;
+    }
+
+    public bool GetActive()
+    {
+        return active;
+    }
+
+    public Transform giveBarrel()
+    {
+        return barrelPosition;
     }
     private void OnTriggerEnter(Collider other)
     {

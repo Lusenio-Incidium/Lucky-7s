@@ -15,4 +15,9 @@ public class SlotsDamageSpot : MonoBehaviour, IDamage
             SlotsController.instance.DamageWheel();
         }
     }
+
+    public void InstaKill()
+    {
+        takeDamage(health);
+    }
 }
