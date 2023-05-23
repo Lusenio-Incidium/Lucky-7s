@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamage,IPhysics
+public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 {
 
     static PlayerController pc;
@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     [SerializeField] int interactDist;
     [SerializeField] float pushBackResolve;
     [SerializeField] int throwPower;
+    [SerializeField] StatusEffectObj activeEffect;
 
     [Header("GunSpawnables")]
     [SerializeField] GameObject pistolSpawn;
@@ -33,9 +34,11 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     bool isGrounded;
     int jumpTimes;
     private int HPOrig;
+    private float origSpeed;
     Vector3 pushBack;
     int selectedGunNum = 0;
     GunSystem gunSystem;
+    private float timePassed;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         {
             pc = this;
             HPOrig = HP;
+            origSpeed = playerSpeed;
             spawnPlayer();
 
             gunSystem = GetComponent<GunSystem>();
@@ -230,4 +234,49 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     {
         return throwPower * 10;
     }
+    public void ApplyStatusEffect(StatusEffectObj data)
+    {
+        if (data != null && activeEffect == null)
+        {
+            activeEffect = data;
+            StartCoroutine(BurnEffect());
+        }
+    }
+
+    public IEnumerator BurnEffect()
+    {
+        if (activeEffect.duration != 0)
+        {
+            if (activeEffect.slowEffect != 0)
+            {
+                playerSpeed /= activeEffect.slowEffect;
+            }
+            timePassed = Time.time;
+            while (Time.time - timePassed <= activeEffect.duration)
+            {
+                if (activeEffect.damage != 0)
+                {
+                    yield return new WaitForSeconds(activeEffect.damagespeed);
+                    takeDamage(activeEffect.damage);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(activeEffect.duration);
+                    RemoveEffect();
+                }
+            }
+            if (Time.time - timePassed >= activeEffect.duration)
+            {
+                RemoveEffect();
+            }
+        }
+    }
+
+    public void RemoveEffect()
+    {
+        activeEffect = null;
+        timePassed = 0;
+        playerSpeed = origSpeed;
+    }
+
 }

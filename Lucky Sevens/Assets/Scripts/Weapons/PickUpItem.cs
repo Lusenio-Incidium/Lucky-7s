@@ -18,7 +18,6 @@ public class PickUpItem : MonoBehaviour
         if(other.CompareTag("MainCamera"))
         {
             canGrab = true;
-            wasPickedUp = true;
             GameManager.instance.gunSystem.SetReadyToShoot(false);
         }
     }
@@ -40,6 +39,7 @@ public class PickUpItem : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.Mouse0))
             {
+                wasPickedUp = true;
                 rb.velocity = Vector3.zero;
                 rb.Sleep();
                 objPicked.parent = cameraTrans;
