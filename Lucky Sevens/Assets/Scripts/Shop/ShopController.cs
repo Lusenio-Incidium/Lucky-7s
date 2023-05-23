@@ -6,19 +6,18 @@ using TMPro;
 public class ShopController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI plinkoText;
-    [SerializeField] TextMeshProUGUI chipText;
     [SerializeField] TextMeshProUGUI healthText;
     [SerializeField] TextMeshProUGUI speedText;
     [SerializeField] TextMeshProUGUI sheildText;
-    [SerializeField] TextMeshProUGUI gunText;
+    [SerializeField] TextMeshProUGUI PistolgunText;
+    [SerializeField] TextMeshProUGUI TommygunText;
     [SerializeField] Scrollbar plinko;
-    [SerializeField] Scrollbar chip;
     [SerializeField] Scrollbar health;
     [SerializeField] Scrollbar speed;
     [SerializeField] Scrollbar sheild;
-    [SerializeField] Scrollbar gun;
+    [SerializeField] Toggle gunPistol;
+    [SerializeField] Toggle gunTommy;
     [SerializeField] TextMeshProUGUI chipTotText;
-    [SerializeField] TextMeshProUGUI coinTotText;
 
     bool hasShop;
     [SerializeField] GameObject crate;
@@ -75,15 +74,6 @@ public class ShopController : MonoBehaviour
         updateText();
     }
 
-    public void onChip()
-    {
-        chipText.text = (chip.value * 10).ToString("0");
-
-        chipTotal = (int)(chip.value * 10);
-        updateText();
-    }
-
-
     public void onHealth()
     {
         healthText.text = (health.value * 3).ToString("0");
@@ -105,37 +95,69 @@ public class ShopController : MonoBehaviour
         updateText();
     }
 
-    public void onGun()
+    public void onGunPistol()
     {
-        gunText.text = (gun.value).ToString("0");
-        gunTotal = (int)(gun.value) * 200;
+        PistolgunText.text = "1";
+
+        updateText();
+    }
+
+    public void onGunTommy()
+    {
+        TommygunText.text = "1";
+        gunTotal += 100;
         updateText();
     }
 
     void updateText()
     {
-        tokenCost = (plinkoTotal + chipTotal + healthTotal + speedTotal + sheildTotal + gunTotal);
+        tokenCost = (plinkoTotal + healthTotal + speedTotal + sheildTotal + gunTotal);
         chipTotText.text = tokenCost.ToString();
+    }
+
+    public void resetMenu() 
+    {
+        plinko.value = 0;
+        health.value = 0;
+        speed.value = 0;
+        sheild.value = 0;
+
+        gunPistol.isOn = false;
+        gunTommy.isOn = false;
     }
 
     public void onBuy()
     {
-        Crate cs = crate.GetComponent<Crate>();
-
-        cs.pickup.healthAmount = (int)(health.value * 3);
-        cs.pickup.speedAmount = (int)(speed.value * 5);
-        cs.pickup.plinkoAmount = (int)(plinko.value * 10);
-        cs.pickup.shieldAmount = (int)(sheild.value * 5);
-        cs.pickup.tokenAmount = (int)(chip.value * 10);
-
-        if(gun.value > 0) 
+        if(tokenCost <= GameManager.instance.playerAmmo) 
         {
-            cs.pickup.addPistol = true;
+            GameManager.instance.playerAmmo -= tokenCost;
+            GameManager.instance.gunSystem.AddBullets(-tokenCost);
+            Crate cs = crate.GetComponent<Crate>();
+
+            cs.pickup.healthAmount = (int)(health.value * 3);
+            cs.pickup.speedAmount = (int)(speed.value * 5);
+            cs.pickup.plinkoAmount = (int)(plinko.value * 10);
+            cs.pickup.shieldAmount = (int)(sheild.value * 5);
+
+            if (gunPistol.isOn)
+            {
+                cs.pickup.addPistol = true;
+            }
+
+            if (gunTommy.isOn)
+            {
+                cs.pickup.addTommy = true;
+            }
+
+            crate.SetActive(true);
+            GameManager.instance.unPauseState();
+        }
+        else
+        { 
+            GameManager.instance.unPauseState();
+            GameManager.instance.ErrorMenu("Not enough Chips!");
         }
 
-        crate.SetActive(true);
-
-        GameManager.instance.unPauseState();
-
+        resetMenu();
     }
 }
