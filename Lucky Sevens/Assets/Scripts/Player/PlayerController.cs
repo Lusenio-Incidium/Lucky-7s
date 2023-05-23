@@ -76,7 +76,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         {
             Instantiate(pistolSpawn, transform.position, transform.rotation);
         }
-
+        if (updates.addTommy) 
+        {
+            Instantiate(tommySpawn, transform.position, transform.rotation);
+        }
     }
 
 
