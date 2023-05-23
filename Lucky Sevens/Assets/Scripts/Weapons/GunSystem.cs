@@ -29,7 +29,7 @@ public class GunSystem : MonoBehaviour
     Rigidbody Bullet;
 
     //bools to ask game
-    bool allowButtonHolding;
+    private bool allowButtonHolding;
     bool isShooting;
     bool readyToShoot;
     bool reloading;
@@ -57,8 +57,9 @@ public class GunSystem : MonoBehaviour
 
     private void myInput()
     {
+        allowButtonHolding = false;
         //hold to fire or single shot
-        if (allowButtonHolding == true)
+        if (allowButtonHolding)
         {
             isShooting = Input.GetKey(KeyCode.Mouse0);
         }
@@ -133,7 +134,9 @@ public class GunSystem : MonoBehaviour
         bulletsLeft--;
         bulletsShot++;
         bulletsLeft = weapons[currentWeapon].bulletsLeft = bulletsLeft;
+        GameManager.instance.playerAmmo -= 1;
         GameManager.instance.UpdateAmmoCount();
+
 
         if (allowButtonHolding && bulletsLeft > 0)
         {
@@ -222,6 +225,7 @@ public class GunSystem : MonoBehaviour
         }
         weapons[currentWeapon].ammunition = magSize * 4 - bulletsShot;*/
         GameManager.instance.UpdateAmmoCount();
+        GameManager.instance.playerAmmo += ammunition;
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
     }

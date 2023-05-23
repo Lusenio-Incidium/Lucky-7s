@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Guns/stats")]
+[CreateAssetMenu(menuName = "Guns/stats")]
 
 public class GunStats : ScriptableObject
 {
