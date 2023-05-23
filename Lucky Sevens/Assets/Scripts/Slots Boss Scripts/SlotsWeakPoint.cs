@@ -12,11 +12,8 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     [SerializeField] Transform NeturalTarget;
     [SerializeField] Animator animator;
     [SerializeField] SlotsCannonBase cannonBase;
-<<<<<<< Updated upstream
     [SerializeField] GameObject explosion;
-=======
     [SerializeField] BoxCollider boxCollider;
->>>>>>> Stashed changes
     bool active;
     int currHealth;
     // Start is called before the first frame update
