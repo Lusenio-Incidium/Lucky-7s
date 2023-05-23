@@ -190,6 +190,7 @@ public class GunSystem : MonoBehaviour
             EquipWeapon(0);
         }
         hasGun = true;
+        GameManager.instance.playerAmmo += ammunition;
         GameManager.instance.ammoDisplay.SetActive(true);
         
     }
@@ -215,7 +216,6 @@ public class GunSystem : MonoBehaviour
         statusEffect = weapons[index].statusEffect;
         Bullet = weapons[index].bulletPreFab;
         GameManager.instance.UpdateAmmoCount();
-        GameManager.instance.playerAmmo += ammunition;
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
     }
