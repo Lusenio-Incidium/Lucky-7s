@@ -29,7 +29,6 @@ public class GunSystem : MonoBehaviour
     Rigidbody Bullet;
 
     //bools to ask game
-    private bool allowButtonHolding;
     bool isShooting;
     bool readyToShoot;
     bool reloading;
@@ -57,17 +56,18 @@ public class GunSystem : MonoBehaviour
 
     private void myInput()
     {
-        allowButtonHolding = false;
         //hold to fire or single shot
-        if (allowButtonHolding)
+        if(hasGun)
         {
-            isShooting = Input.GetKey(KeyCode.Mouse0);
+            if (weapons[currentWeapon].TriggerHold == true)
+            {
+                isShooting = Input.GetMouseButton(0);
+            }
+            else
+            {
+                isShooting = Input.GetKeyDown(KeyCode.Mouse0);
+            }
         }
-        else
-        {
-            isShooting = Input.GetKeyDown(KeyCode.Mouse0);
-        }
-
         //reloading
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft <= magSize && !reloading)
         {
@@ -84,16 +84,15 @@ public class GunSystem : MonoBehaviour
         }
 
         //shooting
-
+        if(!reloading && bulletsLeft == 0 && isShooting)
+        {
+            GameManager.instance.CharEmtpyMag();
+        }
         if (readyToShoot && isShooting && !reloading)
         {
             if (bulletsLeft > 0)
             {
                 Shoot();
-            }
-            else
-            {
-                GameManager.instance.CharEmtpyMag();
             }
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && weapons.Count > 0)
@@ -138,15 +137,11 @@ public class GunSystem : MonoBehaviour
         GameManager.instance.UpdateAmmoCount();
 
 
-        if (allowButtonHolding && bulletsLeft > 0)
-        {
-            Invoke("Shoot", timeBetweenShots);
-        }
-        else
+        if (isShooting && bulletsLeft > 0)
         {
             Invoke("ResetShot", timeBetweenShots);
-
         }
+        
 
         //ammoCounts[currentWeapon] = previousAmmoCount;
     }
@@ -163,6 +158,7 @@ public class GunSystem : MonoBehaviour
         reloading = true;
         GameManager.instance.CharReloading();
         Invoke("ReloadDone", reloadTime);
+        Invoke("ResetShot", timeBetweenShots);
     }
 
     //after reloading is complete
@@ -218,6 +214,8 @@ public class GunSystem : MonoBehaviour
         GameManager.instance.UpdateAmmoCount();
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        Invoke("ResetShot", timeBetweenShots);
     }
     public void AddBullets(int amount)
     {
