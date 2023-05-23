@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public GameObject emptyReserve;
     public GameObject emptyMag;
     public GameObject ammoDisplay;
+    public TextMeshProUGUI shopChipsTotal;
     public TextMeshProUGUI ammoReserveCount;
     public TextMeshProUGUI ammoMagCount;
     public TextMeshProUGUI HPDisplay;
@@ -198,6 +199,9 @@ public class GameManager : MonoBehaviour
         isPaused = !isPaused;
         pauseState();
         activeMenu = ShopMenu;
+
+        shopChipsTotal.text = playerAmmo.ToString("F0");
+
         activeMenu.SetActive(true);
     }
     public void UpdateEnemyCount(int amount)

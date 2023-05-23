@@ -28,6 +28,7 @@ public class Crate : MonoBehaviour
         pickup.tokenAmount = 0;
         pickup.plinkoAmount = 0;
         pickup.shieldAmount = 0;
+        pickup.addPistol = false;
         pickup.addShotgun = false;
         pickup.addTommy = false;
         

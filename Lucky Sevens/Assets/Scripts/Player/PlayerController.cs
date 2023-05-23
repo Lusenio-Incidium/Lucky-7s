@@ -76,7 +76,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
         {
             Instantiate(pistolSpawn, transform.position, transform.rotation);
         }
-
+        if (updates.addTommy) 
+        {
+            Instantiate(tommySpawn, transform.position, transform.rotation);
+        }
     }
 
 
@@ -121,6 +124,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     {
         controller.enabled = false;
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
+        transform.rotation = GameManager.instance.playerSpawnPos.transform.rotation;
         controller.enabled = true;
         HP = HPOrig;
         updatePlayerUI();
@@ -130,6 +134,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics
     {
         controller.enabled = false;
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
+        transform.rotation = GameManager.instance.playerSpawnPos.transform.rotation;
         controller.enabled = true;
         
     }
