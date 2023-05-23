@@ -69,13 +69,13 @@ public class GunSystem : MonoBehaviour
         }
 
         //reloading
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && !reloading)
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft <= magSize && !reloading)
         {
             if (ammunition == 0)
             {
                 GameManager.instance.CharZeroReserve();
             }
-            else
+            else if (bulletsLeft < magSize)
             {
                 GameManager.instance.CharReloading();
                 Reload();
@@ -214,16 +214,6 @@ public class GunSystem : MonoBehaviour
         ammunition = weapons[index].ammunition;
         statusEffect = weapons[index].statusEffect;
         Bullet = weapons[index].bulletPreFab;
-
-       /* if (ammoCounts.ContainsKey(currentWeapon))
-        {
-            bulletsLeft = Mathf.Clamp(ammoCounts[currentWeapon], 0, magSize);
-        }
-        else
-        {
-            bulletsLeft = magSize;
-        }
-        weapons[currentWeapon].ammunition = magSize * 4 - bulletsShot;*/
         GameManager.instance.UpdateAmmoCount();
         GameManager.instance.playerAmmo += ammunition;
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;

@@ -13,8 +13,8 @@ public class GunPickup : MonoBehaviour
         gunStat.bulletsLeft = gunStat.magSize;
         gunStat.ammunition = gunStat.magSize * 4;
 
-        model.mesh = gunStat.model.GetComponent<MeshFilter>().sharedMesh;
-        mat.material = gunStat.model.GetComponent<MeshRenderer>().sharedMaterial;
+        model = gunStat.model.GetComponent<MeshFilter>();
+        mat = gunStat.model.GetComponent<MeshRenderer>();
     }
     private void OnTriggerEnter(Collider other)
     {

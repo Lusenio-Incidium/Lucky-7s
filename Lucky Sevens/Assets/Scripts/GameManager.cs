@@ -209,7 +209,7 @@ public class GameManager : MonoBehaviour
             enemiesKilled += amount * -1;
         }
         //Added a check so enemies stop bugging out
-        if(WinnersToken.instance != null && WinnersToken.instance.condition() == WinConditions.KillXEnemies || WinnersToken.instance.condition() == WinConditions.KillAllEnemies)
+        if(WinnersToken.instance != null)
             WinnersToken.instance.UpdateEnemyCount(enemiesKilled);
     }
 
