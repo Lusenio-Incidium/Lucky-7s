@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb9de33a7989faa44b3b23e857c8ed05, type: 3}
   m_Name: Rifle_Stats
   m_EditorClassIdentifier: 
+  model: {fileID: 919132149155446097, guid: 33269b2b610f4c245a712795c1927939, type: 3}
   damage: 36
   timeBetweenShots: 0.2
   range: 200
@@ -19,7 +20,9 @@ MonoBehaviour:
   spread: 0
   bulletsPerTap: 0
   magSize: 10
+  bulletsLeft: 0
   ammunition: 0
   statusEffect: {fileID: 0}
   bulletPreFab: {fileID: 0}
   TriggerHold: 1
+  currentAmmoCount: 0
