@@ -114,7 +114,7 @@ public class GunSystem : MonoBehaviour
 
         //Raycasting bullets
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, range))
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, range) && !GameManager.instance.isPaused)
         {
             
             IDamage damageable = hit.collider.GetComponent<IDamage>();
