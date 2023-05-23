@@ -53,6 +53,7 @@ public class SlotsController : MonoBehaviour
     [SerializeField] DamageButton _leftButton;
     [SerializeField] DamageButton _middleButton;
     [SerializeField] DamageButton _rightButton;
+    [SerializeField] DestroyButton _gameEnderButton;
 
     [Header("Spawners")]
 
@@ -133,7 +134,7 @@ public class SlotsController : MonoBehaviour
         isStunned = true;
         Health = 3;
         instance = this;
-
+        _gameEnderButton.DeactivateButton();
     }
 
     // Update is called once per frame
@@ -184,7 +185,8 @@ public class SlotsController : MonoBehaviour
         }
         if (Health == 0)
         {
-            WinnersToken.instance.Spawn();
+            _gameEnderButton.ActivateButton();
+            _TopHatch.SetTrigger("OpenHatch");
             _wheel2HayWire = true;
 
            // Destroy(_slot2);

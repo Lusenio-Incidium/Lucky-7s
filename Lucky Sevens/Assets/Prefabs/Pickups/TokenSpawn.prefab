@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: TokenSpawn
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 976f3a0e0257b334fbb2f3fd2760d8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldenTokenPrefab: {fileID: 0}
+  goldenTokenPrefab: {fileID: 1447461204490396610, guid: 5c9f20bb0115101459704b1c0d7ab9a3, type: 3}
   spawnLocation: {fileID: 8076933377832197188}
   restLocation: {fileID: 8076933379426661372}
   travelTime: 1
@@ -56,7 +56,7 @@ MonoBehaviour:
   travelArcHeight: 7
   spinSpeed: 500
   spinMod: 25
-  winStyle: 1
+  winStyle: 0
   timeOrKills: 2
   youWinDelay: 2
 --- !u!1 &8076933379426661373
@@ -71,7 +71,7 @@ GameObject:
   m_Layer: 0
   m_Name: TokenEndDestination
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -83,7 +83,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8076933379426661373}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 0}
+  m_LocalPosition: {x: 0.42, y: -14.08, z: 30.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
