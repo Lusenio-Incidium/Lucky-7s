@@ -36,6 +36,7 @@ public class ArenaSpawner : MonoBehaviour
         spawnMethod = conditions.GetSpawnStyles();
         rangeRadius = conditions.GetAccuracy();
         batchSize = conditions.GetBatchSize();
+        spawnLocations = conditions.GetSpawnLocations();
     }
     IEnumerator spawn()
     {

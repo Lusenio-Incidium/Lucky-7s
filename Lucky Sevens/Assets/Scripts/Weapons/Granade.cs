@@ -15,7 +15,7 @@ public class Granade : MonoBehaviour
     [SerializeField] int upVel;
     void Start()
     {
-        rb.velocity = (transform.forward + new Vector3(0, upVel, 0)) * speed;
+        rb.velocity = (transform.forward * speed);
         sc.enabled = false;
         StartCoroutine(Ignite());
     }

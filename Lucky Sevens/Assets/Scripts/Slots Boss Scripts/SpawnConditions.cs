@@ -49,6 +49,10 @@ public class SpawnConditions
     {
         return batchSize;
     }
+    public Transform[] GetSpawnLocations()
+    {
+        return SpawnLocations;
+    }
 
     public void SetSpawnLocations(Transform[] locations)
     {
