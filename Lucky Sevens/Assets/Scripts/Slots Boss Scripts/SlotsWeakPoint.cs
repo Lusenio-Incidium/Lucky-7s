@@ -76,6 +76,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
         boxCollider.enabled = false;
         cannonAnimator.enabled = true;
         cannonAnimator.SetTrigger("BlowUpCannon");
+        Instantiate(explosion, barrelPosition.transform.position, transform.rotation);
         yield return new WaitForSeconds(2);
         cannonBaseAnimator.SetBool("Out", false);
         cannonAnimator.SetTrigger("Retreat");
