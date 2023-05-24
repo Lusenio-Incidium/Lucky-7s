@@ -5,6 +5,7 @@ using UnityEngine;
 public class SlotsDamageSpot : MonoBehaviour, IDamage
 {
     [SerializeField] int health;
+    [SerializeField] GameObject boom;
     bool destroyed = false;
 
     public void takeDamage(int count)
@@ -18,6 +19,7 @@ public class SlotsDamageSpot : MonoBehaviour, IDamage
         {
             destroyed = true;
             StartCoroutine(SlotsController.instance.DamageWheel());
+            Instantiate(boom, transform.position, transform.rotation);
         }
     }
 

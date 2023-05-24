@@ -46,8 +46,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
         cannonBaseAnimator.SetBool("Out", true);
         yield return new WaitForSeconds(1);
         active = true;
-        boxCollider.enabled = true;
-    }
+        boxCollider.enabled = true;    }
     public void Hide()
     {
         active = false;

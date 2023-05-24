@@ -6,10 +6,12 @@ public class Explosion : MonoBehaviour
 {
     [SerializeField] int damage;
     [SerializeField] int pushAmount;
+    [SerializeField] ParticleSystem explosionPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
+        Instantiate(explosionPrefab, transform.position, transform.rotation);
         Destroy(gameObject, 0.15f);    
     }
 
