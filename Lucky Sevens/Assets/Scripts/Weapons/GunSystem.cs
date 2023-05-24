@@ -8,11 +8,14 @@ using UnityEngine;
 
 public class GunSystem : MonoBehaviour
 {
+    [Header("----- Audio -----")]
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip gunShotAud;
+    [SerializeField] float gunShotAudVol;
 
 
     //Stats
     [Header("----- Gun Stats -----")]
-    //keeping these stats serialized until i can figure out how to get the newpickup gun to work like in class
     int dmg;
     float timeBetweenShots;
     float range;
@@ -28,6 +31,9 @@ public class GunSystem : MonoBehaviour
     [SerializeField] MeshRenderer gunMat;
     Rigidbody Bullet;
 
+
+
+
     //bools to ask game
     bool isShooting;
     bool readyToShoot;
@@ -40,7 +46,7 @@ public class GunSystem : MonoBehaviour
     public int currentWeapon = 0;
     public bool hasGun;
 
-    
+
     private void Awake()
     {
         hasGun = false;
@@ -57,7 +63,7 @@ public class GunSystem : MonoBehaviour
     private void myInput()
     {
         //hold to fire or single shot
-        if(hasGun)
+        if (hasGun)
         {
             if (weapons[currentWeapon].TriggerHold == true)
             {
@@ -84,7 +90,7 @@ public class GunSystem : MonoBehaviour
         }
 
         //shooting
-        if(!reloading && bulletsLeft == 0 && isShooting)
+        if (!reloading && bulletsLeft == 0 && isShooting)
         {
             GameManager.instance.CharEmtpyMag();
         }
@@ -116,7 +122,8 @@ public class GunSystem : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, range) && !GameManager.instance.isPaused)
         {
-            
+            aud.PlayOneShot(weapons[currentWeapon].gunShotAud, weapons[currentWeapon].gunShotAudVol);
+
             IDamage damageable = hit.collider.GetComponent<IDamage>();
             IStatusEffect effectable = hit.collider.GetComponent<IStatusEffect>();
             if (damageable != null)
@@ -128,7 +135,6 @@ public class GunSystem : MonoBehaviour
                 effectable.ApplyStatusEffect(statusEffect);
             }
         }
-        //int previousAmmoCount = bulletsLeft;
 
         bulletsLeft--;
         bulletsShot++;
@@ -141,9 +147,6 @@ public class GunSystem : MonoBehaviour
         {
             Invoke("ResetShot", timeBetweenShots);
         }
-        
-
-        //ammoCounts[currentWeapon] = previousAmmoCount;
     }
 
     //while not shooting
@@ -188,10 +191,10 @@ public class GunSystem : MonoBehaviour
         hasGun = true;
         GameManager.instance.playerAmmo += ammunition;
         GameManager.instance.ammoDisplay.SetActive(true);
-        
+
     }
 
-    public void updateShop(ShopPickup updates) 
+    public void updateShop(ShopPickup updates)
     {
         ammunition += updates.tokenAmount;
     }

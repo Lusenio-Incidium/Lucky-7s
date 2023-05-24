@@ -17,6 +17,8 @@ public class GunStats : ScriptableObject
     public int magSize;
     public int bulletsLeft;
     public int ammunition;
+    public AudioClip gunShotAud;
+    [Range(0, 1)] public float gunShotAudVol;
     public StatusEffectObj statusEffect;
     public Rigidbody bulletPreFab;
     public bool TriggerHold;
