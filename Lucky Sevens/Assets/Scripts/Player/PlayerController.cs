@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     //Variables
     [Header("- - - Componets - - -")]
     [SerializeField] CharacterController controller;
+    [SerializeField] AudioSource aud;
 
     [Header("- - - Atributes - - -")]
     public List<GunStats> gunList = new List<GunStats>();
@@ -24,6 +25,14 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [SerializeField] int throwPower;
     [SerializeField] StatusEffectObj activeEffect;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip[] footsteps;
+    [SerializeField] float footVol;
+    [SerializeField] AudioClip[] jumpSounds;
+    [SerializeField] float jumpVol;
+    [SerializeField] AudioClip[] hurtSounds;
+    [SerializeField] float hurtVol;
+
     [Header("GunSpawnables")]
     [SerializeField] GameObject pistolSpawn;
     [SerializeField] GameObject tommySpawn;
@@ -33,12 +42,14 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     Vector3 move;
     bool isGrounded;
     int jumpTimes;
-    private int HPOrig;
-    private float origSpeed;
+    int HPOrig;
+    float origSpeed;
     Vector3 pushBack;
     int selectedGunNum = 0;
     GunSystem gunSystem;
-    private float timePassed;
+    float timePassed;
+    bool stepPlaying;
+    bool isSprinting;
 
     // Start is called before the first frame update
     void Start()
@@ -91,10 +102,17 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         //Check if player is grounded
         isGrounded = controller.isGrounded;
-        if (isGrounded && playerVelocity.y < 0)
+        if (isGrounded)
         {
-            jumpTimes = 0;
-            playerVelocity.y = 0;
+            if(playerVelocity.y < 0) 
+            {
+                jumpTimes = 0;
+                playerVelocity.y = 0;
+            }
+            if(!stepPlaying && move.normalized.magnitude > 0.5f) 
+            {
+                StartCoroutine(playStepAud());
+            }
         }
 
         //Set move vector for player movement
@@ -104,8 +122,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         //Jump Input
         if (Input.GetButtonDown("Jump") && jumpTimes < maxJumpAmmount)
         {
+            aud.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Length)], jumpVol);
             jumpTimes++;
             playerVelocity.y = jumpHeight;
+            
         }
 
         //gravity
@@ -114,9 +134,25 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
     }
 
+    IEnumerator playStepAud() 
+    {
+        stepPlaying = true;
+        aud.PlayOneShot(footsteps[Random.Range(0,footsteps.Length)], footVol);
+        if (isSprinting) 
+        {
+            yield return new WaitForSeconds(0.3f);
+        }
+        else 
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        stepPlaying = false;
+    }
+
     public void takeDamage(int amount)
     {
         HP -= amount;
+        aud.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)], hurtVol);
         updatePlayerUI();
         if (HP <= 0)
         {
@@ -147,10 +183,12 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         if (Input.GetButtonDown("Sprint"))
         {
             playerSpeed *= sprintMod;
+            isSprinting = true;
         }
         else if (Input.GetButtonUp("Sprint"))
         {
             playerSpeed /= sprintMod;
+            isSprinting = false;
         }
     }
 
