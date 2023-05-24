@@ -163,10 +163,6 @@ public class SlotsController : MonoBehaviour
         if (Health == 0)
         {
             WinnersToken.instance.Spawn();
-            Destroy(cannon1);
-            Destroy(cannon2);
-            Destroy(cannon3);
-            Destroy(cannon4);
         }
     }
 
