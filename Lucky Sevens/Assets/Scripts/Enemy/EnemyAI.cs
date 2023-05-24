@@ -135,6 +135,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
 
     public IEnumerator BurnEffect()
     {
+        int effectTime = hitEffect.duration;
         if (hitEffect.duration != 0)
         {
             if (hitEffect.slowEffect != 0)
@@ -142,7 +143,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
                 agent.speed /= hitEffect.slowEffect;
             }
             timePassed = Time.time;
-            while (Time.time - timePassed <= hitEffect.duration)
+            while ( Time.time - timePassed <= effectTime && hitEffect != null)
             {
                 if (hitEffect.damage != 0)
                 {
@@ -155,7 +156,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
                     RemoveEffect();
                 }
             }
-            if (Time.time - timePassed >= hitEffect.duration)
+            if (hitEffect != null)
             {
                 RemoveEffect();
             }

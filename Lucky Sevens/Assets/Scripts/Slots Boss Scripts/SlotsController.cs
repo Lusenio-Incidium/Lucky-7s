@@ -163,10 +163,6 @@ public class SlotsController : MonoBehaviour
         if (Health == 0)
         {
             WinnersToken.instance.Spawn();
-            Destroy(cannon1);
-            Destroy(cannon2);
-            Destroy(cannon3);
-            Destroy(cannon4);
         }
     }
 
@@ -208,7 +204,7 @@ public class SlotsController : MonoBehaviour
         {
             MoveCannons();
         }
-
+        _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
     }
 
 
@@ -225,8 +221,8 @@ public class SlotsController : MonoBehaviour
         else if (_isSpinning && _canStop && _currSpinDelay <= 0)
         {
             _currStopDelay -= Time.deltaTime;
-            Debug.Log((int)_wheelOneResult);
-            if (_wheel1Spin && Health >= 3)
+
+            if (_wheel1Spin)
             {
                 _wheel1Spin = false;
                 _leftSlot.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelOneResult) + (90 - (360 / 20)), 0, 0);
@@ -236,7 +232,7 @@ public class SlotsController : MonoBehaviour
             if (!_wheel1Spin && _currStopDelay <= 0 && _wheel2Spin)
             {
                 _wheel2Spin = false;
-                _rightSlot.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelTwoResult) + (90 - (360 / 20)), 0, 0);
+                _middleSlot.transform.rotation = Quaternion.Euler(((360 / 20) * (int)_wheelTwoResult) + (90 - (360 / 20)), 0, 0);
                 _currStopDelay = UnityEngine.Random.Range(wheelStopDelayMin, wheelStopDelayMax);
             }
             if (!_wheel2Spin && _currStopDelay <= 0 && _wheel3Spin) { 
@@ -245,6 +241,7 @@ public class SlotsController : MonoBehaviour
                 _isSpinning = false;
                 _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
                 SpinAction();
+                Debug.Log((int)_wheelOneResult + " " + (int)_wheelTwoResult + " " + (int)_wheelThreeResult);
             }
         }
         else if (!waitingForSpawner1 && !waitingForSpawner2 && !waitingForSpawner3)
@@ -306,20 +303,11 @@ public class SlotsController : MonoBehaviour
         _isSpinning = true;
         _canStop = false;
         yield return new WaitForSeconds(.5f);
-
-
-        if (Health >= 3)
-        {
-            _wheel1Spin = true;
-            yield return new WaitForSeconds(_spinStartDelay);
-        }
+        _wheel1Spin = true;
+        yield return new WaitForSeconds(_spinStartDelay);
         _wheel2Spin = true;
-        if (Health >= 2)
-        {
-            yield return new WaitForSeconds(_spinStartDelay);
-            _wheel3Spin = true;
-        }
-
+        yield return new WaitForSeconds(_spinStartDelay);
+        _wheel3Spin = true;
         if(UnityEngine.Random.Range(1,100) < _currJackpotOdds) 
         {
             int jackpot = UnityEngine.Random.Range(1, 20);

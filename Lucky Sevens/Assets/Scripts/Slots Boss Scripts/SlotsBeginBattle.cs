@@ -8,6 +8,7 @@ public class SlotsBeginBattle : MonoBehaviour
     [SerializeField] GameObject DestroyOnBegin;
     [SerializeField] GameObject ArenaLight;
     [SerializeField] Animator startAnimation;
+    [SerializeField] Vector3 newSpawnPos;
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player") || hit)
