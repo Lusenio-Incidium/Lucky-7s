@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public GameObject emptyReserve;
     public GameObject emptyMag;
     public GameObject ammoDisplay;
+    public GameObject playerDamageFlash;
     public TextMeshProUGUI shopChipsTotal;
     public TextMeshProUGUI ammoReserveCount;
     public TextMeshProUGUI ammoMagCount;

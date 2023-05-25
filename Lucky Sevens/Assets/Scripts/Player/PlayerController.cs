@@ -154,10 +154,17 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         HP -= amount;
         aud.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)], hurtVol);
         updatePlayerUI();
+        StartCoroutine(damageFlash());
         if (HP <= 0)
         {
             GameManager.instance.youLose();
         }
+    }
+    IEnumerator damageFlash()
+    {
+        GameManager.instance.playerDamageFlash.SetActive(true);
+        yield return new WaitForSeconds(.1f);
+        GameManager.instance.playerDamageFlash.SetActive(false);
     }
 
     public void spawnPlayer()
