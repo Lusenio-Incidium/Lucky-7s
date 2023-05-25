@@ -388,11 +388,11 @@ public class SlotsController : MonoBehaviour
         }
         if (Health >= 1)
         {
-            _LeftHatch.SetBool("HatchOpen", false);
+            _RightHatch.SetBool("HatchOpen", false);
         }
         if (Health >= 0)
         {
-            _LeftHatch.SetBool("HatchOpen", false);
+            _BottomHatch.SetBool("HatchOpen", false);
         }
         _hatchOpen = false;
     }
