@@ -51,7 +51,7 @@ public class GunSystem : MonoBehaviour
     {
         hasGun = false;
         bulletsLeft = magSize;
-        ammunition = magSize * 4;
+        ammunition = magSize * 5;
         readyToShoot = true;
     }
 
