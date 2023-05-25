@@ -19,6 +19,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     [SerializeField] GameObject explosion;
     [SerializeField] BoxCollider boxCollider;
     bool active;
+    Color colorOrig;
     int currHealth;
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
         active = false;
         currHealth = health;
         Hide();
+        colorOrig = gameObject.GetComponent<MeshRenderer>().material.color;
     }
     private void Update()
     {
@@ -73,8 +75,17 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
             StartCoroutine(SlotsController.instance.StunWheel());
             
         }
+        else
+        {
+            StartCoroutine(FlashColor());
+        }
     }
-
+    IEnumerator FlashColor()
+    {
+        gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+        yield return new WaitForSeconds(.1f);
+        gameObject.GetComponent<MeshRenderer>().material.color = colorOrig;
+    }
     IEnumerator BlowUp()
     {
         boxCollider.enabled = false;
