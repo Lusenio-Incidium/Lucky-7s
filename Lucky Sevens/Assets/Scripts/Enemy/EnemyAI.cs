@@ -11,6 +11,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] Transform headPos;
     [SerializeField] Transform shootPos;
     [SerializeField] public bool Complicated;
+    [SerializeField] public bool isMelee;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] int HP;
@@ -25,6 +26,9 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] int range;
     [SerializeField] float attackAngle;
     [SerializeField] GameObject gunProjectile;
+    [SerializeField] Collider leftFistCol;
+    [SerializeField] Collider rightFistCol;
+
 
     bool isShooting;
     [SerializeField] StatusEffectObj hitEffect;
@@ -45,6 +49,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         OrigSpeed = agent.speed;
         GameManager.instance.UpdateEnemyCount(1);
         startingPos = transform.position;
+        stoppingDistanceOrig = agent.stoppingDistance;
     }
 
     // Update is called once per frame
@@ -111,6 +116,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
             if(hit.collider.CompareTag("Player") && angleOfPlayer <= viewAngle)
             {
                 agent.SetDestination(GameManager.instance.player.transform.position);
+                agent.stoppingDistance = stoppingDistanceOrig;
                 if(agent.remainingDistance <= agent.stoppingDistance)
                 {
                     if (Complicated)
@@ -119,7 +125,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
                         FacePlayer();
                     }
                 }
-                if(!isShooting && angleOfPlayer <= attackAngle)
+                if(!isShooting && angleOfPlayer <= attackAngle && agent.remainingDistance <= range)
                 {
                     StartCoroutine(Shoot());
                 }
@@ -136,6 +142,11 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
 
         anim.SetTrigger("Shoot");
 
+        if (isMelee)
+        {
+            anim.SetInteger("Melee", Random.Range(0, 10));
+        }
+
         yield return new WaitForSeconds(shootSpeed);
 
         isShooting = false;
@@ -144,6 +155,18 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     public void createBullet()
     {
         Instantiate(gunProjectile, shootPos.position, transform.rotation);
+    }
+
+    public void fistColOn()
+    {
+        leftFistCol.enabled = true;
+        rightFistCol.enabled = true;
+    }
+
+    public void fistColOff()
+    {
+        leftFistCol.enabled = false;
+        rightFistCol.enabled = false;
     }
 
     public void ApplyStatusEffect(StatusEffectObj data)
@@ -204,6 +227,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
             anim.SetBool("Dead", true);
             GameManager.instance.UpdateEnemyCount(-1);
             agent.enabled = false;
+            fistColOff();
         }
     }
     IEnumerator FlashColor()
