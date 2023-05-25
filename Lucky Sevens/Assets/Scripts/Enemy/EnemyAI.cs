@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
     [SerializeField] Transform shootPos;
+    [SerializeField] public bool Complicated;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] int HP;
@@ -49,22 +50,32 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     // Update is called once per frame
     void Update()
     {
-        if (agent.isActiveAndEnabled)
+        if (Complicated)
+        {
+            if (agent.isActiveAndEnabled)
+            {
+                speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
+                anim.SetFloat("Speed", speed);
+
+                if (destination)
+                    FacePlayer();
+
+                if (playerInRange && !CanSeePlayer())
+                {
+                    StartCoroutine(Roam());
+                }
+                else if (agent.destination != GameManager.instance.player.transform.position)
+                {
+                    StartCoroutine(Roam());
+                }
+            }
+        }
+        else
         {
             speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
             anim.SetFloat("Speed", speed);
-
-            if (destination)
-                FacePlayer();
-
-            if (playerInRange && !CanSeePlayer())
-            {
-                StartCoroutine(Roam());
-            }
-            else if (agent.destination != GameManager.instance.player.transform.position)
-            {
-                StartCoroutine(Roam());
-            }
+            agent.SetDestination(GameManager.instance.player.transform.position);
+            CanSeePlayer();
         }
     }
     IEnumerator Roam()
@@ -99,8 +110,11 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
                 agent.SetDestination(GameManager.instance.player.transform.position);
                 if(agent.remainingDistance <= agent.stoppingDistance)
                 {
-                    destination = true;
-                    FacePlayer();
+                    if (Complicated)
+                    {
+                        destination = true;
+                        FacePlayer();
+                    }
                 }
                 if(!isShooting && angleOfPlayer <= attackAngle)
                 {
