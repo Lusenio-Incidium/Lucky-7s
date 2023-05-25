@@ -147,6 +147,10 @@ public class SlotsController : MonoBehaviour
         spawner1.ForceStop();
         spawner2.ForceStop();
         spawner3.ForceStop();
+        waitingForSpawner1 = false;
+        waitingForSpawner2 = false;
+        waitingForSpawner3 = false;
+
     }
 
     public IEnumerator DamageWheel()
