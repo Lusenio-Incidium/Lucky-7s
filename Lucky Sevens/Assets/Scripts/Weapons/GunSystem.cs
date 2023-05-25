@@ -219,7 +219,10 @@ public class GunSystem : MonoBehaviour
 
     public void updateOrig()
     {
-        gunListOrg = weapons;
+        foreach(GunStats gun in weapons)
+        {
+            gunListOrg.Add(gun);
+        }
     }
 
 
