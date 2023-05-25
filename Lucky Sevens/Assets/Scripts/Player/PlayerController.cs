@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     public void shopRegister(ShopPickup updates) 
     {
         //Add players health from shop
-        playerHeal(updates.healthAmount);
+        playerHeal(updates.healthAmount * 10);
 
 
         if (updates.addPistol) 
