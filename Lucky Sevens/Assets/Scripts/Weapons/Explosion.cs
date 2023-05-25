@@ -24,5 +24,11 @@ public class Explosion : MonoBehaviour
             Vector3 dir = other.transform.position - transform.position;
             physics.TakePush(dir * pushAmount);
         }
+        IDamage damageable = other.GetComponent<IDamage>();
+        if(damageable != null)
+        {
+            damageable.takeDamage(damage);
+        }
     }
+
 }
