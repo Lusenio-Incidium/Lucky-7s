@@ -142,6 +142,13 @@ public class SlotsController : MonoBehaviour
             waitingForSpawner3 = false;
     }
 
+    public void ForceStopSpawn()
+    {
+        spawner1.ForceStop();
+        spawner2.ForceStop();
+        spawner3.ForceStop();
+    }
+
     public IEnumerator DamageWheel()
     {
         Health--;
@@ -172,7 +179,9 @@ public class SlotsController : MonoBehaviour
         cannonCount++;
         if (cannonCount >= 4)
         {
+            ForceStopSpawn();
             isStunned = true;
+            _wheel1Spin = _wheel2Spin = _wheel3Spin = false;
             _currStopDelay = 0;
             _isSpinning = false;
             _canStop = false;
@@ -205,7 +214,7 @@ public class SlotsController : MonoBehaviour
         {
             MoveCannons();
         }
-        _currSpinDelay = UnityEngine.Random.Range(spinDelayMin, spinDelayMax);
+        _currSpinDelay = UnityEngine.Random.Range(1, 3);
     }
 
 

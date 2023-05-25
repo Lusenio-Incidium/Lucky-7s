@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7442522143552028741}
   m_LocalRotation: {x: -0.000000014901161, y: 0.000000014901161, z: -0.000000014901161, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.05}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0568}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -252,6 +252,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   trackSpeed: 5
+  VerticalClampMax: 0
+  VerticalClampMin: 0
+  HorizontalClampMax: 0
+  HorizontalClampMin: 0
   barrelPosition: {fileID: 7442522143552028742}
   NeturalTarget: {fileID: 0}
   cannonAnimator: {fileID: 7442522145084588026}
@@ -340,5 +344,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.049999963, y: 0.049999982, z: 0.076836206}
-  m_Center: {x: -0.000000019343618, y: 0.00000001856068, z: 0.013418108}
+  m_Size: {x: 0.04999996, y: 0.04999998, z: 0.0691555}
+  m_Center: {x: -0.000000018788047, y: 0.000000019484864, z: 0.009577764}

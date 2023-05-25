@@ -38,6 +38,11 @@ public class ArenaSpawner : MonoBehaviour
         batchSize = conditions.GetBatchSize();
         spawnLocations = conditions.GetSpawnLocations();
     }
+
+    public void ForceStop()
+    {
+        spawnAmount = 0;
+    }
     IEnumerator spawn()
     {
         if (spawnMethod == SpawnStyles.RandomScatter)
@@ -52,6 +57,8 @@ public class ArenaSpawner : MonoBehaviour
             YOnPlayer();
         else if (spawnMethod == SpawnStyles.RoofOverPlayer)
             RoofOverPlayer();
+
+
         spawnAmount--;
         if(spawnAmount <= 0)
         {
