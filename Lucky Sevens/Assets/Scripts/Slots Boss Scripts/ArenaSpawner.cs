@@ -51,6 +51,7 @@ public class ArenaSpawner : MonoBehaviour
         else if (spawnMethod == SpawnStyles.YAxisOnPlayer)
             YOnPlayer();
         else if (spawnMethod == SpawnStyles.RoofOverPlayer)
+            RoofOverPlayer();
         spawnAmount--;
         if(spawnAmount <= 0)
         {
