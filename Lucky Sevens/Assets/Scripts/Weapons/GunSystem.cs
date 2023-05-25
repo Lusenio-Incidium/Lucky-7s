@@ -247,7 +247,13 @@ public class GunSystem : MonoBehaviour
     }
     public void AddBullets(int amount)
     {
-        ammunition += amount;
+        if(ammunition - ammunition >= 0)
+            ammunition += amount;
+        else 
+        {
+            int amount2 = amount - ammunition;
+            bulletsLeft -= amount2;
+        }
         GameManager.instance.playerAmmo = ammunition;
         GameManager.instance.UpdateAmmoCount();
     }
