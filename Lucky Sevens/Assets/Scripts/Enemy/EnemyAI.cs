@@ -218,18 +218,19 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     public void takeDamage(int dmg)
     {
         HP -= dmg;
-        StartCoroutine(FlashColor());
-        destination = true;
-        anim.SetTrigger("Damage");
-
         if(HP <= 0)
         {
             anim.SetBool("Dead", true);
             GameManager.instance.UpdateEnemyCount(-1);
             agent.enabled = false;
             fistColOff();
+            Destroy(gameObject, 8);
         }
+        StartCoroutine(FlashColor());
+        destination = true;
+        anim.SetTrigger("Damage");
     }
+
     IEnumerator FlashColor()
     {
         model.material.color = Color.red;
