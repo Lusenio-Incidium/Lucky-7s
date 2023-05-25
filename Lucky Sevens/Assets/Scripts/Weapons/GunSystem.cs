@@ -190,7 +190,7 @@ public class GunSystem : MonoBehaviour
             EquipWeapon(0);
         }
         hasGun = true;
-        GameManager.instance.playerAmmo += ammunition;
+        GameManager.instance.playerAmmo += ammunition + bulletsLeft;
         GameManager.instance.ammoDisplay.SetActive(true);
 
     }
