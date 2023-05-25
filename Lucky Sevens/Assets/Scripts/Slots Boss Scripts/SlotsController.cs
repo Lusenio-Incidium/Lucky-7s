@@ -382,15 +382,15 @@ public class SlotsController : MonoBehaviour
 
     void SealHatch()
     {
-        if(Health >= 2)
+        if(Health > 2)
         {
             _LeftHatch.SetBool("HatchOpen", false);
         }
-        if (Health >= 1)
+        if (Health > 1)
         {
             _LeftHatch.SetBool("HatchOpen", false);
         }
-        if (Health >= 0)
+        if (Health > 0)
         {
             _LeftHatch.SetBool("HatchOpen", false);
         }
