@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         gunSystem = player.GetComponent<GunSystem>();
         enemiesRemaining = 0;
         timeElapsed = 0;
-        playerScript.updateOrig();
+        gunSystem.updateOrig();
         UpdateAmmoCount();
 
         //shopRefresh

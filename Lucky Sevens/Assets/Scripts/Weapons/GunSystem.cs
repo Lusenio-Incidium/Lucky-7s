@@ -31,7 +31,7 @@ public class GunSystem : MonoBehaviour
     [SerializeField] MeshRenderer gunMat;
     
 
-
+    List<GunStats> gunListOrg = new List<GunStats>();
 
 
     //bools to ask game
@@ -194,6 +194,31 @@ public class GunSystem : MonoBehaviour
         GameManager.instance.ammoDisplay.SetActive(true);
 
     }
+    public void restartGun()
+    {
+        weapons.Clear();
+
+        foreach (GunStats gun in gunListOrg)
+        {
+            weapons.Add(gun);
+        }
+
+        if(weapons.Count == 0)
+        {
+            hasGun = false;
+            GameManager.instance.ammoDisplay.SetActive(false);
+            gunModel.mesh = null;
+            gunMat.material = null;
+        }
+
+        GameManager.instance.UpdateAmmoCount();
+    }
+
+    public void updateOrig()
+    {
+        gunListOrg = weapons;
+    }
+
 
     public void updateShop(ShopPickup updates)
     {
