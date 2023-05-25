@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
     [SerializeField] Transform shootPos;
+    [SerializeField] public bool Complicated;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] int HP;
@@ -49,21 +50,34 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     // Update is called once per frame
     void Update()
     {
-        if (agent.isActiveAndEnabled)
+        if (Complicated)
         {
-            speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
-            anim.SetFloat("Speed", speed);
-
-            if (destination)
-                FacePlayer();
-
-            if (playerInRange && !CanSeePlayer())
+            if (agent.isActiveAndEnabled)
             {
-                StartCoroutine(Roam());
+                speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
+                anim.SetFloat("Speed", speed);
+
+                if (destination)
+                    FacePlayer();
+
+                if (playerInRange && !CanSeePlayer())
+                {
+                    StartCoroutine(Roam());
+                }
+                else if (agent.destination != GameManager.instance.player.transform.position)
+                {
+                    StartCoroutine(Roam());
+                }
             }
-            else if (agent.destination != GameManager.instance.player.transform.position)
+        }
+        else
+        {
+            if (agent.isActiveAndEnabled)
             {
-                StartCoroutine(Roam());
+                speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
+                anim.SetFloat("Speed", speed);
+                agent.SetDestination(GameManager.instance.player.transform.position);
+                CanSeePlayer();
             }
         }
     }
@@ -99,8 +113,11 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
                 agent.SetDestination(GameManager.instance.player.transform.position);
                 if(agent.remainingDistance <= agent.stoppingDistance)
                 {
-                    destination = true;
-                    FacePlayer();
+                    if (Complicated)
+                    {
+                        destination = true;
+                        FacePlayer();
+                    }
                 }
                 if(!isShooting && angleOfPlayer <= attackAngle)
                 {
@@ -186,6 +203,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         {
             anim.SetBool("Dead", true);
             GameManager.instance.UpdateEnemyCount(-1);
+            agent.enabled = false;
         }
     }
     IEnumerator FlashColor()
