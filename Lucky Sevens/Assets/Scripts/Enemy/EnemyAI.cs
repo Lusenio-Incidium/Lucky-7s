@@ -72,10 +72,13 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         }
         else
         {
-            speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
-            anim.SetFloat("Speed", speed);
-            agent.SetDestination(GameManager.instance.player.transform.position);
-            CanSeePlayer();
+            if (agent.isActiveAndEnabled)
+            {
+                speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
+                anim.SetFloat("Speed", speed);
+                agent.SetDestination(GameManager.instance.player.transform.position);
+                CanSeePlayer();
+            }
         }
     }
     IEnumerator Roam()
@@ -133,13 +136,15 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
 
         anim.SetTrigger("Shoot");
 
-        Instantiate(gunProjectile, shootPos.position, transform.rotation);
-
         yield return new WaitForSeconds(shootSpeed);
 
         isShooting = false;
     }
 
+    public void createBullet()
+    {
+        Instantiate(gunProjectile, shootPos.position, transform.rotation);
+    }
 
     public void ApplyStatusEffect(StatusEffectObj data)
     {
@@ -198,6 +203,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         {
             anim.SetBool("Dead", true);
             GameManager.instance.UpdateEnemyCount(-1);
+            agent.enabled = false;
         }
     }
     IEnumerator FlashColor()
