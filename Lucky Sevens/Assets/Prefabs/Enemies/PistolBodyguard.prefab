@@ -535,11 +535,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 7105732984605991117}
   agent: {fileID: 1503622401}
+  anim: {fileID: 7105732984610135557}
   headPos: {fileID: 7105732984617071087}
   shootPos: {fileID: 5460746595427192072}
   HP: 50
   viewAngle: 90
-  playerFaceSpeed: 5
+  playerFaceSpeed: 20
+  roamDistance: 20
+  roamPauseTime: 5
+  animTransSpeed: 3
   shootSpeed: 1
   range: 5
   attackAngle: 25
@@ -577,7 +581,7 @@ Animator:
   m_GameObject: {fileID: 7105732984617561183}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: bdd7a03fd93bf2d4cb6babd63ceabee8, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a34b251fad623ae4785960284173b654, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

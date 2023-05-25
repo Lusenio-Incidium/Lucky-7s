@@ -52,6 +52,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         if (agent.isActiveAndEnabled)
         {
             speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
+            anim.SetFloat("Speed", speed);
 
             if (destination)
                 FacePlayer();
@@ -116,6 +117,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     {
         isShooting = true;
 
+        anim.SetTrigger("Shoot");
+
         Instantiate(gunProjectile, shootPos.position, transform.rotation);
 
         yield return new WaitForSeconds(shootSpeed);
@@ -175,10 +178,11 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         HP -= dmg;
         StartCoroutine(FlashColor());
         destination = true;
+        anim.SetTrigger("Damage");
 
         if(HP <= 0)
         {
-            Destroy(gameObject);
+            anim.SetBool("Dead", true);
             GameManager.instance.UpdateEnemyCount(-1);
         }
     }
