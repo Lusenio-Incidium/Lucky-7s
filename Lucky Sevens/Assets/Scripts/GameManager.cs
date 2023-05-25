@@ -247,12 +247,15 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Reload()
     {
-        activeMenu = ReloadText;
-        activeMenu.SetActive(true);
-        yield return new WaitForSeconds(gunSystem.GetReloadTime());
-        activeMenu = ReloadText;
-        activeMenu.SetActive(false);
-        activeMenu = null;
+        if (!isPaused)
+        {
+            activeMenu = ReloadText;
+            activeMenu.SetActive(true);
+            yield return new WaitForSeconds(gunSystem.GetReloadTime());
+            activeMenu = ReloadText;
+            activeMenu.SetActive(false);
+            activeMenu = null;
+        }
         
     }
     public void CharZeroReserve()
@@ -262,16 +265,20 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator ZeroReserve()
     {
-        activeMenu = ReloadText;
-        activeMenu.SetActive(false);
-        activeMenu = emptyReserve;
-        activeMenu.SetActive(true);
-        ammoReserveCount.color = Color.red;
-        yield return new WaitForSeconds(2);
-        ammoReserveCount.color = Color.white;
-        activeMenu = emptyReserve;
-        activeMenu.SetActive(false);
-        activeMenu = null;
+        if(!isPaused)
+        {
+           activeMenu = ReloadText;
+           activeMenu.SetActive(false);
+           activeMenu = emptyReserve;
+           activeMenu.SetActive(true);
+           ammoReserveCount.color = Color.red;
+           yield return new WaitForSeconds(2);
+           ammoReserveCount.color = Color.white;
+           activeMenu = emptyReserve;
+           activeMenu.SetActive(false);
+           activeMenu = null;
+        }
+        
     }
 
     public void CharEmtpyMag()
@@ -281,13 +288,17 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator EmptyMag()
     {
-        activeMenu = emptyMag;
-        activeMenu.SetActive(true);
-        ammoMagCount.color = Color.red;
-        yield return new WaitForSeconds(1);
-        ammoMagCount.color = Color.white;
-        activeMenu = emptyMag;
-        activeMenu.SetActive(false);
-        activeMenu = null;
+        if(!isPaused)
+        {
+           activeMenu = emptyMag;
+           activeMenu.SetActive(true);
+           ammoMagCount.color = Color.red;
+           yield return new WaitForSeconds(1);
+           ammoMagCount.color = Color.white;
+           activeMenu = emptyMag;
+           activeMenu.SetActive(false);
+           activeMenu = null;
+        }
+       
     }
 }
