@@ -6,6 +6,7 @@ public class healthPickup : MonoBehaviour, ICollectable
 {
     [SerializeField] Material mat;
     [SerializeField] [Range(10, 100)] int healAmount;
+    
 
     // Start is called before the first frame update
     void Start()

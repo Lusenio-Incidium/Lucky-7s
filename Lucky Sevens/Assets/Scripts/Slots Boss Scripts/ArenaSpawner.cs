@@ -48,6 +48,9 @@ public class ArenaSpawner : MonoBehaviour
             BatchScatter();
         else if (spawnMethod == SpawnStyles.FireOnAllFronts)
             FireOnAllFronts();
+        else if (spawnMethod == SpawnStyles.YAxisOnPlayer)
+            YOnPlayer();
+        else if (spawnMethod == SpawnStyles.RoofOverPlayer)
         spawnAmount--;
         if(spawnAmount <= 0)
         {
@@ -89,6 +92,17 @@ public class ArenaSpawner : MonoBehaviour
         {
             Instantiate(prefab, location.position, location.rotation);
         }
+    }
+
+    void YOnPlayer()
+    {
+        Instantiate(prefab, new Vector3(GameManager.instance.player.transform.position.x, rangeRadius, GameManager.instance.player.transform.position.z), prefab.transform.rotation);
+    }
+
+    void RoofOverPlayer()
+    {
+        Instantiate(prefab, new Vector3(GameManager.instance.player.transform.position.x, transform.position.y, GameManager.instance.player.transform.position.z), prefab.transform.rotation);
+
     }
 }
 

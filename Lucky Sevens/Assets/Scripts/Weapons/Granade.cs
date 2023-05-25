@@ -4,38 +4,26 @@ using UnityEngine;
 
 public class Granade : MonoBehaviour
 {
+    [SerializeField] GameObject explosion;
     [SerializeField] Rigidbody rb;
-    [SerializeField] SphereCollider sc;
-    [SerializeField] Renderer theRenderer;
-    [SerializeField] float timer;
-    [SerializeField] float hitBoxTimer;
-    [SerializeField] int range;
-    [SerializeField] int speed;
-    [SerializeField] int damage;
-    [SerializeField] int upVel;
-    void Start()
+    [SerializeField] bool explodeOnImpact;
+    [SerializeField] int fuseTimer;
+    [SerializeField] int velocity;
+
+    IEnumerator Start()
     {
-        rb.velocity = (transform.forward * speed);
-        sc.enabled = false;
-        StartCoroutine(Ignite());
+        rb.velocity = (transform.forward * velocity);
+        yield return new WaitForSeconds(fuseTimer);
+        Instantiate(explosion, transform.position, explosion.transform.rotation);
+        Destroy(gameObject);
     }
 
-    IEnumerator Ignite()
+    private void OnCollisionEnter(Collision collision)
     {
-        yield return new WaitForSeconds(timer);
-        sc.enabled = true;
-        sc.radius = range;
-        //theRenderer.enabled = false;
-        Destroy(gameObject, hitBoxTimer);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        IDamage damagable = other.GetComponent<IDamage>();
-        if(damagable == null)
+        if (explodeOnImpact)
         {
-            return;
+            Instantiate(explosion, transform.position, explosion.transform.rotation);
+            Destroy(gameObject);
         }
-        damagable.takeDamage(damage);
     }
 }

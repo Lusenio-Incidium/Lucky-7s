@@ -67,8 +67,8 @@ public class SlotsController : MonoBehaviour
    
     [Range(1, 10)][SerializeField] float spinTimeMax; //How long it spins before it stops
     [Range(1, 10)][SerializeField] float spinTimeMin; 
-    [Range(1, 10)][SerializeField] float spinDelayMax; //How long it takes to spin up again
-    [Range(1, 10)][SerializeField] float spinDelayMin; //How long it takes to spin up again
+    [Range(1, 500)][SerializeField] float spinDelayMax; //How long it takes to spin up again
+    [Range(1, 500)][SerializeField] float spinDelayMin; //How long it takes to spin up again
     [Range(0.1f, 10)][SerializeField] float wheelStopDelayMax;
     [Range(0.1f, 10)][SerializeField] float wheelStopDelayMin;
     [Range(1, 10)][SerializeField] int HaywireMod;
@@ -128,6 +128,7 @@ public class SlotsController : MonoBehaviour
     public void Begin()
     {
         unStun();
+        _currSpinDelay = UnityEngine.Random.Range(0, 1);
     }
 
 
