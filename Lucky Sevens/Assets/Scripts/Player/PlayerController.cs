@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     [Header("- - - Atributes - - -")]
     public List<GunStats> gunList = new List<GunStats>();
+    List<GunStats> gunListOrg = new List<GunStats>();
     [Range(1, 100)][SerializeField] int HP;
     [SerializeField][Range(1.0f, 10.0f)] float playerSpeed;
     [SerializeField][Range(1.5f, 5.0f)] float sprintMod;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             HPOrig = HP;
             origSpeed = playerSpeed;
             spawnPlayer();
+            gunListOrg = gunList;
 
             gunSystem = GetComponent<GunSystem>();
         }
@@ -81,6 +83,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             switchGun();
     }
 
+    public void updateOrig() 
+    {
+        gunListOrg = gunList;
+    }
     public void shopRegister(ShopPickup updates) 
     {
         //Add players health from shop
@@ -174,6 +180,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         transform.rotation = GameManager.instance.playerSpawnPos.transform.rotation;
         controller.enabled = true;
         HP = HPOrig;
+        gunList = gunListOrg;
         updatePlayerUI();
     }
 
@@ -183,7 +190,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
         transform.rotation = GameManager.instance.playerSpawnPos.transform.rotation;
         controller.enabled = true;
-        
+
     }
     void sprint()
     {
