@@ -90,26 +90,29 @@ public class GunSystem : MonoBehaviour
         }
 
         //shooting
-        if (!reloading && bulletsLeft == 0 && isShooting)
+        if (!GameManager.instance.isPaused)
         {
-            GameManager.instance.CharEmtpyMag();
-        }
-        if (readyToShoot && isShooting && !reloading)
-        {
-            if (bulletsLeft > 0)
+            if (!reloading && bulletsLeft == 0 && isShooting)
             {
-                Shoot();
+                GameManager.instance.CharEmtpyMag();
             }
-        }
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && weapons.Count > 0)
-        {
-            currentWeapon = (currentWeapon + 1) % weapons.Count;
-            EquipWeapon(currentWeapon);
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weapons.Count > 0)
-        {
-            currentWeapon = (currentWeapon - 1 + weapons.Count) % weapons.Count;
-            EquipWeapon(currentWeapon);
+            if (readyToShoot && isShooting && !reloading)
+            {
+                if (bulletsLeft > 0)
+                {
+                    Shoot();
+                }
+            }
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && weapons.Count > 0)
+            {
+                currentWeapon = (currentWeapon + 1) % weapons.Count;
+                EquipWeapon(currentWeapon);
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weapons.Count > 0)
+            {
+                currentWeapon = (currentWeapon - 1 + weapons.Count) % weapons.Count;
+                EquipWeapon(currentWeapon);
+            }
         }
     }
 
