@@ -29,7 +29,7 @@ public class GunSystem : MonoBehaviour
     StatusEffectObj statusEffect;
     [SerializeField] MeshFilter gunModel;
     [SerializeField] MeshRenderer gunMat;
-    Rigidbody Bullet;
+    
 
 
 
@@ -134,6 +134,7 @@ public class GunSystem : MonoBehaviour
             {
                 effectable.ApplyStatusEffect(statusEffect);
             }
+            Instantiate(weapons[currentWeapon].hitEffect, hit.point, weapons[currentWeapon].hitEffect.transform.rotation);
         }
 
         bulletsLeft--;
@@ -213,7 +214,6 @@ public class GunSystem : MonoBehaviour
         bulletsLeft = weapons[index].bulletsLeft;
         ammunition = weapons[index].ammunition;
         statusEffect = weapons[index].statusEffect;
-        Bullet = weapons[index].bulletPreFab;
         GameManager.instance.UpdateAmmoCount();
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;

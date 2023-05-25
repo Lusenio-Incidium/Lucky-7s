@@ -20,7 +20,7 @@ public class GunStats : ScriptableObject
     public AudioClip gunShotAud;
     [Range(0, 1)] public float gunShotAudVol;
     public StatusEffectObj statusEffect;
-    public Rigidbody bulletPreFab;
+    public GameObject hitEffect;
     public bool TriggerHold;
     public int currentAmmoCount;
 }
