@@ -119,13 +119,15 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
 
         anim.SetTrigger("Shoot");
 
-        Instantiate(gunProjectile, shootPos.position, transform.rotation);
-
         yield return new WaitForSeconds(shootSpeed);
 
         isShooting = false;
     }
 
+    public void createBullet()
+    {
+        Instantiate(gunProjectile, shootPos.position, transform.rotation);
+    }
 
     public void ApplyStatusEffect(StatusEffectObj data)
     {
