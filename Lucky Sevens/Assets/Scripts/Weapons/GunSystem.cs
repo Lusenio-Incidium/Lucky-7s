@@ -29,7 +29,7 @@ public class GunSystem : MonoBehaviour
     StatusEffectObj statusEffect;
     [SerializeField] MeshFilter gunModel;
     [SerializeField] MeshRenderer gunMat;
-    
+
 
     List<GunStats> gunListOrg = new List<GunStats>();
 
@@ -121,23 +121,38 @@ public class GunSystem : MonoBehaviour
     {
         readyToShoot = false;
 
-        //Raycasting bullets
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, range) && !GameManager.instance.isPaused)
-        {
-            aud.PlayOneShot(weapons[currentWeapon].gunShotAud, weapons[currentWeapon].gunShotAudVol);
 
-            IDamage damageable = hit.collider.GetComponent<IDamage>();
-            IStatusEffect effectable = hit.collider.GetComponent<IStatusEffect>();
-            if (damageable != null)
+        Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0);
+        Ray screenRay = Camera.main.ViewportPointToRay(screenCenter);
+
+        //Quaternion spreadRotation = Quaternion.Euler(UnityEngine.Random.Range(-spread, spread), UnityEngine.Random.Range(-spread, spread), 0f);
+        //Vector3 directionSpread = spreadRotation * screenRay.direction;
+
+        for (int i = 0; i < bulletsPerTap; i++)
+        {
+            float y = UnityEngine.Random.Range(-spread, spread);
+            float x = UnityEngine.Random.Range(-spread, spread);
+
+            Vector3 spreadDirection = screenRay.direction + new Vector3(x, y, 0f);
+
+            //Raycasting bullets
+            RaycastHit hit;
+            if (Physics.Raycast(screenRay.origin,spreadDirection, out hit, range) && !GameManager.instance.isPaused)
             {
-                damageable.takeDamage(dmg);
+                aud.PlayOneShot(weapons[currentWeapon].gunShotAud, weapons[currentWeapon].gunShotAudVol);
+
+                IDamage damageable = hit.collider.GetComponent<IDamage>();
+                IStatusEffect effectable = hit.collider.GetComponent<IStatusEffect>();
+                if (damageable != null)
+                {
+                    damageable.takeDamage(dmg);
+                }
+                if (effectable != null)
+                {
+                    effectable.ApplyStatusEffect(statusEffect);
+                }
+                Instantiate(weapons[currentWeapon].hitEffect, hit.point,Quaternion.LookRotation(hit.normal)) /*weapons[currentWeapon].hitEffect.transform.rotation)*/;
             }
-            if (effectable != null)
-            {
-                effectable.ApplyStatusEffect(statusEffect);
-            }
-            Instantiate(weapons[currentWeapon].hitEffect, hit.point, weapons[currentWeapon].hitEffect.transform.rotation);
         }
 
         bulletsLeft--;
@@ -206,7 +221,7 @@ public class GunSystem : MonoBehaviour
             weapons.Add(gun);
         }
 
-        if(weapons.Count == 0)
+        if (weapons.Count == 0)
         {
             hasGun = false;
             GameManager.instance.ammoDisplay.SetActive(false);
@@ -219,7 +234,7 @@ public class GunSystem : MonoBehaviour
 
     public void updateOrig()
     {
-        foreach(GunStats gun in weapons)
+        foreach (GunStats gun in weapons)
         {
             gunListOrg.Add(gun);
         }
@@ -253,9 +268,9 @@ public class GunSystem : MonoBehaviour
     }
     public void AddBullets(int amount)
     {
-        if(ammunition - ammunition >= 0)
+        if (ammunition - ammunition >= 0)
             ammunition += amount;
-        else 
+        else
         {
             int amount2 = amount - ammunition;
             bulletsLeft -= amount2;
