@@ -8,10 +8,6 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     [Header("--- Weak Point Data ---")]
     [SerializeField] int health;
     [SerializeField] int trackSpeed;
-    //[SerializeField] int VerticalClampMax;
-    [SerializeField] int VerticalClampMin;
-    [SerializeField] int HorizontalClampMax;
-    [SerializeField] int HorizontalClampMin;
     [SerializeField] Transform barrelPosition;
     [SerializeField] Transform NeturalTarget;
     [SerializeField] Animator cannonAnimator;

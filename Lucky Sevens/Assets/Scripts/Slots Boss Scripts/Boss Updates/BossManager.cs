@@ -5,11 +5,11 @@ using UnityEngine;
 public class BossManager : MonoBehaviour
 {
     public static BossManager instance;
-    [SerializeField] int bossHP;
-    [SerializeField] int numOfPhases;
+    public float bossHP;
+    public int numOfPhases;
 
     IBoss boss;
-    int currHP;
+    public float currHP;
     int currPhase;
 
     private void Awake()
@@ -20,23 +20,16 @@ public class BossManager : MonoBehaviour
             boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<IBoss>();
         }
     }
-    public int returnHP() 
-    {
-        return currHP;
-    }
-
-    public int returnMaxHP() 
-    {
-        return bossHP;
-    }
     //Event to start the boss.
     public void onBossStart() 
     {
         boss.startBoss();
+        GameManager.instance.BossBarContainer.SetActive(true);
+        GameManager.instance.bossName.text = boss.bossName;
     }
 
     //This event should be called everytime the boss is damaged.
-    public void onBossDamage(int amount) 
+    public void onBossDamage(float amount) 
     {
         currHP = boss.onDamage(amount,currHP);
         if(currPhase != boss.phaseUpdate(currHP)) 

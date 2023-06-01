@@ -1,11 +1,12 @@
 public interface IBoss
 {
+    string bossName { get; set; }
     void startBoss();
     void attackPhase(int phase);
     void stunPhase();
 
 
-    int onDamage(int amount, int currHP);
-    int phaseUpdate(int hpAmount);
+    float onDamage(float amount, float currHP);
+    int phaseUpdate(float hpAmount);
 
 }

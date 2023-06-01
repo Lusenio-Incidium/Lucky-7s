@@ -4,25 +4,35 @@ using UnityEngine;
 
 public class Slots : MonoBehaviour, IBoss
 {
-    public void startBoss() 
+    [SerializeField] string nameOfBoss;
+    float lerpTimer;
+
+    public string bossName { get; set; }
+    public void startBoss()
     {
         Debug.Log("Boss Started!");
-        GameManager.instance.BossBarContainer.SetActive(true);
-        GameManager.instance.BossBar.fillAmount = Mathf.Lerp(BossManager.instance.returnHP(),BossManager.instance.returnMaxHP(), 0.5f);
+        BossManager.instance.currHP = BossManager.instance.bossHP;
+        bossName = nameOfBoss;
+        updateHP();
     }
-    public void attackPhase(int phase) 
+
+    private void Update()
+    {
+        updateHP();
+    }
+    public void attackPhase(int phase)
     {
         if (phase == 1)
             attackPhase1();
-        else if(phase == 2)
+        else if (phase == 2)
             attackPhase2();
-        else if(phase == 3)
+        else if (phase == 3)
             attackPhase3();
-        else 
+        else
             Debug.LogError("Phase does not exist in this boss! : " + phase);
     }
     #region attackPhases
-    void attackPhase1() 
+    void attackPhase1()
     {
         Debug.Log("Phase 1");
     }
@@ -36,19 +46,29 @@ public class Slots : MonoBehaviour, IBoss
     {
         Debug.Log("Phase 3");
     }
-    public void stunPhase() 
+    public void stunPhase()
     {
         Debug.Log("Stuned!");
     }
     #endregion
-    public int onDamage(int amount, int currHP) 
+    public float onDamage(float amount, float currHP)
     {
 
 
         return currHP -= amount;
     }
-    public int phaseUpdate(int hpAmount) 
+    public int phaseUpdate(float hpAmount)
     {
         return 1;
     }
+
+    void updateHP()
+    {
+        float hpDivide = (BossManager.instance.currHP / BossManager.instance.bossHP);
+        lerpTimer += Time.deltaTime;
+        float fillPercent = lerpTimer / 2000f;
+        GameManager.instance.BossBar.fillAmount = Mathf.Lerp(GameManager.instance.BossBar.fillAmount, hpDivide, fillPercent);  
+    }
+       
 }
+
