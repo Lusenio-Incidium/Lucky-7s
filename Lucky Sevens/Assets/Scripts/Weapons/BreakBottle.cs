@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class BreakBottle : MonoBehaviour
 {
+    [SerializeField] Rigidbody rb;
     [SerializeField] GameObject puddle;
     [SerializeField] bool smashed = false;
+    [SerializeField] float velocity;
     // Start is called before the first frame update
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        PickUpItem pop = gameObject.GetComponent<PickUpItem>();
-        if(pop.PickedUpByPlayer())
+        rb.velocity = (transform.forward * velocity);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (smashed)
         {
-            bool yrue = other.CompareTag("Floor");
-            if (yrue)
-            {
-                Instantiate(puddle, gameObject.transform.position, other.transform.rotation);
-                smashed = true;
-                Destroy(gameObject);
-            }
+            Instantiate(puddle, gameObject.transform.position, other.transform.rotation);
+            smashed = true;
+            Destroy(gameObject);
         }
+
     }
 }

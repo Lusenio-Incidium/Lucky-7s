@@ -12,6 +12,7 @@ public class GunPickup : MonoBehaviour
     {
         gunStat.bulletsLeft = gunStat.magSize;
         gunStat.ammunition = gunStat.magSize * 6;
+        gunStat.statusEffect = null;
 
         model = gunStat.model.GetComponent<MeshFilter>();
         mat = gunStat.model.GetComponent<MeshRenderer>();

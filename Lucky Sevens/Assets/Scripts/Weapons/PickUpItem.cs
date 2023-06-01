@@ -10,8 +10,14 @@ public class PickUpItem : MonoBehaviour
     [SerializeField] bool canGrab;
     [SerializeField] bool wasPickedUp;
     [SerializeField] bool isPickedUp;
-
     [SerializeField] Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        cameraTrans = GameManager.instance.playerCam.transform;
+        objPicked = transform;
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -37,7 +43,7 @@ public class PickUpItem : MonoBehaviour
     {
         if(canGrab)
         {
-            if(Input.GetKeyDown(KeyCode.Mouse0))
+            if(Input.GetKeyDown(KeyCode.Mouse1))
             {
                 wasPickedUp = true;
                 rb.velocity = Vector3.zero;
@@ -46,7 +52,7 @@ public class PickUpItem : MonoBehaviour
                 rb.useGravity = false;
                 isPickedUp = true;
             }
-            if (Input.GetKeyUp(KeyCode.Mouse0))
+            if (Input.GetKeyUp(KeyCode.Mouse1))
             {
                 objPicked.parent = null;
                 rb.useGravity = true;
@@ -54,7 +60,7 @@ public class PickUpItem : MonoBehaviour
             }
             if(isPickedUp)
             {
-                if(Input.GetKeyDown(KeyCode.Mouse1))
+                if(Input.GetKeyDown(KeyCode.Mouse0))
                 {
                     objPicked.parent = null;
                     rb.useGravity = true;

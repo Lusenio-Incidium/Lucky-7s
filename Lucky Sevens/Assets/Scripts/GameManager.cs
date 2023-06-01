@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     [Header("----- Player Stuff -----")]
     public GameObject player;
+    public GameObject playerCam;
     public PlayerController playerScript;
     public GameObject playerSpawnPos;
     public GunSystem gunSystem;
@@ -77,6 +78,7 @@ public class GameManager : MonoBehaviour
         //Initalize GameManager
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+        playerCam = GameObject.FindGameObjectWithTag("MainCamera");
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
         gunSystem = player.GetComponent<GunSystem>();
