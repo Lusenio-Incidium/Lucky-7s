@@ -128,6 +128,9 @@ public class Slots : MonoBehaviour, IBoss
             return;
         }
         cannonRemains = true;
+        if(BossManager.instance.currPhase == 3) 
+            for(int i = 0; i < cannons.Length; i++) 
+                cannons[i].GetComponentInChildren<CannonController>().StartMoving();
         updating = false;
         StopAllCoroutines();
     }
