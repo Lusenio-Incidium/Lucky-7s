@@ -71,7 +71,6 @@ public class CannonController : MonoBehaviour, IDamage
             boxCollider.enabled = false;
             isActive = false;
             StartCoroutine(BlowUp());
-            BossManager.instance.onStunPhase();
 
         }
         else

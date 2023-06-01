@@ -14,6 +14,8 @@ public class Slots : MonoBehaviour, IBoss
     bool[] cannonsActive;
     bool hasStarted;
     bool reinforce;
+    bool cannonRemains;
+    bool updating;
     public void startBoss()
     {
         Debug.Log("Boss Started!");
@@ -30,6 +32,7 @@ public class Slots : MonoBehaviour, IBoss
             cannonsActive[i] = true;
         }
         hasStarted = true;
+        cannonRemains = true;
     }
 
     private void Update()
@@ -37,23 +40,30 @@ public class Slots : MonoBehaviour, IBoss
         if (hasStarted) 
         {
             updateHP();
-            cannonUpdate();
+            if (!updating)
+                StartCoroutine(cannonUpdate());
         }
         
     }
 
-    void cannonUpdate()
+    IEnumerator cannonUpdate()
     {
+        updating = true;
+        yield return new WaitForSeconds(1f);
         for (int i = 0; i < cannons.Length; i++)
         {
             cannonsActive[i] = cannons[i].GetComponentInChildren<CannonController>().isCannonActive();
         }
-        for (int i = 0; i < cannons.Length; i++)
+        if (!cannonsActive[0])
+            cannonRemains = false;
+        for (int i = 0; i < cannonsActive.Length; i++)
         {
-            if (cannons[i])
-                return;
-            stunPhase();
+            if (cannonsActive[i])
+                cannonRemains = true;
         }
+        if (!cannonRemains)
+            stunPhase();
+        updating = false;
     }
 
     public void attackPhase(int phase)
@@ -115,7 +125,10 @@ public class Slots : MonoBehaviour, IBoss
         if(BossManager.instance.currPhase > BossManager.instance.numOfPhases) 
         {
             WinnersToken.instance.Spawn();
+            return;
         }
+        cannonRemains = true;
+        updating = false;
         StopAllCoroutines();
     }
 
