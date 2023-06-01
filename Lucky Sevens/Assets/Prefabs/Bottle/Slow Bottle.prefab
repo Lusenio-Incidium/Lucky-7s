@@ -68,8 +68,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073ae8d3547f4b64898984e7b071ace0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 5804980906652256747}
   puddle: {fileID: 2094461737343936188, guid: 312ec2e4eda81674f9553b4aeda98fa5, type: 3}
-  smashed: 0
+  smashed: 1
+  velocity: 20
 --- !u!33 &5804980906652256748
 MeshFilter:
   m_ObjectHideFlags: 0

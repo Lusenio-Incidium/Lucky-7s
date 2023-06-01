@@ -287,7 +287,8 @@ public class GunSystem : MonoBehaviour
     }
     public void AddStatus(StatusEffectObj data)
     {
-        statusEffect = data;
+       weapons[currentWeapon].statusEffect = data;
+       statusEffect = data;
     }
     public int GetAmmoCount()
     {
