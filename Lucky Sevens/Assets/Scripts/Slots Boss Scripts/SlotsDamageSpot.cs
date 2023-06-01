@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SlotsDamageSpot : MonoBehaviour, IDamage
 {
-    [SerializeField] int health;
+    [SerializeField] float health;
     [SerializeField] GameObject boom;
     [SerializeField] ParticleSystem spark;
     bool destroyed = false;
 
-    public void takeDamage(int count)
+    public void takeDamage(float count)
     {
         if (destroyed)
         {

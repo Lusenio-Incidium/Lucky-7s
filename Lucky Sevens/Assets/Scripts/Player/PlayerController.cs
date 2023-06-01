@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [Header("- - - Atributes - - -")]
     public List<GunStats> gunList = new List<GunStats>();
 
-    [Range(1, 100)][SerializeField] int HP;
+    [Range(1, 100)][SerializeField] float HP;
     [SerializeField][Range(1.0f, 10.0f)] float playerSpeed;
     [SerializeField][Range(1.5f, 5.0f)] float sprintMod;
     [SerializeField][Range(1.0f, 20.0f)] float jumpHeight;
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     Vector3 move;
     bool isGrounded;
     int jumpTimes;
-    int HPOrig;
+    float HPOrig;
     float origSpeed;
     Vector3 pushBack;
     int selectedGunNum = 0;
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         stepPlaying = false;
     }
 
-    public void takeDamage(int amount)
+    public void takeDamage(float amount)
     {
         HP -= amount;
         aud.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)], hurtVol);
@@ -252,7 +252,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     public int GetPlayerHP()
     {
-        return HP;
+        return (int)HP;
     }
 
     public void playerHeal(int amount)

@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] public bool isMelee;
 
     [Header("----- Enemy Stats -----")]
-    [SerializeField] int HP;
+    [SerializeField] float HP;
     [SerializeField] float viewAngle;
     [SerializeField] int playerFaceSpeed;
     [SerializeField] int roamDistance;
@@ -215,7 +215,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         agent.speed = OrigSpeed;
     }
 
-    public void takeDamage(int dmg)
+    public void takeDamage(float dmg)
     {
         HP -= dmg;
         if(HP <= 0)

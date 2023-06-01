@@ -16,7 +16,7 @@ public class GunSystem : MonoBehaviour
 
     //Stats
     [Header("----- Gun Stats -----")]
-    int dmg;
+    float dmg;
     float timeBetweenShots;
     float range;
     float reloadTime;
@@ -137,7 +137,7 @@ public class GunSystem : MonoBehaviour
 
             //Raycasting bullets
             RaycastHit hit;
-            if (Physics.Raycast(screenRay.origin,spreadDirection, out hit, range) && !GameManager.instance.isPaused)
+            if (Physics.Raycast(screenRay.origin, spreadDirection, out hit, range) && !GameManager.instance.isPaused)
             {
                 aud.PlayOneShot(weapons[currentWeapon].gunShotAud, weapons[currentWeapon].gunShotAudVol);
 
@@ -145,13 +145,20 @@ public class GunSystem : MonoBehaviour
                 IStatusEffect effectable = hit.collider.GetComponent<IStatusEffect>();
                 if (damageable != null)
                 {
-                    damageable.takeDamage(dmg);
+                    if (bulletsLeft == 1)
+                    {
+                        damageable.takeDamage((float)(dmg * 1.5));
+                    }
+                    else
+                    {
+                        damageable.takeDamage(dmg);
+                    }
                 }
                 if (effectable != null)
                 {
                     effectable.ApplyStatusEffect(statusEffect);
                 }
-                Instantiate(weapons[currentWeapon].hitEffect, hit.point,Quaternion.LookRotation(hit.normal)) /*weapons[currentWeapon].hitEffect.transform.rotation)*/;
+                Instantiate(weapons[currentWeapon].hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
             }
         }
 

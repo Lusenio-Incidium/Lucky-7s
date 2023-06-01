@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class damageTest : MonoBehaviour, IDamage,IStatusEffect
 {
-    [SerializeField] int HP;
+    [SerializeField] float HP;
     [SerializeField] Renderer model;
     [SerializeField] int speed;
     Color colorOrig = Color.white;
     [SerializeField] StatusEffectObj hitEffect;
     private float timePassed = 0;
 
-    public void takeDamage(int dmg)
+    public void takeDamage(float dmg)
     {
         HP -= dmg;
         StartCoroutine(FlashColor());

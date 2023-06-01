@@ -20,7 +20,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     [SerializeField] BoxCollider boxCollider;
     bool active;
     Color colorOrig;
-    int currHealth;
+    float currHealth;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,7 +64,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
         cannonBaseAnimator.SetBool("Moving", true);
     }
 
-    public void takeDamage(int count)
+    public void takeDamage(float count)
     {
         currHealth -= count;
         if(currHealth <= 0) 
@@ -111,7 +111,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
     }
     public int GetHealth()
     {
-        return currHealth;
+        return (int)currHealth;
     }
 
     public bool GetActive()
