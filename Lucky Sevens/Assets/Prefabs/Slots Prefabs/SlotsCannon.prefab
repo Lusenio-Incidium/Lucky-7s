@@ -210,11 +210,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7442522145084588025}
-  - component: {fileID: 7442522145084588027}
   - component: {fileID: 7442522145084588021}
   - component: {fileID: 7442522145084588020}
   - component: {fileID: 7442522145084588026}
   - component: {fileID: 7442522145084588022}
+  - component: {fileID: 1566845918}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -238,30 +238,6 @@ Transform:
   m_Father: {fileID: 7442522143785075939}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7442522145084588027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7442522145084588024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9c72dd555242a0458735b96587416e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 50
-  trackSpeed: 5
-  VerticalClampMax: 0
-  VerticalClampMin: 0
-  HorizontalClampMax: 0
-  HorizontalClampMin: 0
-  barrelPosition: {fileID: 7442522143552028742}
-  NeturalTarget: {fileID: 0}
-  cannonAnimator: {fileID: 7442522145084588026}
-  cannonBaseAnimator: {fileID: 6463225175953967467}
-  explosion: {fileID: 113066723586254411, guid: 9a301284ef6139541aca53fe24820439, type: 3}
-  boxCollider: {fileID: 7442522145084588022}
 --- !u!33 &7442522145084588021
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -346,3 +322,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.04999996, y: 0.04999998, z: 0.0691555}
   m_Center: {x: -0.000000018788047, y: 0.000000019484864, z: 0.009577764}
+--- !u!114 &1566845918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7442522145084588024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873f5f87263bd0b4ba157cacdc33ccf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cannonAnimator: {fileID: 7442522145084588026}
+  cannonBaseAnimator: {fileID: 6463225175953967467}
+  boxCollider: {fileID: 7442522145084588022}
+  health: 25
+  speed: 5
+  barrelPosition: {fileID: 0}
+  explosion: {fileID: 0}

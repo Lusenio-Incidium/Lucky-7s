@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
     public GameObject loadingScreen;
     public GameObject interactTxt;
     public Image playerHPBar;
+    public Image BossBar;
+    public GameObject BossBarContainer;
+    public TextMeshProUGUI bossName;
 
     public int enemiesRemaining;
     public bool isPaused;
