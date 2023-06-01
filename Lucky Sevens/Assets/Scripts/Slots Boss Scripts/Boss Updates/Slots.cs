@@ -7,6 +7,7 @@ public class Slots : MonoBehaviour, IBoss
     [SerializeField] string nameOfBoss;
     float lerpTimer;
 
+    GameObject[] cannons;
     public string bossName { get; set; }
     public void startBoss()
     {
@@ -14,6 +15,12 @@ public class Slots : MonoBehaviour, IBoss
         BossManager.instance.currHP = BossManager.instance.bossHP;
         bossName = nameOfBoss;
         updateHP();
+        cannons = GameObject.FindGameObjectsWithTag("Cannon");
+
+        for(int i = 0; i < cannons.Length; i++) 
+        {
+            cannons[i].GetComponentInChildren<CannonController>().Respawn(false);
+        }
     }
 
     private void Update()
@@ -54,7 +61,7 @@ public class Slots : MonoBehaviour, IBoss
     public float onDamage(float amount, float currHP)
     {
 
-
+        lerpTimer = 0;
         return currHP -= amount;
     }
     public int phaseUpdate(float hpAmount)

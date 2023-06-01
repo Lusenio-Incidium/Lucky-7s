@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonController : MonoBehaviour
+public class CannonController : MonoBehaviour, IDamage
 {
     [Header("- - -Components- - -")]
     [SerializeField] Animator cannonAnimator;
