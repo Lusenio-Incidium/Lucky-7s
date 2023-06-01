@@ -90,6 +90,11 @@ public class CannonController : MonoBehaviour, IDamage
         return currHealth;
     }
 
+    public bool isCannonActive() 
+    {
+        return isActive;
+    }
+
     IEnumerator FlashColor()
     {
         gameObject.GetComponent<MeshRenderer>().material.color = Color.red;

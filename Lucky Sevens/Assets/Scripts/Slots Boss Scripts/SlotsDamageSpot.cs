@@ -16,11 +16,13 @@ public class SlotsDamageSpot : MonoBehaviour, IDamage
             return;
         }
         health -= count;
+        BossManager.instance.currHP -= count;
         if (health <= 0)
         {
             destroyed = true;
-            StartCoroutine(SlotsController.instance.DamageWheel());
             Instantiate(boom, transform.position, transform.rotation);
+            BossManager.instance.onUnstun();
+            BossManager.instance.onBossDamage();
         }
         else
         {
