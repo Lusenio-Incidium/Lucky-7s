@@ -4,9 +4,11 @@ public interface IBoss
     void startBoss();
     void attackPhase(int phase);
     void stunPhase();
+    void unStun();
 
 
     float onDamage(float amount, float currHP);
-    int phaseUpdate(float hpAmount);
+    void phaseUpdate();
+
 
 }

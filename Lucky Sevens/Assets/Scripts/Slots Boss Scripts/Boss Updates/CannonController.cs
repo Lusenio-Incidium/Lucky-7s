@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonController : MonoBehaviour
+public class CannonController : MonoBehaviour, IDamage
 {
     [Header("- - -Components- - -")]
     [SerializeField] Animator cannonAnimator;
@@ -71,7 +71,6 @@ public class CannonController : MonoBehaviour
             boxCollider.enabled = false;
             isActive = false;
             StartCoroutine(BlowUp());
-            BossManager.instance.onStunPhase();
 
         }
         else
@@ -88,6 +87,11 @@ public class CannonController : MonoBehaviour
     public float GetHealth()
     {
         return currHealth;
+    }
+
+    public bool isCannonActive() 
+    {
+        return isActive;
     }
 
     IEnumerator FlashColor()

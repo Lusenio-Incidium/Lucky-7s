@@ -10,7 +10,7 @@ public class BossManager : MonoBehaviour
 
     IBoss boss;
     public float currHP;
-    int currPhase;
+    public int currPhase;
 
     private void Awake()
     {
@@ -26,17 +26,18 @@ public class BossManager : MonoBehaviour
         boss.startBoss();
         GameManager.instance.BossBarContainer.SetActive(true);
         GameManager.instance.bossName.text = boss.bossName;
+        currPhase = 1;
+    }
+
+    public void onUnstun() 
+    {
+        boss.unStun();
     }
 
     //This event should be called everytime the boss is damaged.
-    public void onBossDamage(float amount) 
+    public void onBossDamage() 
     {
-        currHP = boss.onDamage(amount,currHP);
-        if(currPhase != boss.phaseUpdate(currHP)) 
-        {
-            currPhase = boss.phaseUpdate(currHP);
-            onStunPhase();
-        }
+        boss.phaseUpdate();
     }
 
     //This event is only called when the boss changes phases. OR when something else calls this function.
