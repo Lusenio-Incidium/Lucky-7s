@@ -9,6 +9,7 @@ public class SlotsBeginBattle : MonoBehaviour
     [SerializeField] GameObject ArenaLight;
     [SerializeField] Animator startAnimation;
     [SerializeField] Vector3 newSpawnPos;
+    [SerializeField] AudioClip bossMusic;
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player") || hit)
@@ -20,5 +21,6 @@ public class SlotsBeginBattle : MonoBehaviour
         ArenaLight.SetActive(true);
         startAnimation.SetTrigger("CloseArena");
         BossManager.instance.onBossStart();
+        GameManager.instance.playerScript.SetMusic(bossMusic,1);
     }
 }

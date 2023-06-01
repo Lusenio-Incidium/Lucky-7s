@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [Header("- - - Componets - - -")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
+    [SerializeField] AudioSource musicAud;
 
     [Header("- - - Atributes - - -")]
     public List<GunStats> gunList = new List<GunStats>();
@@ -83,7 +84,12 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             switchGun();
     }
 
-   
+   public void SetMusic(AudioClip song, float volume) 
+    {
+        musicAud.clip = song;
+        musicAud.Play();
+        musicAud.loop = true;
+    }
     public void shopRegister(ShopPickup updates) 
     {
         //Add players health from shop

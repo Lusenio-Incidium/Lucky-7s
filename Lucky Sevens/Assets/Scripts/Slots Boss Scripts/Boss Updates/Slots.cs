@@ -81,10 +81,7 @@ public class Slots : MonoBehaviour, IBoss
     public void unStun() 
     {
         hatchs[BossManager.instance.currPhase - 1].GetComponent<Animator>().SetBool("HatchOpen", false);
-        for(int i = 0; i < cannons.Length; i++) 
-        {
-            cannons[i].GetComponentInChildren<CannonController>().Respawn(reinforce);
-        }
+        
     }
 
     #region attackPhases
@@ -125,12 +122,17 @@ public class Slots : MonoBehaviour, IBoss
         if(BossManager.instance.currPhase > BossManager.instance.numOfPhases) 
         {
             WinnersToken.instance.Spawn();
-            return;
+            hasStarted = false;
         }
-        cannonRemains = true;
-        if(BossManager.instance.currPhase == 3) 
-            for(int i = 0; i < cannons.Length; i++) 
-                cannons[i].GetComponentInChildren<CannonController>().StartMoving();
+        else 
+        {
+            cannonRemains = true;
+            if (BossManager.instance.currPhase == 3)
+                for (int i = 0; i < cannons.Length; i++)
+                    cannons[i].GetComponentInChildren<CannonController>().StartMoving();
+            for (int i = 0; i < cannons.Length; i++)
+                cannons[i].GetComponentInChildren<CannonController>().Respawn(reinforce);
+        }
         updating = false;
         StopAllCoroutines();
     }
