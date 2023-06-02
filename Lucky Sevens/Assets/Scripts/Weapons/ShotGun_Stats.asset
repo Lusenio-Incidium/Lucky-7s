@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ShotGun_Stats
   m_EditorClassIdentifier: 
   model: {fileID: 919132149155446097, guid: 8b36fb41929fc22429f0083d817b8040, type: 3}
+  tag: Shotgun
   damage: 1
   timeBetweenShots: 1.2
   range: 200
@@ -20,7 +21,7 @@ MonoBehaviour:
   spread: 0.3
   bulletsPerTap: 5
   magSize: 7
-  bulletsLeft: 0
+  bulletsLeft: 7
   ammunition: 42
   gunShotAud: {fileID: 8300000, guid: 8ad374045e287d64d898d09c5bc54b80, type: 3}
   gunShotAudVol: 0.376

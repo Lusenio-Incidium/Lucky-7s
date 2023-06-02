@@ -7,6 +7,7 @@ using UnityEngine;
 public class GunStats : ScriptableObject
 {
     public GameObject model;
+    public string tag;
 
     public int damage;
     public float timeBetweenShots;
