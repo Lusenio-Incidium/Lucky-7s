@@ -270,6 +270,18 @@ public class GunSystem : MonoBehaviour
         GameManager.instance.UpdateAmmoCount();
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+        if(weapons[currentWeapon].tag == "AR/Pistol")
+        {
+            GameManager.instance.activeRetical.SetActive(false);
+            GameManager.instance.activeRetical = GameManager.instance.arPistolRetical;
+            GameManager.instance.activeRetical.SetActive(true);
+        }
+        else if (weapons[currentWeapon].tag == "Shotgun")
+        {
+            GameManager.instance.activeRetical.SetActive(false);
+            GameManager.instance.activeRetical = GameManager.instance.shotgunRetical;
+            GameManager.instance.activeRetical.SetActive(true);
+        }
 
         Invoke("ResetShot", timeBetweenShots);
     }

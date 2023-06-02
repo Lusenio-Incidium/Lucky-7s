@@ -28,7 +28,10 @@ public class GameManager : MonoBehaviour
     public GameObject errorMenu;
     public TextMeshProUGUI errorMenuText;
     public TextMeshProUGUI comfirmMenuText;
-    public GameObject retical;
+    public GameObject activeRetical;
+    public GameObject defaultRetical;
+    public GameObject arPistolRetical;
+    public GameObject shotgunRetical;
     public GameObject ShopMenu;
     public GameObject emptyReserve;
     public GameObject emptyMag;
@@ -67,8 +70,8 @@ public class GameManager : MonoBehaviour
             instance = this;
             refreshGameManager();
         }
-
         DontDestroyOnLoad(this.transform.parent);
+        activeRetical = defaultRetical;
 
     }
 
@@ -125,7 +128,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
-        retical.SetActive(false);
+        activeRetical.SetActive(false);
         
     }
 
@@ -164,7 +167,8 @@ public class GameManager : MonoBehaviour
             isPaused = !isPaused;
             activeMenu.SetActive(false);
             activeMenu = null;
-            retical.SetActive(true);
+            activeRetical.SetActive(true);
+            
         }
         
     }
