@@ -36,7 +36,7 @@ public class GunSystem : MonoBehaviour
 
     //bools to ask game
     bool isShooting;
-    bool readyToShoot;
+    public bool readyToShoot;
     bool reloading;
 
     public RaycastHit rayHit;
@@ -45,6 +45,7 @@ public class GunSystem : MonoBehaviour
     //private Dictionary<int, int> ammoCounts = new Dictionary<int, int>();
     public int currentWeapon = 0;
     public bool hasGun;
+    public bool currentlyShooting;
 
 
     private void Awake()
@@ -53,6 +54,7 @@ public class GunSystem : MonoBehaviour
         bulletsLeft = magSize;
         ammunition = magSize * 5;
         readyToShoot = true;
+        currentlyShooting = false;
     }
 
     private void Update()
@@ -73,6 +75,10 @@ public class GunSystem : MonoBehaviour
             {
                 isShooting = Input.GetKeyDown(KeyCode.Mouse0);
             }
+            if(bulletsLeft == 0)
+                currentlyShooting = false;
+            else
+                currentlyShooting = isShooting;
         }
         //reloading
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft <= magSize && !reloading)
@@ -121,7 +127,7 @@ public class GunSystem : MonoBehaviour
     {
         readyToShoot = false;
 
-
+        
         Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0);
         Ray screenRay = Camera.main.ViewportPointToRay(screenCenter);
 
