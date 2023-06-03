@@ -33,6 +33,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] GameObject gunProjectile;
     [SerializeField] Collider leftFistCol;
     [SerializeField] Collider rightFistCol;
+    [SerializeField] int bulletSpeed;
 
 
     bool isShooting;
@@ -199,6 +200,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
 
     public void createBullet()
     {
+        gunProjectile.GetComponent<Bullet>().SetBulletSpeed(bulletSpeed);
         Instantiate(gunProjectile, shootPos.position, transform.rotation);
     }
 
