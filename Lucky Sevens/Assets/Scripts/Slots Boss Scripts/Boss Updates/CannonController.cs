@@ -117,4 +117,8 @@ public class CannonController : MonoBehaviour, IDamage
         isActive = true;
         boxCollider.enabled = true;
     }
+    public void instaKill()
+    {
+        takeDamage(currHealth);
+    }
 }

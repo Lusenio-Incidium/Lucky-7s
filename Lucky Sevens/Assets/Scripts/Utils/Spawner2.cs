@@ -73,4 +73,8 @@ public class Spawner2 : MonoBehaviour,IDamage
             }
         }
     }
+    public void instaKill()
+    {
+        takeDamage(spawnerHP);
+    }
 }
