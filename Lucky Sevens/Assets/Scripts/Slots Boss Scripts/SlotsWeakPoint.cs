@@ -74,6 +74,10 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
             StartCoroutine(FlashColor());
         }
     }
+    public void instaKill()
+    {
+        takeDamage(currHealth);
+    }
     IEnumerator FlashColor()
     {
         gameObject.GetComponent<MeshRenderer>().material.color = Color.red;

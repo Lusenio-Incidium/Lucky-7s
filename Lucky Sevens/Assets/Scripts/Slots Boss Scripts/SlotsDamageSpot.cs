@@ -29,7 +29,7 @@ public class SlotsDamageSpot : MonoBehaviour, IDamage
         }
     }
 
-    public void InstaKill()
+    public void instaKill()
     {
         takeDamage(health);
     }

@@ -22,6 +22,10 @@ public class damageTest : MonoBehaviour, IDamage,IStatusEffect
             Destroy(gameObject);
         }
     }
+    public void instaKill()
+    {
+        takeDamage(HP);
+    }
     IEnumerator FlashColor()
     {
         model.material.color = Color.red;

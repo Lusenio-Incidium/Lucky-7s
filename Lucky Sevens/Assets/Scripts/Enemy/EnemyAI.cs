@@ -294,6 +294,10 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         anim.SetTrigger("Damage");
     }
 
+    public void instaKill()
+    {
+        takeDamage(HP);
+    }
     IEnumerator FlashColor()
     {
         model.material.color = Color.red;

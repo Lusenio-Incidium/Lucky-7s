@@ -169,6 +169,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             GameManager.instance.youLose();
         }
     }
+    public void instaKill()
+    {
+        takeDamage(HP);
+    }
     IEnumerator damageFlash()
     {
         GameManager.instance.playerDamageFlash.SetActive(true);
