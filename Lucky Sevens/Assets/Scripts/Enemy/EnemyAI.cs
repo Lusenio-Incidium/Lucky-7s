@@ -50,7 +50,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     GameObject tempParticle;
     float shootSpeedOrig;
     float HPOrig;
-    float healCooldown = 0;
     Vector3 ranPos;
     void Start()
     {
