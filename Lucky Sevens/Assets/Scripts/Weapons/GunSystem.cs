@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -208,7 +205,7 @@ public class GunSystem : MonoBehaviour
 
         if (ammunition > 0 && bulletsLeft < magSize)
         {
-            int reservedAmmo = (int)MathF.Min(ammunition, bulletsToReload);
+            int reservedAmmo = (int)Mathf.Min(ammunition, bulletsToReload);
             bulletsLeft += reservedAmmo;
             ammunition -= reservedAmmo;
         }

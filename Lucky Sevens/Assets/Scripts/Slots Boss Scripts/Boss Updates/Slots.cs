@@ -9,6 +9,7 @@ public class Slots : MonoBehaviour, IBoss
 
     GameObject[] cannons;
     GameObject[] hatchs;
+    [SerializeField] GameObject[] wheels;
     public string bossName { get; set; }
 
     bool[] cannonsActive;
@@ -111,7 +112,6 @@ public class Slots : MonoBehaviour, IBoss
     #endregion
     public float onDamage(float amount, float currHP)
     {
-
         lerpTimer = 0;
         return currHP -= amount;
     }
@@ -123,6 +123,7 @@ public class Slots : MonoBehaviour, IBoss
         {
             WinnersToken.instance.Spawn();
             hasStarted = false;
+            GameManager.instance.BossBarContainer.SetActive(false);
         }
         else 
         {

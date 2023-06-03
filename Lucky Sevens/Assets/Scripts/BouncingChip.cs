@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class BouncingChip : MonoBehaviour
@@ -10,7 +9,7 @@ public class BouncingChip : MonoBehaviour
     [SerializeField] int knockBack;
     [SerializeField] float speed;
     [SerializeField] int destroyTimer;
-
+    
     bool touchdown;
     Vector3 prevVelo;
     Vector3 reflectDirect;
