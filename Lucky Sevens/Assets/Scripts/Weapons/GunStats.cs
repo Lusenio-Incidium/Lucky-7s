@@ -26,4 +26,5 @@ public class GunStats : ScriptableObject
     public int currentAmmoCount;
     public float pushBackForce;
     public float recoilAmount;
+    public float adsReducution;
 }

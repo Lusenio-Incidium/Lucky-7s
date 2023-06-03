@@ -23,11 +23,14 @@ public class GunSystem : MonoBehaviour
     int ammunition;
     int bulletsShot;
     float recoilAmount;
+    float adsReduction;
 
     [SerializeField] CameraController cameraController;
+    [SerializeField] Transform aimPosition;
     StatusEffectObj statusEffect;
     [SerializeField] MeshFilter gunModel;
     [SerializeField] MeshRenderer gunMat;
+    [SerializeField] Vector3 originolPosition;
 
 
     List<GunStats> gunListOrg = new List<GunStats>();
@@ -50,6 +53,7 @@ public class GunSystem : MonoBehaviour
     private void Start()
     {
         cameraController = GetComponentInChildren<CameraController>();
+        originolPosition = gunModel.transform.localPosition;
     }
 
 
@@ -85,6 +89,18 @@ public class GunSystem : MonoBehaviour
                 currentlyShooting = false;
             else
                 currentlyShooting = isShooting;
+
+            if (Input.GetMouseButton(1))
+            {
+                float reducedSpread = reticleSpread.currentSize * adsReduction;
+                gunModel.transform.position = aimPosition.position;
+                reticleSpread.currentSize = reducedSpread;
+            }
+            else
+            {
+                gunModel.transform.localPosition = originolPosition;
+            }
+
         }
         //reloading
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft <= magSize && !reloading)
@@ -285,6 +301,7 @@ public class GunSystem : MonoBehaviour
         ammunition = weapons[index].ammunition;
         statusEffect = weapons[index].statusEffect;
         recoilAmount= weapons[index].recoilAmount;
+        adsReduction = weapons[index].adsReducution;
         GameManager.instance.UpdateAmmoCount();
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;

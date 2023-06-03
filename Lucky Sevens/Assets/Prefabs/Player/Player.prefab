@@ -75,6 +75,89 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1965697674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1965697675}
+  - component: {fileID: 1965697677}
+  - component: {fileID: 1965697676}
+  m_Layer: 10
+  m_Name: ADS position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1965697675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965697674}
+  m_LocalRotation: {x: -0.015339553, y: -0.0004889342, z: -0.00016867796, w: 0.9998823}
+  m_LocalPosition: {x: 0, y: -0.425, z: 0.518}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 581697804788486951}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: -1.758, y: -0.056, z: -0.018}
+--- !u!33 &1965697677
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965697674}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1965697676
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965697674}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &448269444343962844
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,8 +296,11 @@ MonoBehaviour:
   aud: {fileID: 1658385981}
   gunShotAud: {fileID: 8300000, guid: 8ad374045e287d64d898d09c5bc54b80, type: 3}
   gunShotAudVol: 0.5
+  cameraController: {fileID: 0}
+  aimPosition: {fileID: 1965697675}
   gunModel: {fileID: 4241433821242182083}
   gunMat: {fileID: 2105554731855723785}
+  originolPosition: {x: 0, y: 0, z: 0}
   readyToShoot: 0
   weapons: []
   currentWeapon: 0
@@ -238,7 +324,7 @@ MonoBehaviour:
   gunList: []
   HP: 50
   playerSpeed: 5
-  sprintMod: 2.5
+  sprintMod: 2
   jumpHeight: 10
   gravityScale: 18.5
   maxJumpAmmount: 2
@@ -580,6 +666,7 @@ Transform:
   m_Children:
   - {fileID: 969190929149249126}
   - {fileID: 1464873736}
+  - {fileID: 1965697675}
   m_Father: {fileID: 581697804747712965}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
