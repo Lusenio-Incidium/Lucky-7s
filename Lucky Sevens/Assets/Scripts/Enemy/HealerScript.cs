@@ -28,7 +28,7 @@ public class HealerScript : MonoBehaviour
             {
                 timePassed = Time.time;
             }
-            else if (fellowEnemy && Time.time - timePassed > timeToHeal)
+            else if (fellowEnemy && Time.time - timePassed > timeToHeal && timeToHeal != 0)
             {
                 if (fellowEnemy.GetEnemyHP() < fellowEnemy.GetOrigEnemyHP())
                     StartCoroutine(TimerHealEnemy(fellowEnemy));
