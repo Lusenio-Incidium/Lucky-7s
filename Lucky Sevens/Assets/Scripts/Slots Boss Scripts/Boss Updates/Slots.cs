@@ -17,6 +17,9 @@ public class Slots : MonoBehaviour, IBoss
     bool reinforce;
     bool cannonRemains;
     bool updating;
+    bool stunned;
+    bool attacking;
+    int[] slotResult = new int[3];
     public void startBoss()
     {
         Debug.Log("Boss Started!");
@@ -34,6 +37,7 @@ public class Slots : MonoBehaviour, IBoss
         }
         hasStarted = true;
         cannonRemains = true;
+        attackPhase(BossManager.instance.currPhase);
     }
 
     private void Update()
@@ -43,6 +47,9 @@ public class Slots : MonoBehaviour, IBoss
             updateHP();
             if (!updating)
                 StartCoroutine(cannonUpdate());
+            if(!stunned && !attacking)
+                for (int i = 0; i < wheels.Length; i++)
+                    wheels[i].transform.Rotate(5, 0, 0);
         }
         
     }
@@ -69,20 +76,21 @@ public class Slots : MonoBehaviour, IBoss
 
     public void attackPhase(int phase)
     {
-        if (phase == 1)
-            attackPhase1();
-        else if (phase == 2)
-            attackPhase2();
-        else if (phase == 3)
-            attackPhase3();
-        else
-            Debug.LogError("Phase does not exist in this boss! : " + phase);
+        slotResults();
+        StartCoroutine(attackLogic(phase));
     }
 
     public void unStun() 
     {
         hatchs[BossManager.instance.currPhase - 1].GetComponent<Animator>().SetBool("HatchOpen", false);
-        
+        attackPhase(BossManager.instance.currPhase);
+        stunned = false;
+    }
+
+    void slotResults() 
+    {
+        for(int i = 0; i < slotResult.Length; i++) 
+            slotResult[i] = Random.Range(1, 20);
     }
 
     #region attackPhases
@@ -102,6 +110,8 @@ public class Slots : MonoBehaviour, IBoss
     }
     public void stunPhase()
     {
+        stunned = true;
+        
         StartCoroutine(hatchDelay());
     }
 
@@ -136,6 +146,7 @@ public class Slots : MonoBehaviour, IBoss
         }
         updating = false;
         StopAllCoroutines();
+        wheels[BossManager.instance.currPhase - 2].SetActive(false);
     }
 
     void updateHP()
@@ -152,6 +163,29 @@ public class Slots : MonoBehaviour, IBoss
         yield return new WaitForSeconds(10f);
         unStun();
     }
-       
+
+    IEnumerator attackDelay() 
+    {
+        yield return new WaitForSeconds(10f);
+        attacking = false;
+        attackPhase(BossManager.instance.currPhase);
+    }
+    IEnumerator attackLogic(int phase)
+    {
+        yield return new WaitForSeconds(5f);
+        attacking = true;
+        for (int i = 0; i < wheels.Length; i++)
+            wheels[i].transform.rotation = Quaternion.Euler(((360 / 20) * slotResult[i]) + (90 - (360 / 20)), 0, 0);
+        if (phase == 1)
+            attackPhase1();
+        else if (phase == 2)
+            attackPhase2();
+        else if (phase == 3)
+            attackPhase3();
+        else
+            Debug.LogError("Phase does not exist in this boss! : " + phase);
+        StartCoroutine(attackDelay());
+    }
+
 }
 
