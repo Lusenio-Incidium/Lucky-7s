@@ -13,7 +13,6 @@ public class GunSystem : MonoBehaviour
     [SerializeField] AudioClip gunShotAud;
     [SerializeField] float gunShotAudVol;
 
-
     //Stats
     [Header("----- Gun Stats -----")]
     float dmg;
@@ -130,12 +129,8 @@ public class GunSystem : MonoBehaviour
     {
         readyToShoot = false;
 
-
         Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0);
         Ray screenRay = Camera.main.ViewportPointToRay(screenCenter);
-
-        //Quaternion spreadRotation = Quaternion.Euler(UnityEngine.Random.Range(-spread, spread), UnityEngine.Random.Range(-spread, spread), 0f);
-        //Vector3 directionSpread = spreadRotation * screenRay.direction;
 
         for (int i = 0; i < bulletsPerTap; i++)
         {
@@ -168,6 +163,13 @@ public class GunSystem : MonoBehaviour
                     effectable.ApplyStatusEffect(statusEffect);
                 }
                 Instantiate(weapons[currentWeapon].hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+
+                PlayerController pc = GameManager.instance.player.GetComponent<PlayerController>();
+                if (pc != null)
+                {
+                    Vector3 pushDir = -transform.forward;
+                    pc.TakePush(pushDir * weapons[currentWeapon].pushBackForce);
+                }
             }
         }
 

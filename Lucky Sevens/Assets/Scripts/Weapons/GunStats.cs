@@ -24,4 +24,5 @@ public class GunStats : ScriptableObject
     public GameObject hitEffect;
     public bool TriggerHold;
     public int currentAmmoCount;
+    public float pushBackForce;
 }
