@@ -43,6 +43,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     bool destinationChosen;
     float stoppingDistanceOrig;
     float speed;
+    GameObject tempParticle;
     void Start()
     {
         colorOrig = model.material.color;
@@ -50,6 +51,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         GameManager.instance.UpdateEnemyCount(1);
         startingPos = transform.position;
         stoppingDistanceOrig = agent.stoppingDistance;
+        agent.radius = Random.Range(.5f, .75f);
     }
 
     // Update is called once per frame
@@ -122,8 +124,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
                     if (Complicated)
                     {
                         destination = true;
-                        FacePlayer();
                     }
+                    FacePlayer();
                 }
                 if(!isShooting && angleOfPlayer <= attackAngle && agent.remainingDistance <= range)
                 {
@@ -181,6 +183,11 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     public IEnumerator BurnEffect()
     {
         int effectTime = hitEffect.duration;
+        if (hitEffect.particleEffect != null)
+        {
+            tempParticle = Instantiate(hitEffect.particleEffect, transform.position, Quaternion.Euler(270, 0, 0));
+            tempParticle.transform.parent = transform;
+        }
         if (hitEffect.duration != 0)
         {
             if (hitEffect.slowEffect != 0)
@@ -210,6 +217,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
 
     public void RemoveEffect()
     {
+        Destroy(tempParticle);
         hitEffect = null;
         timePassed = 0;
         agent.speed = OrigSpeed;

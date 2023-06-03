@@ -10,4 +10,5 @@ public class StatusEffectObj : ScriptableObject
     public int damage;
     public int slowEffect;
     public float damagespeed;
+    public GameObject particleEffect;
 }

@@ -19,6 +19,7 @@ public class ReticleSpread : MonoBehaviour
     private void Start()
     {
         reticle = GetComponent<RectTransform>();
+        cC = GameManager.instance.playerScript.GetComponent<CharacterController>();
     }
 
     private void Update()
