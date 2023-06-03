@@ -44,6 +44,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     float stoppingDistanceOrig;
     float speed;
     GameObject tempParticle;
+    float shootSpeedOrig;
     void Start()
     {
         colorOrig = model.material.color;
@@ -52,6 +53,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         startingPos = transform.position;
         stoppingDistanceOrig = agent.stoppingDistance;
         agent.radius = Random.Range(.5f, .75f);
+        shootSpeedOrig = shootSpeed;
     }
 
     // Update is called once per frame
@@ -193,6 +195,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
             if (hitEffect.slowEffect != 0)
             {
                 agent.speed /= hitEffect.slowEffect;
+                shootSpeed *= hitEffect.slowEffect;
             }
             timePassed = Time.time;
             while ( Time.time - timePassed <= effectTime && hitEffect != null)
@@ -221,6 +224,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         hitEffect = null;
         timePassed = 0;
         agent.speed = OrigSpeed;
+        shootSpeed = shootSpeedOrig;
     }
 
     public void takeDamage(float dmg)
