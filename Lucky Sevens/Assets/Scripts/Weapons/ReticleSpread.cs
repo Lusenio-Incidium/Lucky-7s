@@ -14,7 +14,7 @@ public class ReticleSpread : MonoBehaviour
     public float restingSize;
     public float maxSize;
     public float speed;
-    private float currentSize;
+    public float currentSize;
 
     private void Start()
     {

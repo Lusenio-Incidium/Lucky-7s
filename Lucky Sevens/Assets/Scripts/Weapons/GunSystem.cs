@@ -47,6 +47,8 @@ public class GunSystem : MonoBehaviour
     public bool hasGun;
     public bool currentlyShooting;
 
+    ReticleSpread reticleSpread;
+
 
     private void Awake()
     {
@@ -67,6 +69,7 @@ public class GunSystem : MonoBehaviour
         //hold to fire or single shot
         if (hasGun)
         {
+            reticleSpread = GameManager.instance.activeRetical.GetComponent<ReticleSpread>();
             if (weapons[currentWeapon].TriggerHold == true)
             {
                 isShooting = Input.GetMouseButton(0);
@@ -136,8 +139,8 @@ public class GunSystem : MonoBehaviour
 
         for (int i = 0; i < bulletsPerTap; i++)
         {
-            float y = UnityEngine.Random.Range(-spread, spread);
-            float x = UnityEngine.Random.Range(-spread, spread);
+            float y = UnityEngine.Random.Range((-reticleSpread.currentSize / reticleSpread.maxSize) / 15, (reticleSpread.currentSize / reticleSpread.maxSize) / 15);
+            float x = UnityEngine.Random.Range((-reticleSpread.currentSize / reticleSpread.maxSize) / 15, (reticleSpread.currentSize / reticleSpread.maxSize) / 15);
 
             Vector3 spreadDirection = screenRay.direction + new Vector3(x, y, 0f);
 
