@@ -22,6 +22,9 @@ public class GunSystem : MonoBehaviour
     int bulletsLeft;
     int ammunition;
     int bulletsShot;
+    float recoilAmount;
+
+    [SerializeField] CameraController cameraController;
     StatusEffectObj statusEffect;
     [SerializeField] MeshFilter gunModel;
     [SerializeField] MeshRenderer gunMat;
@@ -44,6 +47,10 @@ public class GunSystem : MonoBehaviour
     public bool currentlyShooting;
 
     ReticleSpread reticleSpread;
+    private void Start()
+    {
+        cameraController = GetComponentInChildren<CameraController>();
+    }
 
 
     private void Awake()
@@ -181,6 +188,8 @@ public class GunSystem : MonoBehaviour
         {
             Invoke("ResetShot", timeBetweenShots);
         }
+
+        cameraController.ApplyRecoil(recoilAmount);
     }
 
     //while not shooting
@@ -275,6 +284,7 @@ public class GunSystem : MonoBehaviour
         bulletsLeft = weapons[index].bulletsLeft;
         ammunition = weapons[index].ammunition;
         statusEffect = weapons[index].statusEffect;
+        recoilAmount= weapons[index].recoilAmount;
         GameManager.instance.UpdateAmmoCount();
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;

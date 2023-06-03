@@ -50,4 +50,22 @@ public class CameraController : MonoBehaviour
         //Apply rotation to our player (y axis)
         transform.parent.Rotate(Vector3.up * mouseX);
     }
+
+    public void ApplyRecoil(float recoilAmount)
+    {
+        float recoilRotation = -recoilAmount * Time.deltaTime * sensVert;
+
+        if (invertY)
+        {
+            xrotation += recoilRotation;
+        }
+        else
+        {
+            xrotation -= recoilRotation;
+        }
+
+        xrotation = Mathf.Clamp(xrotation, lockVerMin, lockVerMax);
+
+        transform.localRotation = Quaternion.Euler(xrotation, 0, 0);
+    }
 }
