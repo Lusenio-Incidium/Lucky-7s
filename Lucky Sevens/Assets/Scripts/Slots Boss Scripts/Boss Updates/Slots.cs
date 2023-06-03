@@ -10,6 +10,7 @@ public class Slots : MonoBehaviour, IBoss
     GameObject[] cannons;
     GameObject[] hatchs;
     [SerializeField] GameObject[] wheels;
+    [SerializeField] SpawnConditions[] spawnConditions;
     public string bossName { get; set; }
 
     bool[] cannonsActive;
@@ -83,8 +84,16 @@ public class Slots : MonoBehaviour, IBoss
     public void unStun() 
     {
         hatchs[BossManager.instance.currPhase - 1].GetComponent<Animator>().SetBool("HatchOpen", false);
-        attackPhase(BossManager.instance.currPhase);
         stunned = false;
+        cannonRemains = true;
+        if (BossManager.instance.currPhase == 3)
+            for (int i = 0; i < cannons.Length; i++)
+                cannons[i].GetComponentInChildren<CannonController>().StartMoving();
+        for (int i = 0; i < cannons.Length; i++)
+            cannons[i].GetComponentInChildren<CannonController>().Respawn(reinforce);
+
+        attacking = false;
+        attackPhase(BossManager.instance.currPhase);
     }
 
     void slotResults() 
@@ -134,15 +143,6 @@ public class Slots : MonoBehaviour, IBoss
             WinnersToken.instance.Spawn();
             hasStarted = false;
             GameManager.instance.BossBarContainer.SetActive(false);
-        }
-        else 
-        {
-            cannonRemains = true;
-            if (BossManager.instance.currPhase == 3)
-                for (int i = 0; i < cannons.Length; i++)
-                    cannons[i].GetComponentInChildren<CannonController>().StartMoving();
-            for (int i = 0; i < cannons.Length; i++)
-                cannons[i].GetComponentInChildren<CannonController>().Respawn(reinforce);
         }
         updating = false;
         StopAllCoroutines();
