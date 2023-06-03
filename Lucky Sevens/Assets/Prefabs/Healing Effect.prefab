@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -8845543850476832390}
   - component: {fileID: 689245193640891597}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: Healing Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ec4117cb7acdc48a9ebb412f070d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 500
-  pushAmount: 35
-  explosionPrefab: {fileID: 3185842211199681238, guid: 22c3991a59c55b743af0e8bbaf71684f, type: 3}
+  damage: 0
+  pushAmount: 0
+  explosionPrefab: {fileID: 3185842211199681238, guid: 22d3c6a9c1ba3a24faabd822d5549d55, type: 3}
 --- !u!135 &689245193640891597
 SphereCollider:
   m_ObjectHideFlags: 0
