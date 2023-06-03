@@ -12,6 +12,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] Transform shootPos;
     [SerializeField] public bool Complicated;
     [SerializeField] public bool isMelee;
+    [SerializeField] public bool healer;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] float HP;
@@ -20,6 +21,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] int roamDistance;
     [SerializeField] int roamPauseTime;
     [SerializeField] int animTransSpeed;
+    [SerializeField] int timeToHeal;
+    [SerializeField] int healAmount;
 
     [Header("----- EnemyWeapons -----")]
     [SerializeField] float shootSpeed;
@@ -38,6 +41,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     Vector3 playerDir;
     float angleOfPlayer;
     bool playerInRange;
+    bool enemyInRange;
     bool destination;
     Vector3 startingPos;
     bool destinationChosen;
@@ -45,6 +49,9 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     float speed;
     GameObject tempParticle;
     float shootSpeedOrig;
+    float HPOrig;
+    float healCooldown = 0;
+    Vector3 ranPos;
     void Start()
     {
         colorOrig = model.material.color;
@@ -54,6 +61,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         stoppingDistanceOrig = agent.stoppingDistance;
         agent.radius = Random.Range(.5f, .75f);
         shootSpeedOrig = shootSpeed;
+        HPOrig = HP;
+        HP -= 10;
     }
 
     // Update is called once per frame
@@ -85,8 +94,18 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
             {
                 speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
                 anim.SetFloat("Speed", speed);
-                agent.SetDestination(GameManager.instance.player.transform.position);
-                CanSeePlayer();
+                if (!healer)
+                {
+                    agent.SetDestination(GameManager.instance.player.transform.position);
+                    CanSeePlayer();
+                }
+                else
+                {
+                    if (playerInRange)
+                    {
+                        RunAwayFromPlayer();
+                    }
+                }
             }
         }
     }
@@ -107,6 +126,20 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
 
             agent.SetDestination(hit.position);
         }
+    } 
+    void RunAwayFromPlayer()
+    {
+        if (agent.velocity == Vector3.zero && Vector3.Distance(GameManager.instance.player.transform.position,transform.position) <= 10)
+        {
+               ranPos = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y + Random.Range(-10, 10), transform.position.z + Random.Range(-10, 10));
+            while (Vector3.Distance(GameManager.instance.player.transform.position, ranPos) <= 10)
+            {
+                ranPos = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y + Random.Range(-10  , 10), transform.position.z + Random.Range(-10, 10));
+            }
+            NavMeshHit hit;
+            NavMesh.SamplePosition(ranPos, out hit, roamDistance, 1);
+            agent.SetDestination(hit.position);
+        }
     }
     bool CanSeePlayer()
     {
@@ -119,7 +152,14 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         {
             if(hit.collider.CompareTag("Player") && angleOfPlayer <= viewAngle)
             {
-                agent.SetDestination(GameManager.instance.player.transform.position);
+                if (healer)
+                {
+                    RunAwayFromPlayer();
+                }
+                else
+                {
+                    agent.SetDestination(GameManager.instance.player.transform.position);
+                }
                 agent.stoppingDistance = stoppingDistanceOrig;
                 if(agent.remainingDistance <= agent.stoppingDistance)
                 {
@@ -129,7 +169,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
                     }
                     FacePlayer();
                 }
-                if(!isShooting && angleOfPlayer <= attackAngle && agent.remainingDistance <= range)
+                if(!isShooting && angleOfPlayer <= attackAngle && agent.remainingDistance <= range && !healer)
                 {
                     StartCoroutine(Shoot());
                 }
@@ -226,11 +266,14 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         agent.speed = OrigSpeed;
         shootSpeed = shootSpeedOrig;
     }
-
     public void takeDamage(float dmg)
     {
         HP -= dmg;
-        if(HP <= 0)
+        if (dmg < 0)
+        {
+            return;
+        }
+        if (HP <= 0)
         {
             anim.SetBool("Dead", true);
             GameManager.instance.UpdateEnemyCount(-1);
@@ -257,7 +300,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     }
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             playerInRange = true;
         }
@@ -269,5 +312,32 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
             playerInRange = false;
             destination = false;
         }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (!other.CompareTag("Floor"))
+        {
+        }
+    }
+    public float GetEnemyHP()
+    {
+        return HP;
+    }
+    public float GetOrigEnemyHP()
+    {
+        return HPOrig;
+    }    
+    public float GetHealCoolDown()
+    {
+        return timeToHeal;
+    }  
+    public float GetHealAmount()
+    {
+        return healAmount * -1;
+    }    
+    public NavMeshAgent GetAgent()
+    {
+        return agent;
     }
 }
