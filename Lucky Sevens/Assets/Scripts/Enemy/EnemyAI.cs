@@ -13,6 +13,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] public bool Complicated;
     [SerializeField] public bool isMelee;
     [SerializeField] public bool healer;
+    [SerializeField] Collider enemyCol;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] float HP;
@@ -23,6 +24,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     [SerializeField] int animTransSpeed;
     [SerializeField] int timeToHeal;
     [SerializeField] int healAmount;
+    [SerializeField] GameObject itemDropped;
 
     [Header("----- EnemyWeapons -----")]
     [SerializeField] float shootSpeed;
@@ -61,7 +63,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         agent.radius = Random.Range(.5f, .75f);
         shootSpeedOrig = shootSpeed;
         HPOrig = HP;
-        HP -= 10;
+        enemyCol = GetComponent<CapsuleCollider>();
     }
 
     // Update is called once per frame
@@ -278,6 +280,11 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
             GameManager.instance.UpdateEnemyCount(-1);
             agent.enabled = false;
             fistColOff();
+            enemyCol.enabled = false;
+            if (itemDropped != null)
+            {
+                Instantiate(itemDropped, transform.position + new Vector3(0,1,0), gameObject.transform.rotation);
+            }
             Destroy(gameObject, 8);
         }
         StartCoroutine(FlashColor());
