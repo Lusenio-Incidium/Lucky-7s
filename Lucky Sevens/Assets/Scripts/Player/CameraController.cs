@@ -57,11 +57,11 @@ public class CameraController : MonoBehaviour
 
         if (invertY)
         {
-            xrotation += recoilRotation;
+            xrotation -= recoilRotation;
         }
         else
         {
-            xrotation -= recoilRotation;
+            xrotation += recoilRotation;
         }
 
         xrotation = Mathf.Clamp(xrotation, lockVerMin, lockVerMax);
