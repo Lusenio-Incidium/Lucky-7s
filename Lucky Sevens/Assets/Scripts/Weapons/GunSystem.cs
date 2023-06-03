@@ -78,7 +78,7 @@ public class GunSystem : MonoBehaviour
             {
                 isShooting = Input.GetKeyDown(KeyCode.Mouse0);
             }
-            if(bulletsLeft == 0)
+            if (bulletsLeft == 0)
                 currentlyShooting = false;
             else
                 currentlyShooting = isShooting;
@@ -130,7 +130,7 @@ public class GunSystem : MonoBehaviour
     {
         readyToShoot = false;
 
-        
+
         Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0);
         Ray screenRay = Camera.main.ViewportPointToRay(screenCenter);
 
@@ -145,10 +145,10 @@ public class GunSystem : MonoBehaviour
             Vector3 spreadDirection = screenRay.direction + new Vector3(x, y, 0f);
 
             //Raycasting bullets
+            aud.PlayOneShot(weapons[currentWeapon].gunShotAud, weapons[currentWeapon].gunShotAudVol);
             RaycastHit hit;
             if (Physics.Raycast(screenRay.origin, spreadDirection, out hit, range) && !GameManager.instance.isPaused)
             {
-                aud.PlayOneShot(weapons[currentWeapon].gunShotAud, weapons[currentWeapon].gunShotAudVol);
 
                 IDamage damageable = hit.collider.GetComponent<IDamage>();
                 IStatusEffect effectable = hit.collider.GetComponent<IStatusEffect>();
@@ -279,7 +279,7 @@ public class GunSystem : MonoBehaviour
         GameManager.instance.UpdateAmmoCount();
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
-        if(weapons[currentWeapon].tag == "AR/Pistol")
+        if (weapons[currentWeapon].tag == "AR/Pistol")
         {
             GameManager.instance.activeRetical.SetActive(false);
             GameManager.instance.activeRetical = GameManager.instance.arPistolRetical;
@@ -308,8 +308,8 @@ public class GunSystem : MonoBehaviour
     }
     public void AddStatus(StatusEffectObj data)
     {
-       weapons[currentWeapon].statusEffect = data;
-       statusEffect = data;
+        weapons[currentWeapon].statusEffect = data;
+        statusEffect = data;
     }
     public int GetAmmoCount()
     {
