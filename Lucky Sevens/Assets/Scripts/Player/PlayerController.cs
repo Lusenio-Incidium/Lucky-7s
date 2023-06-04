@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
@@ -52,6 +53,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     float timePassed;
     bool stepPlaying;
     bool isSprinting;
+    Color backHpOrig;
+    float lerpTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             pc = this;
             HPOrig = HP;
             origSpeed = playerSpeed;
+            backHpOrig = GameManager.instance.backPlayerHPBar.color;
             spawnPlayer();
          
 
@@ -82,6 +86,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
         if(gunList.Count > 0)
             switchGun();
+        if(GameManager.instance.backPlayerHPBar.fillAmount != (float) HP / HPOrig || GameManager.instance.playerHPBar.fillAmount != (float)HP / HPOrig)
+        {
+            updatePlayerUI();
+        }
     }
 
    public void SetMusic(AudioClip song, float volume) 
@@ -162,6 +170,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         HP -= amount;
         aud.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)], hurtVol);
+        lerpTimer = 0f;
         updatePlayerUI();
         StartCoroutine(damageFlash());
         if (HP <= 0)
@@ -268,17 +277,38 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     public void playerHeal(int amount)
     {
         HP += amount;
-        if (HP > 100)
+        if (HP > HPOrig)
         {
-            HP = 100;
+            HP = HPOrig;
         }
+        lerpTimer = 0f;
         updatePlayerUI();
     }
 
     public void updatePlayerUI()
     {
-        GameManager.instance.playerHPBar.fillAmount = (float) HP / HPOrig;
-        GameManager.instance.HPDisplay.text = HP.ToString();    
+        float backfill = GameManager.instance.backPlayerHPBar.fillAmount;
+        float frontfill = GameManager.instance.playerHPBar.fillAmount;
+        float currHealth = (float) HP / HPOrig;
+        GameManager.instance.HPDisplay.text = HP.ToString();
+         
+        lerpTimer += Time.deltaTime;
+        float delayBarSpeed = lerpTimer / 2f;
+        delayBarSpeed = delayBarSpeed * delayBarSpeed;
+        if(backfill > currHealth)
+        {
+            GameManager.instance.playerHPBar.fillAmount = currHealth;
+            GameManager.instance.backPlayerHPBar.color = backHpOrig;
+            GameManager.instance.backPlayerHPBar.fillAmount = Mathf.Lerp(backfill,currHealth,delayBarSpeed);
+        }
+        else if (frontfill < currHealth && HPOrig != 0)
+        {
+            GameManager.instance.backPlayerHPBar.color = Color.green;
+            GameManager.instance.backPlayerHPBar.fillAmount = currHealth;
+            GameManager.instance.playerHPBar.fillAmount = Mathf.Lerp(frontfill, currHealth, delayBarSpeed);
+        }
+        
+          
     }
     public void speedChange(float amount)
     {

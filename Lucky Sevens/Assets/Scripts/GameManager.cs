@@ -22,10 +22,15 @@ public class GameManager : MonoBehaviour
     [Header("----- UI Stuff -----")]
     public GameObject ReloadText;
     public GameObject activeMenu;
+    public GameObject prevMenu;
     public GameObject pauseMenu;
     public GameObject loseMenu;
     public GameObject winMenu;
+    public GameObject mainMenu;
+    public GameObject optionsMenu;
+    public GameObject creditsMenu;
     public GameObject comfirmMenu;
+    public GameObject toMainMenuConfirmMenu;
     public GameObject errorMenu;
     public TextMeshProUGUI errorMenuText;
     public TextMeshProUGUI comfirmMenuText;
@@ -46,6 +51,7 @@ public class GameManager : MonoBehaviour
     public GameObject loadingScreen;
     public GameObject interactTxt;
     public Image playerHPBar;
+    public Image backPlayerHPBar;
     public Image BossBar;
     public GameObject BossBarContainer;
     public TextMeshProUGUI bossName;
@@ -115,10 +121,7 @@ public class GameManager : MonoBehaviour
         //Pause Menu Code
         if(Input.GetButton("Cancel") && activeMenu == null)
         {
-            isPaused = !isPaused;
-            activeMenu = pauseMenu;
-            activeMenu.SetActive(isPaused);
-            pauseState();
+            PauseMenu();
         }
         
         updateTimer();
@@ -131,6 +134,15 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         activeRetical.SetActive(false);
         
+    }
+
+    public void PauseMenu()
+    {
+        prevMenu = pauseMenu;
+        isPaused = !isPaused;
+        activeMenu = pauseMenu;
+        activeMenu.SetActive(isPaused);
+        pauseState();
     }
 
     IEnumerator timerIncrease() 
@@ -173,6 +185,36 @@ public class GameManager : MonoBehaviour
         }
         
     }
+    public void MainMenu()
+    {
+        prevMenu = mainMenu;
+        isPaused = !isPaused;
+        pauseState();
+        activeMenu.SetActive(false);
+        activeMenu = null;
+        activeMenu = mainMenu;
+        activeMenu.SetActive(true);
+    }
+
+    public void OptionsMenu()
+    {
+        isPaused = !isPaused;
+        pauseState();
+        activeMenu.SetActive(false);
+        activeMenu = null;
+        activeMenu = optionsMenu;
+        activeMenu.SetActive(true);
+    }
+
+    public void CreditsMenu()
+    {
+        isPaused = !isPaused;
+        pauseState();
+        activeMenu.SetActive(false);
+        activeMenu = null;
+        activeMenu = creditsMenu;
+        activeMenu.SetActive(true);
+    }
 
     public void youLose()
     {
@@ -204,6 +246,14 @@ public class GameManager : MonoBehaviour
         comfirmMenuText.text = actionText;
         activeMenu.SetActive(true);
         isPaused = !isPaused;
+    }
+    public void BackToMainMenuConfirm()
+    {
+        isPaused = !isPaused;
+        pauseState();
+        activeMenu.SetActive(false);
+        activeMenu = toMainMenuConfirmMenu;
+        activeMenu.SetActive(true);
     }
 
     public void Shop() 
