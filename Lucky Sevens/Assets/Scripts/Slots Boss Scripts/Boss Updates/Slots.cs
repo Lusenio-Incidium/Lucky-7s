@@ -104,19 +104,55 @@ public class Slots : MonoBehaviour, IBoss
     void attackPhase1()
     {
         Debug.Log("Phase 1");
-        //spawners[0].SetSpawnConditions(faces[0]);
-        //spawners[1].SetSpawnConditions(faces[1]);
-        spawners[0].SetSpawnConditions(faces[4]);
+        for (int i = 2; i < slotResult.Length; i++)
+        {
+            if (slotResult[i] <= 5)
+            {
+                int result = slotResult[i] - 1;
+                spawners[i].SetSpawnConditions(faces[result]);
+            }
+            else if (slotResult[i] % 10 <= 5)
+            {
+                int result = (slotResult[i] % 10) - 1;
+                spawners[i].SetSpawnConditions(faces[result]);
+            }
+        }
     }
 
     void attackPhase2()
     {
         Debug.Log("Phase 2");
+        for (int i = 2; i < slotResult.Length; i++)
+        {
+            if (slotResult[i] <= 5)
+            {
+                int result = slotResult[i] - 1;
+                spawners[i].SetSpawnConditions(faces[result]);
+            }
+            else if (slotResult[i] % 10 <= 5)
+            {
+                int result = (slotResult[i] % 10) - 1;
+                spawners[i].SetSpawnConditions(faces[result]);
+            }
+        }
     }
 
     void attackPhase3()
     {
         Debug.Log("Phase 3");
+        for (int i = 2; i < slotResult.Length; i++)
+        {
+            if (slotResult[i] <= 5)
+            {
+                int result = slotResult[i] - 1;
+                spawners[i].SetSpawnConditions(faces[result]);
+            }
+            else if (slotResult[i] % 10 <= 5)
+            {
+                int result = (slotResult[i] % 10) - 1;
+                spawners[i].SetSpawnConditions(faces[result]);
+            }
+        }
     }
     public void stunPhase()
     {
