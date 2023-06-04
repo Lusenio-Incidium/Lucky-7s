@@ -27,4 +27,6 @@ public class GunStats : ScriptableObject
     public float pushBackForce;
     public float recoilAmount;
     public float adsReducution;
+    public bool destroyOnEmpty;
+    public GameObject explosion;
 }

@@ -24,6 +24,9 @@ public class GunSystem : MonoBehaviour
     int bulletsShot;
     float recoilAmount;
     float adsReduction;
+    bool destroyOnEmpty;
+    float explosionForce;
+    float explosionRadius;
 
     [SerializeField] CameraController cameraController;
     [SerializeField] Transform aimPosition;
@@ -31,6 +34,7 @@ public class GunSystem : MonoBehaviour
     [SerializeField] MeshFilter gunModel;
     [SerializeField] MeshRenderer gunMat;
     [SerializeField] Vector3 originolPosition;
+    [SerializeField] GameObject explosion;
 
 
     List<GunStats> gunListOrg = new List<GunStats>();
@@ -164,6 +168,10 @@ public class GunSystem : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(screenRay.origin, spreadDirection, out hit, range) && !GameManager.instance.isPaused)
             {
+                if (destroyOnEmpty)
+                {
+                    Instantiate(explosion, hit.point, Quaternion.LookRotation(hit.normal));
+                }
 
                 IDamage damageable = hit.collider.GetComponent<IDamage>();
                 IStatusEffect effectable = hit.collider.GetComponent<IStatusEffect>();
@@ -193,6 +201,23 @@ public class GunSystem : MonoBehaviour
             }
         }
 
+        if (destroyOnEmpty)
+        {
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         bulletsLeft--;
         bulletsShot++;
         bulletsLeft = weapons[currentWeapon].bulletsLeft = bulletsLeft;
@@ -200,12 +225,38 @@ public class GunSystem : MonoBehaviour
         GameManager.instance.UpdateAmmoCount();
 
 
+        if (destroyOnEmpty == true)
+        {
+            if (bulletsLeft == 0 && ammunition == 0)
+            {
+                DestroyCurrentWeapon();
+            }
+        }
+
         if (isShooting && bulletsLeft > 0)
         {
             Invoke("ResetShot", timeBetweenShots);
         }
 
         cameraController.ApplyRecoil(recoilAmount);
+    }
+
+    private void DestroyCurrentWeapon()
+    {
+        weapons.RemoveAt(currentWeapon);
+        currentWeapon = Mathf.Clamp(currentWeapon, 0, weapons.Count - 1);
+
+        if (weapons.Count == 0)
+        {
+            hasGun = false;
+            GameManager.instance.ammoDisplay.SetActive(false);
+            gunModel.mesh = null;
+            gunMat.material = null;
+        }
+        else
+        {
+            EquipWeapon(currentWeapon);
+        }
     }
 
     //while not shooting
@@ -300,8 +351,10 @@ public class GunSystem : MonoBehaviour
         bulletsLeft = weapons[index].bulletsLeft;
         ammunition = weapons[index].ammunition;
         statusEffect = weapons[index].statusEffect;
-        recoilAmount= weapons[index].recoilAmount;
+        recoilAmount = weapons[index].recoilAmount;
         adsReduction = weapons[index].adsReducution;
+        destroyOnEmpty = weapons[index].destroyOnEmpty;
+        explosion = weapons[index].explosion;
         GameManager.instance.UpdateAmmoCount();
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;

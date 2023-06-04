@@ -12,23 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb9de33a7989faa44b3b23e857c8ed05, type: 3}
   m_Name: Rifle_Stats
   m_EditorClassIdentifier: 
-  model: {fileID: 919132149155446097, guid: 33269b2b610f4c245a712795c1927939, type: 3}
+  model: {fileID: 4890329975369865598, guid: fefb428d20bdd2940b773c0be4b53d0c, type: 3}
   tag: AR/Pistol
-  damage: 3
-  timeBetweenShots: 0.1
-  range: 200
-  reloadTime: 1
-  spread: 0.1
+  damage: 100
+  timeBetweenShots: 2
+  range: 1000
+  reloadTime: 3
+  spread: 0.5
   bulletsPerTap: 1
-  magSize: 36
-  bulletsLeft: 36
-  ammunition: 216
+  magSize: 1
+  bulletsLeft: 0
+  ammunition: 1
   gunShotAud: {fileID: 8300000, guid: 8ad374045e287d64d898d09c5bc54b80, type: 3}
-  gunShotAudVol: 0.227
+  gunShotAudVol: 0.688
   statusEffect: {fileID: 0}
   hitEffect: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
-  TriggerHold: 1
+  TriggerHold: 0
   currentAmmoCount: 0
-  pushBackForce: 1
-  recoilAmount: -0.1
-  adsReducution: 0.95
+  pushBackForce: 30
+  recoilAmount: 4
+  adsReducution: 0.1
+  destroyOnEmpty: 1
+  explosion: {fileID: 113066723586254411, guid: 9a301284ef6139541aca53fe24820439, type: 3}
