@@ -715,6 +715,7 @@ MonoBehaviour:
   Complicated: 0
   isMelee: 0
   healer: 0
+  enemyCol: {fileID: 0}
   HP: 25
   viewAngle: 90
   playerFaceSpeed: 20
@@ -730,6 +731,7 @@ MonoBehaviour:
   gunProjectile: {fileID: 5603250820081392756, guid: 47db62ab3c2a813478b9f2589733de21, type: 3}
   leftFistCol: {fileID: 8922020854105360369}
   rightFistCol: {fileID: 503320728546031189}
+  bulletSpeed: 25
   hitEffect: {fileID: 0}
 --- !u!195 &1503622401
 NavMeshAgent:

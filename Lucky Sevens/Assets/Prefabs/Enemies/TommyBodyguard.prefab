@@ -2051,18 +2051,24 @@ MonoBehaviour:
   shootPos: {fileID: 5148210381510281158}
   Complicated: 0
   isMelee: 0
+  healer: 0
+  enemyCol: {fileID: 0}
   HP: 50
   viewAngle: 90
   playerFaceSpeed: 30
   roamDistance: 20
   roamPauseTime: 5
   animTransSpeed: 3
+  timeToHeal: 0
+  healAmount: 0
+  itemDropped: {fileID: 0}
   shootSpeed: 0.25
   range: 10
   attackAngle: 25
   gunProjectile: {fileID: 5603250820081392756, guid: 47db62ab3c2a813478b9f2589733de21, type: 3}
   leftFistCol: {fileID: 2045194541904617709}
   rightFistCol: {fileID: 4767840763084599521}
+  bulletSpeed: 25
   hitEffect: {fileID: 0}
 --- !u!195 &-5233866372763302201
 NavMeshAgent:

@@ -159,6 +159,7 @@ MonoBehaviour:
   Complicated: 0
   isMelee: 0
   healer: 1
+  enemyCol: {fileID: 0}
   HP: 15
   viewAngle: 90
   playerFaceSpeed: 20
@@ -167,12 +168,14 @@ MonoBehaviour:
   animTransSpeed: 3
   timeToHeal: 0
   healAmount: 0
+  itemDropped: {fileID: 0}
   shootSpeed: 0
   range: 0
   attackAngle: 25
   gunProjectile: {fileID: 5603250820081392756, guid: 47db62ab3c2a813478b9f2589733de21, type: 3}
   leftFistCol: {fileID: 153557053177013657}
   rightFistCol: {fileID: 1472010623037503156}
+  bulletSpeed: 0
   hitEffect: {fileID: 0}
 --- !u!114 &6867137178026228700
 MonoBehaviour:

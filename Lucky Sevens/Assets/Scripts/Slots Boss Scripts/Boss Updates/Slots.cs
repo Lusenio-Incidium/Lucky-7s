@@ -10,7 +10,8 @@ public class Slots : MonoBehaviour, IBoss
     GameObject[] cannons;
     GameObject[] hatchs;
     [SerializeField] GameObject[] wheels;
-    [SerializeField] SpawnConditions[] spawnConditions;
+    [SerializeField] ArenaSpawner[] spawners;
+    [SerializeField] SpawnConditions[] faces = new SpawnConditions[20];
     public string bossName { get; set; }
 
     bool[] cannonsActive;
@@ -86,9 +87,6 @@ public class Slots : MonoBehaviour, IBoss
         hatchs[BossManager.instance.currPhase - 1].GetComponent<Animator>().SetBool("HatchOpen", false);
         stunned = false;
         cannonRemains = true;
-        if (BossManager.instance.currPhase == 3)
-            for (int i = 0; i < cannons.Length; i++)
-                cannons[i].GetComponentInChildren<CannonController>().StartMoving();
         for (int i = 0; i < cannons.Length; i++)
             cannons[i].GetComponentInChildren<CannonController>().Respawn(reinforce);
 
@@ -106,6 +104,9 @@ public class Slots : MonoBehaviour, IBoss
     void attackPhase1()
     {
         Debug.Log("Phase 1");
+        //spawners[0].SetSpawnConditions(faces[0]);
+        //spawners[1].SetSpawnConditions(faces[1]);
+        spawners[0].SetSpawnConditions(faces[4]);
     }
 
     void attackPhase2()
@@ -147,6 +148,10 @@ public class Slots : MonoBehaviour, IBoss
         updating = false;
         StopAllCoroutines();
         wheels[BossManager.instance.currPhase - 2].SetActive(false);
+        attackPhase(BossManager.instance.currPhase);
+        if (BossManager.instance.currPhase == 3)
+            for (int i = 0; i < cannons.Length; i++)
+                cannons[i].GetComponentInChildren<CannonController>().StartMoving();
     }
 
     void updateHP()
@@ -182,8 +187,6 @@ public class Slots : MonoBehaviour, IBoss
             attackPhase2();
         else if (phase == 3)
             attackPhase3();
-        else
-            Debug.LogError("Phase does not exist in this boss! : " + phase);
         StartCoroutine(attackDelay());
     }
 

@@ -57,10 +57,7 @@ public class ArenaSpawner : MonoBehaviour
 
 
         spawnAmount--;
-        if(spawnAmount <= 0)
-        {
-            SlotsController.instance.SpawningFinished(SpawnerNum);
-        }
+        
         spawning = true;
         yield return new WaitForSeconds(intervalTime);
         spawning = false;
