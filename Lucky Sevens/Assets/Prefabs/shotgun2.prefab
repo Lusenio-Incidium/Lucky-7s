@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1137277297681650897}
   - component: {fileID: 6149808059441668815}
   - component: {fileID: 8267613382057268741}
+  - component: {fileID: 8881151150384768805}
   m_Layer: 0
   m_Name: shotgun2
-  m_TagString: Untagged
+  m_TagString: Shotgun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7619117368834635728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -81.29242, y: 0.0001077652, z: -15.958603}
-  m_LocalScale: {x: 0.43513018, y: 0.43513018, z: 0.43734935}
+  m_LocalScale: {x: 0.43513018, y: 0.4576264, z: 0.43734935}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,3 +100,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &8881151150384768805
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7619117368834635728}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.0458083
+  m_Center: {x: -0.00870072, y: 0.22193722, z: -0.40894532}
