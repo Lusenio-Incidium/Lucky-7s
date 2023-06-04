@@ -19,8 +19,7 @@ public class SpikeBase : MonoBehaviour
         if(!striking && !triggerOnStep)
         {
             StartCoroutine(timedStrike());
-            Debug.Log("Time");
-            Debug.Log(triggerOnStep);
+
         }
     }
 
@@ -34,7 +33,6 @@ public class SpikeBase : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Triggered");
         if (triggerOnStep)
         {
             spikes.TriggerAttack();
