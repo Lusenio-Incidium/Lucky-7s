@@ -25,7 +25,7 @@ public class RandomSelection : MonoBehaviour
     [Header("--- Rigged Settings ---")]
     [SerializeField] bool rigged;
     [SerializeField] int riggedNum;
-    void Start()
+    void Awake()
     {
         _lightObjects = new List<IRandomizeHighlight>();
         _actionObjects = new List<IRandomizeAction>();
@@ -33,7 +33,7 @@ public class RandomSelection : MonoBehaviour
         result = -1;
         if(rollTimeMin > rollTimeMax)
         {
-            GameManager.instance.ErrorMenu("CRITICAL RANDOMIZER ERR - rollTimeMin is greater than rollTimeMax");
+            Debug.LogError("CRITICAL RANDOMIZER ERR - rollTimeMin is greater than rollTimeMax");
             critErr = true;
         }
         GameObject[] temp = GameObject.FindGameObjectsWithTag("RandomizerLight");
@@ -103,7 +103,7 @@ public class RandomSelection : MonoBehaviour
 
         if(_actionObjects.Count != _lightObjects.Count)
         {
-            GameManager.instance.ErrorMenu("CRITICAL RANDOMIZER ERR - There are not equal numbers of Action Objects and Light Objects");
+            Debug.LogError("CRITICAL RANDOMIZER ERR - There are not equal numbers of Action Objects and Light Objects");
             critErr = true;
         }
     }
@@ -197,5 +197,14 @@ public class RandomSelection : MonoBehaviour
         {
             result = highlight;
         }
+    }
+
+    public List<IRandomizeHighlight> GetLights()
+    {
+        return _lightObjects;
+    }
+    public List<IRandomizeAction> GetActions()
+    {
+        return _actionObjects;
     }
 }

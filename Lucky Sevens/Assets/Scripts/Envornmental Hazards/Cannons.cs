@@ -21,7 +21,7 @@ public class Cannons : MonoBehaviour, IDamage
     [SerializeField] GameObject[] triggerOnDeath;
 
 
-    bool isActive;
+
     bool isShooting;
     Color colorOrig;
     float currHealth;
@@ -85,7 +85,7 @@ public class Cannons : MonoBehaviour, IDamage
         currHealth -= damage;
         if (currHealth <= 0)
         {
-            isActive = false;
+
             Instantiate(explosion, barrelPosition.transform.position, transform.rotation);
             foreach (GameObject targetObject in triggerOnDeath)
             {
