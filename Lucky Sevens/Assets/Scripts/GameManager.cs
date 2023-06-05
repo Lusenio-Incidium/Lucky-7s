@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-
-
+using System.ComponentModel;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,6 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject comfirmMenu;
     public GameObject toMainMenuConfirmMenu;
     public GameObject errorMenu;
+    public GameObject difficultyMenu;
     public TextMeshProUGUI errorMenuText;
     public TextMeshProUGUI comfirmMenuText;
     public GameObject activeRetical;
@@ -52,6 +52,10 @@ public class GameManager : MonoBehaviour
     public Image BossBar;
     public GameObject BossBarContainer;
     public TextMeshProUGUI bossName;
+    public bool easy;
+    public bool medium;
+    public bool hard;
+    public GameObject hardMode;
 
     public int enemiesRemaining;
     public bool isPaused;
@@ -60,6 +64,7 @@ public class GameManager : MonoBehaviour
     int AmmoLoaded;
     bool reloading;
     bool timerInc;
+    public bool completed;
 
     void Awake()
     {
@@ -75,7 +80,17 @@ public class GameManager : MonoBehaviour
             refreshGameManager();
         }
         DontDestroyOnLoad(this.transform.parent);
+        if (!completed)
+        {
+            Locked();
+        }
         activeRetical = defaultRetical;
+        if (MainMenuManager.instance != null)
+        {
+            medium = MainMenuManager.instance.mainMedium;
+            easy = MainMenuManager.instance.mainEasy;
+            hard = MainMenuManager.instance.mainHard;
+        }
 
     }
 
@@ -120,7 +135,10 @@ public class GameManager : MonoBehaviour
         {
             PauseMenu();
         }
-        
+       /* if (trauma > 0)
+        {
+            StartCoroutine(TraumaDown());
+        }*/
         updateTimer();
     }
 
@@ -338,4 +356,24 @@ public class GameManager : MonoBehaviour
         }
        
     }
+    public void DifficultyMenu()
+    {
+        activeMenu.SetActive(false);
+        activeMenu = null;
+        activeMenu = difficultyMenu;
+        activeMenu.SetActive(true);
+    }
+    public void ReturnToLoseScreen()
+    {
+        activeMenu.SetActive(false);
+        activeMenu = null;
+        activeMenu = loseMenu;
+        activeMenu.SetActive(true);
+    }
+    public void Locked()
+    {
+        hardMode.GetComponent<Button>().enabled = false;
+        hardMode.GetComponent<Image>().color = Color.gray;
+    }    
+
 }

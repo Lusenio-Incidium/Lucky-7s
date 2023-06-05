@@ -18,6 +18,14 @@ public class Spawner2 : MonoBehaviour,IDamage
     EnemyAI spawnerEnemy;
     private void Start()
     {
+        if(GameManager.instance.easy)
+        {
+            maxNumber /= 2;
+        }
+        else if(GameManager.instance.hard)
+        {
+            maxNumber *= 2;
+        }
         spawnerEnemy = GetComponent<EnemyAI>();
         if(spawnerEnemy != null)
         {

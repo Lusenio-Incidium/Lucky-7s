@@ -63,8 +63,11 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void NewGame()
     {
-        if (SceneManager.GetActiveScene().name != "TheHub")
-            StartCoroutine(MainMenuManager.instance.loadScene("TheHub"));
+        if (MainMenuManager.instance.mainEasy || MainMenuManager.instance.mainMedium || MainMenuManager.instance.mainHard)
+        {
+            if (SceneManager.GetActiveScene().name != "TheHub")
+                StartCoroutine(MainMenuManager.instance.loadScene("TheHub"));
+        }
     }
 
     public void Continue()
@@ -81,5 +84,52 @@ public class ButtonFunctions : MonoBehaviour
     {
         MainMenuManager.instance.CreditsMenu();
     }
-
+    public void Easy()
+    {
+        GameManager.instance.easy = true;
+        GameManager.instance.medium = false;
+        GameManager.instance.hard = false;
+    }
+    public void Medium()
+    {
+        GameManager.instance.easy = false;
+        GameManager.instance.medium = true;
+        GameManager.instance.hard = false;
+    }
+    public void Hard()
+    {
+        GameManager.instance.easy = false;
+        GameManager.instance.medium = false;
+        GameManager.instance.hard = true;
+    }
+    public void DifficultyButton()
+    {
+        GameManager.instance.DifficultyMenu();
+    }
+    public void ReturnToLoseScreen()
+    {
+        GameManager.instance.ReturnToLoseScreen();
+    }
+    public void MainEasy()
+    {
+        MainMenuManager.instance.mainEasy = true;
+        MainMenuManager.instance.mainMedium = false;
+        MainMenuManager.instance.mainHard = false;
+    }
+    public void MainMedium()
+    {
+        MainMenuManager.instance.mainEasy = false;
+        MainMenuManager.instance.mainMedium = true;
+        MainMenuManager.instance.mainHard = false;
+    }
+    public void MainHard()
+    {
+        MainMenuManager.instance.mainEasy = false;
+        MainMenuManager.instance.mainMedium = false;
+        MainMenuManager.instance.mainHard = true;
+    }
+    public void DisplayDifficultyMenu()
+    {
+        MainMenuManager.instance.DifficultyMenu();
+    }
 }

@@ -6,6 +6,8 @@ public class Explosion : MonoBehaviour
 {
     [SerializeField] int damage;
     [SerializeField] int pushAmount;
+    [SerializeField] float duration;
+    [SerializeField] float shakeAmount;
     [SerializeField] ParticleSystem explosionPrefab;
 
     // Start is called before the first frame update
@@ -25,10 +27,14 @@ public class Explosion : MonoBehaviour
             physics.TakePush(dir * pushAmount);
         }
         IDamage damageable = other.GetComponent<IDamage>();
-        if(damageable != null)
+        if (damageable != null)
         {
             damageable.takeDamage(damage);
         }
+        CameraShake playerCam = GameManager.instance.playerCam.GetComponent<CameraShake>();
+        playerCam.SetStrengthAmount(shakeAmount);
+        playerCam.SetDuration(duration);
+        playerCam.start = true;
     }
 
 }
