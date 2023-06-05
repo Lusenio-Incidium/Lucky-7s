@@ -17,6 +17,7 @@ public class ItemMover : MonoBehaviour, IButtonTrigger
     [SerializeField] int movementSpeed;
     [SerializeField] bool spawnMoving;
     [SerializeField] bool buttonStartsMoving;
+    [SerializeField] int delay;
     int stage;
     bool reverse;
     bool moving;
@@ -63,7 +64,7 @@ public class ItemMover : MonoBehaviour, IButtonTrigger
                         break;
                     case MoveMethods.TeleportToStart:
                         stage = 0;
-                        transform.position = points[0].position;
+                        StartCoroutine(Delay());
                         break;
                     case MoveMethods.Reverse:
                         reverse = !reverse;
@@ -75,6 +76,7 @@ public class ItemMover : MonoBehaviour, IButtonTrigger
                         {
                             stage--;
                         }
+                        StartCoroutine(Delay());
                         break;
                 }
 
@@ -82,20 +84,37 @@ public class ItemMover : MonoBehaviour, IButtonTrigger
 
         }
     }
-
+    IEnumerator Delay()
+    {
+        moving = false;
+        yield return new WaitForSeconds(delay);
+        moving = true;
+        if(moveStyle == MoveMethods.TeleportToStart)
+        {
+            transform.position = points[0].position;
+        }
+    }
     public void OnButtonPress()
     {
-        if (!buttonStartsMoving)
+        if (moveStyle != MoveMethods.RunOnce)
         {
-            moving = false;
+            if (!buttonStartsMoving)
+            {
+                moving = false;
+            }
+            else
+            {
+                moving = true;
+            }
         }
         else
         {
+            transform.position = points[0].position;
             moving = true;
         }
     }
 
-    public void OnButtonRelease()
+        public void OnButtonRelease()
     {
         if (buttonStartsMoving)
         {

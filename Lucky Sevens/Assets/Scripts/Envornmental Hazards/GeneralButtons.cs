@@ -56,6 +56,9 @@ public class GeneralButtons : MonoBehaviour
 
         }
         pressed = false;
-        buttonAnimation.Reset();
+        if (buttonAnimation != null)
+        {
+            buttonAnimation.Reset();
+        }
+        }
     }
-}
