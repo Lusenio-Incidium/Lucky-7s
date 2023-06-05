@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [SerializeField] float jumpVol;
     [SerializeField] AudioClip[] hurtSounds;
     [SerializeField] float hurtVol;
+    [SerializeField] AudioClip[] deathSounds;
+    [SerializeField] float deathVol;
 
     [Header("GunSpawnables")]
     [SerializeField] GameObject pistolSpawn;
@@ -228,6 +230,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
        //GameManager.instance.TraumaUp(.2f);
         if (HP <= 0)
         {
+            aud.PlayOneShot(deathSounds[Random.Range(0,deathSounds.Length)], deathVol);
             GameManager.instance.youLose();
         }
     }

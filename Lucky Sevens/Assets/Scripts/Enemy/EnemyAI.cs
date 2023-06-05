@@ -65,12 +65,13 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
         stoppingDistanceOrig = agent.stoppingDistance;
         agent.radius = Random.Range(.5f, .75f);
         shootSpeedOrig = shootSpeed;
-        HPOrig = HP;
         enemyCol = GetComponent<CapsuleCollider>();
         if(GameManager.instance.hard)
         {
+            HP *= 1.5f;
             Complicated = false;
         }
+        HPOrig = HP;
     }
 
     // Update is called once per frame
