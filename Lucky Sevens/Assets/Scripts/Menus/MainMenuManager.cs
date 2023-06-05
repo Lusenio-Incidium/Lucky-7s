@@ -23,18 +23,22 @@ public class MainMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        Destroy(GameManager.instance);
         instance = this;
         activeMenu = mainMenu;
-        if(!isCompleted)
+        if (!isCompleted)
         {
             MainLocked();
         }
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+      
     }
 
     public IEnumerator loadScene(string sceen)
