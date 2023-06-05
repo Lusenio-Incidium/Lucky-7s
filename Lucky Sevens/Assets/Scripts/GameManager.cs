@@ -22,13 +22,10 @@ public class GameManager : MonoBehaviour
     [Header("----- UI Stuff -----")]
     public GameObject ReloadText;
     public GameObject activeMenu;
-    public GameObject prevMenu;
     public GameObject pauseMenu;
     public GameObject loseMenu;
     public GameObject winMenu;
-    public GameObject mainMenu;
     public GameObject optionsMenu;
-    public GameObject creditsMenu;
     public GameObject comfirmMenu;
     public GameObject toMainMenuConfirmMenu;
     public GameObject errorMenu;
@@ -138,7 +135,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseMenu()
     {
-        prevMenu = pauseMenu;
+        
         isPaused = !isPaused;
         activeMenu = pauseMenu;
         activeMenu.SetActive(isPaused);
@@ -185,17 +182,6 @@ public class GameManager : MonoBehaviour
         }
         
     }
-    public void MainMenu()
-    {
-        prevMenu = mainMenu;
-        isPaused = !isPaused;
-        pauseState();
-        activeMenu.SetActive(false);
-        activeMenu = null;
-        activeMenu = mainMenu;
-        activeMenu.SetActive(true);
-    }
-
     public void OptionsMenu()
     {
         isPaused = !isPaused;
@@ -206,15 +192,6 @@ public class GameManager : MonoBehaviour
         activeMenu.SetActive(true);
     }
 
-    public void CreditsMenu()
-    {
-        isPaused = !isPaused;
-        pauseState();
-        activeMenu.SetActive(false);
-        activeMenu = null;
-        activeMenu = creditsMenu;
-        activeMenu.SetActive(true);
-    }
 
     public void youLose()
     {

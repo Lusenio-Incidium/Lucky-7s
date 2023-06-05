@@ -40,7 +40,11 @@ public class ButtonFunctions : MonoBehaviour
 
     public void ConfirmBackToMenu()
     {
-       GameManager.instance.MainMenu();
+        GameManager.instance.unPauseState();
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+           StartCoroutine(GameManager.instance.loadScene("MainMenu"));
+        } 
     }
 
     public void DenyBackToMenu()
@@ -52,22 +56,14 @@ public class ButtonFunctions : MonoBehaviour
 
     public void ExitBackToMenu()
     {
-        if(GameManager.instance.prevMenu == GameManager.instance.pauseMenu)
-        {
-            GameManager.instance.activeMenu.SetActive(false);
-            GameManager.instance.activeMenu = null;
-            GameManager.instance.PauseMenu();
-        }
-        else if(GameManager.instance.prevMenu == GameManager.instance.mainMenu)
-        {
-            GameManager.instance.MainMenu();
-        }
+        MainMenuManager.instance.activeMenu.SetActive(false);
+        MainMenuManager.instance.activeMenu = MainMenuManager.instance.mainMenu;
+        MainMenuManager.instance.activeMenu.SetActive(true);
     }
     public void NewGame()
     {
-        GameManager.instance.unPauseState();
         if (SceneManager.GetActiveScene().name != "TheHub")
-            StartCoroutine(GameManager.instance.loadScene("TheHub"));
+            StartCoroutine(MainMenuManager.instance.loadScene("TheHub"));
     }
 
     public void Continue()
@@ -77,12 +73,12 @@ public class ButtonFunctions : MonoBehaviour
 
     public void Options()
     {
-        GameManager.instance.OptionsMenu();
+        MainMenuManager.instance.OptionsMenu();
     }
 
     public void Credits()
     {
-        GameManager.instance.CreditsMenu();
+        MainMenuManager.instance.CreditsMenu();
     }
 
 }
