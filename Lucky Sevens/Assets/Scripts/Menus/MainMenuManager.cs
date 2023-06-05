@@ -24,6 +24,7 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         Destroy(GameObject.FindGameObjectWithTag("Player"));
+        Destroy(GameManager.instance);
         instance = this;
         activeMenu = mainMenu;
         if (!isCompleted)
