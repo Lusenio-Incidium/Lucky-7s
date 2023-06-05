@@ -33,11 +33,11 @@ public class Explosion : MonoBehaviour
             {
                 damageable.takeDamage(damage);
             }
-            CameraShake playerCam = GameManager.instance.playerCam.GetComponent<CameraShake>();
-            playerCam.SetStrengthAmount(shakeAmount);
-            playerCam.SetDuration(duration);
-            playerCam.start = true;
         }
+        CameraShake playerCam = GameManager.instance.playerCam.GetComponent<CameraShake>();
+        playerCam.SetStrengthAmount(shakeAmount);
+        playerCam.SetDuration(duration);
+        playerCam.start = true;
     }
 
 }
