@@ -14,27 +14,30 @@ public class Explosion : MonoBehaviour
     void Start()
     {
         Instantiate(explosionPrefab, transform.position, transform.rotation);
-        Destroy(gameObject, 0.15f);    
+        Destroy(gameObject, 0.15f);
     }
 
     // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
-        IPhysics physics = other.GetComponent<IPhysics>();
-        if(physics !=  null)
+        if (!other.GetComponent<SphereCollider>())
         {
-            Vector3 dir = other.transform.position - transform.position;
-            physics.TakePush(dir * pushAmount);
+            IPhysics physics = other.GetComponent<IPhysics>();
+            if (physics != null)
+            {
+                Vector3 dir = other.transform.position - transform.position;
+                physics.TakePush(dir * pushAmount);
+            }
+            IDamage damageable = other.GetComponent<IDamage>();
+            if (damageable != null)
+            {
+                damageable.takeDamage(damage);
+            }
+            CameraShake playerCam = GameManager.instance.playerCam.GetComponent<CameraShake>();
+            playerCam.SetStrengthAmount(shakeAmount);
+            playerCam.SetDuration(duration);
+            playerCam.start = true;
         }
-        IDamage damageable = other.GetComponent<IDamage>();
-        if (damageable != null)
-        {
-            damageable.takeDamage(damage);
-        }
-        CameraShake playerCam = GameManager.instance.playerCam.GetComponent<CameraShake>();
-        playerCam.SetStrengthAmount(shakeAmount);
-        playerCam.SetDuration(duration);
-        playerCam.start = true;
     }
 
 }
