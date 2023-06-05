@@ -55,6 +55,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
     float HPOrig;
     Vector3 ranPos;
     Vector3 pushBack;
+    float pushBackResolve;
     void Start()
     {
         colorOrig = model.material.color;
@@ -66,7 +67,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
         shootSpeedOrig = shootSpeed;
         HPOrig = HP;
         enemyCol = GetComponent<CapsuleCollider>();
-        HP -= 10;
         if(GameManager.instance.hard)
         {
             Complicated = false;
@@ -289,7 +289,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
         {
             return;
         }
-        AddPushBack();
+        //AddPushBack();
         if (HP <= 0)
         {
             anim.SetBool("Dead", true);
@@ -343,7 +343,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
     {
         if (agent.enabled)
         {
-            agent.Move((agent.velocity + pushBack) * Time.deltaTime);
+            agent.Move((agent.velocity + pushBack) * Time.deltaTime *.5f);
             pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime);
         }
     }
@@ -370,5 +370,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
     public void TakePush(Vector3 dir)
     {
         pushBack += dir;
+        AddPushBack();
     }
 }

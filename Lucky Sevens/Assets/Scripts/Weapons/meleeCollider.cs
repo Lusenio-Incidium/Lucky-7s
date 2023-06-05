@@ -14,7 +14,7 @@ public class meleeCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IDamage damageable = other.GetComponent<IDamage>();
-        if (damageable != null)
+        if (damageable != null && other.CompareTag("Player"))
         {
             damageable.takeDamage(damage);
         }
