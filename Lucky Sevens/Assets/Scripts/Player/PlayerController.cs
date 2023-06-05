@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
@@ -20,6 +19,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [Range(1, 100)][SerializeField] float HP;
     [SerializeField][Range(1.0f, 10.0f)] float playerSpeed;
     [SerializeField][Range(1.5f, 5.0f)] float sprintMod;
+    [SerializeField][Range(0.1f, 0.5f)] float crawlMod;
+    [SerializeField][Range(1.5f, 2.0f)] float slideMode;
     [SerializeField][Range(1.0f, 20.0f)] float jumpHeight;
     [SerializeField][Range(5.0f, 30.0f)] float gravityScale;
     [SerializeField][Range(1, 4)] int maxJumpAmmount;
@@ -53,6 +54,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     float timePassed;
     bool stepPlaying;
     bool isSprinting;
+    bool isCrawl;
+    bool isSlide;
     Color backHpOrig;
     float lerpTimer;
 
@@ -83,6 +86,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         movement();
         interact();
         sprint();
+        //crawl();
 
         if(gunList.Count > 0)
             switchGun();
@@ -114,6 +118,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         }
     }
 
+    public bool playerGrounded() 
+    {
+        return isGrounded;
+    }
 
     void movement()
     {
@@ -149,6 +157,18 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         playerVelocity.y -= gravityScale * Time.deltaTime;
         controller.Move((playerVelocity + pushBack) * Time.deltaTime);
         pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
+    }
+
+    void crawl() 
+    {
+        if (Input.GetButtonDown("Crawl")) 
+        {
+            GameManager.instance.playerCam.transform.position = new Vector3(0, 1, 0);
+        } 
+        else if (Input.GetButtonUp("Crawl")) 
+        {
+            GameManager.instance.playerCam.transform.position = new Vector3(0, 2, 0);
+        }
     }
 
     IEnumerator playStepAud() 
