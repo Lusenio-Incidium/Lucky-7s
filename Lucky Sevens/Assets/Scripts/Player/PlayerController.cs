@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
         playerSpeedOrig = playerSpeed;
     }
 
