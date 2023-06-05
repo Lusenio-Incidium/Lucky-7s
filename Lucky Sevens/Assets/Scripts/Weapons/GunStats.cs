@@ -17,16 +17,16 @@ public class GunStats : ScriptableObject
     public int bulletsPerTap;
     public int magSize;
     public int bulletsLeft;
+    public int currentAmmoCount;
     public int ammunition;
+    public float pushBackForce;
+    public float recoilAmount;
+    public float adsReducution;
     public AudioClip gunShotAud;
     [Range(0, 1)] public float gunShotAudVol;
     public StatusEffectObj statusEffect;
     public GameObject hitEffect;
-    public bool TriggerHold;
-    public int currentAmmoCount;
-    public float pushBackForce;
-    public float recoilAmount;
-    public float adsReducution;
-    public bool destroyOnEmpty;
     public GameObject explosion;
+    public bool TriggerHold;
+    public bool destroyOnEmpty;
 }
