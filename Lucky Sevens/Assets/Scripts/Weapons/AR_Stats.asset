@@ -21,8 +21,8 @@ MonoBehaviour:
   spread: 0.1
   bulletsPerTap: 1
   magSize: 36
-  bulletsLeft: 0
-  ammunition: 0
+  bulletsLeft: 36
+  ammunition: 216
   gunShotAud: {fileID: 8300000, guid: 8ad374045e287d64d898d09c5bc54b80, type: 3}
   gunShotAudVol: 0.227
   statusEffect: {fileID: 0}
@@ -30,6 +30,7 @@ MonoBehaviour:
   TriggerHold: 1
   currentAmmoCount: 0
   pushBackForce: 1
-  recoilAmount: -0.1
+  recoilAmount: 0.1
   adsReducution: 0.95
   destroyOnEmpty: 1
+  explosion: {fileID: 0}

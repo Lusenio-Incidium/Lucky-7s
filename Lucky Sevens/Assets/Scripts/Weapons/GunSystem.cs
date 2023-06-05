@@ -201,23 +201,6 @@ public class GunSystem : MonoBehaviour
             }
         }
 
-        if (destroyOnEmpty)
-        {
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
         bulletsLeft--;
         bulletsShot++;
         bulletsLeft = weapons[currentWeapon].bulletsLeft = bulletsLeft;
@@ -354,7 +337,10 @@ public class GunSystem : MonoBehaviour
         recoilAmount = weapons[index].recoilAmount;
         adsReduction = weapons[index].adsReducution;
         destroyOnEmpty = weapons[index].destroyOnEmpty;
-        explosion = weapons[index].explosion;
+        if (destroyOnEmpty)
+        {
+            explosion = weapons[index].explosion;
+        }
         GameManager.instance.UpdateAmmoCount();
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
