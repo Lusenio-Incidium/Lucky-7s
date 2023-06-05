@@ -10,6 +10,7 @@ public class GunSystem : MonoBehaviour
     [SerializeField] AudioClip gunShotAud;
     [SerializeField] float gunShotAudVol;
 
+
     //Stats
     [Header("----- Gun Stats -----")]
     float dmg;
@@ -152,7 +153,6 @@ public class GunSystem : MonoBehaviour
     private void Shoot()
     {
         readyToShoot = false;
-
         Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0);
         Ray screenRay = Camera.main.ViewportPointToRay(screenCenter);
 
@@ -165,6 +165,7 @@ public class GunSystem : MonoBehaviour
 
             //Raycasting bullets
             aud.PlayOneShot(weapons[currentWeapon].gunShotAud, weapons[currentWeapon].gunShotAudVol);
+
             RaycastHit hit;
             if (Physics.Raycast(screenRay.origin, spreadDirection, out hit, range) && !GameManager.instance.isPaused)
             {

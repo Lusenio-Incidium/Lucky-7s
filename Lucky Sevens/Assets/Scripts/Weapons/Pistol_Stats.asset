@@ -22,14 +22,15 @@ MonoBehaviour:
   bulletsPerTap: 1
   magSize: 17
   bulletsLeft: 17
+  currentAmmoCount: 0
   ammunition: 102
+  pushBackForce: 0.2
+  recoilAmount: 0.2
+  adsReducution: 0.95
   gunShotAud: {fileID: 8300000, guid: 8ad374045e287d64d898d09c5bc54b80, type: 3}
   gunShotAudVol: 0.315
   statusEffect: {fileID: 0}
   hitEffect: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
+  explosion: {fileID: 0}
   TriggerHold: 0
-  currentAmmoCount: 0
-  pushBackForce: 0.2
-  recoilAmount: 0.2
-  adsReducution: 0.95
   destroyOnEmpty: 0
