@@ -6,7 +6,7 @@ public class HubManager : MonoBehaviour
 {
     [SerializeField] RandomSelection randomizer;
     [SerializeField] Animator bossDoor;
-    [SerializeField] Animator[] tokenAnimators;
+    [SerializeField] GameObject[] tokens;
     List<IRandomizeHighlight> _lightObjects;
     List<IRandomizeAction> _actionObejcts;
 
@@ -19,15 +19,16 @@ public class HubManager : MonoBehaviour
         _actionObejcts = randomizer.GetActions();
         foreach (int level in completed)
         {
-            if(GameManager.instance.GetLastestLevel() == level)
+            if (GameManager.instance.GetLastestLevel() == level)
             {
                 playAnimation = false;
-                break;
             }
+                        tokens[level - 1].SetActive(true);
         }
-        if (playAnimation || GameManager.instance.GetLastestLevel() <= 0)
+        if (playAnimation && GameManager.instance.GetLastestLevel() > 0)
         {
-            //tokenAnimators[GameManager.instance.GetLastestLevel()].SetTrigger("Place");
+            tokens[GameManager.instance.GetLastestLevel() - 1].SetActive(true);
+            tokens[GameManager.instance.GetLastestLevel() - 1].GetComponent<Animator>().enabled = true;
         }
         GameManager.instance.UpdateCompleteLevels();
         if(completed.Count >= 4)
@@ -54,7 +55,7 @@ public class HubManager : MonoBehaviour
 
     IEnumerator OpenBossDoor()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2.5f);
         CameraShake shake = GameManager.instance.playerCam.GetComponent<CameraShake>();
         shake.SetStrengthAmount(5);
         shake.SetDuration(2);

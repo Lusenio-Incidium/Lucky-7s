@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
 
     //Level Manager Variables
     List<int> completedLevels;
-    int recentCompletedLevel;
+    int recentCompletedLevel = 0;
 
     void Awake()
     {
