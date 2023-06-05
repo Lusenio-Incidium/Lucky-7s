@@ -41,10 +41,11 @@ public class ButtonFunctions : MonoBehaviour
     public void ConfirmBackToMenu()
     {
         GameManager.instance.unPauseState();
+        Debug.Log("Loading Main Menu");
         if (SceneManager.GetActiveScene().name != "MainMenu")
-        {
+        {   
            StartCoroutine(GameManager.instance.loadScene("MainMenu"));
-        } 
+        }
     }
 
     public void DenyBackToMenu()

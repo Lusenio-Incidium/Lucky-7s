@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public enum SlotResults {
@@ -26,8 +27,6 @@ public enum SlotResults {
     Empty14,
     Empty15,
 }
-
-
 
 public class SlotsController : MonoBehaviour
 {
