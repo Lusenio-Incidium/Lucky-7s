@@ -20,7 +20,7 @@ public class Explosion : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.GetComponent<SphereCollider>())
+        if (Vector3.Distance(other.transform.position, transform.position) < gameObject.transform.localScale.x)
         {
             IPhysics physics = other.GetComponent<IPhysics>();
             if (physics != null)

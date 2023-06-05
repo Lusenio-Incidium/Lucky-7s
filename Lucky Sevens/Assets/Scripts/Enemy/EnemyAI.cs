@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
+public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
@@ -54,6 +54,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     float shootSpeedOrig;
     float HPOrig;
     Vector3 ranPos;
+    Vector3 pushBack;
     void Start()
     {
         colorOrig = model.material.color;
@@ -75,10 +76,12 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     // Update is called once per frame
     void Update()
     {
+
         if (Complicated)
         {
             if (agent.isActiveAndEnabled)
             {
+                //AddPushBack();
                 speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
                 anim.SetFloat("Speed", speed);
 
@@ -99,6 +102,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         {
             if (agent.isActiveAndEnabled)
             {
+                //AddPushBack();
                 speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
                 anim.SetFloat("Speed", speed);
                 if (!healer)
@@ -285,6 +289,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         {
             return;
         }
+        AddPushBack();
         if (HP <= 0)
         {
             anim.SetBool("Dead", true);
@@ -334,14 +339,14 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
             destination = false;
         }
     }
-
-    /*void OnTriggerStay(Collider other)
+    void AddPushBack()
     {
-        if (!other.CompareTag("Floor"))
+        if (agent.enabled)
         {
-
+            agent.Move((agent.velocity + pushBack) * Time.deltaTime);
+            pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime);
         }
-    }*/
+    }
     public float GetEnemyHP()
     {
         return HP;
@@ -361,5 +366,9 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     public NavMeshAgent GetAgent()
     {
         return agent;
+    }
+    public void TakePush(Vector3 dir)
+    {
+        pushBack += dir;
     }
 }

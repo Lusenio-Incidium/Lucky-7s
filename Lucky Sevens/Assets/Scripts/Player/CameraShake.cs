@@ -20,7 +20,6 @@ public class CameraShake : MonoBehaviour
     }
     public IEnumerator Shake(float duration)
     {
-        Vector3 originalVec = transform.localEulerAngles;
         float timePassed = duration;
         while (timePassed > 0)
         {
@@ -28,7 +27,7 @@ public class CameraShake : MonoBehaviour
             float yawToAdd = ReturnNumber() * (timePassed/duration) * strength;
             float pitchToAdd = ReturnNumber() * (timePassed / duration) * strength;
             float rollToAdd = ReturnNumber() * (timePassed / duration) * strength;
-            transform.localEulerAngles = new Vector3(originalVec.x + pitchToAdd, originalVec.y + yawToAdd, originalVec.z + rollToAdd);
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x + pitchToAdd, transform.localEulerAngles.y + yawToAdd, transform.localEulerAngles.z + rollToAdd);
             yield return null;
         }
     }
