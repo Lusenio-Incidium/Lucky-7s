@@ -40,8 +40,11 @@ public class HealerScript : MonoBehaviour
     }
     public void HealEnemy()
     {
-        //enemy.takeDamage(healAmount);
-        Instantiate(HealingEffect, transform.position, Quaternion.identity);
-        timePassed = 0;
+        if (agent.isActiveAndEnabled)
+        {
+            //enemy.takeDamage(healAmount);
+            Instantiate(HealingEffect, transform.position, Quaternion.identity);
+            timePassed = 0;
+        }
     }
 }
