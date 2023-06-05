@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -12,12 +13,22 @@ public class MainMenuManager : MonoBehaviour
     public GameObject creditsMenu;
     public GameObject loadingScreen;
     public GameObject mainMenu;
+    public GameObject difficultyMenu;
+    public GameObject hardButton;
     float timeScaleOrig;
+    public bool mainEasy;
+    public bool mainMedium;
+    public bool mainHard;
+    public bool isCompleted;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         activeMenu = mainMenu;
+        if(!isCompleted)
+        {
+            MainLocked();
+        }
     }
 
     // Update is called once per frame
@@ -54,5 +65,18 @@ public class MainMenuManager : MonoBehaviour
         activeMenu = null;
         activeMenu = optionsMenu;
         activeMenu.SetActive(true);
+    }
+    public void DifficultyMenu()
+    {
+        activeMenu.SetActive(false);
+        activeMenu = null;
+        activeMenu = difficultyMenu;
+        activeMenu.SetActive(true);
+    }
+    public void MainLocked()
+    {
+        hardButton.GetComponent<Button>().enabled = false;
+        TextMeshProUGUI pop = hardButton.GetComponentInChildren<TextMeshProUGUI>();
+        pop.color = Color.red;
     }
 }

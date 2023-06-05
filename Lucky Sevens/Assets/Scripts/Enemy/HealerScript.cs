@@ -18,33 +18,30 @@ public class HealerScript : MonoBehaviour
         healAmount = enemyStats.GetHealAmount();
         agent = enemyStats.GetAgent();
     }
-
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
         if (agent.isActiveAndEnabled)
         {
-            EnemyAI fellowEnemy = other.GetComponent<EnemyAI>();
             if (timePassed == 0)
             {
                 timePassed = Time.time;
             }
-            else if (fellowEnemy && Time.time - timePassed > timeToHeal && timeToHeal != 0)
+            else if (Time.time - timePassed > timeToHeal && timeToHeal != 0)
             {
-                if (fellowEnemy.GetEnemyHP() < fellowEnemy.GetOrigEnemyHP())
-                    StartCoroutine(TimerHealEnemy(fellowEnemy));
+                timePassed = 0;
+                StartCoroutine(TimerHealEnemy());
             }
         }
     }
-    IEnumerator TimerHealEnemy(EnemyAI fellowEnemy)
+    IEnumerator TimerHealEnemy()
     {
-        timePassed = Time.time;
-        yield return new WaitForSeconds(5);
-        HealEnemy(fellowEnemy);
+        yield return new WaitForSeconds(timeToHeal);
+        HealEnemy();
     }
-    public void HealEnemy(EnemyAI enemy)
+    public void HealEnemy()
     {
-        enemy.takeDamage(healAmount);
+        //enemy.takeDamage(healAmount);
         Instantiate(HealingEffect, transform.position, Quaternion.identity);
-        timePassed = Time.time;
+        timePassed = 0;
     }
 }

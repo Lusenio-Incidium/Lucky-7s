@@ -48,6 +48,7 @@ public class CameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xrotation, 0, 0);
 
         //Apply rotation to our player (y axis)
+        transform.parent = GameManager.instance.player.transform;
         transform.parent.Rotate(Vector3.up * mouseX);
     }
 

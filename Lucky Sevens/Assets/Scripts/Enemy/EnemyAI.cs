@@ -65,6 +65,11 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         shootSpeedOrig = shootSpeed;
         HPOrig = HP;
         enemyCol = GetComponent<CapsuleCollider>();
+        HP -= 10;
+        if(GameManager.instance.hard)
+        {
+            Complicated = false;
+        }
     }
 
     // Update is called once per frame
@@ -271,6 +276,10 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
     }
     public void takeDamage(float dmg)
     {
+        if(HP == HPOrig && dmg < 0)
+        {
+            return;
+        }
         HP -= dmg;
         if (dmg < 0)
         {
@@ -326,12 +335,13 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect
         }
     }
 
-    void OnTriggerStay(Collider other)
+    /*void OnTriggerStay(Collider other)
     {
         if (!other.CompareTag("Floor"))
         {
+
         }
-    }
+    }*/
     public float GetEnemyHP()
     {
         return HP;

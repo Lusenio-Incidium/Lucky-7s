@@ -173,6 +173,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         lerpTimer = 0f;
         updatePlayerUI();
         StartCoroutine(damageFlash());
+        StartCoroutine(Invincibility());
+       //GameManager.instance.TraumaUp(.2f);
         if (HP <= 0)
         {
             GameManager.instance.youLose();
@@ -187,6 +189,12 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         GameManager.instance.playerDamageFlash.SetActive(true);
         yield return new WaitForSeconds(.1f);
         GameManager.instance.playerDamageFlash.SetActive(false);
+    }
+    IEnumerator Invincibility()
+    {
+        controller.detectCollisions = false;
+        yield return new WaitForSeconds(1f);
+        controller.detectCollisions = true;
     }
 
     public void spawnPlayer()
