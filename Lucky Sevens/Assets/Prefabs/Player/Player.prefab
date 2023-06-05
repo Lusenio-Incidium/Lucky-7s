@@ -301,6 +301,7 @@ MonoBehaviour:
   gunModel: {fileID: 4241433821242182083}
   gunMat: {fileID: 2105554731855723785}
   originolPosition: {x: 0, y: 0, z: 0}
+  explosion: {fileID: 0}
   readyToShoot: 0
   weapons: []
   currentWeapon: 0
@@ -325,6 +326,8 @@ MonoBehaviour:
   HP: 50
   playerSpeed: 5
   sprintMod: 2
+  crawlMod: 0.2
+  slideMod: 1.5
   jumpHeight: 10
   gravityScale: 18.5
   maxJumpAmmount: 2
@@ -355,7 +358,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1013410cda0fe434a9d7259ef29fe084, type: 3}
   - {fileID: 8300000, guid: 819ca40e4cb6a1345a303adb5dfac05c, type: 3}
   - {fileID: 8300000, guid: 8d17b22ee91f73c449987a86b4773563, type: 3}
-  hurtVol: 0.1
+  hurtVol: 0.5
   pistolSpawn: {fileID: 117619678179716738, guid: 70d99ef8657b4694995fcfd18936e30f, type: 3}
   tommySpawn: {fileID: 670377652670482858, guid: e21ccd608a780f041929e2710d4aea01, type: 3}
 --- !u!33 &581697804747713019
@@ -700,6 +703,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b616c0b1c177f42b4c58b5a536f1f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  start: 0
+  dur: 0
+  strength: 0
 --- !u!20 &581697804788486950
 Camera:
   m_ObjectHideFlags: 0
