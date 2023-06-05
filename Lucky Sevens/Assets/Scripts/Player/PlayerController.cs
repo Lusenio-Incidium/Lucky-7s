@@ -69,8 +69,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             HPOrig = HP;
             origSpeed = playerSpeed;
             backHpOrig = GameManager.instance.backPlayerHPBar.color;
+            playerSpeedOrig = playerSpeed;
             spawnPlayer();
-         
 
             gunSystem = GetComponent<GunSystem>();
         }
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        playerSpeedOrig = playerSpeed;
+        
     }
 
     // Update is called once per frame
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         movement();
         interact();
-        if(!isCrawl)
+        if(!isCrawl && !isSlide)
             sprint();
         crawl();
 
@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             playerSpeed = playerSpeedOrig;
             GameManager.instance.playerCam.transform.Translate(0,-1.5f,0);
             isCrawl = true;
-            playerSpeed *= crawlMod;
+            playerSpeed = playerSpeedOrig * crawlMod;
             GetComponent<CapsuleCollider>().height = 1;
         } 
         else if (Input.GetButtonUp("Crawl")) 
@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         GameManager.instance.playerCam.transform.Translate(0, -1.5f, 0);
         playerSpeed = playerSpeedOrig * slideMod;
         Debug.Log(playerSpeed);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         playerSpeed = playerSpeedOrig * crawlMod;
         GetComponent<CapsuleCollider>().height = 1;
     }
@@ -271,7 +271,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         if (Input.GetButtonDown("Sprint") && !isCrawl)
         {
-            playerSpeed *= sprintMod;
+            playerSpeed = playerSpeedOrig * sprintMod;
             isSprinting = true;
         }
         else if (Input.GetButtonUp("Sprint"))
