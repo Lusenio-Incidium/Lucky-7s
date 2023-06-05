@@ -180,6 +180,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b673911513b5636488ef5c76f4e7a8fb, type: 3}
+--- !u!1 &392426369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b673911513b5636488ef5c76f4e7a8fb, type: 3}
+  m_PrefabInstance: {fileID: 392426368}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &392426370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392426369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4022013646b6bd84c98ede741bb14b5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomizer: {fileID: 1250453667}
+  bossDoor: {fileID: 0}
+  tokenAnimators: []
 --- !u!1 &507686059
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +439,26 @@ PrefabInstance:
       propertyPath: deactiveMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 844daa585b769d94fbf57339877b07fe, type: 2}
+    - target: {fileID: 1209265155, guid: 302cb85d80cab134d88d7d30693b7f06, type: 3}
+      propertyPath: rigged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2488635704877782000, guid: 302cb85d80cab134d88d7d30693b7f06, type: 3}
+      propertyPath: _position
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2496882364588411446, guid: 302cb85d80cab134d88d7d30693b7f06, type: 3}
+      propertyPath: _position
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3675487375205880347, guid: 302cb85d80cab134d88d7d30693b7f06, type: 3}
+      propertyPath: _position
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840405029893084666, guid: 302cb85d80cab134d88d7d30693b7f06, type: 3}
+      propertyPath: _position
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5109573247589245855, guid: 302cb85d80cab134d88d7d30693b7f06, type: 3}
       propertyPath: m_Name
       value: LevelLobby
@@ -473,6 +513,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 302cb85d80cab134d88d7d30693b7f06, type: 3}
+--- !u!114 &1250453667 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1209265155, guid: 302cb85d80cab134d88d7d30693b7f06, type: 3}
+  m_PrefabInstance: {fileID: 1250453666}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 641e77ad8cd847543a1eec716acde361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1274725014
 PrefabInstance:
   m_ObjectHideFlags: 0

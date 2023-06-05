@@ -63,11 +63,17 @@ public class CrushingCeiling : MonoBehaviour, IButtonTrigger
         playerInside = false;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player") && GameManager.instance.player.GetComponent<PlayerController>())
+        Debug.Log(collision.gameObject.CompareTag("Player") + " " + GameManager.instance.playerScript.playerGrounded() + " " + playerInside);
+        if (collision.gameObject.CompareTag("Player") && GameManager.instance.playerScript.playerGrounded() && playerInside)
         {
             GameManager.instance.player.GetComponent<IDamage>().instaKill();
+        }
+        else if (collision.gameObject.CompareTag("Player") && playerInside)
+        {
+            GameManager.instance.player.GetComponent<IPhysics>().TakePush(Vector3.down * 5);
+            GameManager.instance.player.GetComponent<IDamage>().takeDamage(5);
         }
     }
 }

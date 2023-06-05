@@ -1,12 +1,25 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.ComponentModel;
+/*public enum LevelSelect
+{
+    Tutorial = 0,
+    Training,
+    Level1,
+    Level2,
+    Level3,
+    Level4,
+    SlotsBoss
+}*/
 
 public class GameManager : MonoBehaviour
 {
+
+
     public static GameManager instance;
 
     [Header("----- Player Stuff -----")]
@@ -66,8 +79,14 @@ public class GameManager : MonoBehaviour
     bool timerInc;
     public bool completed;
 
+    //Level Manager Variables
+    List<int> completedLevels;
+    int recentCompletedLevel;
+
     void Awake()
     {
+        completedLevels = new List<int>();
+        Debug.Log(completedLevels.Count);
         //Code to check if a new game manager is made, and if it is delete it.
         //Used for keeping the game manager and player UI throughout different scenes
         if (instance != null) 
@@ -116,10 +135,12 @@ public class GameManager : MonoBehaviour
         if(SceneManager.GetActiveScene().name != "TheHub") 
         {
             timerDisplay.gameObject.transform.parent.gameObject.SetActive(true);
+            
         }
         else 
         {
             timerDisplay.gameObject.transform.parent.gameObject.SetActive(false);
+            
         }
 
         //player refresh
@@ -128,6 +149,22 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void UpdateCompleteLevels() //Searches through the CompletedLevels List to see if the level already was completed before adding it. Called through HubManager.
+    {
+        if(recentCompletedLevel <= 0) //For a Null Token set to 0
+        {
+            return;
+        }
+        foreach (int num in completedLevels)
+        {
+            if (num == recentCompletedLevel)
+            {
+                return;
+            }
+        }
+        completedLevels.Add(recentCompletedLevel);
+    }
+    
     void Update()
     {
         //Pause Menu Code
@@ -376,4 +413,20 @@ public class GameManager : MonoBehaviour
         hardMode.GetComponent<Image>().color = Color.gray;
     }    
 
+    public void SetLatestLevel(int levelID)
+    {
+        recentCompletedLevel = levelID;
+    }
+     public int GetLastestLevel()
+    {
+        return recentCompletedLevel; 
+    }
+    public List<int> GetCompletedLevels()
+    {
+        foreach(int num in completedLevels)
+        {
+            Debug.Log(num);
+        }
+        return completedLevels;
+    }
 }

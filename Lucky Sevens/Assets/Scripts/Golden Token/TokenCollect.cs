@@ -5,6 +5,7 @@ using UnityEngine;
 public class TokenCollect : MonoBehaviour
 {
     [SerializeField] float spinSpeed;
+    [SerializeField] int level;
     int spinMod;
     float youWinDelay;
     private void Update()
@@ -15,6 +16,11 @@ public class TokenCollect : MonoBehaviour
     public void SetSpinSpeed(float speed)
     {
         spinSpeed = speed;
+    }
+
+    public void SetLevel(int num)
+    {
+        level = num;
     }
     public void SetMod(int mod)
     {
@@ -38,8 +44,8 @@ public class TokenCollect : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             SpeedUp();
+            GameManager.instance.SetLatestLevel(level);
             StartCoroutine(GameManager.instance.youWin(youWinDelay));
-
         }
     }
 }
