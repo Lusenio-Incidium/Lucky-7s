@@ -171,24 +171,27 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             Debug.Log("Slide");
             if(!isSlide)
                 StartCoroutine(slide());
+            controller.height = 1;
         }
         else if (Input.GetButtonDown("Crawl")) 
         {
             Debug.Log("Crawl");
             isSprinting = false;
             playerSpeed = playerSpeedOrig;
-            GameManager.instance.playerCam.transform.Translate(0,-1.5f,0);
+            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 1, GameManager.instance.playerCam.transform.position.z);
             isCrawl = true;
             playerSpeed = playerSpeedOrig * crawlMod;
             GetComponent<CapsuleCollider>().height = 1;
+            controller.height = 1;
         } 
         else if (Input.GetButtonUp("Crawl")) 
         {
             Debug.Log("Crawl Off");
-            GameManager.instance.playerCam.transform.Translate(0, 1.5f, 0);
+            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y + 1, GameManager.instance.playerCam.transform.position.z);
             isCrawl = false;
             playerSpeed /= crawlMod;
             GetComponent<CapsuleCollider>().height = 2;
+            controller.height = 2;
             isSlide = false;
         }
     }
@@ -196,12 +199,13 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     IEnumerator slide()
     {
         isSlide = true;
-        GameManager.instance.playerCam.transform.Translate(0, -1.5f, 0);
+        GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 1, GameManager.instance.playerCam.transform.position.z);
         playerSpeed = playerSpeedOrig * slideMod;
         Debug.Log(playerSpeed);
         yield return new WaitForSeconds(0.5f);
         playerSpeed = playerSpeedOrig * crawlMod;
         GetComponent<CapsuleCollider>().height = 1;
+        
     }
 
     IEnumerator playStepAud() 
