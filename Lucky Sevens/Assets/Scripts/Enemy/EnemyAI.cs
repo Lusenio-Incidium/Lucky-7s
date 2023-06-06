@@ -143,7 +143,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
     {
         if (agent.velocity == Vector3.zero && Vector3.Distance(GameManager.instance.player.transform.position,transform.position) <= 10)
         {
-               ranPos = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y + Random.Range(-10, 10), transform.position.z + Random.Range(-10, 10));
+            ranPos = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y + Random.Range(-10, 10), transform.position.z + Random.Range(-10, 10));
             while (Vector3.Distance(GameManager.instance.player.transform.position, ranPos) <= 10)
             {
                 ranPos = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y + Random.Range(-10  , 10), transform.position.z + Random.Range(-10, 10));
@@ -293,6 +293,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
         //AddPushBack();
         if (HP <= 0)
         {
+            StopAllCoroutines();
             anim.SetBool("Dead", true);
             GameManager.instance.UpdateEnemyCount(-1);
             agent.enabled = false;
