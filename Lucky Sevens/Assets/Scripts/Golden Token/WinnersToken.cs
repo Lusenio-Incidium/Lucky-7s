@@ -6,7 +6,8 @@ public enum WinConditions
     HandledExternally = 0,
     SurviveXTime,
     KillXEnemies,
-    KillAllEnemies
+    KillAllEnemies,
+    TouchTriggerBox
 }
 public class WinnersToken : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class WinnersToken : MonoBehaviour
         
         if (step == 0)
         {
-            token.transform.position = Vector3.Lerp(token.transform.position, new Vector3(token.transform.position.x, riseHeight, token.transform.position.z), Time.deltaTime * riseTime);
+            token.transform.position = Vector3.Lerp(token.transform.position, new Vector3(token.transform.position.x, riseHeight + spawnLocation.position.y, token.transform.position.z), Time.deltaTime * riseTime);
         }
         else if (step == 2)
         {
@@ -130,4 +131,12 @@ public class WinnersToken : MonoBehaviour
         return winStyle;
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(winStyle == WinConditions.TouchTriggerBox && other.CompareTag("Player"))
+        {
+            Spawn();
+        }
+    }
 }
