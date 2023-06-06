@@ -66,8 +66,8 @@ public class ButtonFunctions : MonoBehaviour
         if (MainMenuManager.instance.mainEasy || MainMenuManager.instance.mainMedium || MainMenuManager.instance.mainHard)
         {
             MainMenuManager.instance.activeMenu.SetActive(false);
-            if (SceneManager.GetActiveScene().name != "TheHub")
-                StartCoroutine(MainMenuManager.instance.loadScene("TheHub"));
+            if (SceneManager.GetActiveScene().name != "Tutorial")
+                StartCoroutine(MainMenuManager.instance.loadScene("Tutorial"));
         }
     }
 
