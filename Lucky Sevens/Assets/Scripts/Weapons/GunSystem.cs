@@ -357,6 +357,12 @@ public class GunSystem : MonoBehaviour
             GameManager.instance.activeRetical = GameManager.instance.shotgunRetical;
             GameManager.instance.activeRetical.SetActive(true);
         }
+        else if (weapons[currentWeapon].tag == "Limited")
+        {
+            GameManager.instance.activeRetical.SetActive(false);
+            GameManager.instance.activeRetical = GameManager.instance.arPistolRetical;
+            GameManager.instance.activeRetical.SetActive(true);
+        }
 
         Invoke("ResetShot", timeBetweenShots);
     }

@@ -8,15 +8,18 @@ public class AmmoPickup : MonoBehaviour, ICollectable
 
     GunSystem gunSystem;
 
-    public void onCollect() 
+    public void onCollect()
     {
-        gunSystem.AddBullets(ammoAmount);
-        GameManager.instance.UpdateAmmoCount();
-        Destroy(gameObject);
+        if (gunSystem.weapons[gunSystem.currentWeapon].tag != "Limited")
+        {
+            gunSystem.AddBullets(ammoAmount);
+            GameManager.instance.UpdateAmmoCount();
+            Destroy(gameObject);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) 
+        if (other.CompareTag("Player"))
         {
             gunSystem = GameManager.instance.gunSystem;
             onCollect();

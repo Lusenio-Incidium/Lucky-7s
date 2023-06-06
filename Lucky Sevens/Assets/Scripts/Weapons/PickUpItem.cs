@@ -21,6 +21,7 @@ public class PickUpItem : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+
         if(other.CompareTag("MainCamera"))
         {
             canGrab = true;
