@@ -34,6 +34,7 @@ public class MainMenuManager : MonoBehaviour
         }
         instance = this;
         activeMenu = mainMenu;
+        DontDestroyOnLoad(this.transform.parent);
         if (!isCompleted)
         {
             MainLocked();

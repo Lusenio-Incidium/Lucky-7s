@@ -108,12 +108,15 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
                 anim.SetFloat("Speed", speed);
                 if (!healer)
                 {
-                    agent.SetDestination(GameManager.instance.player.transform.position);
-                    CanSeePlayer();
+                    if (agent.isActiveAndEnabled)
+                    {
+                        agent.SetDestination(GameManager.instance.player.transform.position);
+                        CanSeePlayer();
+                    }
                 }
                 else
                 {
-                    if (playerInRange)
+                    if (playerInRange && agent.isActiveAndEnabled)
                     {
                         RunAwayFromPlayer();
                     }
