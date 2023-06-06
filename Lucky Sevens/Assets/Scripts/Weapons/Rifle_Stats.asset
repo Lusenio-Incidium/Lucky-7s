@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rifle_Stats
   m_EditorClassIdentifier: 
   model: {fileID: 4890329975369865598, guid: fefb428d20bdd2940b773c0be4b53d0c, type: 3}
-  tag: AR/Pistol
+  tag: Limited
   damage: 100
   timeBetweenShots: 2
   range: 1000
@@ -21,9 +21,9 @@ MonoBehaviour:
   spread: 0.5
   bulletsPerTap: 1
   magSize: 1
-  bulletsLeft: 0
+  bulletsLeft: 1
   currentAmmoCount: 0
-  ammunition: 3
+  ammunition: 5
   pushBackForce: 30
   recoilAmount: 1.5
   adsReducution: 0.1
