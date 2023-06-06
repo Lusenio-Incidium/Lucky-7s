@@ -31,13 +31,13 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     [Header("Audio")]
     [SerializeField] AudioClip[] footsteps;
-    [SerializeField] float footVol;
+    [SerializeField][Range(0,1)] float footVol;
     [SerializeField] AudioClip[] jumpSounds;
-    [SerializeField] float jumpVol;
+    [SerializeField][Range(0, 1)] float jumpVol;
     [SerializeField] AudioClip[] hurtSounds;
-    [SerializeField] float hurtVol;
+    [SerializeField][Range(0, 1)] float hurtVol;
     [SerializeField] AudioClip[] deathSounds;
-    [SerializeField] float deathVol;
+    [SerializeField][Range(0, 1)] float deathVol;
 
     [Header("GunSpawnables")]
     [SerializeField] GameObject pistolSpawn;

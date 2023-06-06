@@ -136,16 +136,62 @@ public class ButtonFunctions : MonoBehaviour
 
     public void IncreaseSensitivity()
     {
-        MainMenuManager.instance.sensitivity += 0.5f;
-        MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
-        MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+        if (MainMenuManager.instance.sensitivity != 10)
+        {
+            MainMenuManager.instance.sensitivity += 0.5f;
+            MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
+            MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+        }
     }
 
     public void DecreaseSensitivity()
     {
-        MainMenuManager.instance.sensitivity -= 0.5f;
-        MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
-        MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+        if (MainMenuManager.instance.sensitivity != 1)
+        {
+            MainMenuManager.instance.sensitivity -= 0.5f;
+            MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
+            MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+        }
+    }
+
+    public void IncreaseSFXVolume()
+    {
+        if (MainMenuManager.instance.SFXVolume != 1)
+        {
+            MainMenuManager.instance.SFXVolume += 0.1f;
+            MainMenuManager.instance.SFXvolumetext.text = MainMenuManager.instance.SFXVolume.ToString();
+            MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 1f;
+        }
+    }
+
+    public void DecreaseSFXVolume()
+    {
+        if (MainMenuManager.instance.SFXVolume != 0)
+        {
+            MainMenuManager.instance.SFXVolume -= 0.1f;
+            MainMenuManager.instance.SFXvolumetext.text = MainMenuManager.instance.SFXVolume.ToString();
+            MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 1f;
+        }
+    }
+
+    public void IncreaseMusicVolume()
+    {
+        if (MainMenuManager.instance.musicVolume != 1)
+        {
+            MainMenuManager.instance.musicVolume += 0.1f;
+            MainMenuManager.instance.musicvolumetext.text = MainMenuManager.instance.musicVolume.ToString();
+            MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 1f;
+        }
+    }
+
+    public void DecreaseMusicVolume()
+    {
+        if (MainMenuManager.instance.musicVolume != 0)
+        {
+            MainMenuManager.instance.musicVolume -= 0.1f;
+            MainMenuManager.instance.musicvolumetext.text = MainMenuManager.instance.musicVolume.ToString();
+            MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 1f;
+        }
     }
 
 }

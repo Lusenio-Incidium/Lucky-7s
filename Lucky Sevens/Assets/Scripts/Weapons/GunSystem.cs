@@ -8,7 +8,7 @@ public class GunSystem : MonoBehaviour
     [Header("----- Audio -----")]
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip gunShotAud;
-    [SerializeField] float gunShotAudVol;
+    [SerializeField][Range(0, 1)] float gunShotAudVol;
 
 
     //Stats

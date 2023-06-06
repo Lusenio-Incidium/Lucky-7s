@@ -16,13 +16,19 @@ public class MainMenuManager : MonoBehaviour
     public GameObject difficultyMenu;
     public GameObject hardButton;
     public Image sensitivityBar;
+    public Image SFXVolumeBar;
+    public Image musicVolumeBar;
     public TextMeshProUGUI sensitivitytext;
+    public TextMeshProUGUI SFXvolumetext;
+    public TextMeshProUGUI musicvolumetext;
     float timeScaleOrig;
     public bool mainEasy;
     public bool mainMedium;
     public bool mainHard;
     public bool isCompleted;
     public float sensitivity;
+    public float SFXVolume;
+    public float musicVolume;
     // Start is called before the first frame update
     void Start()
     {
