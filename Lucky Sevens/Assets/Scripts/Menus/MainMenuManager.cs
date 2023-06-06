@@ -15,16 +15,23 @@ public class MainMenuManager : MonoBehaviour
     public GameObject mainMenu;
     public GameObject difficultyMenu;
     public GameObject hardButton;
+    public Image sensitivityBar;
+    public TextMeshProUGUI sensitivitytext;
     float timeScaleOrig;
     public bool mainEasy;
     public bool mainMedium;
     public bool mainHard;
     public bool isCompleted;
+    public float sensitivity;
     // Start is called before the first frame update
     void Start()
     {
         Destroy(GameObject.FindGameObjectWithTag("Player"));
-        Destroy(GameManager.instance);
+        if(GameManager.instance != null)
+        {
+            sensitivity = GameManager.instance.playerCam.GetComponent<CameraController>().GetSensitivity();
+            Destroy(GameManager.instance.transform.parent.gameObject);
+        }
         instance = this;
         activeMenu = mainMenu;
         if (!isCompleted)
@@ -33,12 +40,14 @@ public class MainMenuManager : MonoBehaviour
         }
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+
     }
 
     public IEnumerator loadScene(string sceen)
@@ -65,6 +74,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void OptionsMenu()
     {
+        sensitivitytext.text = sensitivity.ToString();
+        sensitivityBar.fillAmount = sensitivity / 10f;
         activeMenu.SetActive(false);
         activeMenu = null;
         activeMenu = optionsMenu;
@@ -80,7 +91,9 @@ public class MainMenuManager : MonoBehaviour
     public void MainLocked()
     {
         hardButton.GetComponent<Button>().enabled = false;
-        TextMeshProUGUI pop = hardButton.GetComponentInChildren<TextMeshProUGUI>();
-        pop.color = Color.red;
+        TextMeshProUGUI buttonText = hardButton.GetComponentInChildren<TextMeshProUGUI>();
+        buttonText.color = Color.red;
     }
+
+    
 }

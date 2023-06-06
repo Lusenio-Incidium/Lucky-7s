@@ -133,4 +133,19 @@ public class ButtonFunctions : MonoBehaviour
     {
         MainMenuManager.instance.DifficultyMenu();
     }
+
+    public void IncreaseSensitivity()
+    {
+        MainMenuManager.instance.sensitivity += 0.5f;
+        MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
+        MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+    }
+
+    public void DecreaseSensitivity()
+    {
+        MainMenuManager.instance.sensitivity -= 0.5f;
+        MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
+        MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+    }
+
 }

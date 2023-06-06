@@ -6,8 +6,9 @@ public class CameraController : MonoBehaviour
 {
     //Variables
     [Header("- - - Sensitivity Settings - - -")]
-    [SerializeField] int sensHor;
-    [SerializeField] int sensVert;
+    //[SerializeField] int sensHor;
+    //[SerializeField] int sensVert;
+    [Range(1,10)][SerializeField] float sensitivity;
 
     [Header("- - - Angle Lock Settings - - -")]
     [SerializeField] int lockVerMin;
@@ -24,14 +25,16 @@ public class CameraController : MonoBehaviour
         //Cursor Lock
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        if(MainMenuManager.instance != null)
+        sensitivity = MainMenuManager.instance.sensitivity;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Grab mouse input
-        float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensVert;
-        float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensHor;
+        float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity * 300;
+        float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity * 300;
 
         //Adding our input into our rotation float and inverting if option is on
         if (invertY)
@@ -54,7 +57,7 @@ public class CameraController : MonoBehaviour
 
     public void ApplyRecoil(float recoilAmount)
     {
-        float recoilRotation = -recoilAmount * Time.deltaTime * sensVert;
+        float recoilRotation = -recoilAmount * Time.deltaTime * 400;
 
         if (invertY)
         {
@@ -68,5 +71,11 @@ public class CameraController : MonoBehaviour
         xrotation = Mathf.Clamp(xrotation, lockVerMin, lockVerMax);
 
         transform.localRotation = Quaternion.Euler(xrotation, 0, 0);
+
+    }
+
+    public float GetSensitivity()
+    {
+        return sensitivity;
     }
 }
