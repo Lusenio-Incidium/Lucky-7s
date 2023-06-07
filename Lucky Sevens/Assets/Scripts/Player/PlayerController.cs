@@ -65,7 +65,12 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     // Start is called before the first frame update
     void Start()
     {
-        if(pc == null) 
+        footVol = MainMenuManager.instance.SFXVolume / 10f;
+        jumpVol = MainMenuManager.instance.SFXVolume / 10f;
+        hurtVol = MainMenuManager.instance.SFXVolume / 10f;
+        deathVol = MainMenuManager.instance.SFXVolume / 10f;
+
+        if (pc == null) 
         {
             pc = this;
             HPOrig = HP;
@@ -81,6 +86,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+        
         
     }
 
@@ -104,6 +110,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
    public void SetMusic(AudioClip song, float volume) 
     {
         musicAud.clip = song;
+        musicAud.volume = volume;
         musicAud.Play();
         musicAud.loop = true;
     }
@@ -436,5 +443,17 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         timePassed = 0;
         playerSpeed = origSpeed;
     }
+
+    public AudioSource GetMusicAud()
+    {
+        return musicAud;
+    }
+
+    public float GetJumpVol()
+    {
+        return jumpVol;
+    }
+    
+
 
 }

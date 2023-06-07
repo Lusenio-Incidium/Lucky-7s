@@ -57,6 +57,7 @@ public class GunSystem : MonoBehaviour
     ReticleSpread reticleSpread;
     private void Start()
     {
+        gunShotAudVol = MainMenuManager.instance.SFXVolume / 10f;
         cameraController = GetComponentInChildren<CameraController>();
         originolPosition = gunModel.transform.localPosition;
     }
@@ -81,6 +82,7 @@ public class GunSystem : MonoBehaviour
         //hold to fire or single shot
         if (hasGun)
         {
+            weapons[currentWeapon].gunShotAudVol = MainMenuManager.instance.SFXVolume / 10f;
             reticleSpread = GameManager.instance.activeRetical.GetComponent<ReticleSpread>();
             if (weapons[currentWeapon].TriggerHold == true)
             {

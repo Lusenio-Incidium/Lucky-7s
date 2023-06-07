@@ -156,11 +156,11 @@ public class ButtonFunctions : MonoBehaviour
 
     public void IncreaseSFXVolume()
     {
-        if (MainMenuManager.instance.SFXVolume != 1)
+        if (MainMenuManager.instance.SFXVolume != 10)
         {
-            MainMenuManager.instance.SFXVolume += 0.1f;
+            MainMenuManager.instance.SFXVolume += 0.5f;
             MainMenuManager.instance.SFXvolumetext.text = MainMenuManager.instance.SFXVolume.ToString();
-            MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 1f;
+            MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 10f;
         }
     }
 
@@ -168,19 +168,20 @@ public class ButtonFunctions : MonoBehaviour
     {
         if (MainMenuManager.instance.SFXVolume != 0)
         {
-            MainMenuManager.instance.SFXVolume -= 0.1f;
+       
+            MainMenuManager.instance.SFXVolume -= 0.5f;
             MainMenuManager.instance.SFXvolumetext.text = MainMenuManager.instance.SFXVolume.ToString();
-            MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 1f;
+            MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 10f;
         }
     }
 
     public void IncreaseMusicVolume()
     {
-        if (MainMenuManager.instance.musicVolume != 1)
+        if (MainMenuManager.instance.musicVolume != 10)
         {
-            MainMenuManager.instance.musicVolume += 0.1f;
+            MainMenuManager.instance.musicVolume += 0.5f;
             MainMenuManager.instance.musicvolumetext.text = MainMenuManager.instance.musicVolume.ToString();
-            MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 1f;
+            MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 10f;
         }
     }
 
@@ -188,9 +189,9 @@ public class ButtonFunctions : MonoBehaviour
     {
         if (MainMenuManager.instance.musicVolume != 0)
         {
-            MainMenuManager.instance.musicVolume -= 0.1f;
+            MainMenuManager.instance.musicVolume -= 0.5f;
             MainMenuManager.instance.musicvolumetext.text = MainMenuManager.instance.musicVolume.ToString();
-            MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 1f;
+            MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 10f;
         }
     }
 

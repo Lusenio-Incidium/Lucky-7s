@@ -35,6 +35,8 @@ public class MainMenuManager : MonoBehaviour
         Destroy(GameObject.FindGameObjectWithTag("Player"));
         if(GameManager.instance != null)
         {
+            musicVolume = GameManager.instance.playerScript.GetMusicAud().volume * 10f;
+            SFXVolume = GameManager.instance.playerScript.GetJumpVol() * 10f;
             sensitivity = GameManager.instance.playerCam.GetComponent<CameraController>().GetSensitivity();
             Destroy(GameManager.instance.transform.parent.gameObject);
         }
@@ -83,6 +85,10 @@ public class MainMenuManager : MonoBehaviour
     {
         sensitivitytext.text = sensitivity.ToString();
         sensitivityBar.fillAmount = sensitivity / 10f;
+        SFXvolumetext.text = SFXVolume.ToString();
+        SFXVolumeBar.fillAmount = SFXVolume / 10f;
+        musicvolumetext.text = musicVolume.ToString();
+        musicVolumeBar.fillAmount = musicVolume / 10f;
         activeMenu.SetActive(false);
         activeMenu = null;
         activeMenu = optionsMenu;
