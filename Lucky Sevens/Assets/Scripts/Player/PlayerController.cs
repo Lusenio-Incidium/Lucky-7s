@@ -65,10 +65,13 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     // Start is called before the first frame update
     void Start()
     {
-        footVol = MainMenuManager.instance.SFXVolume / 10f;
-        jumpVol = MainMenuManager.instance.SFXVolume / 10f;
-        hurtVol = MainMenuManager.instance.SFXVolume / 10f;
-        deathVol = MainMenuManager.instance.SFXVolume / 10f;
+        if (MainMenuManager.instance != null)
+        {
+            footVol = MainMenuManager.instance.SFXVolume / 10f;
+            jumpVol = MainMenuManager.instance.SFXVolume / 10f;
+            hurtVol = MainMenuManager.instance.SFXVolume / 10f;
+            deathVol = MainMenuManager.instance.SFXVolume / 10f;
+        }
 
         if (pc == null) 
         {

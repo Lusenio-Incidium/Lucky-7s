@@ -38,6 +38,7 @@ public class MainMenuManager : MonoBehaviour
             musicVolume = GameManager.instance.playerScript.GetMusicAud().volume * 10f;
             SFXVolume = GameManager.instance.playerScript.GetJumpVol() * 10f;
             sensitivity = GameManager.instance.playerCam.GetComponent<CameraController>().GetSensitivity();
+            isCompleted = GameManager.instance.completed;
             Destroy(GameManager.instance.transform.parent.gameObject);
         }
         instance = this;
@@ -104,6 +105,7 @@ public class MainMenuManager : MonoBehaviour
     public void MainLocked()
     {
         hardButton.GetComponent<Button>().enabled = false;
+        hardButton.GetComponent<Image>().color = Color.black;
         TextMeshProUGUI buttonText = hardButton.GetComponentInChildren<TextMeshProUGUI>();
         buttonText.color = Color.red;
     }

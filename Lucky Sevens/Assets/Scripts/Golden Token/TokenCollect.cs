@@ -47,6 +47,10 @@ public class TokenCollect : MonoBehaviour
             collected = true;
             SpeedUp();
             GameManager.instance.SetLatestLevel(level);
+            if(GameManager.instance.GetLastestLevel() == 3)
+            {
+                GameManager.instance.completed = true;
+            }
             StartCoroutine(GameManager.instance.youWin(youWinDelay));
         }
     }

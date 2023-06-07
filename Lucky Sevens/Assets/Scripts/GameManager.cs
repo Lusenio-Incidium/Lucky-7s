@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
             medium = MainMenuManager.instance.mainMedium;
             easy = MainMenuManager.instance.mainEasy;
             hard = MainMenuManager.instance.mainHard;
+            completed = MainMenuManager.instance.isCompleted;
             Destroy(MainMenuManager.instance.transform.parent.gameObject);
         }
 
