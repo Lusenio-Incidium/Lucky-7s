@@ -8,6 +8,7 @@ public class TokenCollect : MonoBehaviour
     [SerializeField] int level;
     int spinMod;
     float youWinDelay;
+    bool collected = false;
     private void Update()
     {
         gameObject.transform.Rotate(spinSpeed * Time.deltaTime, 0, 0);
@@ -41,8 +42,9 @@ public class TokenCollect : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !collected)
         {
+            collected = true;
             SpeedUp();
             GameManager.instance.SetLatestLevel(level);
             StartCoroutine(GameManager.instance.youWin(youWinDelay));

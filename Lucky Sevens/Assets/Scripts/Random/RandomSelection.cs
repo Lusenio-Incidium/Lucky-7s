@@ -178,24 +178,31 @@ public class RandomSelection : MonoBehaviour
     IEnumerator Roll()
     {
         rolling = true;
-        yield return new WaitForSeconds(Random.Range(rollTimeMin, rollTimeMax));
-        
-        if (rigged && riggedNum < _lightObjects.Count && riggedNum >= 0)
+        if (_lightObjects.Count > 1)
         {
-            if (randomizeOrder)
+            yield return new WaitForSeconds(Random.Range(rollTimeMin, rollTimeMax));
+
+            if (rigged && riggedNum < _lightObjects.Count && riggedNum >= 0)
             {
-                _lightObjects[highlight].OffHighlight();
-                result = highlight = riggedNum;
+                if (randomizeOrder)
+                {
+                    _lightObjects[highlight].OffHighlight();
+                    result = highlight = riggedNum;
+                }
+                else
+                {
+                    Debug.LogWarning("RANDOMIZER ERROR - In order to rig randomizeOrder must be enabled.");
+                    result = highlight;
+                }
             }
             else
             {
-                Debug.LogWarning("RANDOMIZER ERROR - In order to rig randomizeOrder must be enabled.");
                 result = highlight;
             }
         }
         else
         {
-            result = highlight;
+            result = 0;
         }
     }
 
