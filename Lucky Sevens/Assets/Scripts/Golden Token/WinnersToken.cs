@@ -137,6 +137,7 @@ public class WinnersToken : MonoBehaviour
         if(winStyle == WinConditions.TouchTriggerBox && other.CompareTag("Player"))
         {
             Spawn();
+            
         }
     }
 }
