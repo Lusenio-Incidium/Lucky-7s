@@ -11,6 +11,9 @@ public class TallyController : MonoBehaviour
     [SerializeField] GameObject chipsUsedTxt;
     [SerializeField] GameObject chipsGatheredTxt;
     [SerializeField] GameObject chipsNetTxt;
+    [SerializeField] GameObject retry;
+    [SerializeField] GameObject returnHub;
+    [SerializeField] GameObject endGame;
 
     [Header("Tally Screen Texts")]
     [SerializeField] TextMeshProUGUI enemies;
@@ -19,6 +22,7 @@ public class TallyController : MonoBehaviour
     [SerializeField] TextMeshProUGUI chipsGathered;
     [SerializeField] TextMeshProUGUI chipsNet;
 
+    bool isBoss;
     private void OnEnable()
     {
         enemiesTxt.SetActive(false);
@@ -31,6 +35,9 @@ public class TallyController : MonoBehaviour
         chipsGathered.gameObject.SetActive(false);
         chipsNetTxt.SetActive(false);
         chipsNet.gameObject.SetActive(false);
+
+        if (GameObject.FindGameObjectWithTag("Boss"))
+            isBoss = true;
     }
 
     public void EnemyEnable() 
@@ -70,5 +77,10 @@ public class TallyController : MonoBehaviour
     public void ChipsNetTextEnable() 
     {
         chipsNet.gameObject.SetActive(true);
+        retry.SetActive(true);
+        if(isBoss)
+            endGame.SetActive(true);
+        else
+            returnHub.SetActive(true);
     }
 }

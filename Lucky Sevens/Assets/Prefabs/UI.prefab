@@ -1090,7 +1090,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 357517233}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1974690380797593766}
+        m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
+        m_MethodName: ReturnToLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &361270300
 GameObject:
   m_ObjectHideFlags: 0
@@ -2043,7 +2055,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 634173589}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1974690380797593766}
+        m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
+        m_MethodName: restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &659456887
 GameObject:
   m_ObjectHideFlags: 0
@@ -2581,6 +2605,14 @@ MonoBehaviour:
   chipsUsedTxt: {fileID: 1736686882}
   chipsGatheredTxt: {fileID: 1660110158}
   chipsNetTxt: {fileID: 730703187}
+  retry: {fileID: 634173586}
+  returnHub: {fileID: 357517230}
+  endGame: {fileID: 2022868819}
+  enemies: {fileID: 1453610790}
+  time: {fileID: 508362378}
+  chipsUsed: {fileID: 568468338}
+  chipsGathered: {fileID: 574321077}
+  chipsNet: {fileID: 1150351450}
 --- !u!1 &842429677
 GameObject:
   m_ObjectHideFlags: 0
@@ -6372,7 +6404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1453610789
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11788,9 +11820,13 @@ MonoBehaviour:
   hard: 0
   hardMode: {fileID: 2942738766593786550}
   enemiesRemaining: 0
+  enemiesTotal: 0
   isPaused: 0
   timeElapsed: 0
   completed: 0
+  ammoUsedTotal: 0
+  ammoGatheredTotal: 0
+  enemiesKilled: 0
 --- !u!114 &1974690380797593766
 MonoBehaviour:
   m_ObjectHideFlags: 0
