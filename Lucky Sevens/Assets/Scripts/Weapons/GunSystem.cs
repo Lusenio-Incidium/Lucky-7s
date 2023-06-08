@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GunSystem : MonoBehaviour
 {
+    //audio
     [Header("----- Audio -----")]
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip gunShotAud;
@@ -28,14 +29,17 @@ public class GunSystem : MonoBehaviour
     bool destroyOnEmpty;
 
     [SerializeField] CameraController cameraController;
+    [Header("-----HipFire-----")]
+    [SerializeField] Vector3 originolPosition;
+    [SerializeField] Quaternion originolRotation;
+    [Header("-----ADS-----")]
     [SerializeField] Vector3 aimPosition;
     [SerializeField] Quaternion aimRotation;
     StatusEffectObj statusEffect;
+    [Header("-----Weapon Model-----")]
     [SerializeField] MeshFilter gunModel;
     [SerializeField] MeshRenderer gunMat;
-    [SerializeField] Vector3 originolPosition;
-    [SerializeField] Quaternion originolRotation;
-    [SerializeField] GameObject explosion;
+    GameObject explosion;
 
 
     List<GunStats> gunListOrg = new List<GunStats>();
@@ -43,15 +47,15 @@ public class GunSystem : MonoBehaviour
 
     //bools to ask game
     bool isShooting;
-    public bool readyToShoot;
     bool reloading;
 
     public RaycastHit rayHit;
 
+    [Header("-----Weapon Info-----")]
     public List<GunStats> weapons;
-    //private Dictionary<int, int> ammoCounts = new Dictionary<int, int>();
     public int currentWeapon = 0;
     public bool hasGun;
+    public bool readyToShoot;
     public bool currentlyShooting;
 
     ReticleSpread reticleSpread;

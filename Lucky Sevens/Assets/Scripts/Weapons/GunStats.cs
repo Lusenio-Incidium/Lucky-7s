@@ -6,9 +6,10 @@ using UnityEngine;
 
 public class GunStats : ScriptableObject
 {
+    [Header("-----Gun-----")]
     public GameObject model;
     public string tag;
-
+    [Header("-----Stats-----")]
     public int damage;
     public float timeBetweenShots;
     public float range;
@@ -19,14 +20,18 @@ public class GunStats : ScriptableObject
     public int bulletsLeft;
     public int currentAmmoCount;
     public int ammunition;
+    [Header("-----Recoil/PushBack-----")]
     public float pushBackForce;
     public float recoilAmount;
     public float adsReducution;
+    [Header("-----Audio-----")]
     public AudioClip gunShotAud;
     [Range(0, 1)] public float gunShotAudVol;
+    [Header("-----Effects-----")]
     public StatusEffectObj statusEffect;
     public GameObject hitEffect;
     public GameObject explosion;
+    [Header("-----TriggerType-----")]
     public bool TriggerHold;
     public bool destroyOnEmpty;
 
