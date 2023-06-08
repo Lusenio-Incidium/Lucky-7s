@@ -26,11 +26,9 @@ public class GunSystem : MonoBehaviour
     float recoilAmount;
     float adsReduction;
     bool destroyOnEmpty;
-    float explosionForce;
-    float explosionRadius;
 
     [SerializeField] CameraController cameraController;
-    [SerializeField] Transform aimPosition;
+    [SerializeField] Vector3 aimPosition;
     StatusEffectObj statusEffect;
     [SerializeField] MeshFilter gunModel;
     [SerializeField] MeshRenderer gunMat;
@@ -63,6 +61,7 @@ public class GunSystem : MonoBehaviour
         }
         cameraController = GetComponentInChildren<CameraController>();
         originolPosition = gunModel.transform.localPosition;
+        aimPosition = gunModel.transform.localPosition;
     }
 
 
@@ -108,7 +107,7 @@ public class GunSystem : MonoBehaviour
             if (Input.GetMouseButton(1))
             {
                 float reducedSpread = reticleSpread.currentSize * adsReduction;
-                gunModel.transform.position = aimPosition.position;
+                gunModel.transform.localPosition = aimPosition;
                 reticleSpread.currentSize = reducedSpread;
             }
             else
@@ -156,12 +155,6 @@ public class GunSystem : MonoBehaviour
                 currentWeapon = (currentWeapon - 1 + weapons.Count) % weapons.Count;
                 EquipWeapon(currentWeapon);
             }
-        }
-
-        if (hasGun)
-        {
-            gunModel.transform.position = weapons[currentWeapon].gunTransform.position;
-
         }
     }
 
@@ -301,9 +294,6 @@ public class GunSystem : MonoBehaviour
         hasGun = true;
         GameManager.instance.playerAmmo += ammunition + bulletsLeft;
         GameManager.instance.ammoDisplay.SetActive(true);
-
-        gunStat.gunTransform.localScale = gunStat.position;
-
     }
     public void restartGun()
     {
@@ -382,8 +372,10 @@ public class GunSystem : MonoBehaviour
             GameManager.instance.activeRetical.SetActive(true);
         }
         originolPosition = weapons[currentWeapon].position;
+        aimPosition = weapons[currentWeapon].aimPosition;
 
         gunModel.transform.position = originolPosition;
+        gunModel.transform.position = aimPosition;
 
         Invoke("ResetShot", timeBetweenShots);
 

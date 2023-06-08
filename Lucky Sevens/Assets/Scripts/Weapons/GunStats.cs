@@ -31,5 +31,5 @@ public class GunStats : ScriptableObject
     public bool destroyOnEmpty;
 
     public Vector3 position;
-    public Transform gunTransform;
+    public Vector3 aimPosition;
 }
