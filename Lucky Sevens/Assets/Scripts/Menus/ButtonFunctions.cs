@@ -8,9 +8,12 @@ public class ButtonFunctions : MonoBehaviour
     public void resume()
     {
         GameManager.instance.unPauseState();
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
+
     }
     public void restart()
     {
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
         StartCoroutine(GameManager.instance.loadScene(SceneManager.GetActiveScene().name));
         GameManager.instance.gunSystem.restartGun();
@@ -18,16 +21,20 @@ public class ButtonFunctions : MonoBehaviour
 
     public void Quit()
     {
+        MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
         Application.Quit();
     }
     public void respawnPlayer()
     {
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
         GameManager.instance.playerScript.spawnPlayer();
+       
     }
 
     public void ReturnToLobby()
     {
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
         if(SceneManager.GetActiveScene().name != "TheHub")
             StartCoroutine(GameManager.instance.loadScene("TheHub"));
@@ -35,11 +42,13 @@ public class ButtonFunctions : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.BackToMainMenuConfirm();
     }
 
     public void ConfirmBackToMenu()
     {
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
         Debug.Log("Loading Main Menu");
         if (SceneManager.GetActiveScene().name != "MainMenu")
@@ -50,6 +59,7 @@ public class ButtonFunctions : MonoBehaviour
 
     public void DenyBackToMenu()
     {
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.activeMenu.SetActive(false);
         GameManager.instance.activeMenu = null;
         GameManager.instance.PauseMenu();
@@ -62,9 +72,11 @@ public class ButtonFunctions : MonoBehaviour
             MainMenuManager.instance.activeMenu.SetActive(false);
             MainMenuManager.instance.activeMenu = MainMenuManager.instance.mainMenu;
             MainMenuManager.instance.activeMenu.SetActive(true);
+            MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
         }
         else
         {
+            GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             GameManager.instance.activeMenu.SetActive(false);
             GameManager.instance.PauseMenu();
         }
@@ -76,6 +88,7 @@ public class ButtonFunctions : MonoBehaviour
             MainMenuManager.instance.activeMenu.SetActive(false);
             if (SceneManager.GetActiveScene().name != "Tutorial")
                 StartCoroutine(MainMenuManager.instance.loadScene("Tutorial"));
+            MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
         }
     }
 
@@ -89,64 +102,76 @@ public class ButtonFunctions : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
             MainMenuManager.instance.OptionsMenu();
+            MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
         }
         else
         {
             GameManager.instance.InGameOptions();
+            GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         }
     }
 
     public void Credits()
     {
         MainMenuManager.instance.CreditsMenu();
+        MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
     }
     public void Easy()
     {
         GameManager.instance.easy = true;
         GameManager.instance.medium = false;
         GameManager.instance.hard = false;
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
     }
     public void Medium()
     {
         GameManager.instance.easy = false;
         GameManager.instance.medium = true;
         GameManager.instance.hard = false;
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
     }
     public void Hard()
     {
         GameManager.instance.easy = false;
         GameManager.instance.medium = false;
         GameManager.instance.hard = true;
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
     }
     public void DifficultyButton()
     {
         GameManager.instance.DifficultyMenu();
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
     }
     public void ReturnToLoseScreen()
     {
         GameManager.instance.ReturnToLoseScreen();
+        GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
     }
     public void MainEasy()
     {
         MainMenuManager.instance.mainEasy = true;
         MainMenuManager.instance.mainMedium = false;
         MainMenuManager.instance.mainHard = false;
+        MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
     }
     public void MainMedium()
     {
         MainMenuManager.instance.mainEasy = false;
         MainMenuManager.instance.mainMedium = true;
         MainMenuManager.instance.mainHard = false;
+        MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
     }
     public void MainHard()
     {
         MainMenuManager.instance.mainEasy = false;
         MainMenuManager.instance.mainMedium = false;
         MainMenuManager.instance.mainHard = true;
+        MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
     }
     public void DisplayDifficultyMenu()
     {
         MainMenuManager.instance.DifficultyMenu();
+        MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
     }
 
     public void IncreaseSensitivity()
@@ -158,6 +183,7 @@ public class ButtonFunctions : MonoBehaviour
                 MainMenuManager.instance.sensitivity += 0.5f;
                 MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
                 MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+                MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
             }
         }
         else
@@ -165,9 +191,10 @@ public class ButtonFunctions : MonoBehaviour
             if (GameManager.instance.sensitivity != 10)
             {
                 GameManager.instance.sensitivity += 0.5f;
-                GameManager.instance.sensitivityText.text = GameManager.instance.sensitivity.ToString();
+                GameManager.instance.sensitivityText.text = GameManager.instance.sensitivity.ToString();     
                 GameManager.instance.sensitivityBar.fillAmount = GameManager.instance.sensitivity / 10f;
                 GameManager.instance.playerCam.GetComponent<CameraController>().UpdateSensitivity(GameManager.instance.sensitivity);
+                GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             }
         }
     }
@@ -181,6 +208,7 @@ public class ButtonFunctions : MonoBehaviour
                 MainMenuManager.instance.sensitivity -= 0.5f;
                 MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
                 MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+                MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
             }
         }
         else
@@ -191,6 +219,7 @@ public class ButtonFunctions : MonoBehaviour
                 GameManager.instance.sensitivityText.text = GameManager.instance.sensitivity.ToString();
                 GameManager.instance.sensitivityBar.fillAmount = GameManager.instance.sensitivity / 10f;
                 GameManager.instance.playerCam.GetComponent<CameraController>().UpdateSensitivity(GameManager.instance.sensitivity);
+                GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             }
         }
     }
@@ -204,6 +233,7 @@ public class ButtonFunctions : MonoBehaviour
                 MainMenuManager.instance.SFXVolume += 0.5f;
                 MainMenuManager.instance.SFXvolumetext.text = MainMenuManager.instance.SFXVolume.ToString();
                 MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 10f;
+                MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
             }
         }
         else
@@ -214,6 +244,7 @@ public class ButtonFunctions : MonoBehaviour
                 GameManager.instance.SFXText.text = GameManager.instance.sfxVol.ToString();
                 GameManager.instance.SFXBar.fillAmount = GameManager.instance.sfxVol / 10f;
                 GameManager.instance.playerScript.UpdateSFX(GameManager.instance.sfxVol);
+                GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             }
         }
     }
@@ -224,10 +255,10 @@ public class ButtonFunctions : MonoBehaviour
         {
             if (MainMenuManager.instance.SFXVolume != 0)
             {
-
                 MainMenuManager.instance.SFXVolume -= 0.5f;
                 MainMenuManager.instance.SFXvolumetext.text = MainMenuManager.instance.SFXVolume.ToString();
                 MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 10f;
+                MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
             }
         }
         else
@@ -238,6 +269,7 @@ public class ButtonFunctions : MonoBehaviour
                 GameManager.instance.SFXText.text = GameManager.instance.sfxVol.ToString();
                 GameManager.instance.SFXBar.fillAmount = GameManager.instance.sfxVol / 10f;
                 GameManager.instance.playerScript.UpdateSFX(GameManager.instance.sfxVol);
+                GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             }
         }
     }
@@ -251,6 +283,7 @@ public class ButtonFunctions : MonoBehaviour
                 MainMenuManager.instance.musicVolume += 0.5f;
                 MainMenuManager.instance.musicvolumetext.text = MainMenuManager.instance.musicVolume.ToString();
                 MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 10f;
+                MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
             }
         }
         else
@@ -261,6 +294,7 @@ public class ButtonFunctions : MonoBehaviour
                 GameManager.instance.musicText.text = GameManager.instance.musicVol.ToString();
                 GameManager.instance.musicBar.fillAmount = GameManager.instance.musicVol / 10f;
                 GameManager.instance.playerScript.UpdateMusic(GameManager.instance.musicVol);
+                GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             }
         }
     }
@@ -274,6 +308,7 @@ public class ButtonFunctions : MonoBehaviour
                 MainMenuManager.instance.musicVolume -= 0.5f;
                 MainMenuManager.instance.musicvolumetext.text = MainMenuManager.instance.musicVolume.ToString();
                 MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 10f;
+                MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
             }
         }
         else
@@ -284,11 +319,12 @@ public class ButtonFunctions : MonoBehaviour
                 GameManager.instance.musicText.text = GameManager.instance.musicVol.ToString();
                 GameManager.instance.musicBar.fillAmount = GameManager.instance.musicVol / 10f;
                 GameManager.instance.playerScript.UpdateMusic(GameManager.instance.musicVol);
+                GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             }
         }
     }
 
-    public void OptionsPlaySound()
+    public void PlaySound()
     {
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {

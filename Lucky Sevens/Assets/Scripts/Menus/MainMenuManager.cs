@@ -22,6 +22,7 @@ public class MainMenuManager : MonoBehaviour
     public TextMeshProUGUI SFXvolumetext;
     public TextMeshProUGUI musicvolumetext;
     public AudioSource playSoundAudSource;
+    public AudioClip buttonPressAud;
     public AudioClip playSoundAud;
     float timeScaleOrig;
     public bool mainEasy;
