@@ -227,6 +227,7 @@ public class GunSystem : MonoBehaviour
         GameManager.instance.playerAmmo -= 1;
         GameManager.instance.UpdateAmmoCount();
 
+        GameManager.instance.ammoUsedTotal += 1;
 
         if (destroyOnEmpty == true)
         {
@@ -405,6 +406,8 @@ public class GunSystem : MonoBehaviour
         }
         GameManager.instance.playerAmmo = ammunition;
         GameManager.instance.UpdateAmmoCount();
+
+        GameManager.instance.ammoGatheredTotal += amount;
     }
     public void AddStatus(StatusEffectObj data)
     {
