@@ -78,6 +78,8 @@ public class GunSystem : MonoBehaviour
     private void Update()
     {
         myInput();
+
+
     }
 
     private void myInput()
@@ -154,6 +156,12 @@ public class GunSystem : MonoBehaviour
                 currentWeapon = (currentWeapon - 1 + weapons.Count) % weapons.Count;
                 EquipWeapon(currentWeapon);
             }
+        }
+
+        if (hasGun)
+        {
+            gunModel.transform.position = weapons[currentWeapon].gunTransform.position;
+
         }
     }
 
@@ -294,6 +302,8 @@ public class GunSystem : MonoBehaviour
         GameManager.instance.playerAmmo += ammunition + bulletsLeft;
         GameManager.instance.ammoDisplay.SetActive(true);
 
+        gunStat.gunTransform.localScale = gunStat.position;
+
     }
     public void restartGun()
     {
@@ -371,8 +381,12 @@ public class GunSystem : MonoBehaviour
             GameManager.instance.activeRetical = GameManager.instance.arPistolRetical;
             GameManager.instance.activeRetical.SetActive(true);
         }
+        originolPosition = weapons[currentWeapon].position;
+
+        gunModel.transform.position = originolPosition;
 
         Invoke("ResetShot", timeBetweenShots);
+
     }
     public void AddBullets(int amount)
     {

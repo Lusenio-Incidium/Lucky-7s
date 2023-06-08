@@ -29,4 +29,7 @@ public class GunStats : ScriptableObject
     public GameObject explosion;
     public bool TriggerHold;
     public bool destroyOnEmpty;
+
+    public Vector3 position;
+    public Transform gunTransform;
 }
