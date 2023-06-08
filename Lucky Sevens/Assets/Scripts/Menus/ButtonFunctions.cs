@@ -57,9 +57,17 @@ public class ButtonFunctions : MonoBehaviour
 
     public void ExitBackToMenu()
     {
-        MainMenuManager.instance.activeMenu.SetActive(false);
-        MainMenuManager.instance.activeMenu = MainMenuManager.instance.mainMenu;
-        MainMenuManager.instance.activeMenu.SetActive(true);
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            MainMenuManager.instance.activeMenu.SetActive(false);
+            MainMenuManager.instance.activeMenu = MainMenuManager.instance.mainMenu;
+            MainMenuManager.instance.activeMenu.SetActive(true);
+        }
+        else
+        {
+            GameManager.instance.activeMenu.SetActive(false);
+            GameManager.instance.PauseMenu();
+        }
     }
     public void NewGame()
     {
@@ -78,7 +86,14 @@ public class ButtonFunctions : MonoBehaviour
 
     public void Options()
     {
-        MainMenuManager.instance.OptionsMenu();
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            MainMenuManager.instance.OptionsMenu();
+        }
+        else
+        {
+            GameManager.instance.InGameOptions();
+        }
     }
 
     public void Credits()
@@ -136,62 +151,140 @@ public class ButtonFunctions : MonoBehaviour
 
     public void IncreaseSensitivity()
     {
-        if (MainMenuManager.instance.sensitivity != 10)
+        if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            MainMenuManager.instance.sensitivity += 0.5f;
-            MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
-            MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+            if (MainMenuManager.instance.sensitivity != 10)
+            {
+                MainMenuManager.instance.sensitivity += 0.5f;
+                MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
+                MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+            }
+        }
+        else
+        {
+            if (GameManager.instance.sensitivity != 10)
+            {
+                GameManager.instance.sensitivity += 0.5f;
+                GameManager.instance.sensitivityText.text = GameManager.instance.sensitivity.ToString();
+                GameManager.instance.sensitivityBar.fillAmount = GameManager.instance.sensitivity / 10f;
+                GameManager.instance.playerCam.GetComponent<CameraController>().UpdateSensitivity(GameManager.instance.sensitivity);
+            }
         }
     }
 
     public void DecreaseSensitivity()
     {
-        if (MainMenuManager.instance.sensitivity != 1)
+        if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            MainMenuManager.instance.sensitivity -= 0.5f;
-            MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
-            MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+            if (MainMenuManager.instance.sensitivity != 1)
+            {
+                MainMenuManager.instance.sensitivity -= 0.5f;
+                MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
+                MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+            }
+        }
+        else
+        {
+            if (GameManager.instance.sensitivity != 1)
+            {
+                GameManager.instance.sensitivity -= 0.5f;
+                GameManager.instance.sensitivityText.text = GameManager.instance.sensitivity.ToString();
+                GameManager.instance.sensitivityBar.fillAmount = GameManager.instance.sensitivity / 10f;
+                GameManager.instance.playerCam.GetComponent<CameraController>().UpdateSensitivity(GameManager.instance.sensitivity);
+            }
         }
     }
 
     public void IncreaseSFXVolume()
     {
-        if (MainMenuManager.instance.SFXVolume != 10)
+        if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            MainMenuManager.instance.SFXVolume += 0.5f;
-            MainMenuManager.instance.SFXvolumetext.text = MainMenuManager.instance.SFXVolume.ToString();
-            MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 10f;
+            if (MainMenuManager.instance.SFXVolume != 10)
+            {
+                MainMenuManager.instance.SFXVolume += 0.5f;
+                MainMenuManager.instance.SFXvolumetext.text = MainMenuManager.instance.SFXVolume.ToString();
+                MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 10f;
+            }
+        }
+        else
+        {
+            if (GameManager.instance.sfxVol != 10)
+            {
+                GameManager.instance.sfxVol += 0.5f;
+                GameManager.instance.SFXText.text = GameManager.instance.sfxVol.ToString();
+                GameManager.instance.SFXBar.fillAmount = GameManager.instance.sfxVol / 10f;
+                GameManager.instance.playerScript.UpdateSFX(GameManager.instance.sfxVol);
+            }
         }
     }
 
     public void DecreaseSFXVolume()
     {
-        if (MainMenuManager.instance.SFXVolume != 0)
+        if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-       
-            MainMenuManager.instance.SFXVolume -= 0.5f;
-            MainMenuManager.instance.SFXvolumetext.text = MainMenuManager.instance.SFXVolume.ToString();
-            MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 10f;
+            if (MainMenuManager.instance.SFXVolume != 0)
+            {
+
+                MainMenuManager.instance.SFXVolume -= 0.5f;
+                MainMenuManager.instance.SFXvolumetext.text = MainMenuManager.instance.SFXVolume.ToString();
+                MainMenuManager.instance.SFXVolumeBar.fillAmount = MainMenuManager.instance.SFXVolume / 10f;
+            }
+        }
+        else
+        {
+            if (GameManager.instance.sfxVol != 0)
+            {
+                GameManager.instance.sfxVol -= 0.5f;
+                GameManager.instance.SFXText.text = GameManager.instance.sfxVol.ToString();
+                GameManager.instance.SFXBar.fillAmount = GameManager.instance.sfxVol / 10f;
+                GameManager.instance.playerScript.UpdateSFX(GameManager.instance.sfxVol);
+            }
         }
     }
 
     public void IncreaseMusicVolume()
     {
-        if (MainMenuManager.instance.musicVolume != 10)
+        if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            MainMenuManager.instance.musicVolume += 0.5f;
-            MainMenuManager.instance.musicvolumetext.text = MainMenuManager.instance.musicVolume.ToString();
-            MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 10f;
+            if (MainMenuManager.instance.musicVolume != 10)
+            {
+                MainMenuManager.instance.musicVolume += 0.5f;
+                MainMenuManager.instance.musicvolumetext.text = MainMenuManager.instance.musicVolume.ToString();
+                MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 10f;
+            }
+        }
+        else
+        {
+            if (GameManager.instance.musicVol != 10)
+            {
+                GameManager.instance.musicVol += 0.5f;
+                GameManager.instance.musicText.text = GameManager.instance.musicVol.ToString();
+                GameManager.instance.musicBar.fillAmount = GameManager.instance.musicVol / 10f;
+                GameManager.instance.playerScript.UpdateMusic(GameManager.instance.musicVol);
+            }
         }
     }
 
     public void DecreaseMusicVolume()
     {
-        if (MainMenuManager.instance.musicVolume != 0)
+        if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            MainMenuManager.instance.musicVolume -= 0.5f;
-            MainMenuManager.instance.musicvolumetext.text = MainMenuManager.instance.musicVolume.ToString();
-            MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 10f;
+            if (MainMenuManager.instance.musicVolume != 0)
+            {
+                MainMenuManager.instance.musicVolume -= 0.5f;
+                MainMenuManager.instance.musicvolumetext.text = MainMenuManager.instance.musicVolume.ToString();
+                MainMenuManager.instance.musicVolumeBar.fillAmount = MainMenuManager.instance.musicVolume / 10f;
+            }
+        }
+        else
+        {
+            if (GameManager.instance.musicVol != 0)
+            {
+                GameManager.instance.musicVol -= 0.5f;
+                GameManager.instance.musicText.text = GameManager.instance.musicVol.ToString();
+                GameManager.instance.musicBar.fillAmount = GameManager.instance.musicVol / 10f;
+                GameManager.instance.playerScript.UpdateMusic(GameManager.instance.musicVol);
+            }
         }
     }
 

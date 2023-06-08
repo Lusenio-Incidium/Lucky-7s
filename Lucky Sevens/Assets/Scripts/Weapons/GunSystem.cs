@@ -94,10 +94,7 @@ public class GunSystem : MonoBehaviour
         //hold to fire or single shot
         if (hasGun)
         {
-            if (MainMenuManager.instance != null)
-            {
-                weapons[currentWeapon].gunShotAudVol = MainMenuManager.instance.SFXVolume / 10f;
-            }
+            weapons[currentWeapon].gunShotAudVol = GameManager.instance.playerScript.GetJumpVol();
             reticleSpread = GameManager.instance.activeRetical.GetComponent<ReticleSpread>();
             if (weapons[currentWeapon].TriggerHold == true)
             {
@@ -142,7 +139,7 @@ public class GunSystem : MonoBehaviour
         }
 
         //shooting
-        if (!GameManager.instance.isPaused)
+        if (GameManager.instance.activeMenu == null)
         {
             if (!reloading && bulletsLeft == 0 && isShooting)
             {

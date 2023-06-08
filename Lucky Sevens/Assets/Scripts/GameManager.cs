@@ -42,6 +42,10 @@ public class GameManager : MonoBehaviour
     public GameObject toMainMenuConfirmMenu;
     public GameObject errorMenu;
     public GameObject difficultyMenu;
+    public GameObject inGameOptionsMenu;
+    public TextMeshProUGUI sensitivityText;
+    public TextMeshProUGUI SFXText;
+    public TextMeshProUGUI musicText;
     public TextMeshProUGUI errorMenuText;
     public TextMeshProUGUI comfirmMenuText;
     public GameObject activeRetical;
@@ -63,6 +67,9 @@ public class GameManager : MonoBehaviour
     public Image playerHPBar;
     public Image backPlayerHPBar;
     public Image BossBar;
+    public Image sensitivityBar;
+    public Image SFXBar;
+    public Image musicBar;
     public GameObject BossBarContainer;
     public TextMeshProUGUI bossName;
     public bool easy;
@@ -74,6 +81,9 @@ public class GameManager : MonoBehaviour
     public int enemiesTotal;
     public bool isPaused;
     public float timeElapsed;
+    public float sensitivity;
+    public float sfxVol;
+    public float musicVol;
     float timeScaleOrig;
     int AmmoLoaded;
     bool reloading;
@@ -195,6 +205,27 @@ public class GameManager : MonoBehaviour
         activeRetical.SetActive(false);
         
     }
+
+    public void InGameOptions()
+    {
+        isPaused = !isPaused;
+        pauseState();
+        sensitivity = playerCam.GetComponent<CameraController>().GetSensitivity();
+        sensitivityText.text = sensitivity.ToString();
+        sensitivityBar.fillAmount = sensitivity / 10f;
+        sfxVol = playerScript.GetJumpVol() * 10f;
+        SFXText.text = sfxVol.ToString();
+        SFXBar.fillAmount = sfxVol / 10f;
+        musicVol = playerScript.GetMusicAud().volume * 10f;
+        musicText.text = musicVol.ToString();
+        musicBar.fillAmount = musicVol / 10f;
+        activeMenu.SetActive(false);
+        activeMenu = null;
+        activeMenu = inGameOptionsMenu;
+        activeMenu.SetActive(true);
+
+    }
+
 
     public void PauseMenu()
     {
