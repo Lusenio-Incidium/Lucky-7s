@@ -319,6 +319,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
                 ObjectPoolManager.instance.SpawnObject(itemDropped, transform.position + new Vector3(0, 1, 0), gameObject.transform.rotation);
             }
             StartCoroutine(WaitSecondsBeforeDespawn());
+            GameManager.instance.enemiesKilled++;
         }
         else
         {

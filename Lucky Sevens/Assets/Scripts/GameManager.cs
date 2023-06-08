@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
     public GameObject hardMode;
 
     public int enemiesRemaining;
+    public int enemiesTotal;
     public bool isPaused;
     public float timeElapsed;
     float timeScaleOrig;
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
     public bool completed;
     public int ammoUsedTotal;
     public int ammoGatheredTotal;
+    public int enemiesKilled;
 
     //Level Manager Variables
     List<int> completedLevels;
