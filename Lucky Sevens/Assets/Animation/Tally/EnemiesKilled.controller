@@ -32,8 +32,8 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 4427560668788009588}
-    m_Position: {x: 320, y: 120, z: 0}
+    m_State: {fileID: 3356191045807371393}
+    m_Position: {x: 200, y: 0, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -43,15 +43,15 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 4427560668788009588}
---- !u!1102 &4427560668788009588
+  m_DefaultState: {fileID: 3356191045807371393}
+--- !u!1102 &3356191045807371393
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fall
+  m_Name: SlideIn
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -64,7 +64,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c25cec0fda7478449b993f1dc41600c6, type: 2}
+  m_Motion: {fileID: 7400000, guid: 231f950cff7ab3148a108557199163e9, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

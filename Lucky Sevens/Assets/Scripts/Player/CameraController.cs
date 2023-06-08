@@ -78,4 +78,8 @@ public class CameraController : MonoBehaviour
     {
         return sensitivity;
     }
+    public void UpdateSensitivity(float newSens)
+    {
+        sensitivity = newSens;
+    }
 }

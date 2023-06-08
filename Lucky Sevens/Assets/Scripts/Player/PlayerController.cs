@@ -456,7 +456,17 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         return jumpVol;
     }
-    
+    public void UpdateSFX(float newVol)
+    {
+        footVol = newVol / 10f;
+        jumpVol = newVol / 10f;
+        hurtVol = newVol / 10f;
+        deathVol = newVol / 10f;
+    }
+    public void UpdateMusic(float newVol)
+    {
+        musicAud.volume = newVol / 10f;
+    }
 
 
 }
