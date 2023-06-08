@@ -30,6 +30,11 @@ public class GunStats : ScriptableObject
     public bool TriggerHold;
     public bool destroyOnEmpty;
 
+    [Header("-----HipFire-----")]
     public Vector3 position;
+    public Quaternion rotation;
+
+    [Header("-----ADS-----")]
     public Vector3 aimPosition;
+    public Quaternion aimRotation;
 }

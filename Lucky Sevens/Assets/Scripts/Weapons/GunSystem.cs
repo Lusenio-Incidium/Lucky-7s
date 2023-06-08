@@ -29,10 +29,12 @@ public class GunSystem : MonoBehaviour
 
     [SerializeField] CameraController cameraController;
     [SerializeField] Vector3 aimPosition;
+    [SerializeField] Quaternion aimRotation;
     StatusEffectObj statusEffect;
     [SerializeField] MeshFilter gunModel;
     [SerializeField] MeshRenderer gunMat;
     [SerializeField] Vector3 originolPosition;
+    [SerializeField] Quaternion originolRotation;
     [SerializeField] GameObject explosion;
 
 
@@ -61,7 +63,9 @@ public class GunSystem : MonoBehaviour
         }
         cameraController = GetComponentInChildren<CameraController>();
         originolPosition = gunModel.transform.localPosition;
+        originolRotation = gunModel.transform.localRotation;
         aimPosition = gunModel.transform.localPosition;
+        aimRotation= gunModel.transform.localRotation;
     }
 
 
@@ -108,11 +112,13 @@ public class GunSystem : MonoBehaviour
             {
                 float reducedSpread = reticleSpread.currentSize * adsReduction;
                 gunModel.transform.localPosition = aimPosition;
+                gunModel.transform.localRotation = aimRotation;
                 reticleSpread.currentSize = reducedSpread;
             }
             else
             {
                 gunModel.transform.localPosition = originolPosition;
+                gunModel.transform.localRotation = originolRotation;
             }
 
         }
@@ -353,6 +359,10 @@ public class GunSystem : MonoBehaviour
         GameManager.instance.UpdateAmmoCount();
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+        originolPosition = weapons[currentWeapon].position;
+        originolRotation= weapons[currentWeapon].rotation;
+        aimPosition = weapons[currentWeapon].aimPosition;
+        aimRotation= weapons[currentWeapon].aimRotation;
         if (weapons[currentWeapon].tag == "AR/Pistol")
         {
             GameManager.instance.activeRetical.SetActive(false);
@@ -371,11 +381,11 @@ public class GunSystem : MonoBehaviour
             GameManager.instance.activeRetical = GameManager.instance.arPistolRetical;
             GameManager.instance.activeRetical.SetActive(true);
         }
-        originolPosition = weapons[currentWeapon].position;
-        aimPosition = weapons[currentWeapon].aimPosition;
 
         gunModel.transform.position = originolPosition;
+        gunModel.transform.rotation = originolRotation;
         gunModel.transform.position = aimPosition;
+        gunModel.transform.rotation = aimRotation;
 
         Invoke("ResetShot", timeBetweenShots);
 
