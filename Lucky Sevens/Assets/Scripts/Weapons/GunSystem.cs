@@ -305,6 +305,10 @@ public class GunSystem : MonoBehaviour
         hasGun = true;
         GameManager.instance.playerAmmo += ammunition + bulletsLeft;
         GameManager.instance.ammoDisplay.SetActive(true);
+
+        GameManager.instance.ammoGatheredTotal += gunStat.ammunition;
+        GameManager.instance.ammoGatheredTotal += gunStat.magSize;
+
     }
     public void restartGun()
     {
