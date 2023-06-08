@@ -308,9 +308,9 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
         //AddPushBack();
         if (HP <= 0)
         {
-            StopAllCoroutines();
             anim.SetBool("Dead", true);
             GameManager.instance.UpdateEnemyCount(-1);
+            StopAllCoroutines();
             agent.enabled = false;
             fistColOff();
             enemyCol.enabled = false;
@@ -321,12 +321,9 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
             StartCoroutine(WaitSecondsBeforeDespawn());
             GameManager.instance.enemiesKilled++;
         }
-        else
-        {
             StartCoroutine(FlashColor());
             destination = true;
             anim.SetTrigger("Damage");
-        }
     }
 
     public void instaKill()

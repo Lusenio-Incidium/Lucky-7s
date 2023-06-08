@@ -11,16 +11,14 @@ public class ObjectPoolManager : MonoBehaviour
     //Allowing the user to set the number of Objects they wish to spawn in each scene
     //Feel free to add to this or tell me if I missed something
     public static ObjectPoolManager instance;
+    [Header("- - - Amount Of Enemies - - -")]
+    [SerializeField] [Range(0,50)] int tommyEnemyCount;
+    [SerializeField][Range(0, 50)] int meleeEnemyCount;
+    [SerializeField][Range(0, 50)] int pistolEnemyCount;
+    [SerializeField][Range(0, 50)] int healerEnemyCount;
+    [SerializeField][Range(0, 50)] int spawnerEnemyCount;
     [Header("- - - Amount Of Objects - - -")]
-    public int amountOfEnemies;
     public int amountOfBullets;
-    //Bools to help pick which onces you want to spawn (If your amount of enemies is 5 and you pick tommy, it will spawn 5 tommyguards)
-    [Header("- - - Type Of Enemies - - -")]
-    public bool tommy;
-    public bool melee;
-    public bool pistol;
-    public bool healer;
-    public bool spawner;
 
     //Orginization so the scene is cluttered
     GameObject _objectPoolEmptyHolder;
@@ -80,11 +78,11 @@ public class ObjectPoolManager : MonoBehaviour
     }
     private void SpawnSetEnemies()
     {
-        //If healer is checked off will spawn the healer enemy
-        if (healer)
+        //If healer isn't zero will spawn the healer enemy
+        if (healerEnemyCount != 0)
         { 
             GameObject parentObject = SetParentObjectType(PoolType.Enemies);
-            for (int i = 0; i < amountOfEnemies; ++i)
+            for (int i = 0; i < healerEnemyCount; ++i)
             {
                 GameObject temp = null;
                 temp = Instantiate(healerEnemy, transform.position, transform.rotation);
@@ -98,10 +96,10 @@ public class ObjectPoolManager : MonoBehaviour
                 ReturnObjToInfo(temp);
             }
         }
-        if (tommy)
+        if (tommyEnemyCount != 0)
         {
             GameObject parentObject = SetParentObjectType(PoolType.Enemies);
-            for (int i = 0; i < amountOfEnemies; ++i)
+            for (int i = 0; i < tommyEnemyCount; ++i)
             {
                 GameObject temp = null;
                 temp = Instantiate(tommyEnemy, transform.position, transform.rotation);
@@ -115,10 +113,10 @@ public class ObjectPoolManager : MonoBehaviour
                 ReturnObjToInfo(temp);
             }
         }
-        if (melee)
+        if (meleeEnemyCount != 0)
         {
             GameObject parentObject = SetParentObjectType(PoolType.Enemies);
-            for (int i = 0; i < amountOfEnemies; ++i)
+            for (int i = 0; i < meleeEnemyCount; ++i)
             {
                 GameObject temp = null;
                 temp = Instantiate(meleeEnemy, transform.position, transform.rotation);
@@ -132,10 +130,10 @@ public class ObjectPoolManager : MonoBehaviour
                 ReturnObjToInfo(temp);
             }
         }
-        if (pistol)
+        if (pistolEnemyCount != 0)
         {
             GameObject parentObject = SetParentObjectType(PoolType.Enemies);
-            for (int i = 0; i < amountOfEnemies; ++i)
+            for (int i = 0; i < pistolEnemyCount; ++i)
             {
                 GameObject temp = null;
                 temp = Instantiate(pistolEnemy, transform.position, transform.rotation);
@@ -149,10 +147,10 @@ public class ObjectPoolManager : MonoBehaviour
                 ReturnObjToInfo(temp);
             }
         }
-        if (spawner)
+        if (spawnerEnemyCount != 0)
         {
             GameObject parentObject = SetParentObjectType(PoolType.Enemies);
-            for (int i = 0; i < amountOfEnemies; ++i)
+            for (int i = 0; i < spawnerEnemyCount; ++i)
             {
                 GameObject temp = null;
                 temp = Instantiate(spawnerEnemy, transform.position, transform.rotation);
@@ -230,10 +228,13 @@ public class ObjectPoolManager : MonoBehaviour
     }
 
     public void ReturnObjToInfo(GameObject obj)
-    { 
+    {
         //Finds the lookUpstring of the object and gets rid of the clone part in the name
-        string goName = obj.name.Substring(0, obj.name.Length - 7); //Removes the clone part of the name when an object is created
-        PooledObjectInfo info = ObjectPools.Find(p => p.LookUpString == goName);
+        if (obj.name.EndsWith(")"))
+        {
+            obj.name = obj.name.Substring(0, obj.name.Length - 7);
+        }//Removes the clone part of the name when an object is created
+        PooledObjectInfo info = ObjectPools.Find(p => p.LookUpString == obj.name);
 
         //If not found shows a warning saying that object was never in the pool to start
         if(info == null)
