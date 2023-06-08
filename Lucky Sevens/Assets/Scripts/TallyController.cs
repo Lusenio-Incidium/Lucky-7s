@@ -50,18 +50,21 @@ public class TallyController : MonoBehaviour
     {
         time.gameObject.SetActive(true);
         chipsUsedTxt.SetActive(true);
+        chipsUsed.text = GameManager.instance.ammoUsedTotal.ToString();
     }
 
     public void ChipsGatheredEnable()
     {
         chipsUsed.gameObject.SetActive(true);
         chipsGatheredTxt.SetActive(true);
+        chipsGathered.text = GameManager.instance.ammoGatheredTotal.ToString();
     }
 
     public void ChipsNetEnable()
     {
         chipsGathered.gameObject.SetActive(true);
         chipsNetTxt.SetActive(true);
+        chipsNet.text = (GameManager.instance.ammoGatheredTotal - GameManager.instance.ammoUsedTotal).ToString();
     }
 
     public void ChipsNetTextEnable() 
