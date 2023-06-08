@@ -43,7 +43,7 @@ public class TallyController : MonoBehaviour
     public void EnemyEnable() 
     {
         enemiesTxt.SetActive(true);
-        
+        enemies.text = GameManager.instance.enemiesKilled.ToString();
     }
 
     public void TimeEnable()

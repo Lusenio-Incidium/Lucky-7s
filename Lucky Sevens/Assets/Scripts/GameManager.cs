@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour
     public GameObject hardMode;
 
     public int enemiesRemaining;
-    public int enemiesTotal;
     public bool isPaused;
     public float timeElapsed;
     public float sensitivity;
