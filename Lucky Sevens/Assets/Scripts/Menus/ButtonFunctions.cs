@@ -288,4 +288,15 @@ public class ButtonFunctions : MonoBehaviour
         }
     }
 
+    public void OptionsPlaySound()
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.playSoundAud, MainMenuManager.instance.SFXVolume / 10f);
+        }
+        else
+        {
+            GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.playSoundAud, GameManager.instance.playerScript.GetJumpVol());
+        }
+    }
 }

@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
     public bool medium;
     public bool hard;
     public GameObject hardMode;
+    public AudioSource playSoundAudSource;
+    public AudioClip playSoundAud;
 
     public int enemiesRemaining;
     public bool isPaused;

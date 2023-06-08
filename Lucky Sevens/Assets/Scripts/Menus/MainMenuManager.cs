@@ -21,6 +21,8 @@ public class MainMenuManager : MonoBehaviour
     public TextMeshProUGUI sensitivitytext;
     public TextMeshProUGUI SFXvolumetext;
     public TextMeshProUGUI musicvolumetext;
+    public AudioSource playSoundAudSource;
+    public AudioClip playSoundAud;
     float timeScaleOrig;
     public bool mainEasy;
     public bool mainMedium;
@@ -29,6 +31,7 @@ public class MainMenuManager : MonoBehaviour
     public float sensitivity;
     public float SFXVolume;
     public float musicVolume;
+    
     // Start is called before the first frame update
     void Start()
     {
