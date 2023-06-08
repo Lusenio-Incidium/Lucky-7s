@@ -61,7 +61,7 @@ public class Spawner2 : MonoBehaviour,IDamage
     IEnumerator spawn()
     {
         isSpawning = true;
-        Instantiate(thingsToSpawn[Random.Range(0, thingsToSpawn.Length)], spawnPos[Random.Range(0, spawnPos.Length)].position, thingsToSpawn[Random.Range(0,thingsToSpawn.Length)].transform.rotation);
+        ObjectPoolManager.instance.SpawnObject(thingsToSpawn[Random.Range(0, thingsToSpawn.Length)], spawnPos[Random.Range(0, spawnPos.Length)].position, thingsToSpawn[Random.Range(0, thingsToSpawn.Length)].transform.rotation,ObjectPoolManager.PoolType.Enemies);
         if (!infSpawn)
         {
             spawnCount++;

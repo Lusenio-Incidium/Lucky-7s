@@ -9,10 +9,12 @@ public class Bullet : MonoBehaviour
     [SerializeField] int mTimer;
 
     [SerializeField] Rigidbody rb;
+
+    private Coroutine _timerCoroutine;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        Destroy(gameObject, mTimer);
+        _timerCoroutine = StartCoroutine(TimerCoroutine());
         rb.velocity = transform.forward * mSpeed;
     }
     private void OnTriggerEnter(Collider other)
@@ -22,10 +24,21 @@ public class Bullet : MonoBehaviour
         {
             damageable.takeDamage(mDamage);
         }
-        Destroy(gameObject);
+        ObjectPoolManager.instance.ReturnObjToInfo(gameObject);
     }
     public void SetBulletSpeed(int speed)
     {
         mSpeed = speed;
+    }
+    private IEnumerator TimerCoroutine()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < mTimer)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        ObjectPoolManager.instance.ReturnObjToInfo(gameObject);
     }
 }

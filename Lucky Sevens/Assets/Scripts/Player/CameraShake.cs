@@ -9,14 +9,14 @@ public class CameraShake : MonoBehaviour
     [SerializeField] float strength;
     private void Update()
     {
-        if (!GameManager.instance.isPaused)
-        {
-            if (start)
-            {
-                start = false;
-                StartCoroutine(Shake(dur));
-            }
-        }
+       if (start)
+       {
+          if (!GameManager.instance.isPaused)
+          {
+             start = false;
+             StartCoroutine(Shake(dur));
+          }
+       }
     }
     public IEnumerator Shake(float duration)
     {

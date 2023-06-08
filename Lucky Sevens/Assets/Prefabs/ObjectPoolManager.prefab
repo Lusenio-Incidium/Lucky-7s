@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5433671461165211176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5433671461165211178}
+  - component: {fileID: 5433671461165211179}
+  m_Layer: 0
+  m_Name: ObjectPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5433671461165211178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5433671461165211176}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.506167, y: -9.390732, z: -12.034637}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5433671461165211179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5433671461165211176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e29b5e0c5b5894f87c9a216370e53f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfEnemies: 5
+  amountOfBullets: 50
+  tommy: 0
+  melee: 0
+  pistol: 0
+  healer: 0
+  spawner: 0
+  healerEnemy: {fileID: 334093734989171589, guid: 321b131d478367240abc8370d5d9b32a, type: 3}
+  tommyEnemy: {fileID: 294471186704467911, guid: d5dd059046cb22949857a46836f42d65, type: 3}
+  pistolEnemy: {fileID: 7105732984617561183, guid: 32cc8fce376f73549807d67802d13142, type: 3}
+  meleeEnemy: {fileID: 5610362864979746776, guid: b700668f773fcc3468c0cc82399cd6a4, type: 3}
+  spawnerEnemy: {fileID: 3744044942002910293, guid: 7412c0289b2b9fa4288d28cdbec59170, type: 3}
+  bullet: {fileID: 5603250820081392756, guid: 47db62ab3c2a813478b9f2589733de21, type: 3}

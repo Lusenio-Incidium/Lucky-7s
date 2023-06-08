@@ -71,7 +71,19 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
             HP *= 1.5f;
             Complicated = false;
         }
+        else if(GameManager.instance.easy)
+        {
+            HP *= .5f;
+            Complicated = true;
+        }
         HPOrig = HP;
+    }
+    void OnEnable()
+    {
+        if (GameManager.instance != null)
+        {
+            Start();
+        }
     }
 
     // Update is called once per frame
@@ -214,7 +226,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
     public void createBullet()
     {
         gunProjectile.GetComponent<Bullet>().SetBulletSpeed(bulletSpeed);
-        Instantiate(gunProjectile, shootPos.position, transform.rotation);
+        ObjectPoolManager.instance.SpawnObject(gunProjectile, shootPos.transform.position, transform.rotation,ObjectPoolManager.PoolType.GameObject);
     }
 
     public void fistColOn()
@@ -243,7 +255,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
         int effectTime = hitEffect.duration;
         if (hitEffect.particleEffect != null)
         {
-            tempParticle = Instantiate(hitEffect.particleEffect, transform.position, Quaternion.Euler(270, 0, 0));
+            tempParticle = ObjectPoolManager.instance.SpawnObject(hitEffect.particleEffect, transform.position, Quaternion.Euler(270, 0, 0));
             tempParticle.transform.parent = transform;
         }
         if (hitEffect.duration != 0)
@@ -276,7 +288,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
 
     public void RemoveEffect()
     {
-        Destroy(tempParticle);
+        ObjectPoolManager.instance.ReturnObjToInfo(tempParticle);
         hitEffect = null;
         timePassed = 0;
         agent.speed = OrigSpeed;
@@ -304,13 +316,16 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
             enemyCol.enabled = false;
             if (itemDropped != null)
             {
-                Instantiate(itemDropped, transform.position + new Vector3(0,1,0), gameObject.transform.rotation);
+                ObjectPoolManager.instance.SpawnObject(itemDropped, transform.position + new Vector3(0, 1, 0), gameObject.transform.rotation);
             }
-            Destroy(gameObject, 8);
+            StartCoroutine(WaitSecondsBeforeDespawn());
         }
-        StartCoroutine(FlashColor());
-        destination = true;
-        anim.SetTrigger("Damage");
+        else
+        {
+            StartCoroutine(FlashColor());
+            destination = true;
+            anim.SetTrigger("Damage");
+        }
     }
 
     public void instaKill()
@@ -376,5 +391,15 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
     {
         pushBack += dir;
         AddPushBack();
+    }
+    private IEnumerator WaitSecondsBeforeDespawn()
+    {
+        float passedTime = 0f;
+        while (passedTime < 8)
+        {
+            passedTime += Time.deltaTime;
+            yield return null;
+        }
+        ObjectPoolManager.instance.ReturnObjToInfo(gameObject);
     }
 }
