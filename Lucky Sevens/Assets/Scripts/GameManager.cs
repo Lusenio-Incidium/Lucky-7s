@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
     bool reloading;
     bool timerInc;
     public bool completed;
+    public int ammoUsedTotal;
+    public int ammoGatheredTotal;
 
     //Level Manager Variables
     List<int> completedLevels;
@@ -127,6 +129,8 @@ public class GameManager : MonoBehaviour
         gunSystem = player.GetComponent<GunSystem>();
         enemiesRemaining = 0;
         timeElapsed = 0;
+        ammoGatheredTotal = 0;
+        ammoUsedTotal = 0;
         gunSystem.updateOrig();
         UpdateAmmoCount();
 
@@ -319,7 +323,6 @@ public class GameManager : MonoBehaviour
         activeMenu = winMenu;
         activeMenu.SetActive(true);
         pauseState();
-        yield return null;
     }
     public void UpdateAmmoCount()
     {
