@@ -23,16 +23,20 @@ MonoBehaviour:
   magSize: 7
   bulletsLeft: 7
   currentAmmoCount: 0
-  ammunition: 41
+  ammunition: 37
   pushBackForce: 1.5
   recoilAmount: 1
   adsReducution: 0.97
   gunShotAud: {fileID: 8300000, guid: 8ad374045e287d64d898d09c5bc54b80, type: 3}
-  gunShotAudVol: 0.376
+  gunShotAudVol: 0.1
   statusEffect: {fileID: 0}
   hitEffect: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
   explosion: {fileID: 0}
   TriggerHold: 0
   destroyOnEmpty: 0
   position: {x: 0.23, y: -0.46, z: 1.07}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
+  recoilDistance: 0
+  shakeIntensity: 0.3
   aimPosition: {x: 0, y: -0.41, z: 0.78}
+  aimRotation: {x: 0, y: 0, z: 0, w: 0}

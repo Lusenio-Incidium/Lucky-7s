@@ -27,6 +27,8 @@ public class GunSystem : MonoBehaviour
     float recoilAmount;
     float adsReduction;
     bool destroyOnEmpty;
+    bool isRecoiling = false;
+    private Coroutine recoilCoroutine;
 
     [SerializeField] CameraController cameraController;
     [Header("-----HipFire-----")]
@@ -57,6 +59,8 @@ public class GunSystem : MonoBehaviour
     public bool hasGun;
     public bool readyToShoot;
     public bool currentlyShooting;
+    [SerializeField] float shakeIntensity;
+    [SerializeField] float recoilDistance;
 
     ReticleSpread reticleSpread;
     private void Start()
@@ -69,7 +73,7 @@ public class GunSystem : MonoBehaviour
         originolPosition = gunModel.transform.localPosition;
         originolRotation = gunModel.transform.localRotation;
         aimPosition = gunModel.transform.localPosition;
-        aimRotation= gunModel.transform.localRotation;
+        aimRotation = gunModel.transform.localRotation;
     }
 
 
@@ -236,10 +240,30 @@ public class GunSystem : MonoBehaviour
 
         if (isShooting && bulletsLeft > 0)
         {
+            isRecoiling = true;
             Invoke("ResetShot", timeBetweenShots);
         }
 
         cameraController.ApplyRecoil(recoilAmount);
+        StartCoroutine(ShakeGun());
+    }
+
+    private IEnumerator ShakeGun()
+    {
+        Quaternion originalRotation = gunModel.transform.localRotation;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 0.2f)
+        {
+            float shakeX = Random.Range(-1f, 1f) * shakeIntensity;
+            float shakeY = Random.Range(-1f, 1f) * shakeIntensity;
+
+            gunModel.transform.localRotation = originalRotation * Quaternion.Euler(shakeX, shakeY, 0f);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        gunModel.transform.localRotation = originalRotation;
     }
 
     private void DestroyCurrentWeapon()
@@ -264,6 +288,27 @@ public class GunSystem : MonoBehaviour
     private void ResetShot()
     {
         readyToShoot = true;
+
+        if (!isRecoiling)
+        {
+            isRecoiling = false;
+            if (recoilCoroutine != null)
+            {
+                StopCoroutine(recoilCoroutine);
+            }
+            MoveGunBackInstant();
+        }
+    }
+    private void MoveGunBackInstant()
+    {
+        if (!Input.GetMouseButton(1))
+        {
+            gunModel.transform.localPosition = originolPosition;
+        }
+        else
+        {
+            gunModel.transform.localPosition = aimPosition;
+        }
     }
 
     //reloading function
@@ -271,6 +316,7 @@ public class GunSystem : MonoBehaviour
     {
         reloading = true;
         GameManager.instance.CharReloading();
+        MoveGunBackInstant();
         Invoke("ReloadDone", reloadTime);
         Invoke("ResetShot", timeBetweenShots);
     }
@@ -358,6 +404,7 @@ public class GunSystem : MonoBehaviour
         recoilAmount = weapons[index].recoilAmount;
         adsReduction = weapons[index].adsReducution;
         destroyOnEmpty = weapons[index].destroyOnEmpty;
+        shakeIntensity = weapons[index].shakeIntensity;
         if (destroyOnEmpty)
         {
             explosion = weapons[index].explosion;
@@ -366,9 +413,9 @@ public class GunSystem : MonoBehaviour
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
         originolPosition = weapons[currentWeapon].position;
-        originolRotation= weapons[currentWeapon].rotation;
+        originolRotation = weapons[currentWeapon].rotation;
         aimPosition = weapons[currentWeapon].aimPosition;
-        aimRotation= weapons[currentWeapon].aimRotation;
+        aimRotation = weapons[currentWeapon].aimRotation;
         if (weapons[currentWeapon].tag == "AR/Pistol")
         {
             GameManager.instance.activeRetical.SetActive(false);
