@@ -94,8 +94,6 @@ public class GunSystem : MonoBehaviour
     private void Update()
     {
         myInput();
-
-
     }
 
     private void myInput()

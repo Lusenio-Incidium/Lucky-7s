@@ -21,9 +21,9 @@ MonoBehaviour:
   spread: 0.5
   bulletsPerTap: 1
   magSize: 1
-  bulletsLeft: 0
+  bulletsLeft: 1
   currentAmmoCount: 0
-  ammunition: 4
+  ammunition: 6
   pushBackForce: 30
   recoilAmount: 1.5
   adsReducution: 0.1
@@ -33,10 +33,9 @@ MonoBehaviour:
   hitEffect: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
   explosion: {fileID: 113066723586254411, guid: 9a301284ef6139541aca53fe24820439, type: 3}
   TriggerHold: 0
-  destroyOnEmpty: 0
+  destroyOnEmpty: 1
   position: {x: 0.2, y: -0.39, z: 1.07}
   rotation: {x: 0, y: 0, z: 0, w: 0}
-  recoilDistance: 0
   shakeIntensity: 0.1
   aimPosition: {x: 0, y: -0.31, z: 0.62}
   aimRotation: {x: 0, y: 0, z: 0, w: 0}
