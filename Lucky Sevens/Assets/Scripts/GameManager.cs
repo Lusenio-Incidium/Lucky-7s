@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
     public Image sensitivityBar;
     public Image SFXBar;
     public Image musicBar;
+    public Image damagePanel;
+    public Image damageBlood;
     public GameObject BossBarContainer;
     public TextMeshProUGUI bossName;
     public bool easy;

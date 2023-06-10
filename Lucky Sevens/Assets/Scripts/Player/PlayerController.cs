@@ -43,6 +43,11 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [SerializeField] GameObject pistolSpawn;
     [SerializeField] GameObject tommySpawn;
 
+    [Header("DamageOverlay")]
+    public float duration;
+    public float fadeSpeed;
+    bool fadeout;
+
     //private variables
     Vector3 playerVelocity;
     Vector3 move;
@@ -61,6 +66,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     Color backHpOrig;
     float lerpTimer;
     float playerSpeedOrig;
+    float durationTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -107,6 +113,51 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         if(GameManager.instance.backPlayerHPBar.fillAmount != (float) HP / HPOrig || GameManager.instance.playerHPBar.fillAmount != (float)HP / HPOrig)
         {
             updatePlayerUI();
+        }
+
+        //damage flash
+        if (GameManager.instance.damagePanel.color.a > 0)
+        {
+            float panelAlpha = GameManager.instance.damagePanel.color.a;
+            float bloodAlpha = GameManager.instance.damageBlood.color.a;
+            durationTimer += Time.deltaTime;
+            if (HP <= 10)
+            {
+                if (panelAlpha >= 2)
+                {
+                    fadeout = true;
+                    panelAlpha = 2;
+                }
+                if (fadeout == true)
+                {
+                    fadeSpeed = 2f;
+                    panelAlpha -= Time.deltaTime * fadeSpeed;
+                    bloodAlpha -= Time.deltaTime * fadeSpeed;
+                    GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, panelAlpha);
+                    GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, panelAlpha);
+                    if (panelAlpha <= 0)
+                    {
+                        fadeout = false;
+                    }
+                }
+                if (fadeout == false)
+                {
+                    fadeSpeed = 2f;
+                    panelAlpha += Time.deltaTime * fadeSpeed;
+                    bloodAlpha += Time.deltaTime * fadeSpeed;
+                    GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, panelAlpha);
+                    GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, panelAlpha);
+                }
+                return;
+            }
+            else if (durationTimer > duration)
+            {
+                fadeSpeed = 7f;
+                panelAlpha -= Time.deltaTime * fadeSpeed;
+                bloodAlpha -= Time.deltaTime * fadeSpeed;
+                GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, panelAlpha);
+                GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, panelAlpha);
+            }
         }
     }
 
@@ -238,7 +289,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         HP -= amount;
         aud.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)], hurtVol);
         lerpTimer = 0f;
+        durationTimer = 0f;
         updatePlayerUI();
+        GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 1);
+        GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 1);
         damageFlash();
         StartCoroutine(Invincibility());
        //GameManager.instance.TraumaUp(.2f);
@@ -273,6 +327,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         controller.enabled = true;
         HP = HPOrig;
         updatePlayerUI();
+        GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 0);
+        GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 0);
     }
 
 
