@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     public GameObject emptyMag;
     public GameObject ammoDisplay;
     public GameObject playerDamageFlash;
+    public DamageFlash dm;
     public TextMeshProUGUI shopChipsTotal;
     public TextMeshProUGUI ammoReserveCount;
     public TextMeshProUGUI ammoMagCount;
@@ -146,6 +147,7 @@ public class GameManager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
         playerCam = GameObject.FindGameObjectWithTag("MainCamera");
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        dm = playerDamageFlash.GetComponent<DamageFlash>();
         timeScaleOrig = Time.timeScale;
         playerAnim = player.GetComponent<Animator>();
         gunSystem = player.GetComponent<GunSystem>();

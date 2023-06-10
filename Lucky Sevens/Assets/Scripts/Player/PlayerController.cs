@@ -300,7 +300,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         updatePlayerUI();
         GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 1);
         GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 1);
-        damageFlash();
+        damageFlash(pos, amount);
         StartCoroutine(Invincibility());
        //GameManager.instance.TraumaUp(.2f);
         if (HP <= 0)
@@ -315,9 +315,31 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         takeDamage(HP);
     }
-    void damageFlash()
+    void damageFlash(Transform pos,float damage)
     {
-        
+        Vector3 dir = pos.position - GameManager.instance.player.transform.position;
+        float forwardAngle = Vector3.Angle(new Vector3(dir.x, 0, dir.z), this.gameObject.transform.forward);
+        float rightAngle = Vector3.Angle(new Vector3(dir.x, 0, dir.z), this.gameObject.transform.right);
+
+        Debug.Log(rightAngle + "R");
+        Debug.Log(forwardAngle + "F");
+
+        if ((rightAngle > 100 && forwardAngle > 25) || (rightAngle < 10 && forwardAngle >= 80)) 
+        {
+            GameManager.instance.dm.leftHit(damage);
+        }
+       //else if (rightAngle > 45 && rightAngle < 180 && forwardAngle > 35)
+       //{
+           //GameManager.instance.dm.rightHit(damage);
+       //}
+       //else if (angle > 185 && angle < -180)
+       //{
+       //    GameManager.instance.dm.bottomHit(damage);
+       //}
+       else 
+       {
+           GameManager.instance.dm.topHit(damage);
+       }
     }
     IEnumerator Invincibility()
     {

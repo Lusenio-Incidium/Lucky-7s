@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
         IDamage damageable = other.GetComponent<IDamage>();
         if(damageable != null)
         {
-            damageable.takeDamage(mDamage);
+            damageable.takeDamage(mDamage,transform);
         }
         ObjectPoolManager.instance.ReturnObjToInfo(gameObject);
     }
