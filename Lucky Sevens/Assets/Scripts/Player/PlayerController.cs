@@ -233,13 +233,13 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         stepPlaying = false;
     }
 
-    public void takeDamage(float amount)
+    public void takeDamage(float amount, Transform pos = null)
     {
         HP -= amount;
         aud.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)], hurtVol);
         lerpTimer = 0f;
         updatePlayerUI();
-        StartCoroutine(damageFlash());
+        damageFlash();
         StartCoroutine(Invincibility());
        //GameManager.instance.TraumaUp(.2f);
         if (HP <= 0)
@@ -248,15 +248,15 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             GameManager.instance.youLose();
         }
     }
+
+
     public void instaKill()
     {
         takeDamage(HP);
     }
-    IEnumerator damageFlash()
+    void damageFlash()
     {
-        GameManager.instance.playerDamageFlash.SetActive(true);
-        yield return new WaitForSeconds(.1f);
-        GameManager.instance.playerDamageFlash.SetActive(false);
+        
     }
     IEnumerator Invincibility()
     {

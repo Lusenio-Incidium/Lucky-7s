@@ -12,7 +12,7 @@ public class damageTest : MonoBehaviour, IDamage,IStatusEffect
     [SerializeField] StatusEffectObj hitEffect;
     private float timePassed = 0;
 
-    public void takeDamage(float dmg)
+    public void takeDamage(float dmg, Transform pos = null)
     {
         HP -= dmg;
         StartCoroutine(FlashColor());

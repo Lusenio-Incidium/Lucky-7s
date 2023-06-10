@@ -7,7 +7,7 @@ public class SlotsDamageSpot : MonoBehaviour, IDamage
     [SerializeField] ParticleSystem spark;
     bool destroyed = false;
 
-    public void takeDamage(float count)
+    public void takeDamage(float count, Transform pos = null)
     {
         if (destroyed)
         {

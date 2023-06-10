@@ -58,7 +58,7 @@ public class SlotsWeakPoint : MonoBehaviour, IDamage
         cannonBaseAnimator.SetBool("Moving", true);
     }
 
-    public void takeDamage(float count)
+    public void takeDamage(float count, Transform pos = null)
     {
         currHealth -= count;
         if(currHealth <= 0) 

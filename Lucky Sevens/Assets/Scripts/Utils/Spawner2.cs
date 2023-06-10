@@ -70,7 +70,7 @@ public class Spawner2 : MonoBehaviour,IDamage
         isSpawning = false;
     }
 
-    public void takeDamage(float dmg)
+    public void takeDamage(float dmg, Transform pos = null)
     {
         if (!immortalSpawn)
         {

@@ -62,7 +62,7 @@ public class CannonController : MonoBehaviour, IDamage
         StartCoroutine(Activate());
     }
 
-    public void takeDamage(float count)
+    public void takeDamage(float count, Transform pos = null)
     {
         currHealth -= count;
         if (currHealth <= 0)

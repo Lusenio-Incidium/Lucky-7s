@@ -76,7 +76,7 @@ public class Cannons : MonoBehaviour, IDamage
         Debug.Log("Shoot");
     }
 
-    public void takeDamage(float damage)
+    public void takeDamage(float damage, Transform pos = null)
     {
         if (invincible)
         {

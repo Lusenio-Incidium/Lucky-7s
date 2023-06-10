@@ -294,7 +294,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
         agent.speed = OrigSpeed;
         shootSpeed = shootSpeedOrig;
     }
-    public void takeDamage(float dmg)
+    public void takeDamage(float dmg, Transform pos = null)
     {
         if(HP == HPOrig && dmg < 0)
         {

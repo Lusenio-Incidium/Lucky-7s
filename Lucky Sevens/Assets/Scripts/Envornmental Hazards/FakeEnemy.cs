@@ -11,7 +11,7 @@ public class FakeEnemy : MonoBehaviour, IDamage, IBattleEnemy
         battleManager = manager;
     }
 
-    public void takeDamage(float num)
+    public void takeDamage(float num, Transform pos = null)
     {
         if(battleManager != null)
         {
