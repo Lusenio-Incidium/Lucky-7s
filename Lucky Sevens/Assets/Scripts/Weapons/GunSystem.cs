@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class GunSystem : MonoBehaviour
 {
@@ -29,6 +29,11 @@ public class GunSystem : MonoBehaviour
     bool destroyOnEmpty;
     bool isRecoiling = false;
     private Coroutine recoilCoroutine;
+    private Coroutine adsCoroutine;
+    private Vector3 currentADSPos;
+    private Quaternion currentADSRotation;
+    private Coroutine returnCoroutine;
+    bool isReturning;
 
     [SerializeField] CameraController cameraController;
     [Header("-----HipFire-----")]
@@ -113,17 +118,35 @@ public class GunSystem : MonoBehaviour
             else
                 currentlyShooting = isShooting;
 
+
+            //ADS
+
             if (Input.GetMouseButton(1))
             {
                 float reducedSpread = reticleSpread.currentSize * adsReduction;
-                gunModel.transform.localPosition = aimPosition;
-                gunModel.transform.localRotation = aimRotation;
+                if (adsCoroutine == null)
+                {
+                    adsCoroutine = StartCoroutine(ADSAnimation());
+                    if (returnCoroutine != null)
+                    {
+                        StopCoroutine(returnCoroutine);
+                        returnCoroutine= null;
+                    }
+                }
                 reticleSpread.currentSize = reducedSpread;
             }
             else
             {
-                gunModel.transform.localPosition = originolPosition;
-                gunModel.transform.localRotation = originolRotation;
+                if (adsCoroutine != null)
+                {
+                    StopCoroutine(adsCoroutine);
+                    adsCoroutine = null;
+                    isReturning= false;
+                }
+                if (!isReturning)
+                {
+                    returnCoroutine = StartCoroutine(ReturnAnimation());
+                }
             }
 
         }
@@ -248,6 +271,46 @@ public class GunSystem : MonoBehaviour
         StartCoroutine(ShakeGun());
     }
 
+    private IEnumerator ADSAnimation()
+    {
+        float elapsedTime = 0f;
+        float duration = 0.1f;
+        Vector3 initialPosition = gunModel.transform.localPosition;
+        Quaternion initialRotation = gunModel.transform.localRotation;
+
+        while (elapsedTime < duration)
+        {
+            gunModel.transform.localPosition = Vector3.Lerp(initialPosition, aimPosition, elapsedTime / duration);
+            gunModel.transform.localRotation = Quaternion.Slerp(initialRotation, aimRotation, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        gunModel.transform.localPosition = aimPosition;
+        gunModel.transform.localRotation = aimRotation;
+
+        adsCoroutine = null;
+    }
+
+    private IEnumerator ReturnAnimation()
+    {
+        isReturning = true;
+        float elapsedTime = 0f;
+        float duration = 0.2f;
+        Vector3 initialPosition = gunModel.transform.localPosition;
+        Quaternion initialRotation = gunModel.transform.localRotation;
+
+        while (elapsedTime < duration)
+        {
+            gunModel.transform.localPosition = Vector3.Lerp(initialPosition, originolPosition, elapsedTime / duration);
+            gunModel.transform.localRotation = Quaternion.Slerp(initialRotation, originolRotation, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        gunModel.transform.localPosition = originolPosition;
+        gunModel.transform.localRotation = originolRotation;
+        isReturning = false;
+        returnCoroutine = null;
+    }
     private IEnumerator ShakeGun()
     {
         Quaternion originalRotation = gunModel.transform.localRotation;
