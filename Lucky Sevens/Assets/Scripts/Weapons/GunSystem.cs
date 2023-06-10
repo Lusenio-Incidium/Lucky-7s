@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class GunSystem : MonoBehaviour
 {
@@ -27,6 +27,13 @@ public class GunSystem : MonoBehaviour
     float recoilAmount;
     float adsReduction;
     bool destroyOnEmpty;
+    bool isRecoiling = false;
+    private Coroutine recoilCoroutine;
+    private Coroutine adsCoroutine;
+    private Vector3 currentADSPos;
+    private Quaternion currentADSRotation;
+    private Coroutine returnCoroutine;
+    bool isReturning;
 
     [SerializeField] CameraController cameraController;
     [Header("-----HipFire-----")]
@@ -57,6 +64,8 @@ public class GunSystem : MonoBehaviour
     public bool hasGun;
     public bool readyToShoot;
     public bool currentlyShooting;
+    [SerializeField] float shakeIntensity;
+    [SerializeField] float recoilDistance;
 
     ReticleSpread reticleSpread;
     private void Start()
@@ -69,7 +78,7 @@ public class GunSystem : MonoBehaviour
         originolPosition = gunModel.transform.localPosition;
         originolRotation = gunModel.transform.localRotation;
         aimPosition = gunModel.transform.localPosition;
-        aimRotation= gunModel.transform.localRotation;
+        aimRotation = gunModel.transform.localRotation;
     }
 
 
@@ -109,17 +118,35 @@ public class GunSystem : MonoBehaviour
             else
                 currentlyShooting = isShooting;
 
+
+            //ADS
+
             if (Input.GetMouseButton(1))
             {
                 float reducedSpread = reticleSpread.currentSize * adsReduction;
-                gunModel.transform.localPosition = aimPosition;
-                gunModel.transform.localRotation = aimRotation;
+                if (adsCoroutine == null)
+                {
+                    adsCoroutine = StartCoroutine(ADSAnimation());
+                    if (returnCoroutine != null)
+                    {
+                        StopCoroutine(returnCoroutine);
+                        returnCoroutine= null;
+                    }
+                }
                 reticleSpread.currentSize = reducedSpread;
             }
             else
             {
-                gunModel.transform.localPosition = originolPosition;
-                gunModel.transform.localRotation = originolRotation;
+                if (adsCoroutine != null)
+                {
+                    StopCoroutine(adsCoroutine);
+                    adsCoroutine = null;
+                    isReturning= false;
+                }
+                if (!isReturning)
+                {
+                    returnCoroutine = StartCoroutine(ReturnAnimation());
+                }
             }
 
         }
@@ -236,10 +263,70 @@ public class GunSystem : MonoBehaviour
 
         if (isShooting && bulletsLeft > 0)
         {
+            isRecoiling = true;
             Invoke("ResetShot", timeBetweenShots);
         }
 
         cameraController.ApplyRecoil(recoilAmount);
+        StartCoroutine(ShakeGun());
+    }
+
+    private IEnumerator ADSAnimation()
+    {
+        float elapsedTime = 0f;
+        float duration = 0.1f;
+        Vector3 initialPosition = gunModel.transform.localPosition;
+        Quaternion initialRotation = gunModel.transform.localRotation;
+
+        while (elapsedTime < duration)
+        {
+            gunModel.transform.localPosition = Vector3.Lerp(initialPosition, aimPosition, elapsedTime / duration);
+            gunModel.transform.localRotation = Quaternion.Slerp(initialRotation, aimRotation, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        gunModel.transform.localPosition = aimPosition;
+        gunModel.transform.localRotation = aimRotation;
+
+        adsCoroutine = null;
+    }
+
+    private IEnumerator ReturnAnimation()
+    {
+        isReturning = true;
+        float elapsedTime = 0f;
+        float duration = 0.2f;
+        Vector3 initialPosition = gunModel.transform.localPosition;
+        Quaternion initialRotation = gunModel.transform.localRotation;
+
+        while (elapsedTime < duration)
+        {
+            gunModel.transform.localPosition = Vector3.Lerp(initialPosition, originolPosition, elapsedTime / duration);
+            gunModel.transform.localRotation = Quaternion.Slerp(initialRotation, originolRotation, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        gunModel.transform.localPosition = originolPosition;
+        gunModel.transform.localRotation = originolRotation;
+        isReturning = false;
+        returnCoroutine = null;
+    }
+    private IEnumerator ShakeGun()
+    {
+        Quaternion originalRotation = gunModel.transform.localRotation;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 0.2f)
+        {
+            float shakeX = Random.Range(-1f, 1f) * shakeIntensity;
+            float shakeY = Random.Range(-1f, 1f) * shakeIntensity;
+
+            gunModel.transform.localRotation = originalRotation * Quaternion.Euler(shakeX, shakeY, 0f);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        gunModel.transform.localRotation = originalRotation;
     }
 
     private void DestroyCurrentWeapon()
@@ -264,6 +351,27 @@ public class GunSystem : MonoBehaviour
     private void ResetShot()
     {
         readyToShoot = true;
+
+        if (!isRecoiling)
+        {
+            isRecoiling = false;
+            if (recoilCoroutine != null)
+            {
+                StopCoroutine(recoilCoroutine);
+            }
+            MoveGunBackInstant();
+        }
+    }
+    private void MoveGunBackInstant()
+    {
+        if (!Input.GetMouseButton(1))
+        {
+            gunModel.transform.localPosition = originolPosition;
+        }
+        else
+        {
+            gunModel.transform.localPosition = aimPosition;
+        }
     }
 
     //reloading function
@@ -271,6 +379,7 @@ public class GunSystem : MonoBehaviour
     {
         reloading = true;
         GameManager.instance.CharReloading();
+        MoveGunBackInstant();
         Invoke("ReloadDone", reloadTime);
         Invoke("ResetShot", timeBetweenShots);
     }
@@ -358,6 +467,7 @@ public class GunSystem : MonoBehaviour
         recoilAmount = weapons[index].recoilAmount;
         adsReduction = weapons[index].adsReducution;
         destroyOnEmpty = weapons[index].destroyOnEmpty;
+        shakeIntensity = weapons[index].shakeIntensity;
         if (destroyOnEmpty)
         {
             explosion = weapons[index].explosion;
@@ -366,9 +476,9 @@ public class GunSystem : MonoBehaviour
         gunModel.mesh = weapons[currentWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = weapons[currentWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
         originolPosition = weapons[currentWeapon].position;
-        originolRotation= weapons[currentWeapon].rotation;
+        originolRotation = weapons[currentWeapon].rotation;
         aimPosition = weapons[currentWeapon].aimPosition;
-        aimRotation= weapons[currentWeapon].aimRotation;
+        aimRotation = weapons[currentWeapon].aimRotation;
         if (weapons[currentWeapon].tag == "AR/Pistol")
         {
             GameManager.instance.activeRetical.SetActive(false);

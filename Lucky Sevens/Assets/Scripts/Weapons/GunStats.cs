@@ -38,6 +38,7 @@ public class GunStats : ScriptableObject
     [Header("-----HipFire-----")]
     public Vector3 position;
     public Quaternion rotation;
+    public float shakeIntensity;
 
     [Header("-----ADS-----")]
     public Vector3 aimPosition;
