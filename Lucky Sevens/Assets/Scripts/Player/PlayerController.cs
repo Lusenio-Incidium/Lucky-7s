@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
     [SerializeField] AudioSource musicAud;
+    [SerializeField] Animator animator;
 
     [Header("- - - Atributes - - -")]
     public List<GunStats> gunList = new List<GunStats>();
@@ -67,6 +69,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     float lerpTimer;
     float playerSpeedOrig;
     float durationTimer;
+    int speedHash;
+    float speed;
 
     // Start is called before the first frame update
     void Start()
@@ -87,7 +91,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             backHpOrig = GameManager.instance.backPlayerHPBar.color;
             playerSpeedOrig = playerSpeed;
             spawnPlayer();
-
+            animator = GetComponent<Animator>();
+            speedHash = Animator.StringToHash("speed");
             gunSystem = GetComponent<GunSystem>();
         }
         else 
@@ -209,6 +214,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         //Set move vector for player movement
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * playerSpeed);
+        speed = Mathf.Lerp(speed, controller.velocity.normalized.magnitude, Time.deltaTime * playerSpeed);
+        animator.SetFloat(speedHash, speed);
 
         //Jump Input
         if (Input.GetButtonDown("Jump") && jumpTimes < maxJumpAmmount)

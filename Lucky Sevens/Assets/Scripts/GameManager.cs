@@ -25,7 +25,9 @@ public class GameManager : MonoBehaviour
     [Header("----- Player Stuff -----")]
     public GameObject player;
     public GameObject playerCam;
+    public Transform playerCamSecondPos;
     public PlayerController playerScript;
+    public Animator playerAnim;
     public GameObject playerSpawnPos;
     public GunSystem gunSystem;
     public int storeTokens;
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
     public GameObject errorMenu;
     public GameObject difficultyMenu;
     public GameObject inGameOptionsMenu;
+    public GameObject completionText;
     public TextMeshProUGUI sensitivityText;
     public TextMeshProUGUI SFXText;
     public TextMeshProUGUI musicText;
@@ -83,6 +86,7 @@ public class GameManager : MonoBehaviour
     public AudioClip playSoundAud;
 
     public int enemiesRemaining;
+    public bool coinCollected;
     public bool isPaused;
     public float timeElapsed;
     public float sensitivity;
@@ -96,6 +100,7 @@ public class GameManager : MonoBehaviour
     public int ammoUsedTotal;
     public int ammoGatheredTotal;
     public int enemiesKilled;
+    Vector3 origCamPos;
 
     //Level Manager Variables
     List<int> completedLevels;
@@ -142,6 +147,7 @@ public class GameManager : MonoBehaviour
         playerCam = GameObject.FindGameObjectWithTag("MainCamera");
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
+        playerAnim = player.GetComponent<Animator>();
         gunSystem = player.GetComponent<GunSystem>();
         enemiesRemaining = 0;
         timeElapsed = 0;
@@ -194,10 +200,27 @@ public class GameManager : MonoBehaviour
         {
             PauseMenu();
         }
-       /* if (trauma > 0)
+        if(Input.GetKey(KeyCode.K))
         {
-            StartCoroutine(TraumaDown());
-        }*/
+            WinSequence();
+        }
+        if (coinCollected)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                StartCoroutine(youWin(2));
+                playerCam.GetComponent<CameraController>().enabled = true;
+                playerScript.enabled = true;
+                completionText.SetActive(false);
+                playerCam.transform.localPosition = origCamPos;
+                coinCollected = false;
+                playerAnim.SetBool("gotACoin", false);
+            }
+        }
+        /* if (trauma > 0)
+         {
+             StartCoroutine(TraumaDown());
+         }*/
         updateTimer();
     }
 
@@ -470,5 +493,21 @@ public class GameManager : MonoBehaviour
             Debug.Log(num);
         }
         return completedLevels;
+    }
+    public void WinSequence()
+    {
+        Transform secondCamera = player.transform.GetChild(0);
+        origCamPos = playerCam.transform.localPosition; 
+        playerCam.GetComponent<CameraController>().enabled = false;
+        playerScript.enabled = false;
+        playerCam.transform.localPosition = secondCamera.localPosition;
+        playerCam.transform.LookAt(player.transform);
+        playerAnim.SetBool("gotACoin", true);
+        completionText.SetActive(true);
+        coinCollected = true;
+        
+        
+        //player.transform.LookAt(playerCam.transform);
+
     }
 }
