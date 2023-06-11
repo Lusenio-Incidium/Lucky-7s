@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
     public GameObject difficultyMenu;
     public GameObject inGameOptionsMenu;
     public GameObject completionText;
+    public GameObject healthMenu;
+    public GameObject lowHealthFlashMenu;
     public TextMeshProUGUI sensitivityText;
     public TextMeshProUGUI SFXText;
     public TextMeshProUGUI musicText;
@@ -202,21 +204,13 @@ public class GameManager : MonoBehaviour
         {
             PauseMenu();
         }
-        if(Input.GetKey(KeyCode.K))
-        {
-            WinSequence();
-        }
         if (coinCollected)
         {
             if (Input.GetKey(KeyCode.Space))
             {
                 StartCoroutine(youWin(2));
-                playerCam.GetComponent<CameraController>().enabled = true;
-                playerScript.enabled = true;
-                completionText.SetActive(false);
-                playerCam.transform.localPosition = origCamPos;
                 coinCollected = false;
-                playerAnim.SetBool("gotACoin", false);
+                //playerAnim.SetBool("gotACoin", false);
             }
         }
         /* if (trauma > 0)
@@ -252,7 +246,6 @@ public class GameManager : MonoBehaviour
         activeMenu = null;
         activeMenu = inGameOptionsMenu;
         activeMenu.SetActive(true);
-
     }
 
 
@@ -381,10 +374,12 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator youWin(float time)
     {
-       yield return new WaitForSeconds(time); 
+       yield return new WaitForSeconds(time);
         activeMenu = winMenu;
         activeMenu.SetActive(true);
+        ReEnableDisplay();
         pauseState();
+        playerAnim.SetBool("gotACoin", false);
     }
     public void UpdateAmmoCount()
     {
@@ -499,17 +494,51 @@ public class GameManager : MonoBehaviour
     public void WinSequence()
     {
         Transform secondCamera = player.transform.GetChild(0);
-        origCamPos = playerCam.transform.localPosition; 
-        playerCam.GetComponent<CameraController>().enabled = false;
-        playerScript.enabled = false;
-        playerCam.transform.localPosition = secondCamera.localPosition;
-        playerCam.transform.LookAt(player.transform);
+        origCamPos = playerCam.transform.localPosition;
+        lowHealthFlashMenu.SetActive(false);
+        HudDisabledDisplay(secondCamera);
         playerAnim.SetBool("gotACoin", true);
         completionText.SetActive(true);
         coinCollected = true;
-        
-        
-        //player.transform.LookAt(playerCam.transform);
+    }
+    public IEnumerator DeathSequence()
+    {
+        Transform deathCamera = player.transform.GetChild(3);
+        origCamPos = playerCam.transform.localPosition;
+        HudDisabledDisplay(deathCamera);
+        playerAnim.SetBool("dead", true);
+        yield return new WaitForSeconds(3);
+        youLose();
+    }
 
+    public void HudDisabledDisplay(Transform Camera)
+    {
+        playerCam.GetComponent<CameraController>().enabled = false;
+        playerScript.enabled = false;
+        playerCam.transform.localPosition = Camera.localPosition;
+        playerCam.transform.LookAt(player.transform);
+        playerCam.transform.GetChild(1).gameObject.SetActive(false);
+        gunSystem.enabled = false;
+        timerDisplay.enabled = false;
+        activeRetical.gameObject.SetActive(false);
+        healthMenu.SetActive(false);
+        ammoDisplay.SetActive(false);
+    }
+    public void ReEnableDisplay()
+    {
+        playerCam.GetComponent<CameraController>().enabled = true;
+        playerScript.enabled = true;
+        completionText.SetActive(false);
+        if (origCamPos != Vector3.zero)
+        {
+            playerCam.transform.localPosition = origCamPos;
+        }
+        playerCam.transform.GetChild(1).gameObject.SetActive(true);
+        gunSystem.enabled = true;
+        timerDisplay.enabled = true;
+        activeRetical.gameObject.SetActive(true);
+        lowHealthFlashMenu.SetActive(true);
+        healthMenu.SetActive(true);
+        ammoDisplay.SetActive(true);
     }
 }

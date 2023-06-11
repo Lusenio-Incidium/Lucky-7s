@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &711638752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 711638753}
+  m_Layer: 0
+  m_Name: Death Camera Pos
+  m_TagString: WinPos
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &711638753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711638752}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.08700001, y: 2.6, z: 4.7149997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3878950961476695814}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1528448777253964124
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +474,7 @@ Transform:
   - {fileID: 1528448777474377009}
   - {fileID: 3878950961555502278}
   - {fileID: 1528448777253964195}
+  - {fileID: 711638753}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -490,7 +522,7 @@ MonoBehaviour:
   controller: {fileID: 3878950961467398288}
   aud: {fileID: 3878950961467398292}
   musicAud: {fileID: 3878950961467398292}
-  animator: {fileID: 0}
+  animator: {fileID: 3878950961467398299}
   gunList: []
   HP: 50
   playerSpeed: 5
@@ -533,6 +565,8 @@ MonoBehaviour:
   deathVol: 0.5
   pistolSpawn: {fileID: 117619678179716738, guid: 70d99ef8657b4694995fcfd18936e30f, type: 3}
   tommySpawn: {fileID: 670377652670482858, guid: e21ccd608a780f041929e2710d4aea01, type: 3}
+  duration: 0
+  fadeSpeed: 0
 --- !u!136 &3878950961467398295
 CapsuleCollider:
   m_ObjectHideFlags: 0

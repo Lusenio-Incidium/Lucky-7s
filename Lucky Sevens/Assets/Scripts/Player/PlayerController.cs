@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     float durationTimer;
     int speedHash;
     float speed;
+    int deadHash;
 
     // Start is called before the first frame update
     void Start()
@@ -300,13 +301,12 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         updatePlayerUI();
         GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 1);
         GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 1);
-        damageFlash(pos, amount);
+        //damageFlash(pos, amount);
         StartCoroutine(Invincibility());
-       //GameManager.instance.TraumaUp(.2f);
         if (HP <= 0)
         {
             aud.PlayOneShot(deathSounds[Random.Range(0,deathSounds.Length)], deathVol);
-            GameManager.instance.youLose();
+            StartCoroutine(GameManager.instance.DeathSequence());
         }
     }
 

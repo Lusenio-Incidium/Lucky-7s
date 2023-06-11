@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
     [SerializeField] int timeToHeal;
     [SerializeField] int healAmount;
     [SerializeField] GameObject itemDropped;
+    [SerializeField] GameObject particleShown;
 
     [Header("----- EnemyWeapons -----")]
     [SerializeField] float shootSpeed;
@@ -399,5 +400,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
             yield return null;
         }
         ObjectPoolManager.instance.ReturnObjToInfo(gameObject);
+        GameObject tempPart = Instantiate(particleShown, transform.position,transform.rotation);
+        //Destroy(tempPart);
     }
 }

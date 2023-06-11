@@ -85,7 +85,7 @@ public class ObjectPoolManager : MonoBehaviour
             for (int i = 0; i < healerEnemyCount; ++i)
             {
                 GameObject temp = null;
-                temp = Instantiate(healerEnemy, transform.position, transform.rotation);
+                temp = Instantiate(healerEnemy, Vector3.zero, transform.rotation);
                 if (i == 0)
                 {
                     string orgName = temp.name.Substring(0, temp.name.Length - 7);
@@ -102,7 +102,7 @@ public class ObjectPoolManager : MonoBehaviour
             for (int i = 0; i < tommyEnemyCount; ++i)
             {
                 GameObject temp = null;
-                temp = Instantiate(tommyEnemy, transform.position, transform.rotation);
+                temp = Instantiate(tommyEnemy, Vector3.zero, transform.rotation);
                 if (i == 0)
                 {
                     string orgName = temp.name.Substring(0, temp.name.Length - 7);
@@ -119,7 +119,7 @@ public class ObjectPoolManager : MonoBehaviour
             for (int i = 0; i < meleeEnemyCount; ++i)
             {
                 GameObject temp = null;
-                temp = Instantiate(meleeEnemy, transform.position, transform.rotation);
+                temp = Instantiate(meleeEnemy, Vector3.zero, transform.rotation);
                 if (i == 0)
                 {
                     string orgName = temp.name.Substring(0, temp.name.Length - 7);
@@ -136,7 +136,7 @@ public class ObjectPoolManager : MonoBehaviour
             for (int i = 0; i < pistolEnemyCount; ++i)
             {
                 GameObject temp = null;
-                temp = Instantiate(pistolEnemy, transform.position, transform.rotation);
+                temp = Instantiate(pistolEnemy, Vector3.zero, transform.rotation);
                 if (i == 0)
                 {
                     string orgName = temp.name.Substring(0, temp.name.Length - 7);
@@ -153,7 +153,7 @@ public class ObjectPoolManager : MonoBehaviour
             for (int i = 0; i < spawnerEnemyCount; ++i)
             {
                 GameObject temp = null;
-                temp = Instantiate(spawnerEnemy, transform.position, transform.rotation);
+                temp = Instantiate(spawnerEnemy, Vector3.zero, transform.rotation);
                 if (i == 0)
                 {
                     string orgName = temp.name.Substring(0, temp.name.Length - 7);

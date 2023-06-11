@@ -13,6 +13,8 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void restart()
     {
+        GameManager.instance.playerAnim.SetBool("dead", false);
+        GameManager.instance.ReEnableDisplay();
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
         StartCoroutine(GameManager.instance.loadScene(SceneManager.GetActiveScene().name));
@@ -26,6 +28,8 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void respawnPlayer()
     {
+        GameManager.instance.playerAnim.SetBool("dead", false);
+        GameManager.instance.ReEnableDisplay();
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
         GameManager.instance.playerScript.spawnPlayer();
@@ -34,6 +38,8 @@ public class ButtonFunctions : MonoBehaviour
 
     public void ReturnToLobby()
     {
+        GameManager.instance.playerAnim.SetBool("dead", false);
+        GameManager.instance.ReEnableDisplay();
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
         if(SceneManager.GetActiveScene().name != "TheHub")
