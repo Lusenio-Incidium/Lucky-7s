@@ -293,7 +293,7 @@ public class GunSystem : MonoBehaviour
     {
         isReturning = true;
         float elapsedTime = 0f;
-        float duration = 0.2f;
+        float duration = 0.3f;
         Vector3 initialPosition = gunModel.transform.localPosition;
         Quaternion initialRotation = gunModel.transform.localRotation;
 
