@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6873000127507848486
+--- !u!1 &5459503873424468803
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8768186610058356407}
-  - component: {fileID: 1491173160972825867}
-  - component: {fileID: 1663880093047153210}
+  - component: {fileID: 7857404415405789394}
+  - component: {fileID: 5760331660247918}
+  - component: {fileID: 266427929816142943}
   m_Layer: 0
   m_Name: 4x4 HemisphereSmooth_Wall
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8768186610058356407
+--- !u!4 &7857404415405789394
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6873000127507848486}
+  m_GameObject: {fileID: 5459503873424468803}
   m_LocalRotation: {x: -6.123234e-17, y: 1, z: 6.123234e-17, w: -3.7493994e-33}
   m_LocalPosition: {x: 3.1193109, y: 3, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,21 +33,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1491173160972825867
+--- !u!33 &5760331660247918
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6873000127507848486}
+  m_GameObject: {fileID: 5459503873424468803}
   m_Mesh: {fileID: 4149919727797369335, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}
---- !u!23 &1663880093047153210
+--- !u!23 &266427929816142943
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6873000127507848486}
+  m_GameObject: {fileID: 5459503873424468803}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
