@@ -118,6 +118,9 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             sprint();
         crawl();
 
+        if (transform.position.y < -10)
+            instaKill();
+
         if(gunList.Count > 0)
             switchGun();
         if(GameManager.instance.backPlayerHPBar.fillAmount != (float) HP / HPOrig || GameManager.instance.playerHPBar.fillAmount != (float)HP / HPOrig)
