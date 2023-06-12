@@ -259,10 +259,11 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             Debug.Log("Crawl Off");
             GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y + 1, GameManager.instance.playerCam.transform.position.z);
             isCrawl = false;
-            playerSpeed /= crawlMod;
+            playerSpeed = origSpeed;
             GetComponent<CapsuleCollider>().height = 2;
             controller.height = 2;
             isSlide = false;
+            StopCoroutine(slide());
         }
     }
 
@@ -273,8 +274,9 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         playerSpeed = playerSpeedOrig * slideMod;
         Debug.Log(playerSpeed);
         yield return new WaitForSeconds(0.5f);
-        playerSpeed = playerSpeedOrig * crawlMod;
+        playerSpeed = playerSpeedOrig;
         GetComponent<CapsuleCollider>().height = 1;
+        isSlide = false;
         
     }
 
