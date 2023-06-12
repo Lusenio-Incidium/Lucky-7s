@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         completedLevels = new List<int>();
-        Debug.Log(completedLevels.Count);
+        //Debug.Log(completedLevels.Count);
         //Code to check if a new game manager is made, and if it is delete it.
         //Used for keeping the game manager and player UI throughout different scenes
         if (instance != null) 

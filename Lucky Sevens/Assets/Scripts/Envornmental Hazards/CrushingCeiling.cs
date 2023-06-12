@@ -65,7 +65,7 @@ public class CrushingCeiling : MonoBehaviour, IButtonTrigger
 
     private void OnCollisionStay(Collision collision)
     {
-        Debug.Log(collision.gameObject.CompareTag("Player") + " " + GameManager.instance.playerScript.playerGrounded() + " " + playerInside);
+        
         if (collision.gameObject.CompareTag("Player") && GameManager.instance.playerScript.playerGrounded() && playerInside)
         {
             GameManager.instance.player.GetComponent<IDamage>().instaKill();

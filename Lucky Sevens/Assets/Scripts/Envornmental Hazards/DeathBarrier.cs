@@ -11,5 +11,6 @@ public class DeathBarrier : MonoBehaviour
         {
             damagable.instaKill();
         }
+        Debug.Log("Doink");
     }
 }
