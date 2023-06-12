@@ -86,7 +86,6 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
         Instantiate(projectile, transform.position, transform.rotation);
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
-        Debug.Log("Shoot");
     }
 
     public void takeDamage(float damage, Transform pos = null)
