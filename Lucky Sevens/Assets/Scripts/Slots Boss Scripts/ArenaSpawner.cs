@@ -67,7 +67,7 @@ public class ArenaSpawner : MonoBehaviour
     // SPAWN METHODS HERE! Add to Enum in SpawnConditions and spawn() as well
     void RandomScatter()
     {
-        Instantiate(prefab, 
+        ObjectPoolManager.instance.SpawnObject(prefab, 
             new Vector3(gameObject.transform.position.x + Random.Range(-1 * rangeRadius, rangeRadius), gameObject.transform.position.y, gameObject.transform.position.z + Random.Range(-1 * rangeRadius, rangeRadius)), 
             prefab.transform.rotation);
     }
@@ -75,14 +75,14 @@ public class ArenaSpawner : MonoBehaviour
     void FireAtPlayer()
     {
         int rand = Random.Range(0, spawnLocations.Length);
-        Instantiate(prefab, spawnLocations[rand].position, spawnLocations[rand].rotation);
+        ObjectPoolManager.instance.SpawnObject(prefab, spawnLocations[rand].position, spawnLocations[rand].rotation);
     }
 
     void BatchScatter()
     {
         for (int x = 0; x < batchSize; x++)
         {
-            Instantiate(prefab, 
+            ObjectPoolManager.instance.SpawnObject(prefab, 
             new Vector3(gameObject.transform.position.x + Random.Range(-1 * rangeRadius, rangeRadius), gameObject.transform.position.y, gameObject.transform.position.z + Random.Range(-1 * rangeRadius, rangeRadius)), 
             prefab.transform.rotation);
         }
@@ -92,18 +92,18 @@ public class ArenaSpawner : MonoBehaviour
     {
         foreach (Transform location in spawnLocations)
         {
-            Instantiate(prefab, location.position, location.rotation);
+            ObjectPoolManager.instance.SpawnObject(prefab, location.position, location.rotation);
         }
     }
 
     void YOnPlayer()
     {
-        Instantiate(prefab, new Vector3(GameManager.instance.player.transform.position.x, rangeRadius, GameManager.instance.player.transform.position.z), prefab.transform.rotation);
+        ObjectPoolManager.instance.SpawnObject(prefab, new Vector3(GameManager.instance.player.transform.position.x, rangeRadius, GameManager.instance.player.transform.position.z), prefab.transform.rotation);
     }
 
     void RoofOverPlayer()
     {
-        Instantiate(prefab, new Vector3(GameManager.instance.player.transform.position.x, transform.position.y, GameManager.instance.player.transform.position.z), prefab.transform.rotation);
+        ObjectPoolManager.instance.SpawnObject(prefab, new Vector3(GameManager.instance.player.transform.position.x, transform.position.y, GameManager.instance.player.transform.position.z), prefab.transform.rotation);
 
     }
 }

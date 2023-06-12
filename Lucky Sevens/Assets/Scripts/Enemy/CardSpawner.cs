@@ -34,7 +34,7 @@ public class CardSpawner : MonoBehaviour
     {
         spawnPending = true;
         spinning = false;
-        Instantiate(_enemy, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), gameObject.transform.rotation);
+        ObjectPoolManager.instance.SpawnObject(_enemy, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), gameObject.transform.rotation);
         yield return new WaitForSeconds(1);
         Destroy(gameObject);
     }

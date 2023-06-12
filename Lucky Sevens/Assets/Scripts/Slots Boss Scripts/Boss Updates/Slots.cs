@@ -79,6 +79,7 @@ public class Slots : MonoBehaviour, IBoss
     public void attackPhase(int phase)
     {
         slotResults();
+        Debug.Log("Attack Phase");
         StartCoroutine(attackLogic(phase));
     }
 
@@ -106,13 +107,13 @@ public class Slots : MonoBehaviour, IBoss
         Debug.Log("Phase 1");
         for (int i = 0; i < slotResult.Length; i++)
         {
-            if (slotResult[i] <= 5)
+            if (slotResult[i] <= faces.Length - 1)
             {
                 int result = slotResult[i] - 1;
                 Debug.Log(result);
                 spawners[i].SetSpawnConditions(faces[result]);
             }
-            else if (slotResult[i] % 10 <= 5 && slotResult[i] % 10 > 0)
+            else if (slotResult[i] % 10 <= faces.Length - 1 && slotResult[i] % 10 > 0)
             {
                 int result = (slotResult[i] % 10) - 1;
                 Debug.Log(result);
@@ -126,13 +127,13 @@ public class Slots : MonoBehaviour, IBoss
         Debug.Log("Phase 2");
         for (int i = 1; i < slotResult.Length; i++)
         {
-            if (slotResult[i] <= 5)
+            if (slotResult[i] <= faces.Length - 1)
             {
                 int result = slotResult[i] - 1;
                 Debug.Log(result);
                 spawners[i].SetSpawnConditions(faces[result]);
             }
-            else if (slotResult[i] % 10 <= 5 && slotResult[i] % 10 > 0)
+            else if (slotResult[i] % 10 <= faces.Length - 1 && slotResult[i] % 10 > 0)
             {
                 int result = (slotResult[i] % 10) - 1;
                 Debug.Log(result);
@@ -146,13 +147,13 @@ public class Slots : MonoBehaviour, IBoss
         Debug.Log("Phase 3");
         for (int i = 2; i < slotResult.Length; i++)
         {
-            if (slotResult[i] <= 5)
+            if (slotResult[i] <= faces.Length - 1)
             {
                 int result = slotResult[i] - 1;
                 Debug.Log(result);
                 spawners[i].SetSpawnConditions(faces[result]);
             }
-            else if (slotResult[i] % 10 <= 5 && slotResult[i] % 10 > 0)
+            else if (slotResult[i] % 10 <= faces.Length - 1 && slotResult[i] % 10 > 0)
             {
                 int result = (slotResult[i] % 10) - 1;
                 Debug.Log(result);
