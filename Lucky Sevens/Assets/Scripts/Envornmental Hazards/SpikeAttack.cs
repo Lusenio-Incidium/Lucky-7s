@@ -5,6 +5,13 @@ using UnityEngine;
 public class SpikeAttack : MonoBehaviour
 {
     [SerializeField] BoxCollider bc;
+    [SerializeField] AudioSource noiseyBoi;
+    [Header("--- Noises for Noisey Boi ---")]
+    [SerializeField] AudioClip prime;
+    [Range(0,1)][SerializeField] float primeVol;
+    [SerializeField] AudioClip strike;
+    [Range(0, 1)][SerializeField] float strikeVol;
+    [Header("--- Attack Settings ---")]
     [SerializeField] float chargeTime;
     [SerializeField] float attackTime;
     [SerializeField] bool startExtruded;
@@ -39,13 +46,14 @@ public class SpikeAttack : MonoBehaviour
         if (active)
         {
             animator.SetTrigger("Reveal");
+            noiseyBoi.PlayOneShot(prime, primeVol);
             yield return new WaitForSeconds(chargeTime);
         }
         if (active)
         {
             animator.SetTrigger("Strike");
             bc.enabled = true;
-
+            noiseyBoi.PlayOneShot(strike, strikeVol);
             yield return new WaitForSeconds(attackTime);
         }
         if (active)

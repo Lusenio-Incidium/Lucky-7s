@@ -17,6 +17,11 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
     }
     [SerializeField] Animator animator;
     [SerializeField] BoxCollider damageHitBox;
+    [SerializeField] AudioSource noiseMaker;
+    [Header("--- Audio ---")]
+    [SerializeField] AudioClip[] woosh;
+    [Range(0,1)][SerializeField] float volume;
+    [Header("--- Chop Settings ---")]    
     [SerializeField] float speedMod;
     [SerializeField] bool startSwinging;
     [SerializeField] int damage;
@@ -27,6 +32,7 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
     [SerializeField] Functions onBattleBegin;
     [SerializeField] Functions onBattleEnd;
     [SerializeField] Functions onCannonDeath;
+    bool active;
     private void Start()
     {
         animator.speed = speedMod;
@@ -39,18 +45,20 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
     {
         animator.enabled = true;
         animator.SetBool("Swing", true);
-        
+        active = true;
         damageHitBox.enabled = true;
     }
     public void StopSwinging()
     {
         animator.SetBool("Swing", false);
         damageHitBox.enabled = false;
+        active = false;
     }
     public void StopSwingingInstant()
     {
         animator.enabled = false;
         damageHitBox.enabled = false;
+        active = false;
     }
 
 
@@ -118,5 +126,14 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
     public void OnCannonDeath()
     {
         onCannonDeath = FunctionActions(onCannonDeath);
+    }
+
+    public void PlaySwoosh()
+    {
+        if (!active)
+        {
+            return;
+        }
+        noiseMaker.PlayOneShot(woosh[Random.Range(0, woosh.Length)], volume);
     }
 }
