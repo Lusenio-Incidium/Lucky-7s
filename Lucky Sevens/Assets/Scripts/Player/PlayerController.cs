@@ -348,6 +348,12 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         controller.detectCollisions = true;
     }
 
+    public void Invincible(bool isInvincible) 
+    {
+        controller.detectCollisions = isInvincible;
+        this.gameObject.GetComponent<CapsuleCollider>().enabled = !isInvincible;
+    }
+
     public void spawnPlayer()
     {
         controller.enabled = false;

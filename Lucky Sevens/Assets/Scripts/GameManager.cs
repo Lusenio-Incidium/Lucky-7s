@@ -274,11 +274,12 @@ public class GameManager : MonoBehaviour
         activeMenu = loadingScreen;
         GameManager.instance.loadingScreen.SetActive(true);
         anim.SetTrigger("Transition");
-
+        playerScript.Invincible(true);
         yield return new WaitForSeconds(3f);
         anim.ResetTrigger("Transition");
         SceneManager.LoadScene(sceen);
         loadingScreen.GetComponent<autoShutoff>().enabled = true;
+        playerScript.Invincible(false);
     }
 
 
@@ -290,7 +291,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = timeScaleOrig;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            isPaused = !isPaused;
+            isPaused = false;
             activeMenu.SetActive(false);
             activeMenu = null;
             activeRetical.SetActive(true);
@@ -300,7 +301,7 @@ public class GameManager : MonoBehaviour
     }
     public void OptionsMenu()
     {
-        isPaused = !isPaused;
+        isPaused = true;
         pauseState();
         activeMenu.SetActive(false);
         activeMenu = null;
@@ -311,7 +312,7 @@ public class GameManager : MonoBehaviour
 
     public void youLose()
     {
-        isPaused = !isPaused;
+        isPaused = true;
         pauseState();
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
@@ -329,7 +330,7 @@ public class GameManager : MonoBehaviour
         activeMenu = errorMenu;
         errorMenuText.text = errorText;
         activeMenu.SetActive(true);
-        isPaused = !isPaused;
+        isPaused = true;
     }
 
     public void ComfirmMenu(string actionText)
@@ -338,11 +339,11 @@ public class GameManager : MonoBehaviour
         activeMenu = comfirmMenu;
         comfirmMenuText.text = actionText;
         activeMenu.SetActive(true);
-        isPaused = !isPaused;
+        isPaused = true;
     }
     public void BackToMainMenuConfirm()
     {
-        isPaused = !isPaused;
+        isPaused = true;
         pauseState();
         activeMenu.SetActive(false);
         activeMenu = toMainMenuConfirmMenu;
@@ -351,7 +352,7 @@ public class GameManager : MonoBehaviour
 
     public void Shop() 
     {
-        isPaused = !isPaused;
+        isPaused = true;
         pauseState();
         activeMenu = ShopMenu;
 
@@ -378,6 +379,7 @@ public class GameManager : MonoBehaviour
         activeMenu = winMenu;
         activeMenu.SetActive(true);
         ReEnableDisplay();
+        isPaused = true;
         pauseState();
         playerAnim.SetBool("gotACoin", false);
     }
