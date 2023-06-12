@@ -268,8 +268,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
                 agent.speed /= hitEffect.slowEffect;
                 shootSpeed *= hitEffect.slowEffect;
             }
-            timePassed = Time.time;
-            while ( Time.time - timePassed <= effectTime && hitEffect != null)
+            timePassed = Time.deltaTime;
+            while ( Time.deltaTime - timePassed <= effectTime && hitEffect != null)
             {
                 if (hitEffect.damage != 0)
                 {
@@ -291,6 +291,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
 
     public void RemoveEffect()
     {
+        StopAllCoroutines();
         ObjectPoolManager.instance.ReturnObjToInfo(tempParticle);
         hitEffect = null;
         timePassed = 0;

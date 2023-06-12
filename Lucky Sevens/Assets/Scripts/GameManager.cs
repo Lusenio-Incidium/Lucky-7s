@@ -251,7 +251,6 @@ public class GameManager : MonoBehaviour
 
     public void PauseMenu()
     {
-        
         isPaused = !isPaused;
         activeMenu = pauseMenu;
         activeMenu.SetActive(isPaused);
@@ -500,12 +499,14 @@ public class GameManager : MonoBehaviour
         lowHealthFlashMenu.SetActive(false);
         HudDisabledDisplay(secondCamera);
         playerAnim.SetBool("gotACoin", true);
-        completionText.SetActive(true);
+        activeMenu = completionText;
+        activeMenu.SetActive(true);
         coinCollected = true;
     }
     public IEnumerator DeathSequence()
     {
         Transform deathCamera = player.transform.GetChild(3);
+        activeMenu = completionText;
         origCamPos = playerCam.transform.localPosition;
         HudDisabledDisplay(deathCamera);
         playerAnim.SetBool("dead", true);
