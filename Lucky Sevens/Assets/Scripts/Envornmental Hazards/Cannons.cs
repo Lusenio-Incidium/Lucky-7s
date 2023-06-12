@@ -13,6 +13,7 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
         InstaKill
     }
     [SerializeField] GameObject projectile;
+    [SerializeField] Animator animator;
     [SerializeField] float fireRate;
     [SerializeField] int fireCone;
     [Header("-----Stats-----")]
@@ -33,7 +34,12 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
     [SerializeField] Functions onBattleBegin;
     [SerializeField] Functions onBattleEnd;
     [SerializeField] Functions onCannonDeath;
-
+    [Header("--- Audio ---")]
+    [SerializeField] AudioSource noiser;
+    [SerializeField] AudioClip[] boom;
+    [Range(0, 1)][SerializeField] float boomVol;
+    [SerializeField] AudioClip[] deathNoise;
+    [Range(0, 1)][SerializeField] float deathVol;
 
     bool isShooting;
     Color colorOrig;
@@ -83,6 +89,7 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
     IEnumerator Shoot()
     {
         isShooting = true;
+        noiser.PlayOneShot(boom[Random.Range(0, boom.Length)], boomVol);
         Instantiate(projectile, transform.position, transform.rotation);
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
@@ -97,8 +104,9 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
         currHealth -= damage;
         if (currHealth <= 0)
         {
-
+            animator.enabled = true;
             Instantiate(explosion, barrelPosition.transform.position, transform.rotation);
+            noiser.PlayOneShot(deathNoise[Random.Range(0, deathNoise.Length)], deathVol);
             foreach (GameObject targetObject in triggerOnDeath)
             {
                 ICannonKey key = targetObject.GetComponent<ICannonKey>();
@@ -110,6 +118,7 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
                     Debug.LogWarning("Item in triggerOnDeath in a cannon doesn't have ICannonKey."); //make this more descriptive in the future. 
                 }
             }
+            invincible = true;
         }
         else
         {
