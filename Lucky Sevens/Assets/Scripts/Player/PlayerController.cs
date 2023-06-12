@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [SerializeField] AudioSource aud;
     [SerializeField] AudioSource musicAud;
     [SerializeField] Animator animator;
+    [SerializeField] GameObject mainCam;
 
     [Header("- - - Atributes - - -")]
     public List<GunStats> gunList = new List<GunStats>();
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     //private variables
     Vector3 playerVelocity;
     Vector3 move;
+    Vector3 camPosOrig;
     bool isGrounded;
     int jumpTimes;
     float HPOrig;
@@ -96,6 +98,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             animator = GetComponent<Animator>();
             speedHash = Animator.StringToHash("speed");
             gunSystem = GetComponent<GunSystem>();
+            camPosOrig = mainCam.transform.position;
         }
         else 
         {
@@ -213,6 +216,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             }
         }
 
+
         //Set move vector for player movement
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * playerSpeed);
@@ -236,19 +240,19 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     void crawl() 
     {
-        if (Input.GetButtonDown("Crawl") && isSprinting)
+        if (Input.GetButtonDown("Crawl") && isSprinting && isGrounded)
         {
             Debug.Log("Slide");
             if(!isSlide)
                 StartCoroutine(slide());
             controller.height = 1;
         }
-        else if (Input.GetButtonDown("Crawl")) 
+        else if (Input.GetButtonDown("Crawl") && isGrounded) 
         {
             Debug.Log("Crawl");
             isSprinting = false;
             playerSpeed = playerSpeedOrig;
-            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 1, GameManager.instance.playerCam.transform.position.z);
+            GameManager.instance.playerCam.transform.localPosition =  new Vector3(camPosOrig.x, camPosOrig.y - 0.5f, camPosOrig.z);
             isCrawl = true;
             playerSpeed = playerSpeedOrig * crawlMod;
             GetComponent<CapsuleCollider>().height = 1;
@@ -257,7 +261,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         else if (Input.GetButtonUp("Crawl")) 
         {
             Debug.Log("Crawl Off");
-            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y + 1, GameManager.instance.playerCam.transform.position.z);
+            GameManager.instance.playerCam.transform.localPosition = new Vector3(camPosOrig.x, camPosOrig.y + 0.5f, camPosOrig.z);
             isCrawl = false;
             playerSpeed = origSpeed;
             GetComponent<CapsuleCollider>().height = 2;
@@ -270,14 +274,13 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     IEnumerator slide()
     {
         isSlide = true;
-        GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 1, GameManager.instance.playerCam.transform.position.z);
+        GameManager.instance.playerCam.transform.localPosition = new Vector3(camPosOrig.x, camPosOrig.y - 0.5f, camPosOrig.z);
         playerSpeed = playerSpeedOrig * slideMod;
         Debug.Log(playerSpeed);
         yield return new WaitForSeconds(0.5f);
         playerSpeed = playerSpeedOrig;
         GetComponent<CapsuleCollider>().height = 1;
         isSlide = false;
-        
     }
 
     IEnumerator playStepAud() 
