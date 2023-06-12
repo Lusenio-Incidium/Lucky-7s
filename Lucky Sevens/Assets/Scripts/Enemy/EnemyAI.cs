@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
+public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
@@ -57,6 +57,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
     Vector3 ranPos;
     Vector3 pushBack;
     float pushBackResolve;
+
+    BattleManager battleManager;
     void Start()
     {
         colorOrig = model.material.color;
@@ -319,6 +321,10 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
             {
                 ObjectPoolManager.instance.SpawnObject(itemDropped, transform.position + new Vector3(0, 1, 0), gameObject.transform.rotation);
             }
+            if (battleManager != null)
+            {
+                battleManager.DeclareDeath(1);
+            }
             StartCoroutine(WaitSecondsBeforeDespawn());
             GameManager.instance.enemiesKilled++;
         }
@@ -330,6 +336,11 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics
     public void instaKill()
     {
         takeDamage(HP);
+    }
+
+    public void SetBattleManager(BattleManager manager)
+    {
+        battleManager = manager;
     }
     IEnumerator FlashColor()
     {
