@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Cannons : MonoBehaviour, IDamage
+public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigger
 {
+    private enum Functions
+    {
+        None,
+        Activate,
+        Deactivate,
+        InstaKill
+    }
     [SerializeField] GameObject projectile;
     [SerializeField] float fireRate;
     [SerializeField] int fireCone;
@@ -13,13 +20,19 @@ public class Cannons : MonoBehaviour, IDamage
     [SerializeField] int health;
     [SerializeField] float speed;
     [SerializeField] int viewCone;
+    [SerializeField] bool active;
     [Header("-----Transforms-----")]
     [SerializeField] Transform barrelPosition;
     [Header("- - -Explosion- - -")]
     [SerializeField] GameObject explosion;
     [Header("-----On Death-----")]
     [SerializeField] GameObject[] triggerOnDeath;
-
+    [Header("Trigger Functions")]
+    [SerializeField] Functions onButtonPress;
+    [SerializeField] Functions onButtonRelease;
+    [SerializeField] Functions onBattleBegin;
+    [SerializeField] Functions onBattleEnd;
+    [SerializeField] Functions onCannonDeath;
 
 
     bool isShooting;
@@ -56,7 +69,7 @@ public class Cannons : MonoBehaviour, IDamage
         {
             StartCoroutine(Shoot());
         }
-        if (angleToPlayer <= viewCone)
+        if (angleToPlayer <= viewCone && active)
         {
             TurnToPlayer();
         }
@@ -115,5 +128,49 @@ public class Cannons : MonoBehaviour, IDamage
     public void instaKill()
     {
         takeDamage(currHealth);
+    }
+
+    private Functions FunctionActions(Functions functions)
+    {
+        switch (functions)
+        {
+            case Functions.None:
+                break;
+            case Functions.Activate:
+                active = true;
+                break;
+            case Functions.Deactivate: 
+                active = false;
+                break;
+            case Functions.InstaKill:
+                instaKill();
+                break;
+        }
+
+        return functions;
+    }
+
+    public void OnButtonPress()
+    {
+        onButtonPress = FunctionActions(onButtonPress);
+    }
+    public void OnButtonRelease()
+    {
+        onButtonRelease = FunctionActions(onButtonRelease);
+    }
+
+    public void OnBattleBegin()
+    {
+        onBattleBegin = FunctionActions(onBattleBegin);
+    }
+
+    public void OnBattleEnd()
+    {
+        onBattleEnd = FunctionActions(onBattleEnd);
+    }
+
+    public void OnCannonDeath()
+    {
+        onCannonDeath = FunctionActions(onCannonDeath);
     }
 }

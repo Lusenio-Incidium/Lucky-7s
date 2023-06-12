@@ -7,6 +7,8 @@ public class SpikeAttack : MonoBehaviour
     [SerializeField] BoxCollider bc;
     [SerializeField] float chargeTime;
     [SerializeField] float attackTime;
+    [SerializeField] bool startExtruded;
+    [SerializeField] bool active;
     [SerializeField] Animator animator;
     [SerializeField] bool destroyAfterAttack;
     [SerializeField] bool attackOnSpawn;
@@ -17,10 +19,14 @@ public class SpikeAttack : MonoBehaviour
         {
             StartCoroutine(attack());
         }
+        if (active && startExtruded)
+        {
+            Extrude();
+        }
     }
     public void TriggerAttack()
     {
-        if (attacking)
+        if (attacking )
         {
             return;
         }
@@ -29,19 +35,54 @@ public class SpikeAttack : MonoBehaviour
     IEnumerator attack()
     {
         attacking = true;
-        animator.SetTrigger("Reveal");
-        yield return new WaitForSeconds(chargeTime);
-        animator.SetTrigger("Strike");
-        bc.enabled = true;
-        yield return new WaitForSeconds(attackTime);
-        animator.SetTrigger("Hide");
-        yield return new WaitForSeconds(.3f);
+        animator.ResetTrigger("Hide");
+        if (active)
+        {
+            animator.SetTrigger("Reveal");
+            yield return new WaitForSeconds(chargeTime);
+        }
+        if (active)
+        {
+            animator.SetTrigger("Strike");
+            bc.enabled = true;
+
+            yield return new WaitForSeconds(attackTime);
+        }
+        if (active)
+        {
+            bc.enabled = false;
+            animator.SetTrigger("Hide");
+
+            yield return new WaitForSeconds(.3f);
+        }
         attacking = false;
         if (destroyAfterAttack)
         {
             Destroy(gameObject);
         }
-
+    }
+    public void Hide()
+    {
+        bc.enabled = false;
+        animator.ResetTrigger("Strike");
+        animator.ResetTrigger("Reveal");
+        animator.SetTrigger("Hide");
+        active = false;
     }
 
+    public void Extrude()
+    {
+        animator.ResetTrigger("Hide");
+        animator.SetTrigger("Reveal");
+        animator.SetTrigger("Strike");
+        bc.enabled = true;
+        active = false;
+    }
+    public void RestoreActive()
+    {
+        animator.SetTrigger("Hide");
+        animator.ResetTrigger("Reveal");
+        animator.ResetTrigger("Strike");
+        active = true;
+    }
 }
