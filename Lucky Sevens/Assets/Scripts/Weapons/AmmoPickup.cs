@@ -21,8 +21,11 @@ public class AmmoPickup : MonoBehaviour, ICollectable
     {
         if (other.CompareTag("Player"))
         {
-            gunSystem = GameManager.instance.gunSystem;
-            onCollect();
+            if (GameManager.instance.gunSystem.hasGun)
+            {
+                gunSystem = GameManager.instance.gunSystem;
+                onCollect();
+            }
         }
     }
 }
