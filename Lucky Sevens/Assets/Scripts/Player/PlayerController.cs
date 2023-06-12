@@ -515,13 +515,14 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
                     else
                     {
                         yield return new WaitForSeconds(activeEffect.duration);
+                        StopAllCoroutines();
                         RemoveEffect();
                     }
             }
-            if (activeEffect != null)
+        /*    if (activeEffect != null)
             {
                 RemoveEffect();
-            }
+            }*/
         }
     }
 
