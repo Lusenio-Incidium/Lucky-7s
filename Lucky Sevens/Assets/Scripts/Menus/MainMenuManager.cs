@@ -22,6 +22,7 @@ public class MainMenuManager : MonoBehaviour
     public TextMeshProUGUI SFXvolumetext;
     public TextMeshProUGUI musicvolumetext;
     public AudioSource playSoundAudSource;
+    public AudioSource music;
     public AudioClip buttonPressAud;
     public AudioClip playSoundAud;
     float timeScaleOrig;
@@ -54,7 +55,7 @@ public class MainMenuManager : MonoBehaviour
         }
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
-        
+        StartCoroutine(musicFadeIn());
         
     }
 
@@ -76,6 +77,29 @@ public class MainMenuManager : MonoBehaviour
         anim.ResetTrigger("Transition");
         SceneManager.LoadScene(sceen);
         loadingScreen.GetComponent<autoShutoff>().enabled = true;
+    }
+
+    public void fadeOut() 
+    {
+        StartCoroutine(musicFade());
+    }
+
+    IEnumerator musicFade() 
+    {
+        while(music.volume > 0) 
+        {
+            music.volume-= 0.05f;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    IEnumerator musicFadeIn()
+    {
+        while (music.volume < musicVolume)
+        {
+            music.volume += 0.05f;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     public void CreditsMenu()

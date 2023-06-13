@@ -92,6 +92,7 @@ public class ButtonFunctions : MonoBehaviour
         if (MainMenuManager.instance.mainEasy || MainMenuManager.instance.mainMedium || MainMenuManager.instance.mainHard)
         {
             MainMenuManager.instance.activeMenu.SetActive(false);
+            MainMenuManager.instance.fadeOut();
             if (SceneManager.GetActiveScene().name != "Tutorial")
                 StartCoroutine(MainMenuManager.instance.loadScene("Tutorial"));
             MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
