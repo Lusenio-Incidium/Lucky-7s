@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2108968338767003964}
   - component: {fileID: 3931811553068333905}
   - component: {fileID: 329960926981517280}
+  - component: {fileID: -1430171189945240955}
   m_Layer: 0
   m_Name: 8x8SphereS_Roof
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-1430171189945240955
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6853318031548225131}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3824984853841939732, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

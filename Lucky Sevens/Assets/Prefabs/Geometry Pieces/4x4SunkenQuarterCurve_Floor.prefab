@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5669099147290495522}
   - component: {fileID: 6651015325161523033}
   - component: {fileID: 2553640923718012304}
+  - component: {fileID: 4803361139291961016}
   m_Layer: 0
   m_Name: 4x4SunkenQuarterCurve_Floor
   m_TagString: Untagged
@@ -86,3 +87,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4803361139291961016
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7579058092363528337}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8727436127040035779, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

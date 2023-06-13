@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6115865252599029391}
   - component: {fileID: 444638256865382087}
   - component: {fileID: 5817092391155582599}
+  - component: {fileID: 5271596349366634711}
   m_Layer: 0
   m_Name: 16x16DoorCircleDeadEndF_Wall
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5271596349366634711
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4684199780062049511}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3751913764707133766, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

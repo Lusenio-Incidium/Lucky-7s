@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3036276932728131905}
   - component: {fileID: 4631359189204062368}
   - component: {fileID: 9053449676518310997}
+  - component: {fileID: 5765250812338112344}
   m_Layer: 0
   m_Name: 4x4RaisedQuarter_Floor
   m_TagString: Untagged
@@ -86,3 +87,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5765250812338112344
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5797143239350001464}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6261868514142006377, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

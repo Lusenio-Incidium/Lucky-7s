@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 880583158848037680}
   - component: {fileID: 6483529025496718630}
   - component: {fileID: 746863046430832839}
+  - component: {fileID: 3518613859237234285}
   m_Layer: 0
   m_Name: 4x4Circle Cutoutx4_Floor
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3518613859237234285
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013048733138785027}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8942398135680354254, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

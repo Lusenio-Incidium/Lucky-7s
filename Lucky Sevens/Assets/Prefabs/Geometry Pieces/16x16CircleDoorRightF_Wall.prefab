@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1784961355665703786}
   - component: {fileID: 6156121070176476038}
   - component: {fileID: 2182164086935231011}
+  - component: {fileID: 7371629871683483326}
   m_Layer: 0
   m_Name: 16x16CircleDoorRightF_Wall
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7371629871683483326
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7832990355532369376}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8662524962082332411, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

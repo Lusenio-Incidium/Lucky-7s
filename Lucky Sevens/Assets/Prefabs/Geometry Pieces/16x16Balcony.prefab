@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8939180861590243263}
   - component: {fileID: 7488551527727747581}
   - component: {fileID: 8971993870185884945}
+  - component: {fileID: 4302637833386909439}
   m_Layer: 0
   m_Name: 16x16Balcony
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4302637833386909439
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865111995376275093}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4291806481802011964, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

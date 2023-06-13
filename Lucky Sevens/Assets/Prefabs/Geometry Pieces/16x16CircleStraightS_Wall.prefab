@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5646891600851997993}
   - component: {fileID: 3732054803782200120}
   - component: {fileID: 415973879215361590}
+  - component: {fileID: 9181089391178316435}
   m_Layer: 0
   m_Name: 16x16CircleStraightS_Wall
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &9181089391178316435
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6008444659394012848}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8636277892199706255, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

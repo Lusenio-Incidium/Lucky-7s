@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9085646807787913574}
   - component: {fileID: 6844317071968188805}
   - component: {fileID: 5586363415049218353}
+  - component: {fileID: 8851582127896339722}
   m_Layer: 0
   m_Name: 8X8CircleWalkThroughF_Wall
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8851582127896339722
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6062418099732426952}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4169714719128597723, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7857404415405789394}
   - component: {fileID: 5760331660247918}
   - component: {fileID: 266427929816142943}
+  - component: {fileID: 7533121372775784750}
   m_Layer: 0
   m_Name: 4x4 HemisphereSmooth_Wall
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7533121372775784750
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5459503873424468803}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4149919727797369335, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

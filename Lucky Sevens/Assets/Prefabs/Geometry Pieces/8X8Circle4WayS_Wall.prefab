@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4827876701285592810}
   - component: {fileID: 838461053653044146}
   - component: {fileID: 2971523743033311682}
+  - component: {fileID: -3993942755834830324}
   m_Layer: 0
   m_Name: 8X8Circle4WayS_Wall
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-3993942755834830324
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7386365585427006246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7571238802367774549, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2703085691496281400}
   - component: {fileID: 3942192105289807699}
   - component: {fileID: 822873543605163697}
+  - component: {fileID: 7507198539854515346}
   m_Layer: 0
   m_Name: 4x4Hemisphere_Floor
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7507198539854515346
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867743836743055639}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1075553523058061915, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

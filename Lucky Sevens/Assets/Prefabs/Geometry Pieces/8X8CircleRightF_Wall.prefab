@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1650401282255736351}
   - component: {fileID: 1659189843712312494}
   - component: {fileID: 3123108257118738311}
+  - component: {fileID: 9109771112573990783}
   m_Layer: 0
   m_Name: 8X8CircleRightF_Wall
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &9109771112573990783
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925306543128002169}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1279337508910238048, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

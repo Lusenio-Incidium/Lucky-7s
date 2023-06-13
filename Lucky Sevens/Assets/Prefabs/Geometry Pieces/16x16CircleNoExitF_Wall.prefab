@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4511051064530996357}
   - component: {fileID: 5096307535611481091}
   - component: {fileID: 6607552958999973300}
+  - component: {fileID: -2393564082778853731}
   m_Layer: 0
   m_Name: 16x16CircleNoExitF_Wall
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-2393564082778853731
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6119998665297708233}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3393957765988657088, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

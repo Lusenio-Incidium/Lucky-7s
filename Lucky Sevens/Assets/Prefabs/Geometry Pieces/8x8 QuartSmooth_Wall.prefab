@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8597962707950302934}
   - component: {fileID: 3162567748604830473}
   - component: {fileID: 5528994874404174757}
+  - component: {fileID: 1133388627870125630}
   m_Layer: 0
   m_Name: 8x8 QuartSmooth_Wall
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1133388627870125630
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3830711075258591635}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3560057175969734024, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}

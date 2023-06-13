@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5689485172991396261}
   - component: {fileID: 6819150410341408000}
   - component: {fileID: 6849758327416406677}
+  - component: {fileID: 5060018193057263493}
   m_Layer: 0
   m_Name: 4x4Diaginal_Wall
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5060018193057263493
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919745782167603148}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8967985881942739318, guid: 9d74716edf0700945903fc33e61aec7e, type: 3}
