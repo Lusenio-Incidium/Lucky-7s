@@ -279,6 +279,7 @@ public class GameManager : MonoBehaviour
         GameManager.instance.loadingScreen.SetActive(true);
         anim.SetTrigger("Transition");
         playerScript.Invincible(true);
+        playerScript.fadeOut();
         yield return new WaitForSeconds(3f);
         anim.ResetTrigger("Transition");
         SceneManager.LoadScene(sceen);

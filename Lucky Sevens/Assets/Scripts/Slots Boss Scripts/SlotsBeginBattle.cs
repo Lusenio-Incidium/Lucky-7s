@@ -19,6 +19,6 @@ public class SlotsBeginBattle : MonoBehaviour
         ArenaLight.SetActive(true);
         startAnimation.SetTrigger("CloseArena");
         BossManager.instance.onBossStart();
-        GameManager.instance.playerScript.SetMusic(bossMusic,MainMenuManager.instance.musicVolume / 10f);
+        GameManager.instance.playerScript.SetMusic(bossMusic);
     }
 }

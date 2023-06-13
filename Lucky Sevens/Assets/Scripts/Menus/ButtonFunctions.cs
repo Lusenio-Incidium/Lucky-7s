@@ -42,8 +42,7 @@ public class ButtonFunctions : MonoBehaviour
         GameManager.instance.ReEnableDisplay();
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
-        if(SceneManager.GetActiveScene().name != "TheHub")
-            StartCoroutine(GameManager.instance.loadScene("TheHub"));
+        StartCoroutine(GameManager.instance.loadScene("TheHub"));
     }
 
     public void ReturnToMainMenu()

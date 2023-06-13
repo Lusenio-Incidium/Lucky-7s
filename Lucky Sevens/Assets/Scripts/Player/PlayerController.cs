@@ -174,13 +174,38 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         }
     }
 
-   public void SetMusic(AudioClip song, float volume) 
+   public void SetMusic(AudioClip song)
     {
         musicAud.clip = song;
-        musicAud.volume = volume;
+        musicAud.volume = 0;
+        StartCoroutine(musicFadeIn());
         musicAud.Play();
         musicAud.loop = true;
     }
+
+    public void fadeOut() 
+    {
+        StartCoroutine(musicFade());
+    }
+
+    IEnumerator musicFade()
+    {
+        while (musicAud.volume > 0)
+        {
+            musicAud.volume -= 0.05f;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    IEnumerator musicFadeIn()
+    {
+        while (musicAud.volume < GameManager.instance.musicVol)
+        {
+            musicAud.volume += 0.05f;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     public void shopRegister(ShopPickup updates) 
     {
         if (updates.ar) 
