@@ -241,49 +241,48 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
     }
 
-    void crawl() 
+    void crawl()
     {
-        if (Input.GetButtonDown("Crawl") && isSprinting && isGrounded)
+        if (Input.GetButtonDown("Crawl") && isSprinting)
         {
             Debug.Log("Slide");
-            if(!isSlide)
+            if (!isSlide)
                 StartCoroutine(slide());
             controller.height = 1;
         }
-        else if (Input.GetButtonDown("Crawl") && isGrounded) 
+        else if (Input.GetButtonDown("Crawl"))
         {
             Debug.Log("Crawl");
             isSprinting = false;
             playerSpeed = playerSpeedOrig;
-            GameManager.instance.playerCam.transform.localPosition =  new Vector3(camPosOrig.x, camPosOrig.y - 0.5f, camPosOrig.z);
+            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 1, GameManager.instance.playerCam.transform.position.z);
             isCrawl = true;
             playerSpeed = playerSpeedOrig * crawlMod;
             GetComponent<CapsuleCollider>().height = 1;
             controller.height = 1;
-        } 
-        else if (Input.GetButtonUp("Crawl")) 
+        }
+        else if (Input.GetButtonUp("Crawl"))
         {
             Debug.Log("Crawl Off");
-            GameManager.instance.playerCam.transform.localPosition = new Vector3(camPosOrig.x, camPosOrig.y + 0.5f, camPosOrig.z);
+            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y + 1, GameManager.instance.playerCam.transform.position.z);
             isCrawl = false;
-            playerSpeed = origSpeed;
+            playerSpeed /= crawlMod;
             GetComponent<CapsuleCollider>().height = 2;
             controller.height = 2;
             isSlide = false;
-            StopCoroutine(slide());
         }
     }
 
     IEnumerator slide()
     {
         isSlide = true;
-        GameManager.instance.playerCam.transform.localPosition = new Vector3(camPosOrig.x, camPosOrig.y - 0.5f, camPosOrig.z);
+        GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 1, GameManager.instance.playerCam.transform.position.z);
         playerSpeed = playerSpeedOrig * slideMod;
         Debug.Log(playerSpeed);
         yield return new WaitForSeconds(0.5f);
         playerSpeed = playerSpeedOrig;
         GetComponent<CapsuleCollider>().height = 1;
-        isSlide = false;
+
     }
 
     IEnumerator playStepAud() 
