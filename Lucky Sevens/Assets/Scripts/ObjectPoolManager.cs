@@ -244,6 +244,13 @@ public class ObjectPoolManager : MonoBehaviour
            obj.SetActive(false);
            info.InactiveObjects.Add(obj);
         }
+        if(info == null)
+        {
+            info = new PooledObjectInfo() { LookUpString = obj.name };
+            ObjectPools.Add(info);
+            obj.SetActive(false);
+            info.InactiveObjects.Add(obj);
+        }
     }
     private GameObject SetParentObjectType(PoolType poolType)
     {
