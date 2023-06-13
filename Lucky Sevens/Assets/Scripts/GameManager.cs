@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     public GameObject completionText;
     public GameObject healthMenu;
     public GameObject lowHealthFlashMenu;
+    public GameObject PlayerModelForDeath;
     public TextMeshProUGUI sensitivityText;
     public TextMeshProUGUI SFXText;
     public TextMeshProUGUI musicText;
@@ -104,6 +105,7 @@ public class GameManager : MonoBehaviour
     public int ammoGatheredTotal;
     public int enemiesKilled;
     Vector3 origCamPos;
+    GameObject playerStore;
 
     //Level Manager Variables
     List<int> completedLevels;
@@ -494,22 +496,24 @@ public class GameManager : MonoBehaviour
     }
     public void WinSequence()
     {
+        SpawnPlayerForWinAnim();
         Transform secondCamera = player.transform.GetChild(0);
         origCamPos = playerCam.transform.localPosition;
         lowHealthFlashMenu.SetActive(false);
         HudDisabledDisplay(secondCamera);
-        playerAnim.SetBool("gotACoin", true);
+        //playerAnim.SetBool("gotACoin", true);
         activeMenu = completionText;
         activeMenu.SetActive(true);
         coinCollected = true;
     }
     public IEnumerator DeathSequence()
     {
+        SpawnPlayerForDeathAnim();
         Transform deathCamera = player.transform.GetChild(3);
         activeMenu = completionText;
         origCamPos = playerCam.transform.localPosition;
         HudDisabledDisplay(deathCamera);
-        playerAnim.SetBool("dead", true);
+        //playerAnim.SetBool("dead", true);
         yield return new WaitForSeconds(3);
         youLose();
     }
@@ -543,5 +547,19 @@ public class GameManager : MonoBehaviour
         lowHealthFlashMenu.SetActive(true);
         healthMenu.SetActive(true);
         ammoDisplay.SetActive(true);
+        if(playerStore != null)
+        {
+            ObjectPoolManager.instance.ReturnObjToInfo(playerStore);
+        }
+    }
+    public void SpawnPlayerForDeathAnim()
+    {
+       playerStore = ObjectPoolManager.instance.SpawnObject(PlayerModelForDeath,player.transform.position,player.transform.localRotation);
+       playerStore.GetComponent<Animator>().SetBool("dead", true);
+    }
+    public void SpawnPlayerForWinAnim()
+    {
+       playerStore = ObjectPoolManager.instance.SpawnObject(PlayerModelForDeath,player.transform.position,player.transform.localRotation);
+       playerStore.GetComponent<Animator>().SetBool("gotACoin", true);
     }
 }
