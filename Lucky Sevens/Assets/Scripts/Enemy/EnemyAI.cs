@@ -85,7 +85,13 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     {
         if (GameManager.instance != null)
         {
+            if(HP <= 0)
+            {
+                HP = HPOrig;
+            }
             Start();
+            agent.enabled = true;
+            enemyCol.enabled = true;
         }
     }
 
