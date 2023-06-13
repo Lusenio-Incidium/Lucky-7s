@@ -14,7 +14,6 @@ public class SpikeInteraction : MonoBehaviour
             if (damageTarg != null)
             {
                 damageTarg.takeDamage(damage);
-                Debug.LogWarning(gameObject.name + " hit " + other.name);
             }
             IPhysics physics = other.GetComponent<IPhysics>();
             if (physics != null)

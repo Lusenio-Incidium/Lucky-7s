@@ -49,9 +49,7 @@ public class GeneralDoor : MonoBehaviour, IButtonTrigger, ICannonKey, IBattle
                 animator.SetBool("Open", false);
                 function = Functions.None;
                 break;
-            default:
-                Debug.LogError("Bing da boop, sumthin went wrong idk what but if you're seeing this you screwed up sumthin major in GeneralDoor, and the enumerator on one of the options got set to something impossible. :D");
-                return Functions.None;
+  
         }
 
         return function;

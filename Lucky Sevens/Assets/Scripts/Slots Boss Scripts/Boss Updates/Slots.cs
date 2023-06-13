@@ -24,7 +24,7 @@ public class Slots : MonoBehaviour, IBoss
     int[] slotResult = new int[3];
     public void startBoss()
     {
-        Debug.Log("Boss Started!");
+
         BossManager.instance.currHP = BossManager.instance.bossHP;
         bossName = nameOfBoss;
         updateHP();
@@ -79,7 +79,6 @@ public class Slots : MonoBehaviour, IBoss
     public void attackPhase(int phase)
     {
         slotResults();
-        Debug.Log("Attack Phase");
         StartCoroutine(attackLogic(phase));
     }
 
@@ -104,19 +103,16 @@ public class Slots : MonoBehaviour, IBoss
     #region attackPhases
     void attackPhase1()
     {
-        Debug.Log("Phase 1");
         for (int i = 0; i < slotResult.Length; i++)
         {
             if (slotResult[i] <= faces.Length - 1)
             {
                 int result = slotResult[i] - 1;
-                Debug.Log(result);
                 spawners[i].SetSpawnConditions(faces[result]);
             }
             else if (slotResult[i] % 10 <= faces.Length - 1 && slotResult[i] % 10 > 0)
             {
                 int result = (slotResult[i] % 10) - 1;
-                Debug.Log(result);
                 spawners[i].SetSpawnConditions(faces[result]);
             }
         }
@@ -124,19 +120,17 @@ public class Slots : MonoBehaviour, IBoss
 
     void attackPhase2()
     {
-        Debug.Log("Phase 2");
+
         for (int i = 1; i < slotResult.Length; i++)
         {
             if (slotResult[i] <= faces.Length - 1)
             {
                 int result = slotResult[i] - 1;
-                Debug.Log(result);
                 spawners[i].SetSpawnConditions(faces[result]);
             }
             else if (slotResult[i] % 10 <= faces.Length - 1 && slotResult[i] % 10 > 0)
             {
                 int result = (slotResult[i] % 10) - 1;
-                Debug.Log(result);
                 spawners[i].SetSpawnConditions(faces[result]);
             }
         }
@@ -144,19 +138,16 @@ public class Slots : MonoBehaviour, IBoss
 
     void attackPhase3()
     {
-        Debug.Log("Phase 3");
         for (int i = 2; i < slotResult.Length; i++)
         {
             if (slotResult[i] <= faces.Length - 1)
             {
                 int result = slotResult[i] - 1;
-                Debug.Log(result);
                 spawners[i].SetSpawnConditions(faces[result]);
             }
             else if (slotResult[i] % 10 <= faces.Length - 1 && slotResult[i] % 10 > 0)
             {
                 int result = (slotResult[i] % 10) - 1;
-                Debug.Log(result);
                 spawners[i].SetSpawnConditions(faces[result]);
             }
         }

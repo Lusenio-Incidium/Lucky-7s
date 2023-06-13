@@ -105,7 +105,6 @@ public class WinnersToken : MonoBehaviour
         tokenInfo = token.GetComponent<TokenCollect>();
         if(tokenInfo == null)
         {
-            Debug.LogError("WinnersToken Err - Instantiated Object doesn't have TokenCollect. Check your Prefab.");
             yield return null;
         }
         tokenInfo.SetSpinSpeed(spinSpeed);

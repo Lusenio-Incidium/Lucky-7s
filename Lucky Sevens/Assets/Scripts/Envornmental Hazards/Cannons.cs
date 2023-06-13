@@ -115,10 +115,6 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
                 if(key != null) {
                     key.OnCannonDeath();
                 }
-                else
-                {
-                    Debug.LogWarning("Item in triggerOnDeath in a cannon doesn't have ICannonKey."); //make this more descriptive in the future. 
-                }
             }
             invincible = true;
         }

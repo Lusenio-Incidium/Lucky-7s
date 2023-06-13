@@ -60,7 +60,6 @@ public class ButtonFunctions : MonoBehaviour
     {
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
-        Debug.Log("Loading Main Menu");
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {   
            StartCoroutine(GameManager.instance.loadScene("MainMenu"));

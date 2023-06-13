@@ -511,10 +511,7 @@ public class GameManager : MonoBehaviour
     }
     public List<int> GetCompletedLevels()
     {
-        foreach(int num in completedLevels)
-        {
-            Debug.Log(num);
-        }
+
         return completedLevels;
     }
     public void WinSequence()

@@ -281,14 +281,12 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         if (Input.GetButtonDown("Crawl") && isSprinting)
         {
-            Debug.Log("Slide");
             if (!isSlide)
                 StartCoroutine(slide());
             controller.height = 1;
         }
         else if (Input.GetButtonDown("Crawl"))
         {
-            Debug.Log("Crawl");
             isSprinting = false;
             playerSpeed = playerSpeedOrig;
             GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 0.5f, GameManager.instance.playerCam.transform.position.z);
@@ -299,7 +297,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         }
         else if (Input.GetButtonUp("Crawl"))
         {
-            Debug.Log("Crawl Off");
             GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y + 0.5f, GameManager.instance.playerCam.transform.position.z);
             isCrawl = false;
             playerSpeed /= crawlMod;
@@ -314,7 +311,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         isSlide = true;
         GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 0.5f, GameManager.instance.playerCam.transform.position.z);
         playerSpeed = playerSpeedOrig * slideMod;
-        Debug.Log(playerSpeed);
         yield return new WaitForSeconds(0.5f);
         playerSpeed = playerSpeedOrig;
         GetComponent<CapsuleCollider>().height = 1;
@@ -365,9 +361,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         Vector3 dir = pos.position - GameManager.instance.player.transform.position;
         float forwardAngle = Vector3.Angle(new Vector3(dir.x, 0, dir.z), this.gameObject.transform.forward);
         float rightAngle = Vector3.Angle(new Vector3(dir.x, 0, dir.z), this.gameObject.transform.right);
-
-        Debug.Log(rightAngle + "R");
-        Debug.Log(forwardAngle + "F");
 
         if ((rightAngle > 100 && forwardAngle > 25) || (rightAngle < 10 && forwardAngle >= 80)) 
         {
@@ -440,7 +433,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     void interact()
     {
         RaycastHit hit;
-        Debug.DrawRay(transform.position, transform.forward);
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, interactDist))
         {
             if (hit.collider.GetComponent<IInteractable>() != null)

@@ -11,6 +11,5 @@ public class DeathBarrier : MonoBehaviour
         {
             damagable.instaKill();
         }
-        Debug.LogWarning(gameObject.name + " hit " + other.name);
     }
 }

@@ -33,7 +33,6 @@ public class RandomSelection : MonoBehaviour
         result = -1;
         if(rollTimeMin > rollTimeMax)
         {
-            Debug.LogError("CRITICAL RANDOMIZER ERR - rollTimeMin is greater than rollTimeMax");
             critErr = true;
         }
         GameObject[] temp = GameObject.FindGameObjectsWithTag("RandomizerLight");
@@ -47,7 +46,6 @@ public class RandomSelection : MonoBehaviour
                 {
                     if (_lightObjects[x].GetPosition() == tempRandomHighlight.GetPosition())
                     {
-                        Debug.LogWarning("RANDOMIZER ERROR - Two Highlight Objects share the same position!");
                         inserted = true;
                         break;
                     }
@@ -63,10 +61,6 @@ public class RandomSelection : MonoBehaviour
                     _lightObjects.Add(tempRandomHighlight);
                 }
             }
-             else if (tempRandomHighlight == null)
-            {
-                 Debug.LogWarning("RANDOMIZER ERR - Object \"" + obj.name +"\" has tag \"RandomizerLight\" and does not have IRandomizeHighlight");
-             }
         }
         temp = GameObject.FindGameObjectsWithTag("RandomizerActions");
         foreach (GameObject obj in temp)
@@ -79,7 +73,6 @@ public class RandomSelection : MonoBehaviour
                 {
                     if (_actionObjects[x].GetPosition() == tempRandomHighlight.GetPosition())
                     {
-                        Debug.LogWarning("RANDOMIZER ERROR - Two Action Objects share the same position!");
                         inserted = true;
                         break;
                     }
@@ -95,16 +88,6 @@ public class RandomSelection : MonoBehaviour
                     _actionObjects.Add(tempRandomHighlight);
                 }
             }
-            else if (tempRandomHighlight == null)
-            {
-                Debug.LogWarning("RANDOMIZER ERR - Object \"" + obj.name + "\" has tag \"RandomizerActions\" and does not have IRandomizeAction");
-            }
-        }
-
-        if(_actionObjects.Count != _lightObjects.Count)
-        {
-            Debug.LogError("CRITICAL RANDOMIZER ERR - There are not equal numbers of Action Objects and Light Objects");
-            critErr = true;
         }
     }
     void Update()
@@ -191,7 +174,6 @@ public class RandomSelection : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("RANDOMIZER ERROR - In order to rig randomizeOrder must be enabled.");
                     result = highlight;
                 }
             }

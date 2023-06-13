@@ -70,7 +70,6 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
             if (damageTarg != null)
             {
                 damageTarg.takeDamage(damage);
-                Debug.LogWarning(gameObject.name + " hit " + other.name);
             }
             IPhysics physics = other.GetComponent<IPhysics>();
             if (physics != null)

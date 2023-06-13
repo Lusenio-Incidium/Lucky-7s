@@ -73,7 +73,6 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
         {
             
             GameObject enemy = Instantiate(enemyTypes[Random.Range(0, enemyTypes.Length - 1)], spawnLocations[Random.Range(0, spawnLocations.Length - 1)].position, transform.rotation); //CHANGE ROTATION!!!
-            Debug.Log("Spawn");
             enemy.GetComponent<IBattleEnemy>().SetBattleManager(this);
             spawnAmount--;
         }
@@ -103,10 +102,6 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
             {
                 affectObj.OnBattleEnd();
             }
-            else
-            {
-                Debug.LogWarning("Err");
-            }
         }
         battleBegin = false;
     }
@@ -131,10 +126,6 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
             if (affectObj != null)
             {
                 affectObj.OnBattleBegin();
-            }
-            else
-            {
-                Debug.LogWarning("Err");
             }
         }
         battleBegin = true;

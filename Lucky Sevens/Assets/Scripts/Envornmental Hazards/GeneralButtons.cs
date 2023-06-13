@@ -43,10 +43,6 @@ public class GeneralButtons : MonoBehaviour, IBattle, IButtonTrigger, ICannonKey
                 {
                     trigger.OnButtonPress();
                 }
-                else
-                {
-                    Debug.LogWarning("GeneralButton on " + gameObject.name + " has item in Affected Items which does not have IButtonTrigger: " + affectedObject.name);
-                }
             }
             if (popsUp)
             {
@@ -68,10 +64,6 @@ public class GeneralButtons : MonoBehaviour, IBattle, IButtonTrigger, ICannonKey
             if (trigger != null)
             {
                 trigger.OnButtonRelease();
-            }
-            else
-            {
-                Debug.LogWarning("GeneralButton on " + gameObject.name + " has item in Affected Items which does not have IButtonTrigger: " + affectedObject.name);
             }
 
         }

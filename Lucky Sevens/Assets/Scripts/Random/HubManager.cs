@@ -49,7 +49,6 @@ public class HubManager : MonoBehaviour
             {
                 if(_lightObjects[x].GetPosition() == level)
                 {
-                    Debug.LogWarning("Deleting: " + x + '\t' + completed.Count);
                     _lightObjects.RemoveAt(x);
                     _actionObejcts.RemoveAt(x);
                 }

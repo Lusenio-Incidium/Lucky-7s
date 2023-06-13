@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Security.Principal;
+using Unity.VisualScripting;
 using UnityEngine;
 using static ObjectPoolManager;
 
@@ -237,11 +238,7 @@ public class ObjectPoolManager : MonoBehaviour
         PooledObjectInfo info = ObjectPools.Find(p => p.LookUpString == obj.name);
 
         //If not found shows a warning saying that object was never in the pool to start
-        if(info == null)
-        {
-            Debug.LogWarning("Object has not been pooled: " + obj.name);
-        }
-        else
+        if (info != null)
         {
            //If it was found sets it to false and puts the object back in the inactive list at the string
            obj.SetActive(false);
