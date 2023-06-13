@@ -1622,46 +1622,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce300eaef3f52545872292f48130ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftSlot: {fileID: 0}
-  _middleSlot: {fileID: 0}
-  _rightSlot: {fileID: 0}
-  _LeftHatch: {fileID: 0}
-  _RightHatch: {fileID: 0}
-  _BottomHatch: {fileID: 0}
-  _TopHatch: {fileID: 0}
-  _Lever: {fileID: 0}
-  spawner1: {fileID: 950651131}
-  spawner2: {fileID: 763820802}
-  spawner3: {fileID: 1547449877}
-  cannon1: {fileID: 0}
-  cannon2: {fileID: 0}
-  cannon3: {fileID: 0}
-  cannon4: {fileID: 0}
-  _hatchOpenTime: 0
-  _spinSpeed: 10.5
-  _spinStartDelay: 0.5
-  spinTimeMax: 5
-  spinTimeMin: 1
-  spinDelayMax: 5
-  spinDelayMin: 1
-  wheelStopDelayMax: 1
-  wheelStopDelayMin: 0.1
-  HaywireMod: 0
-  _currSpinDelay: 0
-  _currStopDelay: 0
-  _isSpinning: 0
-  _canStop: 0
-  _wheel1Spin: 0
-  _wheel2Spin: 0
-  _wheel3Spin: 0
-  cannonCount: 0
-  _hatchOpen: 0
-  jackpotOdds: 0
-  jackpotMod: 0
-  Health: 0
-  normalFaceStats:
-  - {spawnObject: {fileID: 2189144303335682741, guid: bf4dcc056a0703f4e8eb9cec48042e82, type: 3}, spawnCount: 1, batchSize: 3, spawnDelay: 0, spawnMethod: 2, waitForSpawner: 0, accuracy: 15, SpawnLocations: []
-}
 --- !u!4 &477725162
 Transform:
   m_ObjectHideFlags: 0
@@ -3202,21 +3162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c72dd555242a0458735b96587416e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  trackSpeed: 5
-  barrelPosition: {fileID: 1255649231}
-  NeturalTarget: {fileID: 0}
-  cannonAnimator: {fileID: 0}
-  cannonBaseAnimator: {fileID: 0}
-  explosion: {fileID: 0}
-  boxCollider: {fileID: 0}
-  active: 0
-  colorOrig:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  currHealth: 0
 --- !u!4 &893134401 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b5b5cf931c5d5324c8c98ab43fd385c9, type: 3}
@@ -6509,21 +6454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c72dd555242a0458735b96587416e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  trackSpeed: 5
-  barrelPosition: {fileID: 38773487}
-  NeturalTarget: {fileID: 0}
-  cannonAnimator: {fileID: 0}
-  cannonBaseAnimator: {fileID: 0}
-  explosion: {fileID: 0}
-  boxCollider: {fileID: 0}
-  active: 0
-  colorOrig:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  currHealth: 0
 --- !u!4 &1972492881 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b5b5cf931c5d5324c8c98ab43fd385c9, type: 3}
@@ -6706,21 +6636,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c72dd555242a0458735b96587416e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  trackSpeed: 5
-  barrelPosition: {fileID: 270529332}
-  NeturalTarget: {fileID: 0}
-  cannonAnimator: {fileID: 0}
-  cannonBaseAnimator: {fileID: 0}
-  explosion: {fileID: 0}
-  boxCollider: {fileID: 0}
-  active: 0
-  colorOrig:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  currHealth: 0
 --- !u!1 &2000336932
 GameObject:
   m_ObjectHideFlags: 0
@@ -9659,10 +9574,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1267265196, guid: 7bf4f2ab5ff180c4a8d1b014acf76f7a, type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 2210471241361497689, guid: 7bf4f2ab5ff180c4a8d1b014acf76f7a, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -12412,10 +12323,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1591139245, guid: f8e27c39229c9da4cb0ab8524917b85e, type: 3}
-      propertyPath: active
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3384805218962941405, guid: f8e27c39229c9da4cb0ab8524917b85e, type: 3}
       propertyPath: m_RootOrder
       value: 6
