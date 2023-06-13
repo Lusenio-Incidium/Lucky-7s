@@ -20,8 +20,8 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
     [SerializeField] AudioSource noiseMaker;
     [Header("--- Audio ---")]
     [SerializeField] AudioClip[] woosh;
-    [Range(0,1)][SerializeField] float volume;
-    [Header("--- Chop Settings ---")]    
+    [Range(0, 1)][SerializeField] float volume;
+    [Header("--- Chop Settings ---")]
     [SerializeField] float speedMod;
     [SerializeField] bool startSwinging;
     [SerializeField] int damage;
@@ -64,23 +64,27 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
 
     private void OnTriggerEnter(Collider other)
     {
-        IDamage damageTarg = other.GetComponent<IDamage>();
-        if (damageTarg != null)
+        if (!other.CompareTag("Bingo Enemy"))
         {
-            damageTarg.takeDamage(damage);
-            Debug.LogWarning(gameObject.name + " hit " + other.name);
-        }
-        IPhysics physics = other.GetComponent<IPhysics>();
-        if (physics != null)
-        {
-            Vector3 dir = other.gameObject.transform.position - transform.position;
-            physics.TakePush(dir * knockback);
+            IDamage damageTarg = other.GetComponent<IDamage>();
+            if (damageTarg != null)
+            {
+                damageTarg.takeDamage(damage);
+                Debug.LogWarning(gameObject.name + " hit " + other.name);
+            }
+            IPhysics physics = other.GetComponent<IPhysics>();
+            if (physics != null)
+            {
+                Vector3 dir = other.gameObject.transform.position - transform.position;
+                physics.TakePush(dir * knockback);
+            }
         }
     }
 
     private Functions FunctionActions(Functions function)
     {
-        switch (function) {
+        switch (function)
+        {
             case Functions.None:
                 break;
             case Functions.StartSwinging:
@@ -90,7 +94,7 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
                 StopSwinging();
                 break;
             case Functions.StopInstantly:
-                StopSwingingInstant(); 
+                StopSwingingInstant();
                 break;
             case Functions.StopAtNeturalOnce:
                 StopSwinging();
