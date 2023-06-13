@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 1843147057775548579}
   - component: {fileID: 8632055957945364345}
   - component: {fileID: 8632055957945364344}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,11 +251,11 @@ MonoBehaviour:
   animator: {fileID: 8632055957945364344}
   fireRate: 5
   fireCone: 85
-  invincible: 1
+  invincible: 0
   health: 0
   speed: 5
   viewCone: 90
-  active: 0
+  active: 1
   barrelPosition: {fileID: 1611916787777942225}
   explosion: {fileID: 113066723586254411, guid: 9a301284ef6139541aca53fe24820439, type: 3}
   triggerOnDeath: []
@@ -390,7 +390,7 @@ Animator:
   m_GameObject: {fileID: 7458620668059818318}
   m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4793145f6a48d90429ce02988b8b0d01, type: 2}
+  m_Controller: {fileID: 9100000, guid: 94838c9e083a5754cbadbebe0e3b196c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
