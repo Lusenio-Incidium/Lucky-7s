@@ -418,7 +418,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
             yield return null;
         }
         ObjectPoolManager.instance.ReturnObjToInfo(gameObject);
-        GameObject tempPart = Instantiate(particleShown, transform.position,transform.rotation);
-        //Destroy(tempPart);
+        Instantiate(particleShown, transform.position,transform.rotation);
     }
 }
