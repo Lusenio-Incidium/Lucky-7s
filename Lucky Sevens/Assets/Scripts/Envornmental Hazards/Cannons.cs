@@ -71,7 +71,7 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
         Vector3 playerDir = GameManager.instance.player.transform.position - transform.position;
         float angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), origPos);
 
-        if (angleToPlayer <= fireCone && !isShooting)
+        if (angleToPlayer <= fireCone && !isShooting && active)
         {
             StartCoroutine(Shoot());
         }
@@ -117,6 +117,7 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
                 }
             }
             invincible = true;
+            active = false;
         }
         else
         {
