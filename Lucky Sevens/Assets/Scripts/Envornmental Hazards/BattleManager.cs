@@ -27,6 +27,9 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
         StartBattle,
         ForceEndBattle
     }
+    private enum SpawnStyles {
+    }
+
 
     //[SerializeField] EnemyLineup[] wave;
     [SerializeField] GameObject[] enemyTypes;

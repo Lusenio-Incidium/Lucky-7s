@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spikes: {fileID: 3266855817635816458}
+  triggerBox: {fileID: 3266855816911661944}
   triggerOnStep: 1
   active: 1
   onlyPlayerCanTrigger: 0
@@ -352,7 +353,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.7
       inSlope: 0
       outSlope: 0
       tangentMode: 0
