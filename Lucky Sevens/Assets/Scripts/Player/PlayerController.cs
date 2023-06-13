@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
     [SerializeField] AudioSource musicAud;
+    [SerializeField][Range(0f, 1f)] float musicVol;
     [SerializeField] Animator animator;
     [SerializeField] GameObject mainCam;
 
@@ -34,13 +35,13 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     [Header("Audio")]
     [SerializeField] AudioClip[] footsteps;
-    [SerializeField][Range(0,1)] float footVol;
+    [SerializeField][Range(0f,1f)] float footVol;
     [SerializeField] AudioClip[] jumpSounds;
-    [SerializeField][Range(0, 1)] float jumpVol;
+    [SerializeField][Range(0f, 1f)] float jumpVol;
     [SerializeField] AudioClip[] hurtSounds;
-    [SerializeField][Range(0, 1)] float hurtVol;
+    [SerializeField][Range(0f, 1f)] float hurtVol;
     [SerializeField] AudioClip[] deathSounds;
-    [SerializeField][Range(0, 1)] float deathVol;
+    [SerializeField][Range(0f, 1f)] float deathVol;
 
     [Header("GunSpawnables")]
     [SerializeField] GameObject ShotgunSpawn;
@@ -199,7 +200,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     IEnumerator musicFadeIn()
     {
-        while (musicAud.volume < GameManager.instance.musicVol)
+        while (musicAud.volume < musicVol)
         {
             musicAud.volume += 0.05f;
             yield return new WaitForSeconds(0.1f);
@@ -577,9 +578,9 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         playerSpeed = origSpeed;
     }
 
-    public AudioSource GetMusicAud()
+    public float GetMusicVol()
     {
-        return musicAud;
+        return musicVol;
     }
 
     public float GetJumpVol()
@@ -595,7 +596,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     }
     public void UpdateMusic(float newVol)
     {
-        musicAud.volume = newVol / 10f;
+        musicVol = newVol / 10f;
     }
 
 

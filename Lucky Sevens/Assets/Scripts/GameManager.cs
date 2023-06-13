@@ -246,7 +246,7 @@ public class GameManager : MonoBehaviour
         sfxVol = playerScript.GetJumpVol() * 10f;
         SFXText.text = sfxVol.ToString();
         SFXBar.fillAmount = sfxVol / 10f;
-        musicVol = playerScript.GetMusicAud().volume * 10f;
+        musicVol = playerScript.GetMusicVol() * 10f;
         musicText.text = musicVol.ToString();
         musicBar.fillAmount = musicVol / 10f;
         activeMenu.SetActive(false);

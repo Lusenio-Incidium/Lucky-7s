@@ -40,7 +40,7 @@ public class MainMenuManager : MonoBehaviour
         Destroy(GameObject.FindGameObjectWithTag("Player"));
         if(GameManager.instance != null)
         {
-            musicVolume = GameManager.instance.playerScript.GetMusicAud().volume * 10f;
+            musicVolume = GameManager.instance.playerScript.GetMusicVol() * 10f;
             SFXVolume = GameManager.instance.playerScript.GetJumpVol() * 10f;
             sensitivity = GameManager.instance.playerCam.GetComponent<CameraController>().GetSensitivity();
             isCompleted = GameManager.instance.completed;
