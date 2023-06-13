@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
     public AudioSource playSoundAudSource;
     public AudioClip buttonSoundAud;
     public AudioClip playSoundAud;
+    public GameObject ending;
 
     public int enemiesRemaining;
     public bool coinCollected;
@@ -288,6 +289,21 @@ public class GameManager : MonoBehaviour
         playerScript.Invincible(false);
 
         
+    }
+
+    public void startGameOver() 
+    {
+        playerScript.Invincible(true);
+        isPaused = false;
+        unPauseState();
+        ending.SetActive(true);
+        StartCoroutine(endWait());
+    }
+
+    IEnumerator endWait() 
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("MainMenu");
     }
 
 

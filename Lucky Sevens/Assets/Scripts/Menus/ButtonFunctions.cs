@@ -36,6 +36,11 @@ public class ButtonFunctions : MonoBehaviour
        
     }
 
+    public void EndGame() 
+    {
+        GameManager.instance.startGameOver();
+    }
+
     public void ReturnToLobby()
     {
         GameManager.instance.playerAnim.SetBool("dead", false);
