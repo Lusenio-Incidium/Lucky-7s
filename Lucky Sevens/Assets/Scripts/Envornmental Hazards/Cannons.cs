@@ -88,6 +88,7 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
 
     IEnumerator Shoot()
     {
+        boomVol  = GameManager.instance.playerScript.GetJumpVol();
         isShooting = true;
         noiser.PlayOneShot(boom[Random.Range(0, boom.Length)], boomVol);
         Instantiate(projectile, transform.position, transform.rotation);
@@ -104,6 +105,7 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
         currHealth -= damage;
         if (currHealth <= 0)
         {
+            deathVol = GameManager.instance.playerScript.GetJumpVol();
             animator.enabled = true;
             Instantiate(explosion, barrelPosition.transform.position, transform.rotation);
             noiser.PlayOneShot(deathNoise[Random.Range(0, deathNoise.Length)], deathVol);

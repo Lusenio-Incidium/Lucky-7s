@@ -47,12 +47,14 @@ public class SpikeAttack : MonoBehaviour
             animator.ResetTrigger("Hide");
             if (active)
             {
+                primeVol = GameManager.instance.playerScript.GetJumpVol();
                 animator.SetTrigger("Reveal");
                 noiseyBoi.PlayOneShot(prime, primeVol);
                 yield return new WaitForSeconds(chargeTime);
             }
             if (active)
             {
+                strikeVol = GameManager.instance.playerScript.GetJumpVol();
                 animator.SetTrigger("Strike");
                 bc.enabled = true;
                 noiseyBoi.PlayOneShot(strike, strikeVol);
