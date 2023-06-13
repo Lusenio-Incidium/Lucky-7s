@@ -8,7 +8,7 @@ public class SpikeAttack : MonoBehaviour
     [SerializeField] AudioSource noiseyBoi;
     [Header("--- Noises for Noisey Boi ---")]
     [SerializeField] AudioClip prime;
-    [Range(0,1)][SerializeField] float primeVol;
+    [Range(0, 1)][SerializeField] float primeVol;
     [SerializeField] AudioClip strike;
     [Range(0, 1)][SerializeField] float strikeVol;
     [Header("--- Attack Settings ---")]
@@ -33,7 +33,7 @@ public class SpikeAttack : MonoBehaviour
     }
     public void TriggerAttack()
     {
-        if (attacking )
+        if (attacking)
         {
             return;
         }
@@ -41,32 +41,36 @@ public class SpikeAttack : MonoBehaviour
     }
     IEnumerator attack()
     {
-        attacking = true;
-        animator.ResetTrigger("Hide");
-        if (active)
+        if (!CompareTag("Bingo Enemy"))
         {
-            animator.SetTrigger("Reveal");
-            noiseyBoi.PlayOneShot(prime, primeVol);
-            yield return new WaitForSeconds(chargeTime);
-        }
-        if (active)
-        {
-            animator.SetTrigger("Strike");
-            bc.enabled = true;
-            noiseyBoi.PlayOneShot(strike, strikeVol);
-            yield return new WaitForSeconds(attackTime);
-        }
-        if (active)
-        {
-            bc.enabled = false;
-            animator.SetTrigger("Hide");
+            attacking = true;
+            animator.ResetTrigger("Hide");
+            if (active)
+            {
+                animator.SetTrigger("Reveal");
+                noiseyBoi.PlayOneShot(prime, primeVol);
+                yield return new WaitForSeconds(chargeTime);
+            }
+            if (active)
+            {
+                animator.SetTrigger("Strike");
+                bc.enabled = true;
+                noiseyBoi.PlayOneShot(strike, strikeVol);
+                yield return new WaitForSeconds(attackTime);
+            }
+            if (active)
+            {
+                bc.enabled = false;
+                animator.SetTrigger("Hide");
 
-            yield return new WaitForSeconds(.3f);
-        }
-        attacking = false;
-        if (destroyAfterAttack)
-        {
-            Destroy(gameObject);
+                yield return new WaitForSeconds(.3f);
+            }
+            attacking = false;
+            if (destroyAfterAttack)
+            {
+                Destroy(gameObject);
+            }
+
         }
     }
     public void Hide()
