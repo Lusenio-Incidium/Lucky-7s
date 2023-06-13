@@ -91,6 +91,9 @@ public class GameManager : MonoBehaviour
 
     public int enemiesRemaining;
     public bool coinCollected;
+    public bool hasSpeedUpgrade;
+    public bool hasAR;
+    public bool hasShotgun;
     public bool isPaused;
     public float timeElapsed;
     public float sensitivity;

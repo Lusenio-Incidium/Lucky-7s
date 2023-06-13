@@ -442,12 +442,6 @@ public class GunSystem : MonoBehaviour
         }
     }
 
-
-    public void updateShop(ShopPickup updates)
-    {
-        ammunition += updates.tokenAmount;
-    }
-
     public void EquipWeapon(int index)
     {
         currentWeapon = index;

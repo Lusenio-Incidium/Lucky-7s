@@ -5,31 +5,23 @@ using UnityEngine.UI;
 using TMPro;
 public class ShopController : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI plinkoText;
-    [SerializeField] TextMeshProUGUI healthText;
-    [SerializeField] TextMeshProUGUI speedText;
-    [SerializeField] TextMeshProUGUI sheildText;
-    [SerializeField] TextMeshProUGUI PistolgunText;
-    [SerializeField] TextMeshProUGUI TommygunText;
-    [SerializeField] Scrollbar plinko;
-    [SerializeField] Scrollbar health;
-    [SerializeField] Scrollbar speed;
-    [SerializeField] Scrollbar sheild;
-    [SerializeField] Toggle gunPistol;
-    [SerializeField] Toggle gunTommy;
     [SerializeField] TextMeshProUGUI chipTotText;
+    [SerializeField] Button arButton;
+    [SerializeField] Button shotgunButton;
+    [SerializeField] Button speedButton;
 
     bool hasShop;
     [SerializeField] GameObject crate;
-    int chipTotal;
-    int plinkoTotal;
     int healthTotal;
     int speedTotal;
-    int sheildTotal;
     int gunTotal;
 
     int tokenCost;
+
     bool buyTommy;
+    bool buyShotgun;
+    bool buyFullHP;
+    bool buySpeed;
 
     private void Awake()
     {
@@ -65,75 +57,89 @@ public class ShopController : MonoBehaviour
         }
     }
 
-    public void onPlinko()
-    {
-        plinkoText.text = (plinko.value * 10).ToString("0");
-
-        plinkoTotal = (int)(plinko.value * 10) * 5;
-        updateText();
-    }
-
     public void onHealth()
     {
-        healthText.text = (health.value * 3).ToString("0");
-        healthTotal = (int)(health.value * 3) * 5;
+        if (!buyFullHP)
+        {
+            healthTotal += 200;
+            buyFullHP = true;
+        }
+
+        else
+        {
+            healthTotal -= 200;
+            buyFullHP = false;
+        }
         updateText();
     }
 
     public void onSpeed()
     {
-        speedText.text = (speed.value * 5).ToString("0");
-        speedTotal = (int)(speed.value * 5) * 10;
+        if (!GameManager.instance.hasSpeedUpgrade)
+        {
+            if (!buySpeed)
+            {
+                speedTotal += 150;
+                buySpeed = true;
+            }
+
+            else
+            {
+                speedTotal -= 150;
+                buySpeed = false;
+            }
+        }
+     
         updateText();
     }
 
-    public void onSheild()
-    {
-        sheildText.text = (sheild.value * 5).ToString("0");
-        sheildTotal = (int)(sheild.value * 5) * 100;
-        updateText();
-    }
-
-    public void onGunPistol()
-    {
-        PistolgunText.text = "1";
-
-        updateText();
-    }
 
     public void onGunTommy()
     {
-        if (!buyTommy) 
+        if (!GameManager.instance.hasAR) 
         {
-            gunTotal += 100;
-            buyTommy = true;
+            if (!buyTommy)
+            {
+                gunTotal += 150;
+                buyTommy = true;
+            }
+
+            else
+            {
+                gunTotal -= 150;
+                buyTommy = false;
+            }
+        }
+        
+        updateText();
+    }
+
+    public void onGunShotgun()
+    {
+        if (!GameManager.instance.hasShotgun)
+        {
+            if (!buyShotgun)
+            {
+                gunTotal += 350;
+                buyShotgun = true;
+            }
+
+            else
+            {
+                gunTotal -= 350;
+                buyShotgun = false;
+            }
         }
 
-        else 
-        {
-            gunTotal -= 100;
-            buyTommy = false;
-        }
-            
         updateText();
     }
 
     void updateText()
     {
-        tokenCost = (plinkoTotal + healthTotal + speedTotal + sheildTotal + gunTotal);
+        tokenCost = (healthTotal + speedTotal + gunTotal);
         chipTotText.text = tokenCost.ToString();
     }
 
-    public void resetMenu() 
-    {
-        plinko.value = 0;
-        health.value = 0;
-        speed.value = 0;
-        sheild.value = 0;
-
-        gunPistol.isOn = false;
-        gunTommy.isOn = false;
-    }
 
     public void onBuy()
     {
@@ -143,19 +149,27 @@ public class ShopController : MonoBehaviour
             GameManager.instance.gunSystem.AddBullets(-tokenCost);
             Crate cs = crate.GetComponent<Crate>();
 
-            cs.pickup.healthAmount = (int)(health.value * 3);
-            cs.pickup.speedAmount = (int)(speed.value * 5);
-            cs.pickup.plinkoAmount = (int)(plinko.value * 10);
-            cs.pickup.shieldAmount = (int)(sheild.value * 5);
-
-            if (gunPistol.isOn)
+            if (buyFullHP) 
             {
-                cs.pickup.addPistol = true;
+                cs.pickup.fullheal = true;
             }
 
-            if (gunTommy.isOn)
+            if (buyShotgun) 
             {
-                cs.pickup.addTommy = true;
+                cs.pickup.shotgun = true;
+                shotgunButton.interactable = false;
+            }
+
+            if (buyTommy) 
+            {
+                cs.pickup.ar = true;
+                arButton.interactable = false;
+            }
+
+            if (buySpeed) 
+            {
+                cs.pickup.speed = true;
+                speedButton.interactable = false;
             }
 
             crate.SetActive(true);
@@ -166,7 +180,14 @@ public class ShopController : MonoBehaviour
             GameManager.instance.unPauseState();
             GameManager.instance.ErrorMenu("Not enough Chips!");
         }
+        buyFullHP = false;
+        buyShotgun = false;
+        buySpeed = false;
+        buyTommy = false;
 
-        resetMenu();
+        healthTotal = 0;
+        speedTotal = 0;
+        gunTotal = 0;
+
     }
 }

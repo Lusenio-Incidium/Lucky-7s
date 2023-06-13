@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [SerializeField][Range(0, 1)] float deathVol;
 
     [Header("GunSpawnables")]
-    [SerializeField] GameObject pistolSpawn;
+    [SerializeField] GameObject ShotgunSpawn;
     [SerializeField] GameObject tommySpawn;
 
     [Header("DamageOverlay")]
@@ -183,18 +183,29 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     }
     public void shopRegister(ShopPickup updates) 
     {
-        //Add players health from shop
-        playerHeal(updates.healthAmount * 10);
-
-
-        if (updates.addPistol) 
-        {
-            Instantiate(pistolSpawn, transform.position, transform.rotation);
-        }
-        if (updates.addTommy) 
+        if (updates.ar) 
         {
             Instantiate(tommySpawn, transform.position, transform.rotation);
         }
+        if (updates.fullheal) 
+        {
+            fullHeal();
+        }
+        if (updates.speed) 
+        {
+            speedChange(1.5f);
+        }
+        if (updates.shotgun) 
+        {
+            Instantiate(ShotgunSpawn,transform.position,transform.rotation);
+        }
+    }
+
+    public void fullHeal() 
+    {
+        HP = 100;
+        HPOrig = 100;
+        updatePlayerUI();
     }
 
     public bool playerGrounded() 
