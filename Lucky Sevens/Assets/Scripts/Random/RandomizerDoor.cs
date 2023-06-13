@@ -7,9 +7,13 @@ public class RandomizerDoor : MonoBehaviour, IRandomizeAction
     [SerializeField] int position;
     [SerializeField] int ID;
     [SerializeField] Animator animator;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip openDoor;
+    [Range(0, 1)][SerializeField] float Vol;
 
     public void OnSelect()
     {
+        audioSource.PlayOneShot(openDoor, Vol);
         animator.SetTrigger("SetOff");
     }
     public int GetPosition()
