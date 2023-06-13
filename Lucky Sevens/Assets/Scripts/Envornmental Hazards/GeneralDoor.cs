@@ -49,6 +49,11 @@ public class GeneralDoor : MonoBehaviour, IButtonTrigger, ICannonKey, IBattle
 
         return function;
     }
+
+    public void openDoor() 
+    {
+        animator.SetBool("Open", true);
+    }
     public void OnButtonPress()
     {
         onButtonPress = FunctionAction(onButtonPress);
