@@ -20,24 +20,27 @@ public class Explosion : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
-        if (Vector3.Distance(other.transform.position, transform.position) < gameObject.transform.localScale.x)
+        if (!other.CompareTag("Bingo Enemy"))
         {
-            IPhysics physics = other.GetComponent<IPhysics>();
-            if (physics != null)
+            if (Vector3.Distance(other.transform.position, transform.position) < gameObject.transform.localScale.x)
             {
-                Vector3 dir = other.transform.position - transform.position;
-                physics.TakePush(dir * pushAmount);
+                IPhysics physics = other.GetComponent<IPhysics>();
+                if (physics != null)
+                {
+                    Vector3 dir = other.transform.position - transform.position;
+                    physics.TakePush(dir * pushAmount);
+                }
+                IDamage damageable = other.GetComponent<IDamage>();
+                if (damageable != null)
+                {
+                    damageable.takeDamage(damage);
+                }
             }
-            IDamage damageable = other.GetComponent<IDamage>();
-            if (damageable != null)
-            {
-                damageable.takeDamage(damage);
-            }
+            CameraShake playerCam = GameManager.instance.playerCam.GetComponent<CameraShake>();
+            playerCam.SetStrengthAmount(shakeAmount);
+            playerCam.SetDuration(duration);
+            playerCam.start = true;
         }
-        CameraShake playerCam = GameManager.instance.playerCam.GetComponent<CameraShake>();
-        playerCam.SetStrengthAmount(shakeAmount);
-        playerCam.SetDuration(duration);
-        playerCam.start = true;
     }
 
 }
