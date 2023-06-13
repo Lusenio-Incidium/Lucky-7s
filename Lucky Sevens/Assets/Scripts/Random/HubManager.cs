@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HubManager : MonoBehaviour
@@ -7,6 +8,10 @@ public class HubManager : MonoBehaviour
     [SerializeField] RandomSelection randomizer;
     [SerializeField] Animator bossDoor;
     [SerializeField] GameObject[] tokens;
+    [Header("Audio")]
+    [SerializeField] AudioSource HeavyDoor;
+    [SerializeField] AudioClip DoorOpen;
+    [Range(0, 1)][SerializeField] float HeavyDoorVol;
     List<IRandomizeHighlight> _lightObjects;
     List<IRandomizeAction> _actionObejcts;
 
@@ -53,9 +58,19 @@ public class HubManager : MonoBehaviour
         
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            StartCoroutine(OpenBossDoor());
+        }
+    }
+
     IEnumerator OpenBossDoor()
     {
         yield return new WaitForSeconds(2.5f);
+        HeavyDoor.PlayOneShot(DoorOpen, HeavyDoorVol);
+        GameManager.instance.playerScript.fadeOut(); 
         CameraShake shake = GameManager.instance.playerCam.GetComponent<CameraShake>();
         shake.SetStrengthAmount(5);
         shake.SetDuration(2);
