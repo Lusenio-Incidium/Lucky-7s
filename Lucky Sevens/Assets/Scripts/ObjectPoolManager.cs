@@ -188,7 +188,7 @@ public class ObjectPoolManager : MonoBehaviour
     {
         //Finding the obj in the list of strings to instantiate
         //Saying for every GameObjectInfo in the list look for one whos string is equal to objToSpawn.name
-        PooledObjectInfo info = ObjectPools.Find(p => p.LookUpString == objToSpawn.name);
+       PooledObjectInfo info = ObjectPools.Find(p => p.LookUpString == objToSpawn.name);
 
         //If it can't find it they make a new lookUpString and list
         if (info == null)
