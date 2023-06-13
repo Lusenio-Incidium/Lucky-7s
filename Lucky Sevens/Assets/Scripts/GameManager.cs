@@ -286,6 +286,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceen);
         loadingScreen.GetComponent<autoShutoff>().enabled = true;
         playerScript.Invincible(false);
+
+        
     }
 
 

@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             Debug.Log("Crawl");
             isSprinting = false;
             playerSpeed = playerSpeedOrig;
-            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 1, GameManager.instance.playerCam.transform.position.z);
+            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 0.5f, GameManager.instance.playerCam.transform.position.z);
             isCrawl = true;
             playerSpeed = playerSpeedOrig * crawlMod;
             GetComponent<CapsuleCollider>().height = 1;
@@ -300,7 +300,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         else if (Input.GetButtonUp("Crawl"))
         {
             Debug.Log("Crawl Off");
-            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y + 1, GameManager.instance.playerCam.transform.position.z);
+            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y + 0.5f, GameManager.instance.playerCam.transform.position.z);
             isCrawl = false;
             playerSpeed /= crawlMod;
             GetComponent<CapsuleCollider>().height = 2;
@@ -312,7 +312,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     IEnumerator slide()
     {
         isSlide = true;
-        GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 1, GameManager.instance.playerCam.transform.position.z);
+        GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 0.5f, GameManager.instance.playerCam.transform.position.z);
         playerSpeed = playerSpeedOrig * slideMod;
         Debug.Log(playerSpeed);
         yield return new WaitForSeconds(0.5f);
