@@ -15,6 +15,7 @@ public class SpikeBase : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
 
     [Header("Spikes")]
     [SerializeField] SpikeAttack spikes;
+    [SerializeField] BoxCollider triggerBox;
     [Header("Trigger Method")]
     [SerializeField] bool triggerOnStep;
     [SerializeField] bool active;
@@ -35,6 +36,14 @@ public class SpikeBase : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
         if (active)
         {
             spikes.RestoreActive();
+        }
+        if (triggerOnStep)
+        {
+            triggerBox.enabled = true;
+        }
+        else
+        {
+            triggerBox.enabled = false;
         }
     }
     void Update()
@@ -72,19 +81,23 @@ public class SpikeBase : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
                 spikes.RestoreActive();
                 active = true;
                 triggerOnStep = false;
+                triggerBox.enabled = false;
                 break;
             case Functions.StartTriggerStrike:
                 spikes.RestoreActive();
                 active = true;
                 triggerOnStep = true;
+                triggerBox.enabled = true;
                 break;
             case Functions.Extrude:
                 spikes.Extrude();
                 active = false;
+                triggerBox.enabled = false;
                 break;
             case Functions.Disarm:
                 spikes.Hide();
                 active = false;
+                triggerBox.enabled = false;
                 break;
         }
         return function;
