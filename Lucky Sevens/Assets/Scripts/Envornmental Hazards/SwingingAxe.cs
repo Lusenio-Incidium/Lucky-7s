@@ -139,6 +139,7 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
         {
             return;
         }
+        volume = GameManager.instance.playerScript.GetJumpVol();
         noiseMaker.PlayOneShot(woosh[Random.Range(0, woosh.Length)], volume);
     }
 }

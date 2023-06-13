@@ -28,6 +28,7 @@ public class GeneralDoor : MonoBehaviour, IButtonTrigger, ICannonKey, IBattle
 
     private Functions FunctionAction(Functions function)
     {
+        doorVol = GameManager.instance.playerScript.GetJumpVol();   
         switch (function) 
         {
             case Functions.None:

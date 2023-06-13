@@ -68,6 +68,7 @@ public class HubManager : MonoBehaviour
 
     IEnumerator OpenBossDoor()
     {
+        HeavyDoorVol = GameManager.instance.playerScript.GetJumpVol();  
         yield return new WaitForSeconds(2.5f);
         HeavyDoor.PlayOneShot(DoorOpen, HeavyDoorVol);
         GameManager.instance.playerScript.fadeOut(); 

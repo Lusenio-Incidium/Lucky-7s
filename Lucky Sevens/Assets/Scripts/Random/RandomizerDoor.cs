@@ -13,6 +13,7 @@ public class RandomizerDoor : MonoBehaviour, IRandomizeAction
 
     public void OnSelect()
     {
+        Vol = GameManager.instance.playerScript.GetJumpVol();
         audioSource.PlayOneShot(openDoor, Vol);
         animator.SetTrigger("SetOff");
     }
