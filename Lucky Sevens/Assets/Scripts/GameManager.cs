@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public GunSystem gunSystem;
     public int storeTokens;
     public int playerAmmo;
+    public AudioClip victory;
 
     [Header("----- UI Stuff -----")]
     public GameObject ReloadText;
@@ -509,6 +510,7 @@ public class GameManager : MonoBehaviour
         activeMenu = completionText;
         activeMenu.SetActive(true);
         coinCollected = true;
+        playerScript.SetMusic(victory);
     }
     public IEnumerator DeathSequence()
     {
