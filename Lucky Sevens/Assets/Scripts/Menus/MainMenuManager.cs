@@ -62,7 +62,7 @@ public class MainMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        music.volume = musicVolume;
     }
 
     public IEnumerator loadScene(string sceen)
@@ -95,7 +95,7 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator musicFadeIn()
     {
-        while (music.volume < musicVolume)
+        while (music.volume < musicVolume / 10)
         {
             music.volume += 0.05f;
             yield return new WaitForSeconds(0.1f);
@@ -137,6 +137,6 @@ public class MainMenuManager : MonoBehaviour
         TextMeshProUGUI buttonText = hardButton.GetComponentInChildren<TextMeshProUGUI>();
         buttonText.color = Color.red;
     }
-
+    
     
 }

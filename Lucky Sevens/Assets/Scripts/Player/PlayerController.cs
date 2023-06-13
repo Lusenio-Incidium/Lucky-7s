@@ -597,6 +597,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     public void UpdateMusic(float newVol)
     {
         musicVol = newVol / 10f;
+        musicAud.volume = musicVol;
     }
 
 
