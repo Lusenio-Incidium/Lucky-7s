@@ -103,7 +103,6 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
             return;
         }
         currHealth -= damage;
-        Debug.Log("Bonked");
         if (currHealth <= 0)
         {
             deathVol = GameManager.instance.playerScript.GetJumpVol();

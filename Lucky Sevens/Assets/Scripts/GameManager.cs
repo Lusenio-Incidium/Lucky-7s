@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     public GameObject ReloadText;
     public GameObject activeMenu;
     public GameObject pauseMenu;
+    public Button returnToLobby;
     public GameObject loseMenu;
     public GameObject winMenu;
     public GameObject optionsMenu;
@@ -176,12 +177,19 @@ public class GameManager : MonoBehaviour
         if(SceneManager.GetActiveScene().name != "TheHub") 
         {
             timerDisplay.gameObject.transform.parent.gameObject.SetActive(true);
-            
+            if (SceneManager.GetActiveScene().name == "Tutorial")
+            {
+                returnToLobby.interactable = false;
+            }
+            else
+            {
+                returnToLobby.interactable = true;
+            }
         }
         else 
         {
             timerDisplay.gameObject.transform.parent.gameObject.SetActive(false);
-            
+            returnToLobby.interactable = false;
         }
 
         //player refresh
