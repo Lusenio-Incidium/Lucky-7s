@@ -82,13 +82,13 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         if (MainMenuManager.instance != null)
         {
+            musicVol = MainMenuManager.instance.musicVolume / 10f;
             footVol = MainMenuManager.instance.SFXVolume / 10f;
             jumpVol = MainMenuManager.instance.SFXVolume / 10f;
             hurtVol = MainMenuManager.instance.SFXVolume / 10f;
             deathVol = MainMenuManager.instance.SFXVolume / 10f;
         }
-
-        if (pc == null) 
+        else if (pc == null) 
         {
             pc = this;
             HPOrig = HP;
@@ -106,6 +106,12 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+
+        if(GameManager.instance.didRestart == true)
+        {
+            HP = 50;
+            GameManager.instance.didRestart = false;
+        }
         
         
     }

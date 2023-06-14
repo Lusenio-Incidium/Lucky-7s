@@ -13,12 +13,14 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void restart()
     {
+        GameManager.instance.didRestart = true;
         GameManager.instance.playerAnim.SetBool("dead", false);
         GameManager.instance.ReEnableDisplay();
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
         StartCoroutine(GameManager.instance.loadScene(SceneManager.GetActiveScene().name));
         GameManager.instance.gunSystem.restartGun();
+        
     }
 
     public void Quit()

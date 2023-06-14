@@ -95,7 +95,7 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator musicFadeIn()
     {
-        while (music.volume < musicVolume / 10)
+        while (music.volume < musicVolume / 10f)
         {
             music.volume += 0.05f;
             yield return new WaitForSeconds(0.1f);

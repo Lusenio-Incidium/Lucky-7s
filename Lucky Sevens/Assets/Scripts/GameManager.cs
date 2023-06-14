@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
     public int ammoUsedTotal;
     public int ammoGatheredTotal;
     public int enemiesKilled;
+    public bool didRestart;
     Vector3 origCamPos;
     GameObject playerStore;
 
@@ -164,6 +165,7 @@ public class GameManager : MonoBehaviour
         timeElapsed = 0;
         ammoGatheredTotal = 0;
         ammoUsedTotal = 0;
+        //GameManager.instance.playerScript.HPOrig = GameManager.instance.playerScript.HP
         gunSystem.updateOrig();
         UpdateAmmoCount();
 
