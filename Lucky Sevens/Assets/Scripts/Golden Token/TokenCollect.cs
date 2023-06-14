@@ -51,7 +51,7 @@ public class TokenCollect : MonoBehaviour
             {
                 GameManager.instance.completed = true;
             }
-            GameManager.instance.WinSequence();
+            StartCoroutine(GameManager.instance.WaitForFall());
             //StartCoroutine(GameManager.instance.youWin(youWinDelay));
         }
     }

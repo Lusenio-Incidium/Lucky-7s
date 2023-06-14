@@ -606,5 +606,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         musicVol = newVol / 10f;
         musicAud.volume = musicVol;
     }
-
+    public CharacterController GetCharacterController()
+    {
+        return controller;
+    }
 }

@@ -521,7 +521,6 @@ public class GameManager : MonoBehaviour
     }
     public List<int> GetCompletedLevels()
     {
-
         return completedLevels;
     }
     public void WinSequence()
@@ -592,5 +591,13 @@ public class GameManager : MonoBehaviour
     {
        playerStore = ObjectPoolManager.instance.SpawnObject(PlayerModelForDeath,player.transform.position,player.transform.localRotation);
        playerStore.GetComponent<Animator>().SetBool("gotACoin", true);
+    }
+    public IEnumerator WaitForFall()
+    {
+        while (!playerScript.GetCharacterController().isGrounded)
+        {
+            yield return null;
+        }
+        WinSequence();
     }
 }
