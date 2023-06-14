@@ -353,6 +353,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         if (HP <= 0 && !isDead)
         {
             aud.PlayOneShot(deathSounds[Random.Range(0,deathSounds.Length)], deathVol);
+            pushBack = Vector3.zero;
             StartCoroutine(GameManager.instance.DeathSequence());
             isDead = true;
         }
@@ -407,6 +408,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         transform.rotation = GameManager.instance.playerSpawnPos.transform.rotation;
         controller.enabled = true;
         HP = HPOrig;
+        pushBack = Vector3.zero;
         updatePlayerUI();
         GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 0);
         GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 0);
@@ -605,6 +607,5 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         musicVol = newVol / 10f;
         musicAud.volume = musicVol;
     }
-
 
 }
