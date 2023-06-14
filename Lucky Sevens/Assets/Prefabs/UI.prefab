@@ -7618,7 +7618,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1463731797
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10269,7 +10269,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2022868822}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1974690380797593766}
+        m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
+        m_MethodName: EndGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2027229099
 GameObject:
   m_ObjectHideFlags: 0
@@ -13865,7 +13877,7 @@ MonoBehaviour:
   playSoundAudSource: {fileID: 2019105486}
   buttonSoundAud: {fileID: 8300000, guid: 625ad317b451ec147984e94636d712a6, type: 3}
   playSoundAud: {fileID: 8300000, guid: c773dc41297254f43a245fe23d730fcb, type: 3}
-  ending: {fileID: 0}
+  ending: {fileID: 2022868819}
   enemiesRemaining: 0
   coinCollected: 0
   hasSpeedUpgrade: 0
