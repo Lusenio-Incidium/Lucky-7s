@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             hurtVol = MainMenuManager.instance.SFXVolume / 10f;
             deathVol = MainMenuManager.instance.SFXVolume / 10f;
         }
-        else if (pc == null) 
+        if (pc == null) 
         {
             pc = this;
             HPOrig = HP;
