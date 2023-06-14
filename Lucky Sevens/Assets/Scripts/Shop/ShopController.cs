@@ -61,13 +61,13 @@ public class ShopController : MonoBehaviour
     {
         if (!buyFullHP)
         {
-            healthTotal += 200;
+            healthTotal += 120;
             buyFullHP = true;
         }
 
         else
         {
-            healthTotal -= 200;
+            healthTotal -= 120;
             buyFullHP = false;
         }
         updateText();
