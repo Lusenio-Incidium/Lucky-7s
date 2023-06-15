@@ -125,6 +125,9 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             sprint();
         crawl();
 
+        if (!isSprinting && !isCrawl && !isSlide)
+            playerSpeed = playerSpeedOrig;
+
         if (transform.position.y < -10)
             instaKill();
 
