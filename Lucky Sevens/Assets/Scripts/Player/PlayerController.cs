@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     float playerSpeedOrig;
     float durationTimer;
     float speed;
+    bool ceilingCheck;
 
     void Start()
     {
@@ -144,6 +145,11 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             }
         }
 
+        if(ceilingCheck && !isGrounded) 
+        {
+            TakePush(new Vector3(0, -10, 0));
+        }
+
 
         //Set move vector for player movement
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
@@ -175,7 +181,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             GetComponent<CapsuleCollider>().height = 1;
             controller.height = 1;
         }
-        else if (Input.GetButtonUp("Crawl"))
+        else if (Input.GetButtonUp("Crawl") && !ceilingCheck)
         {
             isCrawl = false;
             playerSpeed /= crawlMod;
@@ -382,6 +388,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         }
     }
 
+
     #endregion
 
     #region getters
@@ -584,6 +591,17 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         if (gunList.Count > 0)
             switchGun();
         DamageFlash();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("CelingColidable"))
+            ceilingCheck = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+            ceilingCheck = false;
     }
 
 }
