@@ -171,15 +171,12 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         {
             isSprinting = false;
             playerSpeed = playerSpeedOrig;
-            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 0.5f, GameManager.instance.playerCam.transform.position.z);
-            isCrawl = true;
             playerSpeed = playerSpeedOrig * crawlMod;
             GetComponent<CapsuleCollider>().height = 1;
             controller.height = 1;
         }
         else if (Input.GetButtonUp("Crawl"))
         {
-            GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y + 0.5f, GameManager.instance.playerCam.transform.position.z);
             isCrawl = false;
             playerSpeed /= crawlMod;
             GetComponent<CapsuleCollider>().height = 2;
