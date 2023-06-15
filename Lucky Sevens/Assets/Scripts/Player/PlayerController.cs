@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 {
-
     static PlayerController pc;
 
     [Header("- - - Componets - - -")]
@@ -168,7 +167,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     }
     void crawl()
     {
-        if (Input.GetButton("Crawl"))
+        if (Input.GetButtonDown("Crawl"))
         {
             isSprinting = false;
             playerSpeed = playerSpeedOrig;
@@ -183,12 +182,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y + 0.5f, GameManager.instance.playerCam.transform.position.z);
             isCrawl = false;
             playerSpeed /= crawlMod;
-            GetComponent<CapsuleCollider>().height = 2;
-            controller.height = 2;
-        }
-        else 
-        {
-            isCrawl = false;
             GetComponent<CapsuleCollider>().height = 2;
             controller.height = 2;
         }
