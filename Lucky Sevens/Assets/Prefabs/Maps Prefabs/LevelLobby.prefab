@@ -125,7 +125,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5594325472509245733}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: -25.833, z: 0}
 --- !u!65 &308157699
 BoxCollider:
@@ -398,66 +398,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b95e3ff2b02735041a67cddd2fa547dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &826960821
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 826960822}
-  - component: {fileID: 826960824}
-  - component: {fileID: 826960823}
-  m_Layer: 0
-  m_Name: TrainingRoomWarp
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &826960822
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826960821}
-  m_LocalRotation: {x: -0, y: 0.20019409, z: -0, w: 0.97975624}
-  m_LocalPosition: {x: -20.08, y: 0.29999995, z: -16.44}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5594325472509245733}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 23.097, z: 0}
---- !u!65 &826960824
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826960821}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.9285007, y: 5.0720344, z: 9.307019}
-  m_Center: {x: 1.4642503, y: 2.0360167, z: 4.1535096}
---- !u!114 &826960823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826960821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 713dd3986fab67843b01a1ee15c33550, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WarpToScene: TrainingRoom
-  loadTime: 0
 --- !u!1 &886510808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,7 +1648,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5594325472509245733}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8203408018552318245
 BoxCollider:
@@ -1789,6 +1729,9 @@ MonoBehaviour:
   position: 0
   ID: 0
   animator: {fileID: 6268798629370806207}
+  audioSource: {fileID: 0}
+  openDoor: {fileID: 0}
+  Vol: 0
 --- !u!33 &8322122317373063641
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2215,10 +2158,8 @@ Transform:
   - {fileID: 1209265158}
   - {fileID: 552120736}
   - {fileID: 3113292122352968693}
-  - {fileID: 826960822}
   - {fileID: 308157697}
   - {fileID: 3265435492413053381}
-  - {fileID: 5214225440549387208}
   - {fileID: 1457553889}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2288,6 +2229,9 @@ MonoBehaviour:
   position: 2
   ID: 0
   animator: {fileID: 2464446277926345963}
+  audioSource: {fileID: 0}
+  openDoor: {fileID: 0}
+  Vol: 0
 --- !u!33 &5343996073677772672
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3005,6 +2949,9 @@ MonoBehaviour:
   position: 3
   ID: 0
   animator: {fileID: 3675985619806695083}
+  audioSource: {fileID: 0}
+  openDoor: {fileID: 0}
+  Vol: 0
 --- !u!33 &5343996075496278394
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3128,6 +3075,9 @@ MonoBehaviour:
   position: 1
   ID: 0
   animator: {fileID: 5780405061508814962}
+  audioSource: {fileID: 0}
+  openDoor: {fileID: 0}
+  Vol: 0
 --- !u!33 &5343996075708692234
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3199,66 +3149,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &6120615139536613232
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5214225440549387208}
-  - component: {fileID: 2934665810207257545}
-  - component: {fileID: 5918219960383226437}
-  m_Layer: 0
-  m_Name: TrainingRoomWarp
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5214225440549387208
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6120615139536613232}
-  m_LocalRotation: {x: -0, y: 0.20019409, z: -0, w: 0.97975624}
-  m_LocalPosition: {x: -20.08, y: 0.29999995, z: -16.44}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5594325472509245733}
-  m_RootOrder: 17
-  m_LocalEulerAnglesHint: {x: 0, y: 23.097, z: 0}
---- !u!65 &2934665810207257545
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6120615139536613232}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.9285007, y: 5.0720344, z: 9.307019}
-  m_Center: {x: 1.4642503, y: 2.0360167, z: 4.1535096}
---- !u!114 &5918219960383226437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6120615139536613232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 713dd3986fab67843b01a1ee15c33550, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WarpToScene: TrainingRoom
-  loadTime: 2
 --- !u!1 &7415300648500259074
 GameObject:
   m_ObjectHideFlags: 0
@@ -3473,7 +3363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6757392767819028213, guid: d7ab939a9909c0e4286c3a86c441d5ca, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6757392767819028213, guid: d7ab939a9909c0e4286c3a86c441d5ca, type: 3}
       propertyPath: m_LocalPosition.x

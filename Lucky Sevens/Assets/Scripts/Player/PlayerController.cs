@@ -119,7 +119,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     void Update()
     {
         movement();
-        interact();
+        if(!GameManager.instance.isPaused)
+            interact();
         if(!isCrawl && !isSlide)
             sprint();
         crawl();
