@@ -34,7 +34,18 @@ public class MainMenuManager : MonoBehaviour
     public float sensitivity;
     public float SFXVolume;
     public float musicVolume;
-    
+
+    //Account stuff
+    public GameObject loginButton;
+    public GameObject accountMenu;
+    public Button logIn;
+    public Button logOut;
+    public TMP_InputField username;
+    public TMP_InputField password;
+    public TextMeshProUGUI usernameText;
+    public Image avatar;
+    System.Action<bool> signedInCallback;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +75,13 @@ public class MainMenuManager : MonoBehaviour
     void Update()
     {
         music.volume = musicVolume;
+
+        if (GameJolt.API.GameJoltAPI.Instance.CurrentUser != null && avatar != GameJolt.API.GameJoltAPI.Instance.CurrentUser.Avatar) 
+        {
+            GameJolt.API.GameJoltAPI.Instance.CurrentUser.DownloadAvatar();
+            avatar.sprite = GameJolt.API.GameJoltAPI.Instance.CurrentUser.Avatar;
+            usernameText.text = GameJolt.API.GameJoltAPI.Instance.CurrentUser.Name;
+        }
     }
 
     public IEnumerator loadScene(string sceen)
@@ -130,6 +148,53 @@ public class MainMenuManager : MonoBehaviour
         activeMenu.SetActive(false);
         activeMenu = loginMenu;
         activeMenu.SetActive(true);
+    }
+
+    public void LogOut() 
+    {
+        GameJolt.API.GameJoltAPI.Instance.CurrentUser.SignOut();
+        loginButton.SetActive(true);
+        accountMenu.SetActive(false);
+    }
+
+    public void LogIn() 
+    {
+        if (username.text.Trim() == string.Empty || password.text.Trim() == string.Empty)
+        {
+            
+        }
+        else
+        {
+
+
+            var user = new GameJolt.API.Objects.User(username.text.Trim(), password.text.Trim());
+            user.SignIn(signInSuccess =>
+            {
+                if (signInSuccess)
+                {
+                    Dismiss(true);
+                }
+            });
+
+            
+            
+            loginButton.SetActive(false);
+            accountMenu.SetActive(true);
+            activeMenu.SetActive(false);
+            activeMenu = mainMenu;
+            activeMenu.SetActive(true);
+        }
+    }
+
+    public void Dismiss(bool success)
+    {
+        if (signedInCallback != null)
+        {
+            signedInCallback(success);
+            signedInCallback = null;
+        }
+        loginButton.SetActive(false);
+        accountMenu.SetActive(true);
     }
 
     public void DifficultyMenu()
