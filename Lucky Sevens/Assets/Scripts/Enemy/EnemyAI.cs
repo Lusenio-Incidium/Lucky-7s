@@ -111,8 +111,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
             speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
             anim.SetFloat("Speed", speed);
 
-            //if (destination)
-                //FacePlayer();
+            if (agent.destination == GameManager.instance.player.transform.position)
+                FacePlayer();
 
             if (playerInRange && !CanSeePlayer())
             {
@@ -135,7 +135,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
                 if (agent.isActiveAndEnabled)
                 {
                     agent.SetDestination(GameManager.instance.player.transform.position);
-                    //CanSeePlayer();
+                    CanSeePlayer();
                 }
             }
             else
@@ -208,10 +208,10 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
                         StartCoroutine(Shoot());
                     }
                 }
-                agent.stoppingDistance = 0;
                 return true;
             }
         }
+        agent.stoppingDistance = 0;
         return false;
     }
 
@@ -382,6 +382,12 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
             agent.stoppingDistance = 0;
             playerInRange = false;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+            GameManager.instance.playerScript.TakePush(new Vector3(1,0,1));
     }
     void AddPushBack()
     {
