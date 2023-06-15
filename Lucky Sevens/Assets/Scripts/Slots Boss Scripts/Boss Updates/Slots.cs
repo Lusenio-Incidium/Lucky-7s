@@ -178,6 +178,7 @@ public class Slots : MonoBehaviour, IBoss
             WinnersToken.instance.Spawn();
             hasStarted = false;
             GameManager.instance.BossBarContainer.SetActive(false);
+            return;
         }
         updating = false;
         StopAllCoroutines();
