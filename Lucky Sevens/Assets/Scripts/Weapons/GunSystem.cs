@@ -66,6 +66,7 @@ public class GunSystem : MonoBehaviour
     public bool currentlyShooting;
     [SerializeField] float shakeIntensity;
     [SerializeField] float recoilDistance;
+    private bool isAnimating = false;
 
     ReticleSpread reticleSpread;
     private void Start()
@@ -132,6 +133,7 @@ public class GunSystem : MonoBehaviour
                     }
                 }
                 reticleSpread.currentSize = reducedSpread;
+                StartADSAnimation();
             }
             else
             {
@@ -145,6 +147,7 @@ public class GunSystem : MonoBehaviour
                 {
                     returnCoroutine = StartCoroutine(ReturnAnimation());
                 }
+                StartReturnAnimation();
             }
 
         }
@@ -269,8 +272,38 @@ public class GunSystem : MonoBehaviour
         StartCoroutine(ShakeGun());
     }
 
+    private void StartADSAnimation()
+    {
+        if (isAnimating)
+        {
+            return;
+        }
+
+        if (returnCoroutine != null)
+        {
+            StopCoroutine(returnCoroutine);
+            returnCoroutine = null;
+        }
+        adsCoroutine = StartCoroutine(ADSAnimation());
+    }
+    
+    private void StartReturnAnimation()
+    {
+        if (isAnimating)
+        {
+            return;
+        }
+
+        if (adsCoroutine != null)
+        {
+            StopCoroutine(adsCoroutine);
+            adsCoroutine = null;
+        }
+        returnCoroutine = StartCoroutine(ReturnAnimation());
+    }
     private IEnumerator ADSAnimation()
     {
+        isAnimating = true;
         float elapsedTime = 0f;
         float duration = 0.1f;
         Vector3 initialPosition = gunModel.transform.localPosition;
@@ -287,10 +320,13 @@ public class GunSystem : MonoBehaviour
         gunModel.transform.localRotation = aimRotation;
 
         adsCoroutine = null;
+        returnCoroutine = null;
+        isAnimating = false;
     }
 
     private IEnumerator ReturnAnimation()
     {
+        isAnimating = true;
         isReturning = true;
         float elapsedTime = 0f;
         float duration = 0.3f;
@@ -308,6 +344,7 @@ public class GunSystem : MonoBehaviour
         gunModel.transform.localRotation = originolRotation;
         isReturning = false;
         returnCoroutine = null;
+        isAnimating= false;
     }
     private IEnumerator ShakeGun()
     {
