@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Security.Principal;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static ObjectPoolManager;
 
 public class ObjectPoolManager : MonoBehaviour
@@ -12,13 +13,14 @@ public class ObjectPoolManager : MonoBehaviour
     //Feel free to add to this or tell me if I missed something
     public static ObjectPoolManager instance;
     [Header("- - - Amount Of Enemies - - -")]
-    [SerializeField] [Range(0,50)] int tommyEnemyCount;
-    [SerializeField][Range(0, 50)] int meleeEnemyCount;
-    [SerializeField][Range(0, 50)] int pistolEnemyCount;
-    [SerializeField][Range(0, 50)] int healerEnemyCount;
-    [SerializeField][Range(0, 50)] int spawnerEnemyCount;
+    [SerializeField][Range(0, 200)] int tommyEnemyCount;
+    [SerializeField][Range(0, 200)] int meleeEnemyCount;
+    [SerializeField][Range(0, 200)] int pistolEnemyCount;
+    [SerializeField][Range(0, 200)] int healerEnemyCount;
+    [SerializeField][Range(0, 200)] int spawnerEnemyCount;
     [Header("- - - Amount Of Objects - - -")]
-    public int amountOfBullets;
+    [SerializeField][Range(0, 200)] int amountOfBullets;
+    [SerializeField][Range(0, 200)] int ammoPickUpCount;
 
     //Orginization so the scene is cluttered
     GameObject _objectPoolEmptyHolder;
@@ -31,6 +33,8 @@ public class ObjectPoolManager : MonoBehaviour
     [SerializeField] GameObject meleeEnemy;
     [SerializeField] GameObject spawnerEnemy;
     [SerializeField] GameObject bullet;
+    [SerializeField] GameObject playerModel;
+    [SerializeField] GameObject ammmoPickup;
 
     //Once again orginization
     private GameObject _particleSystemEmpty;
@@ -53,13 +57,24 @@ public class ObjectPoolManager : MonoBehaviour
             instance = this;
         }
         SetUpEmpties();
+        //Spawn the player Model
+        SpawnPlayer();
         //Spawns in the enemies you checked true
         SpawnSetEnemies();
-        //Spawns in the amount of bullets you wished to spawn
-        SpawnBullets();
+        //Spawns in the amount of bullets and Pickups you wished to spawn
+        SpawnBulletsAndPickUps();
     }
 
-    private void SpawnBullets()
+    private void SpawnPlayer()
+    {
+        GameObject parentObject = SetParentObjectType(PoolType.GameObject);
+        GameObject temp = null;
+        temp = Instantiate(playerModel,transform.position,transform.rotation);
+        temp.transform.SetParent(parentObject.transform);
+        ReturnObjToInfo(temp);
+    }
+
+    private void SpawnBulletsAndPickUps()
     {
         GameObject parentObject = SetParentObjectType(PoolType.GameObject);
         for (int i = 0; i < amountOfBullets; ++i)
@@ -75,6 +90,21 @@ public class ObjectPoolManager : MonoBehaviour
             temp.transform.SetParent(parentObject.transform);
             ReturnObjToInfo(temp);
         }
+        //Spawns in Set amount of Ammo
+        for (int i = 0; i < ammoPickUpCount; ++i)
+        {
+            GameObject temp = null;
+            temp = Instantiate(ammmoPickup, transform.position, transform.rotation);
+            if (i == 0)
+            {
+                string orgName = temp.name.Substring(0, temp.name.Length - 7);
+                PooledObjectInfo info = new PooledObjectInfo() { LookUpString = orgName };
+                ObjectPools.Add(info);
+            }
+            temp.transform.SetParent(parentObject.transform);
+            ReturnObjToInfo(temp);
+        }
+
     }
     private void SpawnSetEnemies()
     {
@@ -209,12 +239,13 @@ public class ObjectPoolManager : MonoBehaviour
         //If all obj are active it makes a new one and sets it to be active as well as organizes it to it respective empty
         if (spawnableObj == null)
         {
-            GameObject parentObject = SetParentObjectType(poolType);
+            return null;
+            /*GameObject parentObject = SetParentObjectType(poolType);
             spawnableObj = Instantiate(objToSpawn, spawnPos, spawnRot);
             if(parentObject != null)
             {
                 spawnableObj.transform.SetParent(parentObject.transform);
-            }
+            }*/
         }
         else
         {
