@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
     public int ammoGatheredTotal;
     public int enemiesKilled;
     public bool didRestart;
+    public bool pressedSpace;
     Vector3 origCamPos;
     GameObject playerStore;
 
@@ -231,8 +232,12 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                StartCoroutine(youWin(2));
-                coinCollected = false;
+                if (!pressedSpace)
+                {
+                    pressedSpace = true;
+                    StartCoroutine(youWin(0));
+                    coinCollected = false;
+                }
                 //playerAnim.SetBool("gotACoin", false);
             }
         }
@@ -421,6 +426,7 @@ public class GameManager : MonoBehaviour
         ReEnableDisplay();
         isPaused = true;
         pauseState();
+        pressedSpace = false;
         playerAnim.SetBool("gotACoin", false);
     }
     public void UpdateAmmoCount()
