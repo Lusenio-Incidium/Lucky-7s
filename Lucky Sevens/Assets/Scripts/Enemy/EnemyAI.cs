@@ -181,7 +181,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     bool CanSeePlayer()
     {
         playerDir = GameManager.instance.player.transform.position - headPos.position;
-        angleOfPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
+        angleOfPlayer = Vector3.Angle(new Vector3(playerDir.x, playerDir.y, playerDir.z), transform.forward);
 
         RaycastHit hit;
 
@@ -221,14 +221,14 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
         isShooting = true;
 
         anim.SetTrigger("Shoot");
-
+        shootPos.rotation = Quaternion.Euler(playerDir.x,playerDir.y,playerDir.z); 
         if (isMelee)
         {
             anim.SetInteger("Melee", Random.Range(0, 10));
         }
 
         yield return new WaitForSeconds(shootSpeed);
-
+        shootPos.rotation = Quaternion.identity;
         isShooting = false;
     }
 
