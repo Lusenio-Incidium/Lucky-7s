@@ -221,14 +221,14 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
         isShooting = true;
 
         anim.SetTrigger("Shoot");
-        shootPos.rotation = Quaternion.Euler(playerDir.x,playerDir.y,playerDir.z); 
+        //shootPos.rotation = Quaternion.Euler(playerDir.x,playerDir.y,playerDir.z); 
         if (isMelee)
         {
             anim.SetInteger("Melee", Random.Range(0, 10));
         }
 
         yield return new WaitForSeconds(shootSpeed);
-        shootPos.rotation = Quaternion.identity;
+       // shootPos.rotation = Quaternion.identity;
         isShooting = false;
     }
 
