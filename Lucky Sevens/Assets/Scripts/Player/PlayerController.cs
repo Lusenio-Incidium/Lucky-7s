@@ -125,19 +125,21 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             sprint();
         crawl();
 
-        if (!isSprinting && !isCrawl && !isSlide)
-            playerSpeed = playerSpeedOrig;
+        checks();
 
-        if (transform.position.y < -10)
-            instaKill();
+        DamageFlash();
 
-        if(gunList.Count > 0)
-            switchGun();
+        
         if(GameManager.instance.backPlayerHPBar.fillAmount != (float) HP / HPOrig || GameManager.instance.playerHPBar.fillAmount != (float)HP / HPOrig)
         {
             updatePlayerUI();
         }
 
+        
+    }
+
+    void DamageFlash() 
+    {
         //damage flash
         if (GameManager.instance.damagePanel.color.a > 0)
         {
@@ -182,6 +184,18 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
                 GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, panelAlpha);
             }
         }
+    }
+
+    void checks() 
+    {
+        if (!isSprinting && !isCrawl && !isSlide)
+            playerSpeed = playerSpeedOrig;
+
+        if (transform.position.y < -10)
+            instaKill();
+
+        if (gunList.Count > 0)
+            switchGun();
     }
 
    public void SetMusic(AudioClip song)
