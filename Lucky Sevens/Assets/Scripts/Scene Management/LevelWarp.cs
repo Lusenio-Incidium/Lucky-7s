@@ -14,6 +14,7 @@ public class LevelWarp : MonoBehaviour
             return;
         }
         StartCoroutine(GameManager.instance.loadScene(WarpToScene));
+        GameManager.instance.onLoad();
     }
 
 }

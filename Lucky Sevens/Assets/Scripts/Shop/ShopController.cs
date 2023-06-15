@@ -23,6 +23,14 @@ public class ShopController : MonoBehaviour
     bool buyFullHP;
     bool buySpeed;
 
+    private void OnEnable()
+    {
+        if (!GameManager.instance.hasShotgun)
+            shotgunButton.interactable = true;
+        if (!GameManager.instance.hasAR)
+            arButton.interactable = true;
+    }
+
     private void Awake()
     {
         updateCrate();
@@ -56,6 +64,7 @@ public class ShopController : MonoBehaviour
             hasShop = true;
         }
     }
+
 
     public void onHealth()
     {

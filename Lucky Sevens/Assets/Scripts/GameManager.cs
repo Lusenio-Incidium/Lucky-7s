@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public GunSystem gunSystem;
     public int storeTokens;
     public int playerAmmo;
+    public int playerAmmoOrign;
     public AudioClip victory;
 
     [Header("----- UI Stuff -----")]
@@ -196,6 +197,11 @@ public class GameManager : MonoBehaviour
         playerScript.spawnPlayerOnLoad();
         playerScript.updatePlayerUI();
 
+    }
+
+    public void onLoad() 
+    {
+        playerAmmoOrign = playerAmmo;
     }
 
     public void UpdateCompleteLevels() //Searches through the CompletedLevels List to see if the level already was completed before adding it. Called through HubManager.

@@ -50,6 +50,7 @@ public class ButtonFunctions : MonoBehaviour
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
         StartCoroutine(GameManager.instance.loadScene("TheHub"));
+        GameManager.instance.onLoad();
     }
 
     public void ReturnToMainMenu()

@@ -17,5 +17,6 @@ public class LevelStart : MonoBehaviour
     private void Start()
     {
         GameManager.instance.playerScript.SetMusic(levelMusic);
+        GameManager.instance.playerAmmo = GameManager.instance.playerAmmoOrign;
     }
 }

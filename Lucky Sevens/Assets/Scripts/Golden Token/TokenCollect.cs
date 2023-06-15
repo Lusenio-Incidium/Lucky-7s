@@ -52,7 +52,7 @@ public class TokenCollect : MonoBehaviour
                 GameManager.instance.completed = true;
             }
             StartCoroutine(GameManager.instance.WaitForFall());
-            //StartCoroutine(GameManager.instance.youWin(youWinDelay));
+            GameManager.instance.playerAmmoOrign = GameManager.instance.playerAmmo;
         }
     }
 }
