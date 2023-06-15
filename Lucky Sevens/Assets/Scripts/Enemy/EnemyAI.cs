@@ -45,8 +45,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     Vector3 playerDir;
     float angleOfPlayer;
     bool playerInRange;
-    bool enemyInRange;
-    bool destination;
     Vector3 startingPos;
     bool destinationChosen;
     float stoppingDistanceOrig;
@@ -98,52 +96,55 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     // Update is called once per frame
     void Update()
     {
-
-        if (Complicated)
+        //Simplified the Update function, using only one if(agent.isActiveAndEnabled) statment
+        if (agent.isActiveAndEnabled) 
         {
-            if (agent.isActiveAndEnabled)
+            if (Complicated)
+                complicated();
+            else
+                simple();
+        }
+    }
+    //Everything for a complicated enemy (Roaming, view cones, etc.
+    void complicated() 
+    {
+            speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
+            anim.SetFloat("Speed", speed);
+
+            //if (destination)
+                //FacePlayer();
+
+            if (playerInRange && !CanSeePlayer())
             {
-                //AddPushBack();
-                speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
-                anim.SetFloat("Speed", speed);
-
-                if (destination)
-                    FacePlayer();
-
-                if (playerInRange && !CanSeePlayer())
+                StartCoroutine(Roam());
+            }
+            else if (agent.destination != GameManager.instance.player.transform.position)
+            {
+                StartCoroutine(Roam());
+            }
+        
+    }
+    //Simple enemy AI, Enemies can always see player, always go to player, etc. No roaming.
+    void simple() 
+    {
+        Debug.Log("Simple");
+            speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
+            anim.SetFloat("Speed", speed);
+            if (!healer)
+            {
+                if (agent.isActiveAndEnabled)
                 {
-                    StartCoroutine(Roam());
-                }
-                else if (agent.destination != GameManager.instance.player.transform.position)
-                {
-                    StartCoroutine(Roam());
+                    agent.SetDestination(GameManager.instance.player.transform.position);
+                    //CanSeePlayer();
                 }
             }
-        }
-        else
-        {
-            if (agent.isActiveAndEnabled)
+            else
             {
-                //AddPushBack();
-                speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
-                anim.SetFloat("Speed", speed);
-                if (!healer)
+                if (playerInRange && agent.isActiveAndEnabled)
                 {
-                    if (agent.isActiveAndEnabled)
-                    {
-                        agent.SetDestination(GameManager.instance.player.transform.position);
-                        CanSeePlayer();
-                    }
-                }
-                else
-                {
-                    if (playerInRange && agent.isActiveAndEnabled)
-                    {
-                        RunAwayFromPlayer();
-                    }
+                    RunAwayFromPlayer();
                 }
             }
-        }
     }
     IEnumerator Roam()
     {
@@ -188,27 +189,26 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
         {
             if(hit.collider.CompareTag("Player") && angleOfPlayer <= viewAngle)
             {
+                StopCoroutine(Roam());
+                agent.stoppingDistance = stoppingDistanceOrig;
                 if (healer)
                 {
                     RunAwayFromPlayer();
+                    
                 }
                 else
                 {
                     agent.SetDestination(GameManager.instance.player.transform.position);
-                }
-                agent.stoppingDistance = stoppingDistanceOrig;
-                if(agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    if (Complicated)
+                    if (agent.remainingDistance <= agent.stoppingDistance)
                     {
-                        destination = true;
+                        FacePlayer();
                     }
-                    FacePlayer();
+                    if (!isShooting && angleOfPlayer <= attackAngle && agent.remainingDistance <= range && !healer)
+                    {
+                        StartCoroutine(Shoot());
+                    }
                 }
-                if(!isShooting && angleOfPlayer <= attackAngle && agent.remainingDistance <= range && !healer)
-                {
-                    StartCoroutine(Shoot());
-                }
+                agent.stoppingDistance = 0;
                 return true;
             }
         }
@@ -335,9 +335,16 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
             StartCoroutine(WaitSecondsBeforeDespawn());
             GameManager.instance.enemiesKilled++;
         }
+        else 
+        {
             StartCoroutine(FlashColor());
-            destination = true;
             anim.SetTrigger("Damage");
+            agent.SetDestination(GameManager.instance.player.transform.position);
+            playerInRange = true;
+        }
+            
+            
+           
     }
 
     public void instaKill()
@@ -372,8 +379,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     {
         if (other.CompareTag("Player"))
         {
+            agent.stoppingDistance = 0;
             playerInRange = false;
-            destination = false;
         }
     }
     void AddPushBack()
