@@ -10,6 +10,7 @@ public class MainMenuManager : MonoBehaviour
 
     public GameObject activeMenu;
     public GameObject optionsMenu;
+    public GameObject loginMenu;
     public GameObject creditsMenu;
     public GameObject loadingScreen;
     public GameObject mainMenu;
@@ -123,6 +124,14 @@ public class MainMenuManager : MonoBehaviour
         activeMenu = optionsMenu;
         activeMenu.SetActive(true);
     }
+
+    public void LoginMenu() 
+    {
+        activeMenu.SetActive(false);
+        activeMenu = loginMenu;
+        activeMenu.SetActive(true);
+    }
+
     public void DifficultyMenu()
     {
         activeMenu.SetActive(false);
