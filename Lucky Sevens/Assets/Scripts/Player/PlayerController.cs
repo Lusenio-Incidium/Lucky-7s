@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     static PlayerController pc;
 
-    //Variables
     [Header("- - - Componets - - -")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
@@ -23,7 +22,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [SerializeField][Range(1.0f, 10.0f)] float playerSpeed;
     [SerializeField][Range(1.5f, 5.0f)] float sprintMod;
     [SerializeField][Range(0.1f, 0.5f)] float crawlMod;
-    [SerializeField][Range(1.5f, 2.0f)] float slideMod;
     [SerializeField][Range(1.0f, 20.0f)] float jumpHeight;
     [SerializeField][Range(5.0f, 30.0f)] float gravityScale;
     [SerializeField][Range(1, 4)] int maxJumpAmmount;
@@ -66,7 +64,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     bool stepPlaying;
     bool isSprinting;
     bool isCrawl;
-    bool isSlide;
     Color backHpOrig;
     float lerpTimer;
     float playerSpeedOrig;
@@ -121,7 +118,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         movement();
         if(!GameManager.instance.isPaused)
             interact();
-        if(!isCrawl && !isSlide)
+        if(!isCrawl)
             sprint();
         crawl();
 
@@ -188,7 +185,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     void checks() 
     {
-        if (!isSprinting && !isCrawl && !isSlide)
+        if (!isSprinting && !isCrawl)
             playerSpeed = playerSpeedOrig;
 
         if (transform.position.y < -10)
@@ -303,13 +300,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     void crawl()
     {
-        if (Input.GetButtonDown("Crawl") && isSprinting)
-        {
-            if (!isSlide)
-                StartCoroutine(slide());
-            controller.height = 1;
-        }
-        else if (Input.GetButtonDown("Crawl"))
+        if (Input.GetButtonDown("Crawl"))
         {
             isSprinting = false;
             playerSpeed = playerSpeedOrig;
@@ -326,20 +317,9 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             playerSpeed /= crawlMod;
             GetComponent<CapsuleCollider>().height = 2;
             controller.height = 2;
-            isSlide = false;
         }
     }
 
-    IEnumerator slide()
-    {
-        isSlide = true;
-        GameManager.instance.playerCam.transform.position = new Vector3(GameManager.instance.playerCam.transform.position.x, GameManager.instance.playerCam.transform.position.y - 0.5f, GameManager.instance.playerCam.transform.position.z);
-        playerSpeed = playerSpeedOrig * slideMod;
-        yield return new WaitForSeconds(0.5f);
-        playerSpeed = playerSpeedOrig;
-        GetComponent<CapsuleCollider>().height = 1;
-
-    }
 
     IEnumerator playStepAud() 
     {
