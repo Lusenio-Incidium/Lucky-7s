@@ -587,7 +587,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     }
     void checks()
     {
-        if (!isSprinting && !isCrawl)
+        if (!isSprinting && !isCrawl && activeEffect == null)
             playerSpeed = playerSpeedOrig;
 
         if (transform.position.y < -10)
