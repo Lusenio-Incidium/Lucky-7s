@@ -48,6 +48,9 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     public float fadeSpeed;
     bool fadeout;
 
+    [Header("Head Bonk Variables")]
+    [SerializeField] LayerMask headIneraction;
+    [SerializeField] float headBonkRayLength;
     //private variables
     GunSystem gunSystem;
     Vector3 playerVelocity;
@@ -69,7 +72,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     float playerSpeedOrig;
     float durationTimer;
     float speed;
-    bool ceilingCheck;
 
     void Start()
     {
@@ -145,9 +147,9 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             }
         }
 
-        if(ceilingCheck && !isGrounded) 
+        if(!isGrounded && HeadBonkDetection())
         {
-            TakePush(new Vector3(0, -10, 0));
+            playerVelocity.y = 0;
         }
 
 
@@ -171,17 +173,29 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         controller.Move((playerVelocity + pushBack) * Time.deltaTime);
         pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
     }
+
+    bool HeadBonkDetection()
+    {
+        RaycastHit headBonk;
+        if (Physics.Raycast(Camera.main.transform.position, Vector3.up, out headBonk,headBonkRayLength, headIneraction)){
+            Debug.Log("Bonk = true");
+            return true;
+        }
+        return false;
+
+    }
     void crawl()
     {
         if (Input.GetButtonDown("Crawl"))
         {
             isSprinting = false;
+            isCrawl = true;
             playerSpeed = playerSpeedOrig;
             playerSpeed = playerSpeedOrig * crawlMod;
             GetComponent<CapsuleCollider>().height = 1;
             controller.height = 1;
         }
-        else if (Input.GetButtonUp("Crawl") && !ceilingCheck)
+        else if (isCrawl && !Input.GetButton("Crawl") && !HeadBonkDetection())
         {
             isCrawl = false;
             playerSpeed /= crawlMod;
@@ -596,17 +610,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         if (gunList.Count > 0)
             switchGun();
         DamageFlash();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("CelingColidable"))
-            ceilingCheck = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-            ceilingCheck = false;
     }
 
 }
