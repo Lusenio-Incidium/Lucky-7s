@@ -285,6 +285,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     #region damage
     public void takeDamage(float amount, Transform pos = null)
     {
+        if (isDead)
+        {
+            return;
+        }
         HP -= amount;
         aud.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)], hurtVol);
         lerpTimer = 0f;
@@ -294,7 +298,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 1);
         
         StartCoroutine(Invincibility());
-        if (HP <= 0 && !isDead)
+        if (HP <= 0)
         {
             aud.PlayOneShot(deathSounds[Random.Range(0,deathSounds.Length)], deathVol);
             pushBack = Vector3.zero;
