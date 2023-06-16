@@ -18,6 +18,7 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
     [SerializeField] Animator animator;
     [SerializeField] BoxCollider damageHitBox;
     [SerializeField] AudioSource noiseMaker;
+    [SerializeField] Transform centerOfAxe;
     [Header("--- Audio ---")]
     [SerializeField] AudioClip[] woosh;
     [Range(0, 1)][SerializeField] float volume;
@@ -74,7 +75,7 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
             IPhysics physics = other.GetComponent<IPhysics>();
             if (physics != null)
             {
-                Vector3 dir = other.gameObject.transform.position - transform.position;
+                Vector3 dir = other.gameObject.transform.position - centerOfAxe.position;
                 physics.TakePush(dir * knockback);
             }
         }
