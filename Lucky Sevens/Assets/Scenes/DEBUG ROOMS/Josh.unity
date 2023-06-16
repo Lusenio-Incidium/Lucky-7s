@@ -1373,6 +1373,7 @@ MonoBehaviour:
   cardObject: {fileID: 9133120254989787186, guid: 0c263ff04a2166b4db9e8d632541e2d2, type: 3}
   desintigrationParticle: {fileID: 6681811588121123781, guid: d7bfe9517700d1a49bc1d5e00af88a1b, type: 3}
   disappearParicle: {fileID: 7923252991284053146, guid: ca604b4ac0bb6a140b139dc957589508, type: 3}
+  distructionColor: {r: 0, g: 0, b: 0, a: 0}
   disappearSpeed: 5
   respawn: 1
   spawnImmediately: 0
@@ -3169,6 +3170,7 @@ MonoBehaviour:
   cardObject: {fileID: 9133120254989787186, guid: 0c263ff04a2166b4db9e8d632541e2d2, type: 3}
   desintigrationParticle: {fileID: 6681811588121123781, guid: d7bfe9517700d1a49bc1d5e00af88a1b, type: 3}
   disappearParicle: {fileID: 7923252991284053146, guid: ca604b4ac0bb6a140b139dc957589508, type: 3}
+  distructionColor: {r: 0, g: 0, b: 0, a: 0}
   disappearSpeed: 5
   respawn: 1
   spawnImmediately: 0
@@ -3864,6 +3866,7 @@ MonoBehaviour:
   cardObject: {fileID: 9133120254989787186, guid: 0c263ff04a2166b4db9e8d632541e2d2, type: 3}
   desintigrationParticle: {fileID: 6681811588121123781, guid: d7bfe9517700d1a49bc1d5e00af88a1b, type: 3}
   disappearParicle: {fileID: 7923252991284053146, guid: ca604b4ac0bb6a140b139dc957589508, type: 3}
+  distructionColor: {r: 0, g: 0, b: 0, a: 0}
   disappearSpeed: 5
   respawn: 0
   spawnImmediately: 1
@@ -4278,6 +4281,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3878950961467398294, guid: ea383640e53a84f4f8d3786b62da52eb, type: 3}
+      propertyPath: headBonkRayLengthJumping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3878950961467398294, guid: ea383640e53a84f4f8d3786b62da52eb, type: 3}
+      propertyPath: headBonkRayLengthCrouching
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 3878950961476695814, guid: ea383640e53a84f4f8d3786b62da52eb, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -6762,6 +6773,7 @@ MonoBehaviour:
   cardObject: {fileID: 9133120254989787186, guid: 0c263ff04a2166b4db9e8d632541e2d2, type: 3}
   desintigrationParticle: {fileID: 6681811588121123781, guid: d7bfe9517700d1a49bc1d5e00af88a1b, type: 3}
   disappearParicle: {fileID: 7923252991284053146, guid: ca604b4ac0bb6a140b139dc957589508, type: 3}
+  distructionColor: {r: 0, g: 0, b: 0, a: 0}
   disappearSpeed: 0
   respawn: 0
   spawnImmediately: 1
@@ -8739,10 +8751,6 @@ PrefabInstance:
     - target: {fileID: 1284674583379861811, guid: f988eade9b3cbd24aa531fa2f843e42d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 179.658
-      objectReference: {fileID: 0}
-    - target: {fileID: 1611916788625625244, guid: f988eade9b3cbd24aa531fa2f843e42d, type: 3}
-      propertyPath: viewCone
-      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1918467568153410441, guid: f988eade9b3cbd24aa531fa2f843e42d, type: 3}
       propertyPath: m_Name
@@ -12427,7 +12435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6172197916612436071, guid: e1968be0109b906428c05d7ac258ead6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6172197916612436071, guid: e1968be0109b906428c05d7ac258ead6, type: 3}
       propertyPath: m_LocalPosition.z
