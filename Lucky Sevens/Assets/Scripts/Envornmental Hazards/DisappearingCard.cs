@@ -14,6 +14,7 @@ public class DisappearingCard : MonoBehaviour, IButtonTrigger, IBattle, ICannonK
     [SerializeField] GameObject cardObject;
     [SerializeField] GameObject desintigrationParticle;
     [SerializeField] GameObject disappearParicle;
+    [SerializeField] Color distructionColor;
     [SerializeField] float disappearSpeed;
     [SerializeField] bool respawn;
     [SerializeField] bool spawnImmediately;
@@ -52,7 +53,7 @@ public class DisappearingCard : MonoBehaviour, IButtonTrigger, IBattle, ICannonK
                 spawnedDesintParticle = Instantiate(desintigrationParticle, transform.position, transform.rotation, spawnedCard.transform);
                 
             }
-            spawnedCard.GetComponent<Renderer>().material.color = Color.Lerp(OrigCardColor, Color.black, currDisappearTime / disappearSpeed);
+            spawnedCard.GetComponent<Renderer>().material.color = Color.Lerp(OrigCardColor, distructionColor, currDisappearTime / disappearSpeed);
             spawnedCard.transform.localScale = Vector3.Lerp(OrigCardScale, Vector3.zero, currDisappearTime / disappearSpeed);
 
 

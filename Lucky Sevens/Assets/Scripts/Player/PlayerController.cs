@@ -50,7 +50,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     [Header("Head Bonk Variables")]
     [SerializeField] LayerMask headIneraction;
-    [SerializeField] float headBonkRayLength;
+    [SerializeField] float headBonkRayLengthJumping;
+    [SerializeField] float headBonkRayLengthCrouching;
     //private variables
     GunSystem gunSystem;
     Vector3 playerVelocity;
@@ -147,7 +148,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             }
         }
 
-        if(!isGrounded && HeadBonkDetection())
+        if(!isGrounded && HeadBonkDetection(headBonkRayLengthJumping))
         {
             playerVelocity.y = 0;
         }
@@ -174,10 +175,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
     }
 
-    bool HeadBonkDetection()
+    bool HeadBonkDetection(float headBonkLength)
     {
         RaycastHit headBonk;
-        if (Physics.Raycast(Camera.main.transform.position, Vector3.up, out headBonk,headBonkRayLength, headIneraction)){
+        if (Physics.Raycast(Camera.main.transform.position, Vector3.up, out headBonk,headBonkLength, headIneraction)){
             Debug.Log("Bonk = true");
             return true;
         }
@@ -195,7 +196,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             GetComponent<CapsuleCollider>().height = 1;
             controller.height = 1;
         }
-        else if (isCrawl && !Input.GetButton("Crawl") && !HeadBonkDetection())
+        else if (isCrawl && !Input.GetButton("Crawl") && !HeadBonkDetection(headBonkRayLengthCrouching))
         {
             isCrawl = false;
             playerSpeed /= crawlMod;
