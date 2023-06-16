@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 1843147057775548579}
   - component: {fileID: 8632055957945364345}
   - component: {fileID: 8632055957945364344}
+  - component: {fileID: 1255940747}
   m_Layer: 12
   m_Name: Sphere
   m_TagString: Untagged
@@ -94,8 +95,8 @@ Transform:
   m_GameObject: {fileID: 7458620668059818318}
   m_LocalRotation: {x: -0.7071067, y: -0.000000030908616, z: 0.000000030908623, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1611916787777942225}
   m_Father: {fileID: 1284674583379861811}
@@ -170,7 +171,7 @@ MonoBehaviour:
   invincible: 0
   health: 0
   speed: 5
-  viewCone: 90
+  viewCone: 30
   active: 1
   barrelPosition: {fileID: 1611916787777942225}
   explosion: {fileID: 113066723586254411, guid: 9a301284ef6139541aca53fe24820439, type: 3}
@@ -317,3 +318,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!135 &1255940747
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7458620668059818318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: -0.000000004669109, y: 0.0000000037252894, z: 0.013418105}
