@@ -326,6 +326,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     #region spawning player
     public void spawnPlayer()
     {
+        Invincible(true);
         isDead = false;
         controller.enabled = false;
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
@@ -336,6 +337,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         updatePlayerUI();
         GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 0);
         GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 0);
+        Invincible(false);
     }
 
 
