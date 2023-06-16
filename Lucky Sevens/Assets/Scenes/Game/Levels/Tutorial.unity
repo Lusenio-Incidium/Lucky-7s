@@ -1937,6 +1937,10 @@ PrefabInstance:
       value: 4x4Flat_Wall (242)
       objectReference: {fileID: 0}
     - target: {fileID: 6883161727179052901, guid: da9f98866f4b57c4cba6835d39f00563, type: 3}
+      propertyPath: m_TagString
+      value: CelingColidable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6883161727179052901, guid: da9f98866f4b57c4cba6835d39f00563, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -2223,7 +2227,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh498448
+  m_Name: pb_Mesh525216
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3252,6 +3256,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7870481332009804443, guid: e8841e50bf3edbd4f8939b663734883d, type: 3}
   m_PrefabInstance: {fileID: 908111724}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &833048735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3878950961476922086, guid: ea383640e53a84f4f8d3786b62da52eb, type: 3}
+  m_PrefabInstance: {fileID: 2087723648}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &833048736
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833048735}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1001 &837891276
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@ public class ButtonFunctions : MonoBehaviour
         GameManager.instance.unPauseState();
         StartCoroutine(GameManager.instance.loadScene(SceneManager.GetActiveScene().name));
         GameManager.instance.gunSystem.restartGun();
-        respawnPlayer();
+        GameManager.instance.playerScript.playerHeal((int)GameManager.instance.playerScript.GetMaxHP());
         
     }
 

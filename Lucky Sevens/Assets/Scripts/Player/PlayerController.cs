@@ -397,6 +397,11 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         return (int)HP;
     }
+
+    public float GetMaxHP() 
+    {
+        return HPOrig;
+    }
     public bool playerGrounded()
     {
         return isGrounded;
