@@ -523,7 +523,6 @@ MonoBehaviour:
   controller: {fileID: 3878950961467398288}
   aud: {fileID: 3878950961467398292}
   musicAud: {fileID: 7818974301974443139}
-  musicVol: 0
   animator: {fileID: 3878950961467398299}
   mainCam: {fileID: 1528448777253964124}
   gunList: []
@@ -531,7 +530,6 @@ MonoBehaviour:
   playerSpeed: 5
   sprintMod: 1.5
   crawlMod: 0.2
-  slideMod: 1.5
   jumpHeight: 10
   gravityScale: 18.5
   maxJumpAmmount: 2
@@ -566,10 +564,15 @@ MonoBehaviour:
   deathSounds:
   - {fileID: 8300000, guid: 1013410cda0fe434a9d7259ef29fe084, type: 3}
   deathVol: 0.5
+  musicVol: 0
   ShotgunSpawn: {fileID: 7619117368834635728, guid: b1f9b9112fbf5d249ba38e335779c21a, type: 3}
   tommySpawn: {fileID: 670377652670482858, guid: e21ccd608a780f041929e2710d4aea01, type: 3}
   duration: 0
   fadeSpeed: 0
+  headIneraction:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  headBonkRayLength: 0.5
 --- !u!136 &3878950961467398295
 CapsuleCollider:
   m_ObjectHideFlags: 0
