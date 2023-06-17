@@ -54,7 +54,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     float HPOrig;
     Vector3 ranPos;
     Vector3 pushBack;
-    float pushBackResolve;
 
     BattleManager battleManager;
     void Start()
@@ -67,6 +66,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
         agent.radius = Random.Range(.5f, .75f);
         shootSpeedOrig = shootSpeed;
         enemyCol = GetComponent<CapsuleCollider>();
+
         if(GameManager.instance.hard)
         {
             HP *= 1.5f;
@@ -182,7 +182,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     {
         playerDir = GameManager.instance.player.transform.position - headPos.position;
         angleOfPlayer = Vector3.Angle(new Vector3(playerDir.x, playerDir.y, playerDir.z), transform.forward);
-
         RaycastHit hit;
 
         if(Physics.Raycast(headPos.position,playerDir,out hit))
@@ -219,7 +218,6 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     IEnumerator Shoot()
     {
         isShooting = true;
-
         anim.SetTrigger("Shoot");
         //shootPos.rotation = Quaternion.Euler(playerDir.x,playerDir.y,playerDir.z); 
         if (isMelee)
@@ -234,8 +232,9 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
 
     public void createBullet()
     {
+        shootPos.LookAt(GameManager.instance.playerScript.GetPlayerCenter().position);
         gunProjectile.GetComponent<Bullet>().SetBulletSpeed(bulletSpeed);
-        ObjectPoolManager.instance.SpawnObject(gunProjectile, shootPos.transform.position, transform.rotation,ObjectPoolManager.PoolType.GameObject);
+        ObjectPoolManager.instance.SpawnObject(gunProjectile, shootPos.transform.position,shootPos.transform.rotation, ObjectPoolManager.PoolType.GameObject);
     }
 
     public void fistColOn()

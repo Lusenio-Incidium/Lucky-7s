@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     [SerializeField] AudioSource musicAud;
     [SerializeField] Animator animator;
     [SerializeField] GameObject mainCam;
+    [SerializeField] Transform playerCenterPos;
 
     [Header("- - - Atributes - - -")]
     public List<GunStats> gunList = new List<GunStats>();
@@ -445,6 +446,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     public CharacterController GetCharacterController()
     {
         return controller;
+    }
+    public Transform GetPlayerCenter()
+    {
+        return playerCenterPos;
     }
 
     #endregion
