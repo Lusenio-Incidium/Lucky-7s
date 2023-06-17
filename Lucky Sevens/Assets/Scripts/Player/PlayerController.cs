@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     float playerSpeedOrig;
     float durationTimer;
     float speed;
-
+    bool bonked;
     void Start()
     {
         if (MainMenuManager.instance != null)
@@ -146,11 +146,13 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             {
                 StartCoroutine(playStepAud());
             }
+            bonked = false;
         }
 
-        if(!isGrounded && HeadBonkDetection(headBonkRayLengthJumping))
+        if(!isGrounded && HeadBonkDetection(headBonkRayLengthJumping) && !bonked)
         {
             playerVelocity.y = 0;
+            bonked = true;
         }
 
 
@@ -166,7 +168,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             aud.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Length)], jumpVol);
             jumpTimes++;
             playerVelocity.y = jumpHeight;
-
+            bonked = false;
         }
 
         //gravity
