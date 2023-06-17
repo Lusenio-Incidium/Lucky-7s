@@ -363,6 +363,17 @@ public class GunSystem : MonoBehaviour
         }
         gunModel.transform.localRotation = originalRotation;
     }
+    public bool HasWeaponWithTag(string weaponTag)
+    {
+        foreach(GunStats weapon in weapons)
+        {
+            if (weapon.tag == weaponTag)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void DestroyCurrentWeapon()
     {

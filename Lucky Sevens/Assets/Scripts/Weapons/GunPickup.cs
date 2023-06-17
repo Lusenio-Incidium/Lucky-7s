@@ -25,9 +25,22 @@ public class GunPickup : MonoBehaviour
             GunSystem gunSystem = other.GetComponent<GunSystem>();
             if (gunSystem != null)
             {
-                gunSystem.PickUpWeapon(gunStat);
-                Destroy(gameObject);
+                bool hasWeaponTag = gunSystem.HasWeaponWithTag(gunStat.tag);
+
+                if (!hasWeaponTag)
+                {
+                    ResetGunStats();
+                    gunSystem.PickUpWeapon(gunStat);
+                    Destroy(gameObject);
+                }
             }
         }
+    }
+    private void ResetGunStats()
+    {
+        gunStat.bulletsLeft = gunStat.magSize;
+        gunStat.currentAmmoCount = gunStat.magSize;
+        gunStat.ammunition = gunStat.magSize * 6;
+        gunStat.statusEffect = null;
     }
 }
