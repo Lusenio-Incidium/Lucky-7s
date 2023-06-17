@@ -366,11 +366,6 @@ public class GameManager : MonoBehaviour
         activeMenu.SetActive(true);
     }
 
-    public void TradeAmmo(int ammount) 
-    {
-        playerAmmo -= ammount;
-        storeTokens += ammount;
-    }
 
     public void ErrorMenu(string errorText) 
     {
@@ -434,8 +429,19 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateAmmoCount()
     {
-        ammoReserveCount.text = gunSystem.GetAmmoCount().ToString();
-        ammoMagCount.text = gunSystem.GetMagCount().ToString();
+        if (gunSystem.hasGun) 
+        {
+            if (!gunSystem.weapons[gunSystem.currentWeapon].destroyOnEmpty)
+            {
+                ammoReserveCount.text = playerAmmo.ToString();
+                ammoMagCount.text = gunSystem.GetMagCount().ToString();
+            }
+            else
+            {
+                ammoReserveCount.text = gunSystem.GetAmmo().ToString();
+                ammoMagCount.text = gunSystem.GetMagCount().ToString();
+            }
+        }
     }
 
     public void updateTimer()
