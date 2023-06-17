@@ -28,7 +28,7 @@ public class AchivementSystem : MonoBehaviour
             {
                 if (compleateLevel)
                     giveAchivement(normalID);
-                if (hardMode && compleateLevel && GameManager.instance.hardMode)
+                if (hardMode && compleateLevel && GameManager.instance.hard)
                     giveAchivement(hardID);
 
             }
