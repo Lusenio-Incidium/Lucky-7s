@@ -424,15 +424,14 @@ public class GunSystem : MonoBehaviour
     {
         int bulletsToReload = magSize - bulletsLeft;
 
-        if (ammunition > 0 && bulletsLeft < magSize)
+        if (GameManager.instance.playerAmmo > 0 && bulletsLeft < magSize)
         {
-            int reservedAmmo = (int)Mathf.Min(ammunition, bulletsToReload);
+            int reservedAmmo = (int)Mathf.Min(GameManager.instance.playerAmmo, bulletsToReload);
             bulletsLeft += reservedAmmo;
-            ammunition -= reservedAmmo;
+            GameManager.instance.playerAmmo -= reservedAmmo;
         }
         reloading = false;
         bulletsLeft = weapons[currentWeapon].bulletsLeft = bulletsLeft;
-        ammunition = weapons[currentWeapon].ammunition = ammunition;
         GameManager.instance.UpdateAmmoCount();
         GameManager.instance.activeMenu = null;
     }
@@ -444,12 +443,12 @@ public class GunSystem : MonoBehaviour
             EquipWeapon(0);
         }
         hasGun = true;
-        GameManager.instance.playerAmmo += ammunition + bulletsLeft;
+        GameManager.instance.playerAmmo += ammunition;
         GameManager.instance.ammoDisplay.SetActive(true);
 
         GameManager.instance.ammoGatheredTotal += gunStat.ammunition;
         GameManager.instance.ammoGatheredTotal += gunStat.magSize;
-
+        GameManager.instance.UpdateAmmoCount();
     }
     public void restartGun()
     {
@@ -531,7 +530,6 @@ public class GunSystem : MonoBehaviour
         gunModel.transform.rotation = originolRotation;
         gunModel.transform.position = aimPosition;
         gunModel.transform.rotation = aimRotation;
-
         Invoke("ResetShot", timeBetweenShots);
 
     }

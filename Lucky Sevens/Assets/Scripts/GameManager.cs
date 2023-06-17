@@ -366,11 +366,6 @@ public class GameManager : MonoBehaviour
         activeMenu.SetActive(true);
     }
 
-    public void TradeAmmo(int ammount) 
-    {
-        playerAmmo -= ammount;
-        storeTokens += ammount;
-    }
 
     public void ErrorMenu(string errorText) 
     {
@@ -434,7 +429,7 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateAmmoCount()
     {
-        ammoReserveCount.text = gunSystem.GetAmmoCount().ToString();
+        ammoReserveCount.text = playerAmmo.ToString();
         ammoMagCount.text = gunSystem.GetMagCount().ToString();
     }
 
