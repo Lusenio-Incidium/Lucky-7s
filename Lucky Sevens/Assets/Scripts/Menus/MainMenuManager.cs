@@ -68,6 +68,12 @@ public class MainMenuManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         StartCoroutine(musicFadeIn());
+
+        if(GameJolt.API.GameJoltAPI.Instance.CurrentUser != null) 
+        {
+            loginButton.SetActive(false);
+            accountMenu.SetActive(true);
+        }
         
     }
 
