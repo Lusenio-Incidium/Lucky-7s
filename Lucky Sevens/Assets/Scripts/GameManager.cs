@@ -92,6 +92,8 @@ public class GameManager : MonoBehaviour
     public AudioClip buttonSoundAud;
     public AudioClip playSoundAud;
     public GameObject ending;
+    public string[] tips;
+    public TextMeshProUGUI tipsText;
 
     public int enemiesRemaining;
     public bool coinCollected;
@@ -299,6 +301,7 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         Animator anim = loadingScreen.GetComponent<Animator>();
         activeMenu = loadingScreen;
+        tipsText.text = tips[Random.Range(0,tips.Length)];
         GameManager.instance.loadingScreen.SetActive(true);
         anim.SetTrigger("Transition");
         playerScript.Invincible(true);
