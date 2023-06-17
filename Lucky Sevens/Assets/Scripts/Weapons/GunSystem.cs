@@ -531,7 +531,7 @@ public class GunSystem : MonoBehaviour
         originolRotation = weapons[currentWeapon].rotation;
         aimPosition = weapons[currentWeapon].aimPosition;
         aimRotation = weapons[currentWeapon].aimRotation;
-        if (weapons[currentWeapon].tag == "AR/Pistol")
+        if (weapons[currentWeapon].tag == "Pistol" || weapons[currentWeapon].tag == "AR")
         {
             GameManager.instance.activeRetical.SetActive(false);
             GameManager.instance.activeRetical = GameManager.instance.arPistolRetical;
