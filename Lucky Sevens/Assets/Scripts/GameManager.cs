@@ -560,7 +560,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator DeathSequence()
     {
         SpawnPlayerForDeathAnim();
-        Transform deathCamera = player.transform.GetChild(3);
+        Transform deathCamera = player.transform.GetChild(4);
         activeMenu = completionText;
         origCamPos = playerCam.transform.localPosition;
         HudDisabledDisplay(deathCamera);
