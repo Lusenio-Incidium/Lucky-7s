@@ -429,8 +429,19 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateAmmoCount()
     {
-        ammoReserveCount.text = playerAmmo.ToString();
-        ammoMagCount.text = gunSystem.GetMagCount().ToString();
+        if (gunSystem.hasGun) 
+        {
+            if (!gunSystem.weapons[gunSystem.currentWeapon].destroyOnEmpty)
+            {
+                ammoReserveCount.text = playerAmmo.ToString();
+                ammoMagCount.text = gunSystem.GetMagCount().ToString();
+            }
+            else
+            {
+                ammoReserveCount.text = gunSystem.GetAmmo().ToString();
+                ammoMagCount.text = gunSystem.GetMagCount().ToString();
+            }
+        }
     }
 
     public void updateTimer()

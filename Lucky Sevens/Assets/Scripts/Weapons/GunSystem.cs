@@ -154,7 +154,7 @@ public class GunSystem : MonoBehaviour
         //reloading
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft <= magSize && !reloading)
         {
-            if (ammunition == 0)
+            if (GameManager.instance.playerAmmo == 0)
             {
                 GameManager.instance.CharZeroReserve();
             }
@@ -172,6 +172,7 @@ public class GunSystem : MonoBehaviour
             if (!reloading && bulletsLeft == 0 && isShooting)
             {
                 GameManager.instance.CharEmtpyMag();
+                Reload();
             }
             if (readyToShoot && isShooting && !reloading)
             {
@@ -249,7 +250,7 @@ public class GunSystem : MonoBehaviour
         bulletsLeft--;
         bulletsShot++;
         bulletsLeft = weapons[currentWeapon].bulletsLeft = bulletsLeft;
-        GameManager.instance.playerAmmo -= 1;
+        
         GameManager.instance.UpdateAmmoCount();
 
         GameManager.instance.ammoUsedTotal += 1;
@@ -423,13 +424,22 @@ public class GunSystem : MonoBehaviour
     public void ReloadDone()
     {
         int bulletsToReload = magSize - bulletsLeft;
-
-        if (GameManager.instance.playerAmmo > 0 && bulletsLeft < magSize)
+        if (!destroyOnEmpty)
         {
-            int reservedAmmo = (int)Mathf.Min(GameManager.instance.playerAmmo, bulletsToReload);
-            bulletsLeft += reservedAmmo;
-            GameManager.instance.playerAmmo -= reservedAmmo;
+            if (GameManager.instance.playerAmmo > 0 && bulletsLeft < magSize)
+            {
+                int reservedAmmo = (int)Mathf.Min(GameManager.instance.playerAmmo, bulletsToReload);
+                bulletsLeft += reservedAmmo;
+                GameManager.instance.playerAmmo -= reservedAmmo;
+            }
         }
+        else
+        { 
+            ammunition -= 1;
+            int reservedAmmo = (int)Mathf.Min(ammunition, bulletsToReload);
+            bulletsLeft += reservedAmmo;
+        }
+
         reloading = false;
         bulletsLeft = weapons[currentWeapon].bulletsLeft = bulletsLeft;
         GameManager.instance.UpdateAmmoCount();
@@ -443,7 +453,11 @@ public class GunSystem : MonoBehaviour
             EquipWeapon(0);
         }
         hasGun = true;
-        GameManager.instance.playerAmmo += ammunition;
+        GameManager.instance.playerAmmo += gunStat.ammunition;
+        if (gunStat.destroyOnEmpty) 
+        {
+            ammunition += gunStat.ammunition;
+        }
         GameManager.instance.ammoDisplay.SetActive(true);
 
         GameManager.instance.ammoGatheredTotal += gunStat.ammunition;
@@ -490,7 +504,6 @@ public class GunSystem : MonoBehaviour
         bulletsPerTap = weapons[index].bulletsPerTap;
         magSize = weapons[index].magSize;
         bulletsLeft = weapons[index].bulletsLeft;
-        ammunition = weapons[index].ammunition;
         statusEffect = weapons[index].statusEffect;
         recoilAmount = weapons[index].recoilAmount;
         adsReduction = weapons[index].adsReducution;
@@ -535,14 +548,8 @@ public class GunSystem : MonoBehaviour
     }
     public void AddBullets(int amount)
     {
-        if (ammunition - ammunition >= 0)
-            ammunition += amount;
-        else
-        {
-            int amount2 = amount - ammunition;
-            bulletsLeft -= amount2;
-        }
-        GameManager.instance.playerAmmo = ammunition;
+        GameManager.instance.playerAmmo += amount;
+
         GameManager.instance.UpdateAmmoCount();
 
         GameManager.instance.ammoGatheredTotal += amount;
@@ -552,7 +559,8 @@ public class GunSystem : MonoBehaviour
         weapons[currentWeapon].statusEffect = data;
         statusEffect = data;
     }
-    public int GetAmmoCount()
+
+    public int GetAmmo() 
     {
         return ammunition;
     }
@@ -567,10 +575,5 @@ public class GunSystem : MonoBehaviour
     public void SetReadyToShoot(bool boolean)
     {
         readyToShoot = boolean;
-    }
-    public void ChipPayment(int amount)
-    {
-        //ammunition = ammunition - amount;
-        ammunition -= amount;
     }
 }
