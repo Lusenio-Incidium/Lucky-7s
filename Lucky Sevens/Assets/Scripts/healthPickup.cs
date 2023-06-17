@@ -29,7 +29,12 @@ public class healthPickup : MonoBehaviour, ICollectable
     {
         if (other.CompareTag("Player"))
         {
-            onCollect();
+            PlayerController playerHealth = GameManager.instance.playerScript;
+
+            if (playerHealth.GetPlayerHP() < playerHealth.GetMaxHP())
+            {
+                onCollect();
+            }
         }
     }
 
