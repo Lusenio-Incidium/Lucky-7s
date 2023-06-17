@@ -72,13 +72,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7031690150263820350}
+  - component: {fileID: 1255940747}
+  - component: {fileID: 1611916788625625244}
   - component: {fileID: 9062077915890448317}
   - component: {fileID: 4751897150725989282}
-  - component: {fileID: 1611916788625625244}
-  - component: {fileID: 1843147057775548579}
   - component: {fileID: 8632055957945364345}
   - component: {fileID: 8632055957945364344}
-  - component: {fileID: 1255940747}
+  - component: {fileID: 1994325394305174844}
   m_Layer: 12
   m_Name: Sphere
   m_TagString: Untagged
@@ -102,6 +102,55 @@ Transform:
   m_Father: {fileID: 1284674583379861811}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1255940747
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7458620668059818318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 30
+  m_Center: {x: -0.000000004669109, y: 0.0000000037252894, z: 0.013418105}
+--- !u!114 &1611916788625625244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7458620668059818318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 265e1937b3ce98145baa0c58d8ab0d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 6037390980562041110, guid: 08fc041ddc08b1a43acdb0ba7647ea4b, type: 3}
+  animator: {fileID: 8632055957945364344}
+  fireRate: 5
+  fireCone: 70
+  invincible: 0
+  health: 0
+  speed: 5
+  viewCone: 80
+  active: 1
+  barrelPosition: {fileID: 1611916787777942225}
+  explosion: {fileID: 113066723586254411, guid: 9a301284ef6139541aca53fe24820439, type: 3}
+  triggerOnDeath: []
+  onButtonPress: 0
+  onButtonRelease: 0
+  onBattleBegin: 0
+  onBattleEnd: 0
+  onCannonDeath: 0
+  noiser: {fileID: 8632055957945364345}
+  boom:
+  - {fileID: 8300000, guid: 11f710d9ed2b3d7479a5c4a275c386bb, type: 3}
+  boomVol: 1
+  deathNoise:
+  - {fileID: 8300000, guid: 11f710d9ed2b3d7479a5c4a275c386bb, type: 3}
+  deathVol: 1
 --- !u!33 &9062077915890448317
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -152,55 +201,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1611916788625625244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7458620668059818318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 265e1937b3ce98145baa0c58d8ab0d06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectile: {fileID: 6037390980562041110, guid: 08fc041ddc08b1a43acdb0ba7647ea4b, type: 3}
-  animator: {fileID: 8632055957945364344}
-  fireRate: 5
-  fireCone: 85
-  invincible: 0
-  health: 0
-  speed: 5
-  viewCone: 30
-  active: 1
-  barrelPosition: {fileID: 1611916787777942225}
-  explosion: {fileID: 113066723586254411, guid: 9a301284ef6139541aca53fe24820439, type: 3}
-  triggerOnDeath: []
-  onButtonPress: 0
-  onButtonRelease: 0
-  onBattleBegin: 0
-  onBattleEnd: 0
-  onCannonDeath: 0
-  noiser: {fileID: 8632055957945364345}
-  boom:
-  - {fileID: 8300000, guid: 11f710d9ed2b3d7479a5c4a275c386bb, type: 3}
-  boomVol: 1
-  deathNoise:
-  - {fileID: 8300000, guid: 11f710d9ed2b3d7479a5c4a275c386bb, type: 3}
-  deathVol: 1
---- !u!65 &1843147057775548579
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7458620668059818318}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.049999963, y: 0.04999997, z: 0.07683619}
-  m_Center: {x: -0.000000004669109, y: 0.0000000037252894, z: 0.013418105}
 --- !u!82 &8632055957945364345
 AudioSource:
   m_ObjectHideFlags: 0
@@ -318,8 +318,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!135 &1255940747
-SphereCollider:
+--- !u!65 &1994325394305174844
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -329,5 +329,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
-  m_Center: {x: -0.000000004669109, y: 0.0000000037252894, z: 0.013418105}
+  m_Size: {x: 4.9999967, y: 4.999996, z: 7.683619}
+  m_Center: {x: -0.0000005960464, y: -0.00000047683716, z: 1.3418067}

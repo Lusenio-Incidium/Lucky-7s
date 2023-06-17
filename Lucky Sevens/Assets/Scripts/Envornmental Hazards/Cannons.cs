@@ -42,6 +42,7 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
     [Range(0, 1)][SerializeField] float deathVol;
 
     bool isShooting;
+    bool inRange;
     Color colorOrig;
     float currHealth;
     Vector3 origPos;
@@ -57,8 +58,14 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
     // Update is called once per frame
     void Update()
     {
-        PlayerInRange();
-
+        if (inRange)
+        {
+            PlayerInRange();
+        }
+        else
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, origRot, Time.deltaTime * speed);
+        }
     }
     void TurnToPlayer()
     {
@@ -135,6 +142,22 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
     public void instaKill()
     {
         takeDamage(currHealth);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            inRange = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            inRange = false;
+        }
     }
 
     private Functions FunctionActions(Functions functions)
