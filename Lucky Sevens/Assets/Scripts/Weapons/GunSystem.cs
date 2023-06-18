@@ -171,7 +171,6 @@ public class GunSystem : MonoBehaviour
         {
             if (!reloading && bulletsLeft == 0 && isShooting)
             {
-                GameManager.instance.CharEmtpyMag();
                 Reload();
             }
             if (readyToShoot && isShooting && !reloading)

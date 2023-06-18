@@ -63,7 +63,6 @@ public class GameManager : MonoBehaviour
     public GameObject shotgunRetical;
     public GameObject ShopMenu;
     public GameObject emptyReserve;
-    public GameObject emptyMag;
     public GameObject ammoDisplay;
     public GameObject playerDamageFlash;
     public DamageFlash dm;
@@ -492,26 +491,6 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void CharEmtpyMag()
-    {
-        if (gunSystem.hasGun == true)
-            StartCoroutine(EmptyMag());
-    }
-    IEnumerator EmptyMag()
-    {
-        if(!isPaused)
-        {
-           activeMenu = emptyMag;
-           activeMenu.SetActive(true);
-           ammoMagCount.color = Color.red;
-           yield return new WaitForSeconds(1);
-           ammoMagCount.color = Color.white;
-           activeMenu = emptyMag;
-           activeMenu.SetActive(false);
-           activeMenu = null;
-        }
-       
-    }
     public void DifficultyMenu()
     {
         activeMenu.SetActive(false);
