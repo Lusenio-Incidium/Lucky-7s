@@ -154,15 +154,31 @@ public class GunSystem : MonoBehaviour
         //reloading
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft <= magSize && !reloading)
         {
-            if (GameManager.instance.playerAmmo == 0)
+            if (!destroyOnEmpty) 
             {
-                GameManager.instance.CharZeroReserve();
+                if (GameManager.instance.playerAmmo == 0)
+                {
+                    GameManager.instance.CharZeroReserve();
+                }
+                else if (bulletsLeft < magSize)
+                {
+                    GameManager.instance.CharReloading();
+                    Reload();
+                }
             }
-            else if (bulletsLeft < magSize)
+            else 
             {
-                GameManager.instance.CharReloading();
-                Reload();
+                if (ammunition == 0)
+                {
+                    GameManager.instance.CharZeroReserve();
+                }
+                else if (bulletsLeft < magSize)
+                {
+                    GameManager.instance.CharReloading();
+                    Reload();
+                }
             }
+            
 
         }
 
@@ -445,8 +461,8 @@ public class GunSystem : MonoBehaviour
         }
         else
         { 
-            ammunition -= 1;
             int reservedAmmo = (int)Mathf.Min(ammunition, bulletsToReload);
+            ammunition -= 1;
             bulletsLeft += reservedAmmo;
         }
 
