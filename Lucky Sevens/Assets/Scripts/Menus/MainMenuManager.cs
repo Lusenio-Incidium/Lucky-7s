@@ -67,20 +67,21 @@ public class MainMenuManager : MonoBehaviour
         }
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
-        StartCoroutine(musicFadeIn());
+        //StartCoroutine(musicFadeIn());
 
         if(GameJolt.API.GameJoltAPI.Instance.CurrentUser != null) 
         {
             loginButton.SetActive(false);
             accountMenu.SetActive(true);
         }
+        music.volume = 0;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        music.volume = musicVolume;
+        music.volume = musicVolume / 10f;
 
         if (GameJolt.API.GameJoltAPI.Instance.CurrentUser != null && avatar != GameJolt.API.GameJoltAPI.Instance.CurrentUser.Avatar) 
         {
@@ -113,19 +114,19 @@ public class MainMenuManager : MonoBehaviour
     {
         while(music.volume > 0) 
         {
-            music.volume-= 0.05f;
+            music.volume -= 0.05f;
             yield return new WaitForSeconds(0.1f);
         }
     }
 
-    IEnumerator musicFadeIn()
-    {
-        while (music.volume < musicVolume / 10f)
-        {
-            music.volume += 0.05f;
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
+    //IEnumerator musicFadeIn()
+    //{
+    //    while (music.volume < musicVolume / 10f)
+    //    {
+    //        music.volume += 0.05f;
+    //        yield return new WaitForSeconds(0.1f);
+    //    }
+    //}
 
     public void CreditsMenu()
     {

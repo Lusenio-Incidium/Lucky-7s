@@ -104,11 +104,6 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         }
         DontDestroyOnLoad(gameObject);
 
-        if(GameManager.instance.didRestart == true)
-        {
-            HP = 50;
-            GameManager.instance.didRestart = false;
-        }
         
         
     }
