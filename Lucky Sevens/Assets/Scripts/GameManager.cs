@@ -526,7 +526,7 @@ public class GameManager : MonoBehaviour
     public void WinSequence()
     {
         SpawnPlayerForWinAnim();
-        Transform secondCamera = player.transform.GetChild(0);
+        Transform secondCamera = player.transform.GetChild(1);
         origCamPos = playerCam.transform.localPosition;
         lowHealthFlashMenu.SetActive(false);
         HudDisabledDisplay(secondCamera);
