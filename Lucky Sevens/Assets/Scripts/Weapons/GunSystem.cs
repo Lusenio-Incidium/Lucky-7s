@@ -376,7 +376,7 @@ public class GunSystem : MonoBehaviour
         return false;
     }
 
-    private void DestroyCurrentWeapon()
+    public void DestroyCurrentWeapon()
     {
         weapons.RemoveAt(currentWeapon);
         currentWeapon = Mathf.Clamp(currentWeapon, 0, weapons.Count - 1);
