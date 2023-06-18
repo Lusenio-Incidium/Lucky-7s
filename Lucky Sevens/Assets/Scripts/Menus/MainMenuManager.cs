@@ -40,6 +40,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject accountMenu;
     public Button logIn;
     public Button logOut;
+    public Button easy;
     public TMP_InputField username;
     public TMP_InputField password;
     public TextMeshProUGUI usernameText;
@@ -206,6 +207,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void DifficultyMenu()
     {
+        easy.Select();
         activeMenu.SetActive(false);
         activeMenu = null;
         activeMenu = difficultyMenu;
