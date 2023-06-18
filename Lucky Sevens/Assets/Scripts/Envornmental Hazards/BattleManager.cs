@@ -1,5 +1,7 @@
+
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -45,6 +47,7 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
     int spawnSelect;
     bool spawning = false;
     bool battleBegin = false;
+    int currentIndex;
 
     [Header("Trigger Functions")]
     [SerializeField] Functions onButtonPress;
@@ -55,6 +58,7 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
     [SerializeField] Functions onTriggerEnter;
     private void Start()
     {
+        currentIndex = 0;
         enemyCount = spawnAmount;
     }
     // Update is called once per frame
@@ -71,9 +75,25 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
         spawning = true;
         for (int x = 0; x <= batchSpawn && spawnAmount > 0; x++)
         {
-            
-            GameObject enemy = Instantiate(enemyTypes[Random.Range(0, enemyTypes.Length - 1)], spawnLocations[Random.Range(0, spawnLocations.Length - 1)].position, transform.rotation); //CHANGE ROTATION!!!
-            enemy.GetComponent<IBattleEnemy>().SetBattleManager(this);
+            if (randomlyChooseSpawns)
+            {
+                int locationRAM = UnityEngine.Random.Range(0, spawnLocations.Length - 1);
+                GameObject enemy = Instantiate(enemyTypes[Random.Range(0, enemyTypes.Length - 1)], spawnLocations[locationRAM].position, spawnLocations[locationRAM].rotation); //CHANGE ROTATION!!!
+                enemy.GetComponent<IBattleEnemy>().SetBattleManager(this);
+            }
+            else
+            {
+                GameObject enemy = Instantiate(enemyTypes[Random.Range(0, enemyTypes.Length - 1)], spawnLocations[currentIndex].position, spawnLocations[currentIndex].rotation);
+                enemy.GetComponent<IBattleEnemy>().SetBattleManager(this);
+                if (currentIndex >= spawnLocations.Count())
+                {
+                    currentIndex = 0;
+                }
+                else
+                {
+                    currentIndex++;
+                }
+            }
             spawnAmount--;
         }
         yield return new WaitForSeconds(spawnDelay);
@@ -111,6 +131,7 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
         {
             return;
         }
+        Debug.Log("Trigger Entered.");
         onTriggerEnter = FunctionActions(onTriggerEnter);
     }
 
@@ -127,6 +148,7 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
             {
                 affectObj.OnBattleBegin();
             }
+            Debug.Log(battleBegin);
         }
         battleBegin = true;
     }

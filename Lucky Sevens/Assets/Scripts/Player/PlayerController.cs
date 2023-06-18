@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         RaycastHit headBonk;
         if (Physics.Raycast(Camera.main.transform.position, Vector3.up, out headBonk,headBonkLength, headIneraction)){
-            Debug.Log("Bonk = true");
+
             return true;
         }
         return false;

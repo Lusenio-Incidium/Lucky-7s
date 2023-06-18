@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FakeEnemy : MonoBehaviour, IDamage, IBattleEnemy
 {
     BattleManager battleManager;
+    bool dead;
 
     public void SetBattleManager(BattleManager manager)
     {
@@ -13,11 +15,16 @@ public class FakeEnemy : MonoBehaviour, IDamage, IBattleEnemy
 
     public void takeDamage(float num, Transform pos = null)
     {
+        if (dead)
+        {
+            return;
+        }
         if(battleManager != null)
         {
             battleManager.DeclareDeath(1);
         }
         Destroy(gameObject);
+        dead = true;
     }
 
     public void instaKill()

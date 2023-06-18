@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemMover : MonoBehaviour, IButtonTrigger
+public class ItemMover : MonoBehaviour, IButtonTrigger, ICannonKey, IBattle
 {
+    private enum Functions
+    {
+        None,
+        Start,
+        Stop
+    }
     private enum MoveMethods 
     {
         RunOnce,
@@ -17,6 +23,13 @@ public class ItemMover : MonoBehaviour, IButtonTrigger
     [SerializeField] bool spawnMoving;
     [SerializeField] bool buttonStartsMoving;
     [SerializeField] int delay;
+    [Header("Trigger Functions")]
+    [SerializeField] Functions onButtonPress;
+    [SerializeField] Functions onButtonRelease;
+    [SerializeField] Functions onBattleBegin;
+    [SerializeField] Functions onBattleEnd;
+    [SerializeField] Functions onCannonDeath;
+
     int stage;
     bool reverse;
     bool moving;
@@ -57,6 +70,7 @@ public class ItemMover : MonoBehaviour, IButtonTrigger
                 {
                     case MoveMethods.RunOnce:
                         moving = false;
+                        Debug.Log("Stopped");
                         return;
                     case MoveMethods.Loop:
                         stage = 0;
@@ -93,35 +107,47 @@ public class ItemMover : MonoBehaviour, IButtonTrigger
             transform.position = points[0].position;
         }
     }
-    public void OnButtonPress()
+
+    private Functions FunctionAction(Functions function)
     {
-        if (moveStyle != MoveMethods.RunOnce)
+        switch (function) 
         {
-            if (!buttonStartsMoving)
-            {
-                moving = false;
-            }
-            else
-            {
+            case Functions.None:
+                return Functions.None;
+            case Functions.Start:
                 moving = true;
-            }
+                Debug.Log("Triggered SG2");
+                break;
+            case Functions.Stop:
+                moving = false;
+                break;
+
         }
-        else
-        {
-            transform.position = points[0].position;
-            moving = true;
-        }
+        return function;
     }
 
-        public void OnButtonRelease()
+    public void OnButtonPress()
     {
-        if (buttonStartsMoving)
-        {
-            moving = false;
-        }
-        else
-        {
-            moving = true;
-        }
+        onButtonPress = FunctionAction(onButtonPress);
+    }
+    public void OnButtonRelease()
+    {
+        onButtonRelease = FunctionAction(onButtonRelease);
+
+    }
+    public void OnCannonDeath()
+    {
+        onCannonDeath = FunctionAction(onCannonDeath);
+    }
+
+    public void OnBattleBegin()
+    {
+        onBattleBegin = FunctionAction(onBattleBegin);
+        Debug.Log("Triggered SG1");
+    }
+
+    public void OnBattleEnd()
+    {
+        onBattleEnd = FunctionAction(onBattleEnd);
     }
 }
