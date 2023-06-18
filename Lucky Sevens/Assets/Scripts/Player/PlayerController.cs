@@ -411,24 +411,24 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         for(int x = 0; x < gunSystem.weapons.Count; x++)
         {
-            if(gtr == gunSystem.weapons[x])
+            if(gtr.tag == gunSystem.weapons[x].tag)
             {
                 if (gunSystem.weapons.Count > 1)
                 {
                     gunSystem.weapons.RemoveAt(x);
-                    if (selectedGunNum == x)
+                    if (gunSystem.currentWeapon == x)
                     {
                         if (gunSystem.weapons.Count > 0)
                         {
-                            if (selectedGunNum == 0)
+                            if (gunSystem.currentWeapon == 0)
                             {
-                                selectedGunNum = gunSystem.weapons.Count - 1;
+                                gunSystem.currentWeapon = gunSystem.weapons.Count - 1;
                             }
                             else
                             {
-                                selectedGunNum--;
+                                gunSystem.currentWeapon--;
                             }
-                            gunSystem.EquipWeapon(selectedGunNum);
+                            gunSystem.EquipWeapon(gunSystem.currentWeapon);
                         }
                     }
                 }
