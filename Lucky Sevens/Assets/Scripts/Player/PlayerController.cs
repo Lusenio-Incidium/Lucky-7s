@@ -548,7 +548,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         activeEffect = null;
         timePassed = 0;
-        if (Input.GetButtonDown("Sprint") && !isCrawl)
+        if (isSprinting)
         {
             playerSpeed = playerSpeedOrig * sprintMod;
         }
