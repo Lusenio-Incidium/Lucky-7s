@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
+public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger, IDialouge
 {
     [System.Serializable]
     private struct EnemyLineup
@@ -56,6 +56,7 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
     [SerializeField] Functions onBattleEnd;
     [SerializeField] Functions onCannonDeath;
     [SerializeField] Functions onTriggerEnter;
+    [SerializeField] Functions onDialougeContinue;
     private void Start()
     {
         currentIndex = 0;
@@ -193,5 +194,10 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger
     public void OnCannonDeath()
     {
         onCannonDeath = FunctionActions(onCannonDeath);
+    }
+
+    public void OnDialougeContinue()
+    {
+        onDialougeContinue = FunctionActions(onDialougeContinue);
     }
 }
