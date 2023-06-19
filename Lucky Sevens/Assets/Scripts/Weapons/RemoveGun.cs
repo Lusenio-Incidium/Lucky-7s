@@ -12,7 +12,6 @@ public class RemoveGun : MonoBehaviour
             if (GameManager.instance.playerScript.RemoveGun(GunToRemove))
             {
                 Destroy(gameObject);
-                Debug.Log("Successful");
             }
             else
             {
