@@ -579,6 +579,7 @@ public class GameManager : MonoBehaviour
         ammoDisplay.SetActive(true);
         if(playerStore != null)
         {
+            playerScript.GetComponent<Animator>().SetBool("dead", false);
             ObjectPoolManager.instance.ReturnObjToInfo(playerStore);
         }
     }

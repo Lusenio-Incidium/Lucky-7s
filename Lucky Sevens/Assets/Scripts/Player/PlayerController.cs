@@ -481,6 +481,10 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         return playerCenterPos;
     }
+    public void SetisDead(bool boolean)
+    {
+        isDead = boolean;
+    }
 
     #endregion
 

@@ -14,7 +14,7 @@ public class ButtonFunctions : MonoBehaviour
     public void restart()
     {
         GameManager.instance.didRestart = true;
-        GameManager.instance.playerAnim.SetBool("dead", false);
+        GameManager.instance.playerScript.SetisDead(false);
         GameManager.instance.ReEnableDisplay();
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
@@ -31,7 +31,7 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void respawnPlayer()
     {
-        GameManager.instance.playerAnim.SetBool("dead", false);
+        GameManager.instance.playerScript.SetisDead(false);
         GameManager.instance.ReEnableDisplay();
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.unPauseState();
