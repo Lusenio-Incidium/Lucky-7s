@@ -155,7 +155,6 @@ public class ShopController : MonoBehaviour
         if(tokenCost <= GameManager.instance.playerAmmo) 
         {
             GameManager.instance.playerAmmo -= tokenCost;
-            GameManager.instance.gunSystem.AddBullets(-tokenCost);
             Crate cs = crate.GetComponent<Crate>();
 
             if (buyFullHP) 
@@ -197,6 +196,6 @@ public class ShopController : MonoBehaviour
         healthTotal = 0;
         speedTotal = 0;
         gunTotal = 0;
-
+        GameManager.instance.UpdateAmmoCount();
     }
 }
