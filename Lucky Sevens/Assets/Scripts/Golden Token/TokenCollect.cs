@@ -45,6 +45,7 @@ public class TokenCollect : MonoBehaviour
         if (other.CompareTag("Player") && !collected)
         {
             collected = true;
+            GameManager.instance.playerScript.Invincible(true);
             SpeedUp();
             GameManager.instance.SetLatestLevel(level);
             if(GameManager.instance.GetLastestLevel() == 3)
