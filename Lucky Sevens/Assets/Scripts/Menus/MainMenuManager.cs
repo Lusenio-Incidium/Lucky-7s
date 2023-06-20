@@ -16,6 +16,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject mainMenu;
     public GameObject difficultyMenu;
     public GameObject hardButton;
+    public GameObject lockedtext;
     public Image sensitivityBar;
     public Image SFXVolumeBar;
     public Image musicVolumeBar;
@@ -215,6 +216,7 @@ public class MainMenuManager : MonoBehaviour
     }
     public void MainLocked()
     {
+        lockedtext.SetActive(true);
         hardButton.GetComponent<Button>().enabled = false;
         hardButton.GetComponent<Image>().color = Color.black;
         TextMeshProUGUI buttonText = hardButton.GetComponentInChildren<TextMeshProUGUI>();
