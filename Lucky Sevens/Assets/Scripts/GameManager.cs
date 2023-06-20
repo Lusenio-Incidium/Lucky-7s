@@ -286,14 +286,6 @@ public class GameManager : MonoBehaviour
         pauseState();
     }
 
-    IEnumerator timerIncrease() 
-    {
-        timerInc = true;
-        timeElapsed += Time.deltaTime;
-        yield return new WaitForSeconds(0.001f);
-        timerInc = false;
-    }
-
     public IEnumerator loadScene(string sceen)
     {
         //Load a scene with the loadTransition so we have a cool loading screen.
@@ -445,8 +437,7 @@ public class GameManager : MonoBehaviour
 
     public void updateTimer()
     {
-        if (!timerInc)
-            StartCoroutine(timerIncrease());
+        timeElapsed += Time.deltaTime;
         timerDisplay.text = timeElapsed.ToString("F2");
     }
     public void CharReloading()
