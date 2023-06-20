@@ -659,7 +659,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         if (!isSprinting && !isCrawl && activeEffect == null)
             playerSpeed = playerSpeedOrig;
 
-        if (transform.position.y < -10 || GameManager.instance.playerAmmo <= 0)
+        if (transform.position.y < -10 || (GameManager.instance.playerAmmo <= 0 && gunSystem.hasGun))
             instaKill();
 
         if (gunList.Count > 0)
