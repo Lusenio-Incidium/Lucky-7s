@@ -212,6 +212,7 @@ public class Slots : MonoBehaviour, IBoss
     }
     IEnumerator attackLogic(int phase)
     {
+        Debug.Log("Start attack");
         yield return new WaitForSeconds(5f);
         attacking = true;
         for (int i = 0; i < wheels.Length; i++)
@@ -222,6 +223,7 @@ public class Slots : MonoBehaviour, IBoss
             attackPhase2();
         else if (phase == 3)
             attackPhase3();
+        Debug.Log("End Attack");
         StartCoroutine(attackDelay());
     }
 
