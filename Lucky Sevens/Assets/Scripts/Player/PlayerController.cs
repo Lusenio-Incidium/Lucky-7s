@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
+public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
 {
     static PlayerController pc;
 
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     [Header("Audio")]
     [SerializeField] AudioClip[] footsteps;
-    [SerializeField][Range(0f,1f)] float footVol;
+    [SerializeField][Range(0f, 1f)] float footVol;
     [SerializeField] AudioClip[] jumpSounds;
     [SerializeField][Range(0f, 1f)] float jumpVol;
     [SerializeField] AudioClip[] hurtSounds;
@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     Vector3 pushBack;
     Color backHpOrig;
     bool isGrounded;
+    bool hasJumpedInAir;
     bool isDead;
     bool stepPlaying;
     bool isSprinting;
@@ -85,7 +86,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             hurtVol = MainMenuManager.instance.SFXVolume / 10f;
             deathVol = MainMenuManager.instance.SFXVolume / 10f;
         }
-        if (pc == null) 
+        if (pc == null)
         {
             pc = this;
             HPOrig = HP;
@@ -98,29 +99,29 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             speedHash = Animator.StringToHash("speed");
             gunSystem = GetComponent<GunSystem>();
         }
-        else 
+        else
         {
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
 
-        
-        
+
+
     }
 
     void Update()
     {
         movement();
-        if(!GameManager.instance.isPaused)
+        if (!GameManager.instance.isPaused)
             interact();
-        if(!isCrawl)
+        if (!isCrawl)
             sprint();
 
         crawl();
 
         checks();
 
-        if(GameManager.instance.backPlayerHPBar.fillAmount != (float) HP / HPOrig || GameManager.instance.playerHPBar.fillAmount != (float)HP / HPOrig)
+        if (GameManager.instance.backPlayerHPBar.fillAmount != (float)HP / HPOrig || GameManager.instance.playerHPBar.fillAmount != (float)HP / HPOrig)
         {
             updatePlayerUI();
         }
@@ -145,7 +146,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             bonked = false;
         }
 
-        if(!isGrounded && HeadBonkDetection(headBonkRayLengthJumping) && !bonked)
+        if (!isGrounded && HeadBonkDetection(headBonkRayLengthJumping) && !bonked)
         {
             playerVelocity.y = 0;
             bonked = true;
@@ -159,12 +160,31 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         animator.SetFloat(speedHash, speed);
 
         //Jump Input
-        if (Input.GetButtonDown("Jump") && jumpTimes < maxJumpAmmount)
+        if (Input.GetButtonDown("Jump"))
         {
-            aud.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Length)], jumpVol);
-            jumpTimes++;
-            playerVelocity.y = jumpHeight;
-            bonked = false;
+            if (isGrounded)
+            {
+                jumpTimes = 0;
+                hasJumpedInAir = false;
+
+                aud.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Length)], jumpVol);
+                jumpTimes++;
+                playerVelocity.y = jumpHeight;
+                bonked = false;
+            }
+            else if (!hasJumpedInAir && jumpTimes < maxJumpAmmount)
+            {
+                aud.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Length)], jumpVol);
+                jumpTimes++;
+                hasJumpedInAir=true;
+                playerVelocity.y = jumpHeight;
+                bonked = false;
+            }
+        }
+        if (isGrounded)
+        {
+            jumpTimes= 0;
+            hasJumpedInAir = false;
         }
 
         //gravity
@@ -176,7 +196,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     bool HeadBonkDetection(float headBonkLength)
     {
         RaycastHit headBonk;
-        if (Physics.Raycast(Camera.main.transform.position, Vector3.up, out headBonk,headBonkLength, headIneraction)){
+        if (Physics.Raycast(Camera.main.transform.position, Vector3.up, out headBonk, headBonkLength, headIneraction))
+        {
 
             return true;
         }
@@ -227,7 +248,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         musicAud.loop = true;
     }
 
-    public void fadeOut() 
+    public void fadeOut()
     {
         StartCoroutine(musicFade());
     }
@@ -294,11 +315,11 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         updatePlayerUI();
         GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 1);
         GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 1);
-        
+
         StartCoroutine(Invincibility());
         if (HP <= 0)
         {
-            aud.PlayOneShot(deathSounds[Random.Range(0,deathSounds.Length)], deathVol);
+            aud.PlayOneShot(deathSounds[Random.Range(0, deathSounds.Length)], deathVol);
             pushBack = Vector3.zero;
             StartCoroutine(GameManager.instance.DeathSequence());
             isDead = true;
@@ -312,7 +333,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     #endregion
 
     #region invinciblity
-    public void Invincible(bool isInvincible) 
+    public void Invincible(bool isInvincible)
     {
         controller.detectCollisions = !isInvincible;
         this.gameObject.GetComponent<CapsuleCollider>().enabled = !isInvincible;
@@ -343,7 +364,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     }
 
 
-    public void spawnPlayerOnLoad() 
+    public void spawnPlayerOnLoad()
     {
         controller.enabled = false;
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
@@ -409,9 +430,9 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
 
     public bool RemoveGun(GunStats gtr)
     {
-        for(int x = 0; x < gunSystem.weapons.Count; x++)
+        for (int x = 0; x < gunSystem.weapons.Count; x++)
         {
-            if(gtr.tag == gunSystem.weapons[x].tag)
+            if (gtr.tag == gunSystem.weapons[x].tag)
             {
                 if (gunSystem.weapons.Count > 1)
                 {
@@ -452,7 +473,7 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
         return (int)HP;
     }
 
-    public float GetMaxHP() 
+    public float GetMaxHP()
     {
         return HPOrig;
     }
@@ -567,17 +588,17 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
     {
         float backfill = GameManager.instance.backPlayerHPBar.fillAmount;
         float frontfill = GameManager.instance.playerHPBar.fillAmount;
-        float currHealth = (float) HP / HPOrig;
+        float currHealth = (float)HP / HPOrig;
         GameManager.instance.HPDisplay.text = HP.ToString();
-         
+
         lerpTimer += Time.deltaTime;
         float delayBarSpeed = lerpTimer / 2f;
         delayBarSpeed = delayBarSpeed * delayBarSpeed;
-        if(backfill > currHealth)
+        if (backfill > currHealth)
         {
             GameManager.instance.playerHPBar.fillAmount = currHealth;
             GameManager.instance.backPlayerHPBar.color = backHpOrig;
-            GameManager.instance.backPlayerHPBar.fillAmount = Mathf.Lerp(backfill,currHealth,delayBarSpeed);
+            GameManager.instance.backPlayerHPBar.fillAmount = Mathf.Lerp(backfill, currHealth, delayBarSpeed);
         }
         else if (frontfill < currHealth && HPOrig != 0)
         {
@@ -585,8 +606,8 @@ public class PlayerController : MonoBehaviour, IDamage,IPhysics, IStatusEffect
             GameManager.instance.backPlayerHPBar.fillAmount = currHealth;
             GameManager.instance.playerHPBar.fillAmount = Mathf.Lerp(frontfill, currHealth, delayBarSpeed);
         }
-        
-          
+
+
     }
     public void shopRegister(ShopPickup updates)
     {
