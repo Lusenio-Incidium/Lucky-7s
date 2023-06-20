@@ -53,7 +53,8 @@ public class TokenCollect : MonoBehaviour
                 GameManager.instance.completed = true;
             }
             StartCoroutine(GameManager.instance.WaitForFall());
-            GameManager.instance.playerAmmoOrign = GameManager.instance.playerAmmo;
+            GameManager.instance.playerAmmoOrign = GameManager.instance.playerAmmo + 100;
+            GameManager.instance.playerAmmo += 100;
         }
     }
 }
