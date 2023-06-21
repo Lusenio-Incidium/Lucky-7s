@@ -1140,53 +1140,41 @@ MonoBehaviour:
   - {fileID: 763820802}
   - {fileID: 1547449877}
   faces:
-  - spawnObject: {fileID: 6037390980562041110, guid: bcacabfc4dbe7f3408e1342bead3404b, type: 3}
+  - spawnObject: {fileID: 6037390980562041110, guid: 79fe221380350af4f9ed00b8abda84b8, type: 3}
     spawnCount: 15
     batchSize: 1
-    spawnDelay: 0
-    spawnMethod: 5
+    spawnDelay: 0.5
+    spawnMethod: 0
     waitForSpawner: 0
-    accuracy: 75
+    accuracy: 25
     SpawnLocations: []
   - spawnObject: {fileID: 2189144303335682741, guid: bf4dcc056a0703f4e8eb9cec48042e82, type: 3}
     spawnCount: 2
-    batchSize: 0
+    batchSize: 1
     spawnDelay: 0
-    spawnMethod: 5
+    spawnMethod: 0
     waitForSpawner: 0
-    accuracy: 75
+    accuracy: 10
     SpawnLocations: []
   - spawnObject: {fileID: 8143019570060717672, guid: ebd6d5c8257a5c340b1c60bfc4952a7f, type: 3}
     spawnCount: 2
-    batchSize: 0
+    batchSize: 1
     spawnDelay: 0
-    spawnMethod: 5
+    spawnMethod: 0
     waitForSpawner: 0
-    accuracy: 75
+    accuracy: 10
     SpawnLocations: []
   - spawnObject: {fileID: 3671954635019120962, guid: 852f64a495ce79c46954516443f236ee, type: 3}
     spawnCount: 2
-    batchSize: 0
+    batchSize: 1
     spawnDelay: 0
-    spawnMethod: 5
+    spawnMethod: 0
     waitForSpawner: 0
-    accuracy: 75
+    accuracy: 10
     SpawnLocations: []
   - spawnObject: {fileID: 6037390980562041110, guid: bcacabfc4dbe7f3408e1342bead3404b, type: 3}
     spawnCount: 8
-    batchSize: 0
-    spawnDelay: 0.25
-    spawnMethod: 1
-    waitForSpawner: 0
-    accuracy: 5
-    SpawnLocations:
-    - {fileID: 724734256}
-    - {fileID: 482433700}
-    - {fileID: 1047024781}
-    - {fileID: 513630578}
-  - spawnObject: {fileID: 6494434847991657661, guid: 59c390a704ae6464699a13751c019eab, type: 3}
-    spawnCount: 2
-    batchSize: 0
+    batchSize: 1
     spawnDelay: 0.25
     spawnMethod: 1
     waitForSpawner: 0
@@ -1198,7 +1186,7 @@ MonoBehaviour:
     - {fileID: 513630578}
   - spawnObject: {fileID: 6494434847991657661, guid: 59c390a704ae6464699a13751c019eab, type: 3}
     spawnCount: 1
-    batchSize: 0
+    batchSize: 1
     spawnDelay: 0.25
     spawnMethod: 5
     waitForSpawner: 0
@@ -1208,13 +1196,25 @@ MonoBehaviour:
     - {fileID: 482433700}
     - {fileID: 1047024781}
     - {fileID: 513630578}
+  - spawnObject: {fileID: 6494434847991657661, guid: 59c390a704ae6464699a13751c019eab, type: 3}
+    spawnCount: 1
+    batchSize: 1
+    spawnDelay: 0.25
+    spawnMethod: 0
+    waitForSpawner: 0
+    accuracy: 1
+    SpawnLocations:
+    - {fileID: 724734256}
+    - {fileID: 482433700}
+    - {fileID: 1047024781}
+    - {fileID: 513630578}
   - spawnObject: {fileID: 5455566499877713551, guid: c7d91504916821e48b187e3eaaf4f610, type: 3}
     spawnCount: 5
-    batchSize: 0
+    batchSize: 1
     spawnDelay: 0.25
-    spawnMethod: 5
+    spawnMethod: 0
     waitForSpawner: 0
-    accuracy: 100
+    accuracy: 25
     SpawnLocations:
     - {fileID: 724734256}
     - {fileID: 482433700}
@@ -1222,7 +1222,7 @@ MonoBehaviour:
     - {fileID: 513630578}
   - spawnObject: {fileID: 5455566499877713551, guid: c7d91504916821e48b187e3eaaf4f610, type: 3}
     spawnCount: 4
-    batchSize: 0
+    batchSize: 1
     spawnDelay: 0.25
     spawnMethod: 3
     waitForSpawner: 0
