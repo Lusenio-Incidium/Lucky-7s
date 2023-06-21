@@ -57,6 +57,8 @@ public class GunSystem : MonoBehaviour
     //bools to ask game
     bool isShooting;
     bool reloading;
+    bool isSwitching;
+    GameObject activeModel;
 
     public RaycastHit rayHit;
 
@@ -208,17 +210,30 @@ public class GunSystem : MonoBehaviour
                 {
                     cooldownTimer = inputCoolDown;
                     currentWeapon = (currentWeapon + 1) % weapons.Count;
+                    StartCoroutine(DelayedModel(weapons[currentWeapon].model));
                     EquipWeapon(currentWeapon);
                 }
                 else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weapons.Count > 0)
                 {
                     cooldownTimer = inputCoolDown;
                     currentWeapon = (currentWeapon - 1 + weapons.Count) % weapons.Count;
+                    StartCoroutine(DelayedModel(weapons[currentWeapon].model));
                     EquipWeapon(currentWeapon);
                 }
             }
         }
     }
+
+    IEnumerator DelayedModel(GameObject gunModel)
+    {
+        isSwitching = true;
+        yield return new WaitForSeconds(0.01f);
+
+        activeModel= gunModel;
+        activeModel.SetActive(true);
+        isSwitching= false;
+    }
+
 
     //shoot function
     private void Shoot()
