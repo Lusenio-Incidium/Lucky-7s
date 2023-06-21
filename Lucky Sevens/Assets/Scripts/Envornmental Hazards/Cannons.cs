@@ -122,6 +122,10 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
                 if(key != null) {
                     key.OnCannonDeath();
                 }
+                else
+                {
+                    Debug.Log("err");
+                }
             }
             invincible = true;
             active = false;
