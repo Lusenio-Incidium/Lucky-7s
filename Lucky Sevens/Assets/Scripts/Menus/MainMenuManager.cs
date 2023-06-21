@@ -54,8 +54,8 @@ public class MainMenuManager : MonoBehaviour
         Destroy(GameObject.FindGameObjectWithTag("Player"));
         if(GameManager.instance != null)
         {
-            musicVolume = GameManager.instance.playerScript.GetMusicVol() * 10f;
-            SFXVolume = GameManager.instance.playerScript.GetJumpVol() * 10f;
+            musicVolume = GameManager.instance.playerScript.GetMusicVol() * 100f;
+            SFXVolume = GameManager.instance.playerScript.GetJumpVol() * 100f;
             sensitivity = GameManager.instance.playerCam.GetComponent<CameraController>().GetSensitivity();
             isCompleted = GameManager.instance.completed;
             Destroy(GameManager.instance.transform.parent.gameObject);
@@ -83,7 +83,7 @@ public class MainMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        music.volume = musicVolume / 10f;
+        music.volume = musicVolume / 100f;
 
         if (GameJolt.API.GameJoltAPI.Instance.CurrentUser != null && avatar != GameJolt.API.GameJoltAPI.Instance.CurrentUser.Avatar) 
         {
@@ -141,11 +141,11 @@ public class MainMenuManager : MonoBehaviour
     public void OptionsMenu()
     {
         sensitivitytext.text = sensitivity.ToString();
-        sensitivityBar.fillAmount = sensitivity / 10f;
+        sensitivityBar.fillAmount = sensitivity / 100f;
         SFXvolumetext.text = SFXVolume.ToString();
-        SFXVolumeBar.fillAmount = SFXVolume / 10f;
+        SFXVolumeBar.fillAmount = SFXVolume / 100f;
         musicvolumetext.text = musicVolume.ToString();
-        musicVolumeBar.fillAmount = musicVolume / 10f;
+        musicVolumeBar.fillAmount = musicVolume / 100f;
         activeMenu.SetActive(false);
         activeMenu = null;
         activeMenu = optionsMenu;
