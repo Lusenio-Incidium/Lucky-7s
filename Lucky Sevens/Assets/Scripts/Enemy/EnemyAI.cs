@@ -180,7 +180,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     }
     bool CanSeePlayer()
     {
-        playerDir = GameManager.instance.player.transform.position - headPos.position;
+        playerDir = GameManager.instance.playerScript.GetPlayerCenter().position - headPos.position;
+        //Debug.DrawRay(headPos.position,playerDir);
         angleOfPlayer = Vector3.Angle(new Vector3(playerDir.x, playerDir.y, playerDir.z), transform.forward);
         RaycastHit hit;
 
@@ -188,7 +189,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
         {
             if(hit.collider.CompareTag("Player") && angleOfPlayer <= viewAngle)
             {
-                StopCoroutine(Roam());
+                //StopCoroutine(Roam());
                 agent.stoppingDistance = stoppingDistanceOrig;
                 if (healer)
                 {
@@ -210,7 +211,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
                 return true;
             }
         }
-        agent.stoppingDistance = 0;
+        agent.stoppingDistance = stoppingDistanceOrig;
         return false;
     }
 
@@ -263,7 +264,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
         int effectTime = hitEffect.duration;
         if (hitEffect.particleEffect != null)
         {
-            tempParticle = ObjectPoolManager.instance.SpawnObject(hitEffect.particleEffect, transform.position, Quaternion.Euler(270, 0, 0));
+            tempParticle = Instantiate(hitEffect.particleEffect, transform.position, Quaternion.Euler(270, 0, 0));
             tempParticle.transform.parent = transform;
         }
         if (hitEffect.duration != 0)
@@ -296,8 +297,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
 
     public void RemoveEffect()
     {
-        StopAllCoroutines();
-        ObjectPoolManager.instance.ReturnObjToInfo(tempParticle);
+        StopCoroutine(BurnEffect());
+        Destroy(tempParticle);
         hitEffect = null;
         timePassed = 0;
         agent.speed = OrigSpeed;

@@ -20,10 +20,13 @@ public class Splash: MonoBehaviour
     // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
-        IStatusEffect statusable = other.GetComponent<IStatusEffect>();
-        if (statusable != null)
+        if (Vector3.Distance(other.transform.position, transform.position) < gameObject.transform.localScale.x)
         {
-            statusable.ApplyStatusEffect(status);
+            IStatusEffect statusable = other.GetComponent<IStatusEffect>();
+            if (statusable != null)
+            {
+                statusable.ApplyStatusEffect(status);
+            }
         }
     }
 /*    private void OnTriggerExit(Collider other)

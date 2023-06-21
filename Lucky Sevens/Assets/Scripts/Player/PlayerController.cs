@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     float durationTimer;
     float speed;
     bool bonked;
+    bool dontDamage;
     void Start()
     {
         if (MainMenuManager.instance != null)
@@ -309,21 +310,24 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         {
             return;
         }
-        HP -= amount;
-        aud.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)], hurtVol);
-        lerpTimer = 0f;
-        durationTimer = 0f;
-        updatePlayerUI();
-        GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 1);
-        GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 1);
-
-        StartCoroutine(Invincibility());
-        if (HP <= 0)
+        if (!dontDamage)
         {
-            aud.PlayOneShot(deathSounds[Random.Range(0, deathSounds.Length)], deathVol);
-            pushBack = Vector3.zero;
-            StartCoroutine(GameManager.instance.DeathSequence());
-            isDead = true;
+            HP -= amount;
+            aud.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)], hurtVol);
+            lerpTimer = 0f;
+            durationTimer = 0f;
+            updatePlayerUI();
+            GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 1);
+            GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 1);
+
+            StartCoroutine(Invincibility());
+            if (HP <= 0)
+            {
+                aud.PlayOneShot(deathSounds[Random.Range(0, deathSounds.Length)], deathVol);
+                pushBack = Vector3.zero;
+                StartCoroutine(GameManager.instance.DeathSequence());
+                isDead = true;
+            }
         }
     }
     public void instaKill()
@@ -341,9 +345,12 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     }
     IEnumerator Invincibility()
     {
-        controller.detectCollisions = false;
+        dontDamage = true;
         yield return new WaitForSeconds(1f);
-        controller.detectCollisions = true;
+        dontDamage = false;
+/*        controller.detectCollisions = false;
+        yield return new WaitForSeconds(1f);
+        controller.detectCollisions = true;*/
     }
     #endregion
 
