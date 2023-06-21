@@ -645,7 +645,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     void DamageFlash()
     {
         //damage flash
-        if (GameManager.instance.damagePanel.color.a > 0)
+        if (GameManager.instance.damagePanel.color.a > 0 || HP <= 10)
         {
             float panelAlpha = GameManager.instance.damagePanel.color.a;
             float bloodAlpha = GameManager.instance.damageBlood.color.a;
