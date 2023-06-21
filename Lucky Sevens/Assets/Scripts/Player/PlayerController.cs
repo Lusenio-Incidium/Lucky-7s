@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             origSpeed = playerSpeed;
             backHpOrig = GameManager.instance.backPlayerHPBar.color;
             playerSpeedOrig = playerSpeed;
+            respawnWithSameHealth = false;
             spawnPlayer();
             animator = GetComponent<Animator>();
             speedHash = Animator.StringToHash("speed");
@@ -122,6 +123,8 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         crawl();
 
         checks();
+
+        DamageFlash();
 
         if (GameManager.instance.backPlayerHPBar.fillAmount != (float)HP / HPOrig || GameManager.instance.playerHPBar.fillAmount != (float)HP / HPOrig)
         {
