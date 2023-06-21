@@ -85,13 +85,22 @@ public class ButtonFunctions : MonoBehaviour
             MainMenuManager.instance.activeMenu.SetActive(false);
             MainMenuManager.instance.activeMenu = MainMenuManager.instance.mainMenu;
             MainMenuManager.instance.activeMenu.SetActive(true);
-            MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
+            MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 100f);
+            PlayerPrefs.SetFloat("MusicVolume",MainMenuManager.instance.musicVolume);
+            PlayerPrefs.SetFloat("SFXVolume", MainMenuManager.instance.SFXVolume);
+            PlayerPrefs.SetFloat("Sensitivity", MainMenuManager.instance.sensitivity);
+            PlayerPrefs.Save();
         }
         else
         {
             GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             GameManager.instance.activeMenu.SetActive(false);
             GameManager.instance.PauseMenu();
+
+            PlayerPrefs.SetFloat("MusicVolume", GameManager.instance.musicVol);
+            PlayerPrefs.SetFloat("SFXVolume", GameManager.instance.sfxVol);
+            PlayerPrefs.SetFloat("Sensitivity", GameManager.instance.sensitivity);
+            PlayerPrefs.Save();
         }
     }
     public void NewGame()
@@ -332,6 +341,7 @@ public class ButtonFunctions : MonoBehaviour
                 GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             }
         }
+        
     }
 
     public void PlaySound()

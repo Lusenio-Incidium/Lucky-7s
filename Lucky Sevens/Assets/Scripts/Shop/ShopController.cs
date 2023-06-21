@@ -196,7 +196,7 @@ public class ShopController : MonoBehaviour
         healthTotal = 0;
         speedTotal = 0;
         gunTotal = 0;
-        tokenCost = 0;
+        updateText();
         GameManager.instance.UpdateAmmoCount();
     }
 }

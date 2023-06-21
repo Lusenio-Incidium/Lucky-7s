@@ -52,11 +52,11 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         Destroy(GameObject.FindGameObjectWithTag("Player"));
-        if(GameManager.instance != null)
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume", 100);
+        SFXVolume = PlayerPrefs.GetFloat("SFXVolume", 100);
+        sensitivity = PlayerPrefs.GetFloat("Sensitivity", 1);
+        if (GameManager.instance != null)
         {
-            musicVolume = GameManager.instance.playerScript.GetMusicVol() * 100f;
-            SFXVolume = GameManager.instance.playerScript.GetJumpVol() * 100f;
-            sensitivity = GameManager.instance.playerCam.GetComponent<CameraController>().GetSensitivity();
             isCompleted = GameManager.instance.completed;
             Destroy(GameManager.instance.transform.parent.gameObject);
         }
@@ -77,6 +77,8 @@ public class MainMenuManager : MonoBehaviour
             accountMenu.SetActive(true);
         }
         music.volume = 0;
+
+        
         
     }
 
