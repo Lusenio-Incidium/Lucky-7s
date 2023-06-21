@@ -572,7 +572,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
                 else
                 {
                     yield return new WaitForSeconds(activeEffect.duration);
-                    StopAllCoroutines();
                     RemoveEffect();
                 }
             }
@@ -585,6 +584,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
 
     public void RemoveEffect()
     {
+        StopCoroutine(BurnEffect());
         activeEffect = null;
         timePassed = 0;
         if (isSprinting)

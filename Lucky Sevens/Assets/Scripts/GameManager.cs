@@ -531,7 +531,7 @@ public class GameManager : MonoBehaviour
     {
         SpawnPlayerForDeathAnim();
         Transform deathCamera = player.transform.GetChild(4);
-        activeMenu = completionText;
+        activeMenu = errorMenu;
         origCamPos = playerCam.transform.localPosition;
         HudDisabledDisplay(deathCamera);
         //playerAnim.SetBool("dead", true);
