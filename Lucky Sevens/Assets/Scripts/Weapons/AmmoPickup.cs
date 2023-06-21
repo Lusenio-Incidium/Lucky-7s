@@ -17,7 +17,7 @@ public class AmmoPickup : MonoBehaviour, ICollectable
             ObjectPoolManager.instance.ReturnObjToInfo(gameObject);
         }
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
