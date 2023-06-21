@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: ac1dba21e9ed5d94fa20315b1da3a0f0, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 4046f1833ec38694b8f26acc2643c9b5, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 35f86b529f6497949be8cd7987d180e5, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2646,6 +2646,30 @@ PrefabInstance:
     - target: {fileID: 5433671461165211178, guid: 50d61f962da3a9f4e91f4adefa011c56, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433671461165211179, guid: 50d61f962da3a9f4e91f4adefa011c56, type: 3}
+      propertyPath: ammoPickUpCount
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433671461165211179, guid: 50d61f962da3a9f4e91f4adefa011c56, type: 3}
+      propertyPath: amountOfBullets
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433671461165211179, guid: 50d61f962da3a9f4e91f4adefa011c56, type: 3}
+      propertyPath: tommyEnemyCount
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433671461165211179, guid: 50d61f962da3a9f4e91f4adefa011c56, type: 3}
+      propertyPath: healerEnemyCount
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433671461165211179, guid: 50d61f962da3a9f4e91f4adefa011c56, type: 3}
+      propertyPath: pistolEnemyCount
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433671461165211179, guid: 50d61f962da3a9f4e91f4adefa011c56, type: 3}
+      propertyPath: spawnerEnemyCount
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50d61f962da3a9f4e91f4adefa011c56, type: 3}
