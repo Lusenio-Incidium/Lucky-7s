@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     [Header("DamageOverlay")]
     public float duration;
     public float fadeSpeed;
+    public bool respawnWithSameHealth;
     bool fadeout;
 
     [Header("Head Bonk Variables")]
@@ -355,7 +356,10 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
         transform.rotation = GameManager.instance.playerSpawnPos.transform.rotation;
         controller.enabled = true;
-        HP = HPOrig;
+        if (!respawnWithSameHealth)
+        {
+            HP = HPOrig;
+        }
         pushBack = Vector3.zero;
         updatePlayerUI();
         GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 0);

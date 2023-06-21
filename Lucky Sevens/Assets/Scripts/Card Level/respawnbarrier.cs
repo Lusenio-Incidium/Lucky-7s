@@ -8,7 +8,9 @@ public class respawnbarrier : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GameManager.instance.playerScript.respawnWithSameHealth = true;
             GameManager.instance.playerScript.spawnPlayer();
+            GameManager.instance.playerScript.respawnWithSameHealth = false;
         }
     }
 }
