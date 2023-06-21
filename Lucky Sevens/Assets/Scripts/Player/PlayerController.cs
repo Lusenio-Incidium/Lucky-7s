@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         animator.SetFloat(speedHash, speed);
 
         //Jump Input
-        if (Input.GetButtonDown("Jump") && !isCrawl)
+        if (Input.GetButtonDown("Jump"))
         {
             if (isGrounded)
             {
