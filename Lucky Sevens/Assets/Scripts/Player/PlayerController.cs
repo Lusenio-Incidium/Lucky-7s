@@ -407,26 +407,26 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             GameManager.instance.interactTxt.gameObject.SetActive(false);
         }
     }
-    void switchGun()
-    {
-        int previousGunNum = selectedGunNum;
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
-        {
-            selectedGunNum = (selectedGunNum + 1) % gunList.Count;
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
-        {
-            selectedGunNum--;
-            if (selectedGunNum < 0)
-            {
-                selectedGunNum = gunList.Count - 1;
-            }
-        }
-        if (previousGunNum != selectedGunNum)
-        {
-            gunSystem.EquipWeapon(selectedGunNum);
-        }
-    }
+    //void switchGun()
+    //{
+    //    int previousGunNum = selectedGunNum;
+    //    if (Input.GetAxis("Mouse ScrollWheel") > 0)
+    //    {
+    //        selectedGunNum = (selectedGunNum + 1) % gunList.Count;
+    //    }
+    //    else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+    //    {
+    //        selectedGunNum--;
+    //        if (selectedGunNum < 0)
+    //        {
+    //            selectedGunNum = gunList.Count - 1;
+    //        }
+    //    }
+    //    if (previousGunNum != selectedGunNum)
+    //    {
+    //        gunSystem.EquipWeapon(selectedGunNum);
+    //    }
+    //}
 
     public bool RemoveGun(GunStats gtr)
     {
@@ -684,7 +684,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             instaKill();
 
         if (gunList.Count > 0)
-            switchGun();
+            //switchGun();
         DamageFlash();
 
     }

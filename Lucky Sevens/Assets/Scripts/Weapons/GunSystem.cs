@@ -34,6 +34,8 @@ public class GunSystem : MonoBehaviour
     private Quaternion currentADSRotation;
     private Coroutine returnCoroutine;
     bool isReturning;
+    public float inputCoolDown = 0.1f;
+    public float cooldownTimer = 0;
 
     [SerializeField] CameraController cameraController;
     [Header("-----HipFire-----")]
@@ -129,7 +131,7 @@ public class GunSystem : MonoBehaviour
                     if (returnCoroutine != null)
                     {
                         StopCoroutine(returnCoroutine);
-                        returnCoroutine= null;
+                        returnCoroutine = null;
                     }
                 }
                 reticleSpread.currentSize = reducedSpread;
@@ -141,7 +143,7 @@ public class GunSystem : MonoBehaviour
                 {
                     StopCoroutine(adsCoroutine);
                     adsCoroutine = null;
-                    isReturning= false;
+                    isReturning = false;
                 }
                 if (!isReturning)
                 {
@@ -154,7 +156,7 @@ public class GunSystem : MonoBehaviour
         //reloading
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft <= magSize && !reloading)
         {
-            if (!destroyOnEmpty) 
+            if (!destroyOnEmpty)
             {
                 if (GameManager.instance.playerAmmo == 0)
                 {
@@ -166,7 +168,7 @@ public class GunSystem : MonoBehaviour
                     Reload();
                 }
             }
-            else 
+            else
             {
                 if (ammunition == 0)
                 {
@@ -178,7 +180,7 @@ public class GunSystem : MonoBehaviour
                     Reload();
                 }
             }
-            
+
 
         }
 
@@ -196,15 +198,24 @@ public class GunSystem : MonoBehaviour
                     Shoot();
                 }
             }
-            if (Input.GetAxis("Mouse ScrollWheel") > 0 && weapons.Count > 0)
+            if (cooldownTimer > 0f)
             {
-                currentWeapon = (currentWeapon + 1) % weapons.Count;
-                EquipWeapon(currentWeapon);
+                cooldownTimer -= Time.deltaTime;
             }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weapons.Count > 0)
+            else
             {
-                currentWeapon = (currentWeapon - 1 + weapons.Count) % weapons.Count;
-                EquipWeapon(currentWeapon);
+                if (Input.GetAxis("Mouse ScrollWheel") > 0 && weapons.Count > 0)
+                {
+                    cooldownTimer = inputCoolDown;
+                    currentWeapon = (currentWeapon + 1) % weapons.Count;
+                    EquipWeapon(currentWeapon);
+                }
+                else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weapons.Count > 0)
+                {
+                    cooldownTimer = inputCoolDown;
+                    currentWeapon = (currentWeapon - 1 + weapons.Count) % weapons.Count;
+                    EquipWeapon(currentWeapon);
+                }
             }
         }
     }
@@ -265,7 +276,7 @@ public class GunSystem : MonoBehaviour
         bulletsLeft--;
         bulletsShot++;
         bulletsLeft = weapons[currentWeapon].bulletsLeft = bulletsLeft;
-        
+
         GameManager.instance.UpdateAmmoCount();
 
         GameManager.instance.ammoUsedTotal += 1;
@@ -302,7 +313,7 @@ public class GunSystem : MonoBehaviour
         }
         adsCoroutine = StartCoroutine(ADSAnimation());
     }
-    
+
     private void StartReturnAnimation()
     {
         if (isAnimating)
@@ -360,7 +371,7 @@ public class GunSystem : MonoBehaviour
         gunModel.transform.localRotation = originolRotation;
         isReturning = false;
         returnCoroutine = null;
-        isAnimating= false;
+        isAnimating = false;
     }
     private IEnumerator ShakeGun()
     {
@@ -381,7 +392,7 @@ public class GunSystem : MonoBehaviour
     }
     public bool HasWeaponWithTag(string weaponTag)
     {
-        foreach(GunStats weapon in weapons)
+        foreach (GunStats weapon in weapons)
         {
             if (weapon.tag == weaponTag)
             {
@@ -460,7 +471,7 @@ public class GunSystem : MonoBehaviour
             }
         }
         else
-        { 
+        {
             int reservedAmmo = (int)Mathf.Min(ammunition, bulletsToReload);
             ammunition -= 1;
             bulletsLeft += reservedAmmo;
@@ -480,7 +491,7 @@ public class GunSystem : MonoBehaviour
         }
         hasGun = true;
         GameManager.instance.playerAmmo += gunStat.ammunition;
-        if (gunStat.destroyOnEmpty) 
+        if (gunStat.destroyOnEmpty)
         {
             ammunition += gunStat.ammunition;
         }
@@ -586,7 +597,7 @@ public class GunSystem : MonoBehaviour
         statusEffect = data;
     }
 
-    public int GetAmmo() 
+    public int GetAmmo()
     {
         return ammunition;
     }
