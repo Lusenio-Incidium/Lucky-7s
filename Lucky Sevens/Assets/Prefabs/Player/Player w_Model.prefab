@@ -163,7 +163,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 7167
+    m_Bits: 23551
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -526,6 +526,8 @@ MonoBehaviour:
   aud: {fileID: 3878950961467398292}
   gunShotAud: {fileID: 8300000, guid: 8ad374045e287d64d898d09c5bc54b80, type: 3}
   gunShotAudVol: 0.5
+  inputCoolDown: 0.1
+  cooldownTimer: 0
   cameraController: {fileID: 0}
   originolPosition: {x: 0, y: 0, z: 0}
   originolRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -602,6 +604,7 @@ MonoBehaviour:
   tommySpawn: {fileID: 670377652670482858, guid: e21ccd608a780f041929e2710d4aea01, type: 3}
   duration: 0
   fadeSpeed: 0
+  respawnWithSameHealth: 0
   headIneraction:
     serializedVersion: 2
     m_Bits: 4294967295
