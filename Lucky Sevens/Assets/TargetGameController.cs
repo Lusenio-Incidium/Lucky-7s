@@ -14,7 +14,7 @@ public class TargetGameController : MonoBehaviour
     }
 
     [SerializeField] TargetGame[] games;
-
+    [SerializeField] GameObject spikes;
     public void onTargetDeath(GameObject target, int game) 
     {
         for(int i = 0; i < games[game-1].targets.Count; i++) 
@@ -28,8 +28,24 @@ public class TargetGameController : MonoBehaviour
         {
             games[game - 1].gameWon = true;
             GameManager.instance.gunSystem.AddBullets(games[game - 1].ammoReward);
+            checkGameStatus();
         }
 
+    }
+
+    void checkGameStatus() 
+    {
+        int gamesWon = 0;
+        for(int i = 0; i < games.Length; i++) 
+        {
+            if (games[i].gameWon)
+                gamesWon++;
+        }
+        if(gamesWon >= 6) 
+        {
+            spikes.SetActive(true);
+            //TODO: Begin battle here somehow
+        }
     }
     
 }
