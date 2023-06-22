@@ -15,6 +15,10 @@ public class Target : MonoBehaviour
     }
     private void OnDestroy()
     {
-        controller.onTargetDeath(gameObject,gameNumber);
+        if(gameObject != null) 
+        {
+            controller.onTargetDeath(gameObject, gameNumber);
+        }
+        
     }
 }
