@@ -361,11 +361,11 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     public void spawnPlayer()
     {
         Invincible(true);
-        isDead = false;
         controller.enabled = false;
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
         transform.rotation = GameManager.instance.playerSpawnPos.transform.rotation;
         controller.enabled = true;
+        isDead = false;
         if (!respawnWithSameHealth)
         {
             HP = HPOrig;
@@ -384,7 +384,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
         transform.rotation = GameManager.instance.playerSpawnPos.transform.rotation;
         controller.enabled = true;
-
+        isDead = false;
     }
     #endregion
 
