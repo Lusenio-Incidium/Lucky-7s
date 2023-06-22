@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder.MeshOperations;
 
 public class GunSystem : MonoBehaviour
 {
@@ -57,7 +56,6 @@ public class GunSystem : MonoBehaviour
     //bools to ask game
     bool isShooting;
     bool reloading;
-    bool isSwitching;
     GameObject activeModel;
 
     public RaycastHit rayHit;
@@ -226,12 +224,10 @@ public class GunSystem : MonoBehaviour
 
     IEnumerator DelayedModel(GameObject gunModel)
     {
-        isSwitching = true;
         yield return new WaitForSeconds(0.01f);
 
         activeModel= gunModel;
         activeModel.SetActive(true);
-        isSwitching= false;
     }
 
 

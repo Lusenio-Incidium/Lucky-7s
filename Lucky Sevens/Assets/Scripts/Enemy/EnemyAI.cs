@@ -32,8 +32,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     [SerializeField] int range;
     [SerializeField] float attackAngle;
     [SerializeField] GameObject gunProjectile;
-    [SerializeField] Collider leftFistCol;
-    [SerializeField] Collider rightFistCol;
+    [SerializeField] Collider leftFistCol = null;
+    [SerializeField] Collider rightFistCol = null;
     [SerializeField] int bulletSpeed;
 
 

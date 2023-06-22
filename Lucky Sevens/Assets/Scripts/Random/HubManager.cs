@@ -8,8 +8,8 @@ public class HubManager : MonoBehaviour
     [SerializeField] Animator bossDoor;
     [SerializeField] GameObject[] tokens;
     [Header("Audio")]
-    [SerializeField] AudioSource HeavyDoor;
-    [SerializeField] AudioClip DoorOpen;
+    [SerializeField] AudioSource HeavyDoor = null;
+    [SerializeField] AudioClip DoorOpen = null;
     [Range(0, 1)][SerializeField] float HeavyDoorVol;
     List<IRandomizeHighlight> _lightObjects;
     List<IRandomizeAction> _actionObejcts;

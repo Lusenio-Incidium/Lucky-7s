@@ -16,11 +16,11 @@ public class TallyController : MonoBehaviour
     [SerializeField] GameObject endGame;
 
     [Header("Tally Screen Texts")]
-    [SerializeField] TextMeshProUGUI enemies;
-    [SerializeField] TextMeshProUGUI time;
-    [SerializeField] TextMeshProUGUI chipsUsed;
-    [SerializeField] TextMeshProUGUI chipsGathered;
-    [SerializeField] TextMeshProUGUI chipsNet;
+    public TextMeshProUGUI enemies;
+    public TextMeshProUGUI time;
+    public TextMeshProUGUI chipsUsed;
+    public TextMeshProUGUI chipsGathered;
+    public TextMeshProUGUI chipsNet;
 
     bool isBoss;
     private void OnEnable()

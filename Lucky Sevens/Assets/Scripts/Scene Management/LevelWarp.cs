@@ -5,7 +5,6 @@ using UnityEngine;
 public class LevelWarp : MonoBehaviour
 {
     [SerializeField] string WarpToScene;
-    [SerializeField] int loadTime;
 
     private void OnTriggerEnter(Collider other)
     {

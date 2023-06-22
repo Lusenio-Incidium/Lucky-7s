@@ -22,7 +22,7 @@ public class WinnersToken : MonoBehaviour
     [Range(0.1f, 10)][SerializeField] float pauseTime;
     [Range(0.1f, 10)][SerializeField] float riseTime;
     [Range(0.1f, 10)][SerializeField] float riseHeight;
-    [Range(0.1f, 10)][SerializeField] float travelArcHeight;
+    //[Range(0.1f, 10)][SerializeField] float travelArcHeight;
 
     float step1Height;
     float distanceMid;

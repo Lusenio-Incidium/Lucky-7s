@@ -15,7 +15,7 @@ public class DestructableBottle : MonoBehaviour, IButtonTrigger, ICannonKey, IBa
     [SerializeField] GameObject[] recievers;
     [Header("Shootable Functions")]
     [SerializeField] bool isShootable;
-    [SerializeField] int heatlh;
+    //[SerializeField] int heatlh;
 
     [Header("Trigger Functions")]
     [SerializeField] Functions onButtonPress;

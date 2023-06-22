@@ -4,7 +4,7 @@ using UnityEngine;
 public class ArenaSpawner : MonoBehaviour
 {
     [Header("--- Spawner Info ---")]
-    [Range(1,3)][SerializeField] int SpawnerNum;
+    //[Range(1,3)][SerializeField] int SpawnerNum;
 
 
     [SerializeField] GameObject prefab;

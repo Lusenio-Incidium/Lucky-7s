@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    [SerializeField] int damage;
-    [SerializeField] int pushAmount;
-    [SerializeField] float duration;
-    [SerializeField] float shakeAmount;
+    [SerializeField] int damage = 0;
+    [SerializeField] int pushAmount = 0;
+    [SerializeField] float duration = 0;
+    [SerializeField] float shakeAmount = 0;
     [SerializeField] ParticleSystem explosionPrefab;
 
     // Start is called before the first frame update

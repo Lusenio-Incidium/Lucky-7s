@@ -105,9 +105,7 @@ public class GameManager : MonoBehaviour
     public float sfxVol;
     public float musicVol;
     float timeScaleOrig;
-    int AmmoLoaded;
-    bool reloading;
-    bool timerInc;
+    //int AmmoLoaded;
     public bool completed;
     public int ammoUsedTotal;
     public int ammoGatheredTotal;

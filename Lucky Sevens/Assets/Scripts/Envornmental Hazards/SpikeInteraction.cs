@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpikeInteraction : MonoBehaviour
 {
-    [SerializeField] int damage;
-    [SerializeField] int knockback;
+    [SerializeField] int damage = 0;
+    [SerializeField] int knockback = 0;
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Bingo Enemy"))

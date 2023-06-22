@@ -7,7 +7,7 @@ public class damageTest : MonoBehaviour, IDamage,IStatusEffect
 {
     [SerializeField] float HP;
     [SerializeField] Renderer model;
-    [SerializeField] int speed;
+    //[SerializeField] int speed;
     Color colorOrig = Color.white;
     [SerializeField] StatusEffectObj hitEffect;
     private float timePassed = 0;

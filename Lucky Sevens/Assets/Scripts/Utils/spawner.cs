@@ -7,7 +7,7 @@ public class spawner : MonoBehaviour
     [SerializeField] GameObject prefab;
     [SerializeField] [Range(0,5)] float intervalTime;
     [SerializeField] Transform[] spawnPos;
-    [SerializeField] int prefabMaxNum;
+    [SerializeField] int prefabMaxNum = 0;
 
     int prefabsSpawnCount;
     bool playerInRange;

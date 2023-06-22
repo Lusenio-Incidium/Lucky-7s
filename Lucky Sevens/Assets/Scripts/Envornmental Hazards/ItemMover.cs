@@ -21,7 +21,7 @@ public class ItemMover : MonoBehaviour, IButtonTrigger, ICannonKey, IBattle
     [SerializeField] MoveMethods moveStyle;
     [SerializeField] int movementSpeed;
     [SerializeField] bool spawnMoving;
-    [SerializeField] bool buttonStartsMoving;
+    //[SerializeField] bool buttonStartsMoving;
     [SerializeField] int delay;
     [Header("Trigger Functions")]
     [SerializeField] Functions onButtonPress;

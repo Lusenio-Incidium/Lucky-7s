@@ -67,7 +67,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     bool isSprinting;
     bool isCrawl;
     int jumpTimes;
-    int selectedGunNum;
     int speedHash;
     float HPOrig;
     float origSpeed;
@@ -92,7 +91,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         {
             pc = this;
             HPOrig = HP;
-            selectedGunNum = 0;
             origSpeed = playerSpeed;
             backHpOrig = GameManager.instance.backPlayerHPBar.color;
             playerSpeedOrig = playerSpeed;
