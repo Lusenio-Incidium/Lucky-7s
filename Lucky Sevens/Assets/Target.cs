@@ -2,21 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Target : MonoBehaviour, IDamage
+public class Target : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public void Start()
-    {
-        TargetManager.instance.updateTargets(1);
-    }
-    public void takeDamage(float dmg, Transform pos = null) 
-    {
-        TargetManager.instance.updateTargets(-1);
-        Destroy(gameObject);
-    }
+    [SerializeField] GameObject targetManager;
 
-    public void instaKill() 
+    TargetGameController controller;
+    [SerializeField] int gameNumber;
+
+    private void Start()
     {
-    
+        controller = targetManager.GetComponent<TargetGameController>();
+    }
+    private void OnDestroy()
+    {
+        controller.onTargetDeath(gameObject,gameNumber);
     }
 }
