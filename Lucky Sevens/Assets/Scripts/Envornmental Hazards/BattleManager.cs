@@ -86,14 +86,13 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger,
             {
                 GameObject enemy = Instantiate(enemyTypes[Random.Range(0, enemyTypes.Length - 1)], spawnLocations[currentIndex].position, spawnLocations[currentIndex].rotation);
                 enemy.GetComponent<IBattleEnemy>().SetBattleManager(this);
+                currentIndex++;
                 if (currentIndex >= spawnLocations.Count())
                 {
                     currentIndex = 0;
                 }
-                else
-                {
-                    currentIndex++;
-                }
+                   
+
             }
             spawnAmount--;
         }
