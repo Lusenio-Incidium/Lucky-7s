@@ -14,7 +14,7 @@ public class TargetGameController : MonoBehaviour
     }
 
     [SerializeField] TargetGame[] games;
-    [SerializeField] GameObject spikes;
+    [SerializeField] GameObject[] affectedObjects;
     public void onTargetDeath(GameObject target, int game) 
     {
         for(int i = 0; i < games[game-1].targets.Count; i++) 
@@ -43,8 +43,14 @@ public class TargetGameController : MonoBehaviour
         }
         if(gamesWon >= 6) 
         {
-            spikes.SetActive(true);
-            //TODO: Begin battle here somehow
+            foreach(GameObject triggered in affectedObjects) 
+            {
+                IMinigame minigame = triggered.GetComponent<IMinigame>();
+                if(minigame != null) 
+                {
+                    minigame.onWin();
+                }
+            }
         }
     }
     
