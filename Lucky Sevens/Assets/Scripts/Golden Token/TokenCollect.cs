@@ -9,6 +9,7 @@ public class TokenCollect : MonoBehaviour
     int spinMod;
     float youWinDelay;
     bool collected = false;
+    bool finalToken;
     private void Update()
     {
         gameObject.transform.Rotate(spinSpeed * Time.deltaTime, 0, 0);
@@ -38,6 +39,11 @@ public class TokenCollect : MonoBehaviour
     public void SpeedDown()
     {
         spinSpeed /= spinMod;
+    }
+
+    public void SetFinalToken(bool ft)
+    {
+        finalToken = ft;
     }
     private void OnTriggerEnter(Collider other)
     {

@@ -34,6 +34,7 @@ public class WinnersToken : MonoBehaviour
     [Header("----- Win Conditions -----")]
     [SerializeField] WinConditions winStyle;
     [Range(0,4)][SerializeField] int level;
+    [SerializeField] bool isFinalToken;
     [SerializeField] int timeOrKills;
     [Range(0.1f, 10)][SerializeField] float youWinDelay;
     int enemiesKilled;
@@ -111,6 +112,7 @@ public class WinnersToken : MonoBehaviour
         tokenInfo.SetMod(spinMod);
         tokenInfo.SetYouWinDelay(youWinDelay);
         tokenInfo.SetLevel(level);
+        tokenInfo.SetFinalToken(isFinalToken);
         step = 0;
         tokenInfo.SpeedUp();
         yield return new WaitForSeconds(riseTime);

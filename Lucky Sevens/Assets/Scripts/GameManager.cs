@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        completed = false;
         completedLevels = new List<int>();
         //Debug.Log(completedLevels.Count);
         //Code to check if a new game manager is made, and if it is delete it.
@@ -513,6 +514,11 @@ public class GameManager : MonoBehaviour
     public List<int> GetCompletedLevels()
     {
         return completedLevels;
+    }
+
+    public void SetWin()
+    {
+        completed = true;
     }
     public void WinSequence()
     {
