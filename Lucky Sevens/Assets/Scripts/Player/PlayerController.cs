@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     bool bonked;
     bool dontDamage;
     bool canJump;
+    bool canMove;
     void Start()
     {
         if (MainMenuManager.instance != null)
@@ -101,6 +102,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             speedHash = Animator.StringToHash("speed");
             gunSystem = GetComponent<GunSystem>();
             canJump = true;
+            canMove = true;
         }
         else
         {
@@ -114,7 +116,8 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
 
     void Update()
     {
-        movement();
+        if(canMove)
+            movement();
         if (!GameManager.instance.isPaused)
             interact();
         if (!isCrawl)
@@ -401,6 +404,11 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     public void setJumpMode(bool canjump) 
     {
         canJump = canjump;
+    }
+
+    public void setControl(bool controlEnabled) 
+    {
+        canMove = controlEnabled;
     }
     void interact()
     {

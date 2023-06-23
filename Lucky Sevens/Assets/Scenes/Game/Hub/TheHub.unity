@@ -464,7 +464,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WarpToScene: BingoScene
-  loadTime: 2
 --- !u!65 &398808439
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -629,7 +628,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WarpToScene: SlotsBoss
-  loadTime: 2
 --- !u!65 &433621618
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1220,7 +1218,7 @@ GameObject:
   - component: {fileID: 609812236}
   - component: {fileID: 609812235}
   m_Layer: 0
-  m_Name: Level4Warp
+  m_Name: CasinoWarp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1253,8 +1251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713dd3986fab67843b01a1ee15c33550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WarpToScene: Level4
-  loadTime: 2
+  WarpToScene: CasinoScene
 --- !u!65 &609812236
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1516,7 +1513,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WarpToScene: CardScene
-  loadTime: 2
 --- !u!65 &991294913
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1644,7 +1640,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WarpToScene: MainMenu
-  loadTime: 2
 --- !u!1 &1200842593 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5343996073677772703, guid: 302cb85d80cab134d88d7d30693b7f06, type: 3}

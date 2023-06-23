@@ -385,9 +385,20 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
-            GameManager.instance.playerScript.TakePush(new Vector3(1,0,1));
+        if (collision.collider.CompareTag("Player")) 
+        {
+            GameManager.instance.playerScript.TakePush(new Vector3(1, 0, 1));
+            GameManager.instance.playerScript.setControl(false);
+        }
+            
     }
+    
+    IEnumerator giveBackControl() 
+    {
+        yield return new WaitForSeconds(0.5f);
+        GameManager.instance.playerScript.setControl(true);
+    }
+
     void AddPushBack()
     {
         if (agent.enabled)
