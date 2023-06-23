@@ -65,7 +65,7 @@ public class SwingingAxe : MonoBehaviour, IButtonTrigger, IBattle, ICannonKey
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Bingo Enemy"))
+        if (other.CompareTag("Player"))
         {
             IDamage damageTarg = other.GetComponent<IDamage>();
             if (damageTarg != null)

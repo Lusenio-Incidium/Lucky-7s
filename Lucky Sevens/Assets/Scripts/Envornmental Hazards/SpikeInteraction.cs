@@ -8,7 +8,7 @@ public class SpikeInteraction : MonoBehaviour
     [SerializeField] int knockback = 0;
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Bingo Enemy"))
+        if (other.CompareTag("Player"))
         {
             IDamage damageTarg = other.GetComponent<IDamage>();
             if (damageTarg != null)
