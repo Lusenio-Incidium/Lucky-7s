@@ -707,5 +707,18 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         DamageFlash();
 
     }
+    void OnTriggerStay(Collider collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            EnemyAI pop = collision.GetComponent<EnemyAI>();
+            float dis = Vector3.Distance(pop.GetEnemyHeadHeight(), transform.position);
+            if (dis < 1.2f && isGrounded)
+            {
+                hasJumpedInAir = true;
+                TakePush(new Vector3(.5f, 0, .5f));
+            }
+        }
+    }
 
 }

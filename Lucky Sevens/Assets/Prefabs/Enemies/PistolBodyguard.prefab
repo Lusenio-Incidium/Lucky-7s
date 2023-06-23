@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 2011511093}
   m_Layer: 6
   m_Name: PistolBodyguard
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -729,7 +729,7 @@ MonoBehaviour:
   particleShown: {fileID: 1876081050882714, guid: e5df5caad603c8349ba3481b8ded0927, type: 3}
   shootSpeed: 1
   range: 10
-  attackAngle: 25
+  attackAngle: 35
   gunProjectile: {fileID: 5603250820081392756, guid: 47db62ab3c2a813478b9f2589733de21, type: 3}
   leftFistCol: {fileID: 8922020854105360369}
   rightFistCol: {fileID: 503320728546031189}
@@ -802,9 +802,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 6
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 3, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &2011511093
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2935,7 +2935,7 @@ GameObject:
   - component: {fileID: 7105732984617071087}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: EnemyHead
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

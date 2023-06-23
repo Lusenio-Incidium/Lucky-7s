@@ -1598,7 +1598,7 @@ GameObject:
   - component: {fileID: 5610362864980099688}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: EnemyHead
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1610,8 +1610,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5610362864979746376}
-  m_LocalRotation: {x: -0.08924198, y: -0.000000664846, z: 0.000000059569857, w: 0.99601}
-  m_LocalPosition: {x: 5.4267707e-15, y: 0.10393006, z: -4.973799e-16}
+  m_LocalRotation: {x: -0.08924198, y: -0.000000664846, z: 0.00000005956985, w: 0.99601}
+  m_LocalPosition: {x: 0, y: 0.10393008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2435,7 +2435,7 @@ GameObject:
   - component: {fileID: 3901175931967145572}
   m_Layer: 6
   m_Name: MeleeBodyguard
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2482,7 +2482,7 @@ MonoBehaviour:
   isMelee: 1
   healer: 0
   enemyCol: {fileID: 0}
-  HP: 15
+  HP: 30
   viewAngle: 90
   playerFaceSpeed: 20
   roamDistance: 30

@@ -66,24 +66,23 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
         agent.radius = Random.Range(.5f, .75f);
         shootSpeedOrig = shootSpeed;
         enemyCol = GetComponent<CapsuleCollider>();
-
-        if(GameManager.instance.hard)
-        {
-            HP *= 1.5f;
-            Complicated = false;
-        }
-        else if(GameManager.instance.easy)
-        {
-            HP *= .5f;
-            Complicated = true;
-        }
         HPOrig = HP;
     }
     void OnEnable()
     {
         if (GameManager.instance != null)
         {
-            if(HP <= 0)
+            if (GameManager.instance.hard)
+            {
+                HP *= 1.5f;
+                Complicated = false;
+            }
+            else if (GameManager.instance.easy)
+            {
+                HP *= .5f;
+                Complicated = true;
+            }
+            if (HP <= 0)
             {
                 HP = HPOrig;
             }
@@ -432,5 +431,10 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
         }
         ObjectPoolManager.instance.ReturnObjToInfo(gameObject);
         Instantiate(particleShown, transform.position,transform.rotation);
+    }
+    public Vector3 GetEnemyHeadHeight()
+    {
+       GameObject pop = transform.GetChild(5).transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(1).transform.GetChild(0).gameObject;
+       return pop.transform.position;
     }
 }
