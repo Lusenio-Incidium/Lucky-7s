@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class spawnOnButton : MonoBehaviour, IButtonTrigger, IMinigame
 {
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
     public void OnButtonPress() 
     {
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void OnButtonRelease() 
     {
-        this.gameObject.SetActive(false);
+        
     }
 
     public void onWin() 
     {
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
 }

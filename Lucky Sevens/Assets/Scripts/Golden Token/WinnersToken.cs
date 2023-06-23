@@ -7,9 +7,10 @@ public enum WinConditions
     SurviveXTime,
     KillXEnemies,
     KillAllEnemies,
-    TouchTriggerBox
+    TouchTriggerBox,
+    WinMinigame
 }
-public class WinnersToken : MonoBehaviour
+public class WinnersToken : MonoBehaviour, IMinigame
 {
     [Header("----- Object Linking -----")]
     public static WinnersToken instance;
@@ -73,6 +74,14 @@ public class WinnersToken : MonoBehaviour
             {
                 Spawn();
             }
+        }
+    }
+
+    public void onWin() 
+    {
+        if(winStyle == WinConditions.WinMinigame) 
+        {
+            Spawn();
         }
     }
 

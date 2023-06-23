@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     float speed;
     bool bonked;
     bool dontDamage;
+    bool canJump;
     void Start()
     {
         if (MainMenuManager.instance != null)
@@ -99,6 +100,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             animator = GetComponent<Animator>();
             speedHash = Animator.StringToHash("speed");
             gunSystem = GetComponent<GunSystem>();
+            canJump = true;
         }
         else
         {
@@ -163,7 +165,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         animator.SetFloat(speedHash, speed);
 
         //Jump Input
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && canJump)
         {
             if (isGrounded)
             {
@@ -394,6 +396,11 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     public void TakePush(Vector3 dir)
     {
         pushBack += dir;
+    }
+
+    public void setJumpMode(bool canjump) 
+    {
+        canJump = canjump;
     }
     void interact()
     {
