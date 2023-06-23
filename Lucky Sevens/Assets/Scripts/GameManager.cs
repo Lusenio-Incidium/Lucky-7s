@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     public GameObject playerSpawnPos;
     public GunSystem gunSystem;
     public int storeTokens;
+    public int playerMag;
+    public int playerMagOrign;
     public int playerAmmo;
     public int playerAmmoOrign;
     public AudioClip victory;
@@ -202,6 +204,8 @@ public class GameManager : MonoBehaviour
 
     public void onLoad() 
     {
+        playerMagOrign = playerMag;
+        //gunSystem.updateOrig();
         playerAmmoOrign = playerAmmo;
     }
 
@@ -424,7 +428,7 @@ public class GameManager : MonoBehaviour
             if (!gunSystem.weapons[gunSystem.currentWeapon].destroyOnEmpty)
             {
                 ammoReserveCount.text = playerAmmo.ToString();
-                ammoMagCount.text = gunSystem.GetMagCount().ToString();
+                ammoMagCount.text = playerMag.ToString();
             }
             else
             {

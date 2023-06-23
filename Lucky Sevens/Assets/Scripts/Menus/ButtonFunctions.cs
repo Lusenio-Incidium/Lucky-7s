@@ -22,6 +22,7 @@ public class ButtonFunctions : MonoBehaviour
         StartCoroutine(GameManager.instance.loadScene(SceneManager.GetActiveScene().name));
         GameManager.instance.gunSystem.restartGun();
         GameManager.instance.playerAmmo = GameManager.instance.playerAmmoOrign;
+        GameManager.instance.playerMag = GameManager.instance.playerMagOrign;
         GameManager.instance.playerScript.playerHeal((int)GameManager.instance.playerScript.GetMaxHP());
         
     }

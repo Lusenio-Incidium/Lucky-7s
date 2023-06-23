@@ -105,6 +105,11 @@ public class GunSystem : MonoBehaviour
         //hold to fire or single shot
         if (hasGun)
         {
+            if(GameManager.instance.didRestart == true)
+            {
+                bulletsLeft = GameManager.instance.playerMag;
+                GameManager.instance.didRestart = false;
+            }
             weapons[currentWeapon].gunShotAudVol = GameManager.instance.playerScript.GetJumpVol();
             reticleSpread = GameManager.instance.activeRetical.GetComponent<ReticleSpread>();
             if (weapons[currentWeapon].TriggerHold == true)
@@ -288,6 +293,7 @@ public class GunSystem : MonoBehaviour
         bulletsShot++;
         bulletsLeft = weapons[currentWeapon].bulletsLeft = bulletsLeft;
 
+        GameManager.instance.playerMag = bulletsLeft;
         GameManager.instance.UpdateAmmoCount();
 
         GameManager.instance.ammoUsedTotal += 1;
@@ -490,6 +496,7 @@ public class GunSystem : MonoBehaviour
 
         reloading = false;
         bulletsLeft = weapons[currentWeapon].bulletsLeft = bulletsLeft;
+        GameManager.instance.playerMag = bulletsLeft;
         GameManager.instance.UpdateAmmoCount();
         GameManager.instance.activeMenu = null;
     }
@@ -552,6 +559,7 @@ public class GunSystem : MonoBehaviour
         bulletsPerTap = weapons[index].bulletsPerTap;
         magSize = weapons[index].magSize;
         bulletsLeft = weapons[index].bulletsLeft;
+        GameManager.instance.playerMag = bulletsLeft;
         statusEffect = weapons[index].statusEffect;
         recoilAmount = weapons[index].recoilAmount;
         adsReduction = weapons[index].adsReducution;
