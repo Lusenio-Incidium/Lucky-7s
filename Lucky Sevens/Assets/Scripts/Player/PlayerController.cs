@@ -719,9 +719,9 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     {
         if (collision.CompareTag("Enemy"))
         {
-            EnemyAI pop = collision.GetComponent<EnemyAI>();
-            float dis = Vector3.Distance(pop.GetEnemyHeadHeight(), transform.position);
-            if (dis < 1.2f && isGrounded)
+            EnemyAI agent = collision.GetComponent<EnemyAI>();
+            float dis = Vector3.Distance(agent.GetEnemyHeadHeight(), transform.position);
+            if (dis < 1.2f && isGrounded && agent.GetAgent().isActiveAndEnabled)
             {
                 TakePush(new Vector3(.5f, 0, .5f));
             }
