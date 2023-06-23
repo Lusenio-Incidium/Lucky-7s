@@ -180,7 +180,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
                 playerVelocity.y = jumpHeight;
                 bonked = false;
             }
-            else if (!hasJumpedInAir && jumpTimes < maxJumpAmmount)
+            else if (jumpTimes < maxJumpAmmount)
             {
                 aud.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Length)], jumpVol);
                 jumpTimes++;
@@ -723,7 +723,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             float dis = Vector3.Distance(pop.GetEnemyHeadHeight(), transform.position);
             if (dis < 1.2f && isGrounded)
             {
-                hasJumpedInAir = true;
                 TakePush(new Vector3(.5f, 0, .5f));
             }
         }

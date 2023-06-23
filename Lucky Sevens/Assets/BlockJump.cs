@@ -9,6 +9,7 @@ public class BlockJump : MonoBehaviour
         if (other.CompareTag("Player")) 
         {
             GameManager.instance.playerScript.setJumpMode(false);
+            Destroy(gameObject);
         }
     }
 }
