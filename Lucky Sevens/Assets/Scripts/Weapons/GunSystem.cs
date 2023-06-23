@@ -92,6 +92,7 @@ public class GunSystem : MonoBehaviour
         ammunition = magSize * 5;
         readyToShoot = true;
         currentlyShooting = false;
+        //GameManager.instance.UpdateAmmoCount();
     }
 
     private void Update()
@@ -164,7 +165,6 @@ public class GunSystem : MonoBehaviour
                 }
                 else if (bulletsLeft < magSize)
                 {
-                    GameManager.instance.CharReloading();
                     Reload();
                 }
             }
@@ -176,7 +176,6 @@ public class GunSystem : MonoBehaviour
                 }
                 else if (bulletsLeft < magSize)
                 {
-                    GameManager.instance.CharReloading();
                     Reload();
                 }
             }
@@ -187,6 +186,7 @@ public class GunSystem : MonoBehaviour
         //shooting
         if (GameManager.instance.activeMenu == null)
         {
+            
             if (!reloading && bulletsLeft == 0 && isShooting)
             {
                 Reload();
@@ -568,7 +568,7 @@ public class GunSystem : MonoBehaviour
         originolRotation = weapons[currentWeapon].rotation;
         aimPosition = weapons[currentWeapon].aimPosition;
         aimRotation = weapons[currentWeapon].aimRotation;
-        if (weapons[currentWeapon].tag == "Pistol" || weapons[currentWeapon].tag == "AR")
+        if (weapons[currentWeapon].tag == "Pistol" || weapons[currentWeapon].tag == "AR" || weapons[currentWeapon].tag == "Limited")
         {
             GameManager.instance.activeRetical.SetActive(false);
             GameManager.instance.activeRetical = GameManager.instance.arPistolRetical;
@@ -578,12 +578,6 @@ public class GunSystem : MonoBehaviour
         {
             GameManager.instance.activeRetical.SetActive(false);
             GameManager.instance.activeRetical = GameManager.instance.shotgunRetical;
-            GameManager.instance.activeRetical.SetActive(true);
-        }
-        else if (weapons[currentWeapon].tag == "Limited")
-        {
-            GameManager.instance.activeRetical.SetActive(false);
-            GameManager.instance.activeRetical = GameManager.instance.arPistolRetical;
             GameManager.instance.activeRetical.SetActive(true);
         }
 
