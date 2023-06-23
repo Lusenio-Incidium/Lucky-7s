@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class DestructableBottle : MonoBehaviour, IButtonTrigger, ICannonKey, IBattle, IDialouge, IDamage, IBottle
@@ -16,7 +17,10 @@ public class DestructableBottle : MonoBehaviour, IButtonTrigger, ICannonKey, IBa
     [Header("Shootable Functions")]
     [SerializeField] bool isShootable;
     //[SerializeField] int heatlh;
-
+    [Header("Audio")]
+    [SerializeField] AudioSource bottleShatter;
+    [SerializeField] AudioClip[] bottleShatterSounds;
+    [Range(0,1)][SerializeField] float bottleVol;
     [Header("Trigger Functions")]
     [SerializeField] Functions onButtonPress;
     [SerializeField] Functions onButtonRelease;
@@ -37,6 +41,8 @@ public class DestructableBottle : MonoBehaviour, IButtonTrigger, ICannonKey, IBa
             case Functions.Destroy:
                 Instantiate(debrisSpawn, transform.position, debrisSpawn.transform.rotation);
                 Debug.Log("Spawning");
+                bottleVol = GameManager.instance.playerScript.GetJumpVol();
+                bottleShatter.PlayOneShot(bottleShatterSounds[Random.Range(0, bottleShatterSounds.Length - 1)], bottleVol);
                 gameObject.GetComponent<Renderer>().enabled = false;
                 collisionBox.enabled = false;
                 function = Functions.None;

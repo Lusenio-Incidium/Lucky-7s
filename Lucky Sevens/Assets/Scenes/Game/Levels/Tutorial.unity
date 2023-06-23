@@ -886,6 +886,7 @@ MonoBehaviour:
   onCannonDeath: 0
   onTriggerEnter: 1
   onDialougeContinue: 0
+  onMinigameWon: 0
 --- !u!4 &80951277
 Transform:
   m_ObjectHideFlags: 0
@@ -2730,6 +2731,7 @@ MonoBehaviour:
   onCannonDeath: 0
   onTriggerEnter: 0
   onDialougeContinue: 1
+  onMinigameWon: 0
 --- !u!4 &249434912
 Transform:
   m_ObjectHideFlags: 0
@@ -4256,7 +4258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6861030150099408803, guid: d25149c4fc0bde448afd08386b1f7be2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5.15
+      value: 6.27
       objectReference: {fileID: 0}
     - target: {fileID: 6861030150099408803, guid: d25149c4fc0bde448afd08386b1f7be2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4312,7 +4314,7 @@ PrefabInstance:
       objectReference: {fileID: 249434909}
     - target: {fileID: 6861030150099408806, guid: d25149c4fc0bde448afd08386b1f7be2, type: 3}
       propertyPath: m_text
-      value: Be careful how you shoot!
+      value: "If you run out of money in your reserve you lose. \nBe careful."
       objectReference: {fileID: 0}
     - target: {fileID: 6861030150099408806, guid: d25149c4fc0bde448afd08386b1f7be2, type: 3}
       propertyPath: m_Enabled
@@ -9234,7 +9236,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WarpToScene: TheHub
-  loadTime: 2
 --- !u!65 &963041606
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11263,7 +11264,6 @@ MonoBehaviour:
   moveStyle: 0
   movementSpeed: 100
   spawnMoving: 0
-  buttonStartsMoving: 0
   delay: 0
   onButtonPress: 0
   onButtonRelease: 0
@@ -18862,8 +18862,8 @@ MonoBehaviour:
   - {fileID: 477674823}
   triggerItems:
   - {fileID: 620060437}
-  spawnDelay: 1
-  batchSpawn: 4
+  spawnDelay: 0.5
+  batchSpawn: 1
   spawnAmount: 4
   randomlyChooseSpawns: 0
   randomlyChooseEnemy: 0
@@ -18874,6 +18874,7 @@ MonoBehaviour:
   onCannonDeath: 0
   onTriggerEnter: 1
   onDialougeContinue: 0
+  onMinigameWon: 0
 --- !u!1001 &1956483931
 PrefabInstance:
   m_ObjectHideFlags: 0

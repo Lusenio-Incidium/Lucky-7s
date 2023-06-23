@@ -37,7 +37,7 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger,
     [SerializeField] GameObject[] enemyTypes;
     [SerializeField] Transform[] spawnLocations;
     [SerializeField] GameObject[] triggerItems;
-    [SerializeField] int spawnDelay;
+    [SerializeField] float spawnDelay;
     [SerializeField] int batchSpawn;
     [SerializeField] int spawnAmount;
     [SerializeField] bool randomlyChooseSpawns;

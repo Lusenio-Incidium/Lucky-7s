@@ -6,7 +6,16 @@ using UnityEngine;
 public class FakeEnemy : MonoBehaviour, IDamage, IBattleEnemy
 {
     BattleManager battleManager;
+    [SerializeField] AudioSource poofSource;
+    [SerializeField] AudioClip[] poofSounds;
+    [Range(0,1)][SerializeField] float poofVol;
     bool dead;
+
+    private void Start()
+    {
+        poofVol = GameManager.instance.playerScript.GetJumpVol();
+        poofSource.PlayOneShot(poofSounds[Random.Range(0, poofSounds.Length - 1)], poofVol);
+    }
 
     public void SetBattleManager(BattleManager manager)
     {
