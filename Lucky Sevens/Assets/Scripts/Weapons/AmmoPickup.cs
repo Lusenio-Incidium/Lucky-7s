@@ -12,10 +12,6 @@ public class AmmoPickup : MonoBehaviour, ICollectable
     {
         if (gunSystem.weapons[gunSystem.currentWeapon].tag != "Limited")
         {
-            if(GameManager.instance.easy)
-            {
-                ammoAmount /= 2;
-            }
             gunSystem.AddBullets(ammoAmount);
             GameManager.instance.UpdateAmmoCount();
             ObjectPoolManager.instance.ReturnObjToInfo(gameObject);
