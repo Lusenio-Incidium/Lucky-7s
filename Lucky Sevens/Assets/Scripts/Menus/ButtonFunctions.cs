@@ -200,21 +200,21 @@ public class ButtonFunctions : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            if (MainMenuManager.instance.sensitivity != 10)
+            if (MainMenuManager.instance.sensitivity < 100)
             {
-                MainMenuManager.instance.sensitivity += 0.5f;
+                MainMenuManager.instance.sensitivity += 1;
                 MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
-                MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+                MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity/ 100;
                 MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
             }
         }
         else
         {
-            if (GameManager.instance.sensitivity != 10)
+            if (GameManager.instance.sensitivity < 100)
             {
-                GameManager.instance.sensitivity += 0.5f;
+                GameManager.instance.sensitivity += 1;
                 GameManager.instance.sensitivityText.text = GameManager.instance.sensitivity.ToString();     
-                GameManager.instance.sensitivityBar.fillAmount = GameManager.instance.sensitivity / 10f;
+                GameManager.instance.sensitivityBar.fillAmount = GameManager.instance.sensitivity/ 100;
                 GameManager.instance.playerCam.GetComponent<CameraController>().UpdateSensitivity(GameManager.instance.sensitivity);
                 GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             }
@@ -225,21 +225,21 @@ public class ButtonFunctions : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            if (MainMenuManager.instance.sensitivity != 1)
+            if (MainMenuManager.instance.sensitivity > 1)
             {
-                MainMenuManager.instance.sensitivity -= 0.5f;
+                MainMenuManager.instance.sensitivity -= 1;
                 MainMenuManager.instance.sensitivitytext.text = MainMenuManager.instance.sensitivity.ToString();
-                MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 10f;
+                MainMenuManager.instance.sensitivityBar.fillAmount = MainMenuManager.instance.sensitivity / 100;
                 MainMenuManager.instance.playSoundAudSource.PlayOneShot(MainMenuManager.instance.buttonPressAud, MainMenuManager.instance.SFXVolume / 10f);
             }
         }
         else
         {
-            if (GameManager.instance.sensitivity != 1)
+            if (GameManager.instance.sensitivity > 1)
             {
-                GameManager.instance.sensitivity -= 0.5f;
+                GameManager.instance.sensitivity -= 1;
                 GameManager.instance.sensitivityText.text = GameManager.instance.sensitivity.ToString();
-                GameManager.instance.sensitivityBar.fillAmount = GameManager.instance.sensitivity / 10f;
+                GameManager.instance.sensitivityBar.fillAmount = GameManager.instance.sensitivity / 100;
                 GameManager.instance.playerCam.GetComponent<CameraController>().UpdateSensitivity(GameManager.instance.sensitivity);
                 GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             }
