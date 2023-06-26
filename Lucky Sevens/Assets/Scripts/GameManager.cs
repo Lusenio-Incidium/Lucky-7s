@@ -228,9 +228,13 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //Pause Menu Code
-        if(Input.GetButton("Cancel") && activeMenu == null)
+        if(Input.GetButtonDown("Cancel") && activeMenu == null)
         {
             PauseMenu();
+        }
+        else if(Input.GetButtonDown("Cancel")) 
+        {
+            unPauseState();
         }
         if (coinCollected)
         {

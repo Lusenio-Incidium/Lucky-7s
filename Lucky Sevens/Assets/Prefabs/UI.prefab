@@ -10922,6 +10922,7 @@ GameObject:
   - component: {fileID: 2805091482192051939}
   - component: {fileID: 8265979423299396009}
   - component: {fileID: 4983924199122528775}
+  - component: {fileID: 1640406119}
   m_Layer: 5
   m_Name: +
   m_TagString: Untagged
@@ -11031,19 +11032,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8265979423299396009}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1974690380797593766}
-        m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
-        m_MethodName: IncreaseMusicVolume
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &1640406119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210714901775890222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3d3b6ceae20b541b174ddfa13a35d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: 0
 --- !u!1 &237174586749972415
 GameObject:
   m_ObjectHideFlags: 0
@@ -13956,6 +13958,8 @@ MonoBehaviour:
   playerSpawnPos: {fileID: 0}
   gunSystem: {fileID: 0}
   storeTokens: 0
+  playerMag: 0
+  playerMagOrign: 0
   playerAmmo: 0
   playerAmmoOrign: 0
   victory: {fileID: 8300000, guid: 3c18b91db7b753544bf40c46852dfcdb, type: 3}
@@ -14775,6 +14779,7 @@ GameObject:
   - component: {fileID: 5191323570528928775}
   - component: {fileID: 7890268048226196089}
   - component: {fileID: 6300635508688056585}
+  - component: {fileID: 924884684}
   m_Layer: 5
   m_Name: '-'
   m_TagString: Untagged
@@ -14884,19 +14889,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7890268048226196089}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1974690380797593766}
-        m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
-        m_MethodName: DecreaseSFXVolume
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &924884684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332882697862542627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3d3b6ceae20b541b174ddfa13a35d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: 3
 --- !u!1 &2366313026491406498
 GameObject:
   m_ObjectHideFlags: 0
@@ -15181,6 +15187,7 @@ GameObject:
   - component: {fileID: 9196343340395282779}
   - component: {fileID: 7708662993355970615}
   - component: {fileID: 8393975884802634709}
+  - component: {fileID: 2044456159}
   m_Layer: 5
   m_Name: '-'
   m_TagString: Untagged
@@ -15290,19 +15297,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7708662993355970615}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1974690380797593766}
-        m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
-        m_MethodName: DecreaseMusicVolume
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &2044456159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2607513624324270362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3d3b6ceae20b541b174ddfa13a35d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: 1
 --- !u!1 &2844086510105033912
 GameObject:
   m_ObjectHideFlags: 0
@@ -16016,6 +16024,7 @@ GameObject:
   - component: {fileID: 7058604340382775530}
   - component: {fileID: 735814808079712583}
   - component: {fileID: 2897198509121555381}
+  - component: {fileID: 1071353423}
   m_Layer: 5
   m_Name: +
   m_TagString: Untagged
@@ -16125,19 +16134,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 735814808079712583}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1974690380797593766}
-        m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
-        m_MethodName: IncreaseSensitivity
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &1071353423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3059139675805466173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3d3b6ceae20b541b174ddfa13a35d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: 4
 --- !u!1 &3127287946656145774
 GameObject:
   m_ObjectHideFlags: 0
@@ -16612,11 +16622,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bdf1675fa93cd4b84b47664e6307d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftFlash: {fileID: 1351368791}
-  rightFlash: {fileID: 562374726}
-  topFlash: {fileID: 2126662448}
-  bottomFlash: {fileID: 214517250}
-  modifier: 0.1
 --- !u!1 &4144039706292991246
 GameObject:
   m_ObjectHideFlags: 0
@@ -18232,6 +18237,7 @@ GameObject:
   - component: {fileID: 2916834040300742917}
   - component: {fileID: 5918069211735695409}
   - component: {fileID: 4341997162419254630}
+  - component: {fileID: 1740302865}
   m_Layer: 5
   m_Name: +
   m_TagString: Untagged
@@ -18341,19 +18347,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5918069211735695409}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1974690380797593766}
-        m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
-        m_MethodName: IncreaseSFXVolume
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &1740302865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6139057315711799214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3d3b6ceae20b541b174ddfa13a35d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: 2
 --- !u!1 &6192568929860984997
 GameObject:
   m_ObjectHideFlags: 0
@@ -20574,6 +20581,7 @@ GameObject:
   - component: {fileID: 1225894054703791372}
   - component: {fileID: 7095352609860891402}
   - component: {fileID: 1292350693581507767}
+  - component: {fileID: 669703752}
   m_Layer: 5
   m_Name: '-'
   m_TagString: Untagged
@@ -20683,19 +20691,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7095352609860891402}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1974690380797593766}
-        m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
-        m_MethodName: DecreaseSensitivity
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &669703752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900387005348567691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3d3b6ceae20b541b174ddfa13a35d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: 5
 --- !u!1 &7955408646330655700
 GameObject:
   m_ObjectHideFlags: 0
