@@ -1717,6 +1717,8 @@ GameObject:
   m_Component:
   - component: {fileID: 294471186704505469}
   - component: {fileID: 294471186715970397}
+  - component: {fileID: 216081002}
+  - component: {fileID: 216081001}
   m_Layer: 0
   m_Name: BodyGuard03_Head
   m_TagString: Untagged
@@ -1795,6 +1797,32 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000000044703484, y: 0.3532947, z: 0.043522224}
     m_Extent: {x: 0.08642085, y: 0.1579009, z: 0.13000153}
   m_DirtyAABB: 0
+--- !u!65 &216081002
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294471186704467549}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.4, z: 0.4}
+  m_Center: {x: 0, y: 1.7, z: 0}
+--- !u!114 &216081001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294471186704467549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ec83c7ebf52234b83ae43f39ff3392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseObj: {fileID: 294471186704467911}
 --- !u!1 &294471186704467551
 GameObject:
   m_ObjectHideFlags: 0
@@ -2090,7 +2118,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -2139,9 +2167,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 1.6
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!54 &1946169827
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -511,7 +511,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -560,9 +560,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 1.6
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!54 &4904323177990351461
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2799,6 +2799,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3744044942002612719}
   - component: {fileID: 3744044942016575695}
+  - component: {fileID: 980424544400085283}
+  - component: {fileID: 8295154088372405224}
   m_Layer: 0
   m_Name: BodyGuard03_Head
   m_TagString: Untagged
@@ -2877,6 +2879,32 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000000044703484, y: 0.3532947, z: 0.043522224}
     m_Extent: {x: 0.08642085, y: 0.1579009, z: 0.13000153}
   m_DirtyAABB: 0
+--- !u!65 &980424544400085283
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3744044942002910671}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.4, z: 0.4}
+  m_Center: {x: 0, y: 1.7, z: 0}
+--- !u!114 &8295154088372405224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3744044942002910671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ec83c7ebf52234b83ae43f39ff3392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseObj: {fileID: 3744044942002910293}
 --- !u!1 &3744044942002910673
 GameObject:
   m_ObjectHideFlags: 0
