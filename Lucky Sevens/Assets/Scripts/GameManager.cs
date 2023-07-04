@@ -18,7 +18,13 @@ using System.ComponentModel;
 
 public class GameManager : MonoBehaviour
 {
-
+    [System.Serializable]
+    public class Menu
+    {
+        public GameObject menu;
+        public string preMenu;
+        public string name;
+    }
 
     public static GameManager instance;
 
@@ -38,18 +44,10 @@ public class GameManager : MonoBehaviour
     public AudioClip victory;
 
     [Header("----- UI Stuff -----")]
+    public Menu[] menus;
     public GameObject ReloadText;
     public GameObject activeMenu;
-    public GameObject pauseMenu;
     public Button returnToLobby;
-    public GameObject loseMenu;
-    public GameObject winMenu;
-    public GameObject optionsMenu;
-    public GameObject comfirmMenu;
-    public GameObject toMainMenuConfirmMenu;
-    public GameObject errorMenu;
-    public GameObject difficultyMenu;
-    public GameObject inGameOptionsMenu;
     public GameObject completionText;
     public GameObject healthMenu;
     public GameObject lowHealthFlashMenu;
@@ -67,7 +65,6 @@ public class GameManager : MonoBehaviour
     public GameObject emptyReserve;
     public GameObject ammoDisplay;
     public GameObject playerDamageFlash;
-    public DamageFlash dm;
     public TextMeshProUGUI shopChipsTotal;
     public TextMeshProUGUI ammoReserveCount;
     public TextMeshProUGUI ammoMagCount;
@@ -107,7 +104,6 @@ public class GameManager : MonoBehaviour
     public float sfxVol;
     public float musicVol;
     float timeScaleOrig;
-    //int AmmoLoaded;
     public bool completed;
     public int ammoUsedTotal;
     public int ammoGatheredTotal;
@@ -116,6 +112,8 @@ public class GameManager : MonoBehaviour
     public bool pressedSpace;
     Vector3 origCamPos;
     GameObject playerStore;
+    Dictionary<string, Menu> menuDictionary = new Dictionary<string, Menu>();
+    Menu actMenu;
 
     //Level Manager Variables
     List<int> completedLevels;
@@ -125,7 +123,7 @@ public class GameManager : MonoBehaviour
     {
         completed = false;
         completedLevels = new List<int>();
-        //Debug.Log(completedLevels.Count);
+
         //Code to check if a new game manager is made, and if it is delete it.
         //Used for keeping the game manager and player UI throughout different scenes
         if (instance != null) 
@@ -135,6 +133,11 @@ public class GameManager : MonoBehaviour
         else 
         {
             instance = this;
+            for (int i = 0; i < menus.Length; i++)
+            {
+                menuDictionary.TryAdd(menus[i].name, menus[i]);
+            }
+            menus = null;
             refreshGameManager();
         }
         DontDestroyOnLoad(this.transform.parent);
@@ -162,7 +165,6 @@ public class GameManager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
         playerCam = GameObject.FindGameObjectWithTag("MainCamera");
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
-        dm = playerDamageFlash.GetComponent<DamageFlash>();
         timeScaleOrig = Time.timeScale;
         playerAnim = player.GetComponent<Animator>();
         gunSystem = player.GetComponent<GunSystem>();
@@ -230,11 +232,11 @@ public class GameManager : MonoBehaviour
         //Pause Menu Code
         if(Input.GetButtonDown("Cancel") && activeMenu == null)
         {
-            PauseMenu();
+            ChangeMenu("PauseMenu");
         }
         else if(Input.GetButtonDown("Cancel")) 
         {
-            unPauseState();
+            PreviousMenu();
         }
         if (coinCollected)
         {
@@ -262,12 +264,48 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         activeRetical.SetActive(false);
-        
+        activeMenu.SetActive(true);
+
     }
+
+
+    public void ChangeMenu(string menuToLoad)
+    {
+        if (menuDictionary.TryGetValue(menuToLoad, out actMenu))
+        {
+            if (activeMenu)
+                activeMenu.SetActive(false);
+            activeMenu = actMenu.menu;
+
+            if (!isPaused)
+            {
+                pauseState();
+            }
+            else
+            {
+                activeMenu.SetActive(true);
+            }
+        }
+    }
+
+    public void PreviousMenu()
+    {
+        if (actMenu.preMenu == "NOESCAPE")
+            return;
+        if (actMenu.preMenu != " ")
+        {
+            ChangeMenu(actMenu.preMenu);
+        }
+        else
+        {
+            unPauseState();
+        }
+    }
+
 
     public void InGameOptions()
     {
-        isPaused = !isPaused;
+        isPaused = true;
         pauseState();
         sensitivity = playerCam.GetComponent<CameraController>().GetSensitivity();
         sensitivityText.text = sensitivity.ToString();
@@ -278,20 +316,9 @@ public class GameManager : MonoBehaviour
         musicVol = playerScript.GetMusicVol() * 10f;
         musicText.text = musicVol.ToString();
         musicBar.fillAmount = musicVol / 10f;
-        activeMenu.SetActive(false);
-        activeMenu = null;
-        activeMenu = inGameOptionsMenu;
-        activeMenu.SetActive(true);
+        ChangeMenu("OptionsMenu");
     }
 
-
-    public void PauseMenu()
-    {
-        isPaused = !isPaused;
-        activeMenu = pauseMenu;
-        activeMenu.SetActive(isPaused);
-        pauseState();
-    }
 
     public IEnumerator loadScene(string sceen)
     {
@@ -340,66 +367,31 @@ public class GameManager : MonoBehaviour
             isPaused = false;
             activeMenu.SetActive(false);
             activeMenu = null;
+            actMenu = null;
             activeRetical.SetActive(true);
             
         }
         
     }
-    public void OptionsMenu()
-    {
-        isPaused = true;
-        pauseState();
-        activeMenu.SetActive(false);
-        activeMenu = null;
-        activeMenu = optionsMenu;
-        activeMenu.SetActive(true);
-    }
 
-
-    public void youLose()
-    {
-        isPaused = true;
-        pauseState();
-        activeMenu = loseMenu;
-        activeMenu.SetActive(true);
-    }
 
 
     public void ErrorMenu(string errorText) 
     {
-        pauseState();
-        activeMenu = errorMenu;
         errorMenuText.text = errorText;
-        activeMenu.SetActive(true);
-        isPaused = true;
+        ChangeMenu("Error");
     }
 
     public void ComfirmMenu(string actionText)
     {
-        pauseState();
-        activeMenu = comfirmMenu;
         comfirmMenuText.text = actionText;
-        activeMenu.SetActive(true);
-        isPaused = true;
-    }
-    public void BackToMainMenuConfirm()
-    {
-        isPaused = true;
-        pauseState();
-        activeMenu.SetActive(false);
-        activeMenu = toMainMenuConfirmMenu;
-        activeMenu.SetActive(true);
+        ChangeMenu("Comfirm");
     }
 
     public void Shop() 
     {
-        isPaused = true;
-        pauseState();
-        activeMenu = ShopMenu;
-
         shopChipsTotal.text = playerAmmo.ToString("F0");
-
-        activeMenu.SetActive(true);
+        ChangeMenu("Shop");
     }
     public void UpdateEnemyCount(int amount)
     {
@@ -417,11 +409,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator youWin(float time)
     {
        yield return new WaitForSeconds(time);
-        activeMenu = winMenu;
-        activeMenu.SetActive(true);
+        ChangeMenu("Win");
         ReEnableDisplay();
-        isPaused = true;
-        pauseState();
         pressedSpace = false;
         playerAnim.SetBool("gotACoin", false);
     }
@@ -488,21 +477,6 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
-    public void DifficultyMenu()
-    {
-        activeMenu.SetActive(false);
-        activeMenu = null;
-        activeMenu = difficultyMenu;
-        activeMenu.SetActive(true);
-    }
-    public void ReturnToLoseScreen()
-    {
-        activeMenu.SetActive(false);
-        activeMenu = null;
-        activeMenu = loseMenu;
-        activeMenu.SetActive(true);
-    }
     public void Locked()
     {
         hardMode.GetComponent<Button>().enabled = false;
@@ -543,12 +517,11 @@ public class GameManager : MonoBehaviour
     {
         SpawnPlayerForDeathAnim();
         Transform deathCamera = player.transform.GetChild(4);
-        activeMenu = errorMenu;
         origCamPos = playerCam.transform.localPosition;
         HudDisabledDisplay(deathCamera);
         //playerAnim.SetBool("dead", true);
         yield return new WaitForSeconds(3);
-        youLose();
+        ChangeMenu("Lose");
     }
 
     public void HudDisabledDisplay(Transform Camera)

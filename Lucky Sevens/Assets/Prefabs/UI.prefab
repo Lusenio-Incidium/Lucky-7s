@@ -13963,18 +13963,31 @@ MonoBehaviour:
   playerAmmo: 0
   playerAmmoOrign: 0
   victory: {fileID: 8300000, guid: 3c18b91db7b753544bf40c46852dfcdb, type: 3}
+  menus:
+  - menu: {fileID: 1974690381197666700}
+    preMenu: ' '
+    name: PauseMenu
+  - menu: {fileID: 463791950}
+    preMenu: PauseMenu
+    name: OptionsMenu
+  - menu: {fileID: 52066920}
+    preMenu: NOESCAPE
+    name: Lose
+  - menu: {fileID: 796284858}
+    preMenu: NOESCAPE
+    name: Win
+  - menu: {fileID: 1463731796}
+    preMenu: ' '
+    name: Shop
+  - menu: {fileID: 6802543412160119200}
+    preMenu: PauseMenu
+    name: Diff
+  - menu: {fileID: 847585856}
+    preMenu: NOESCAPE
+    name: ComfirmMain
   ReloadText: {fileID: 1514460523}
   activeMenu: {fileID: 0}
-  pauseMenu: {fileID: 1974690381197666700}
   returnToLobby: {fileID: 5844572401860431429}
-  loseMenu: {fileID: 52066920}
-  winMenu: {fileID: 796284858}
-  optionsMenu: {fileID: 463791950}
-  comfirmMenu: {fileID: 1367457874}
-  toMainMenuConfirmMenu: {fileID: 847585856}
-  errorMenu: {fileID: 1105889389}
-  difficultyMenu: {fileID: 6802543412160119200}
-  inGameOptionsMenu: {fileID: 5731570609919868544}
   completionText: {fileID: 1019804286}
   healthMenu: {fileID: 1862284186}
   lowHealthFlashMenu: {fileID: 8040616200557310046}
@@ -13992,7 +14005,6 @@ MonoBehaviour:
   emptyReserve: {fileID: 1322491326}
   ammoDisplay: {fileID: 135845250}
   playerDamageFlash: {fileID: 3950322137266239461}
-  dm: {fileID: 0}
   shopChipsTotal: {fileID: 1121340873120317422}
   ammoReserveCount: {fileID: 1224641673}
   ammoMagCount: {fileID: 1355724885}

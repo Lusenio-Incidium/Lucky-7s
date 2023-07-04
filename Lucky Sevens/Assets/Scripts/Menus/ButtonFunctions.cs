@@ -60,7 +60,7 @@ public class ButtonFunctions : MonoBehaviour
     public void ReturnToMainMenu()
     {
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
-        GameManager.instance.BackToMainMenuConfirm();
+        GameManager.instance.ChangeMenu("ComfirmMain");
     }
 
     public void ConfirmBackToMenu()
@@ -78,7 +78,7 @@ public class ButtonFunctions : MonoBehaviour
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
         GameManager.instance.activeMenu.SetActive(false);
         GameManager.instance.activeMenu = null;
-        GameManager.instance.PauseMenu();
+        GameManager.instance.ChangeMenu("PauseMenu");
     }
 
     public void ExitBackToMenu()
@@ -98,7 +98,7 @@ public class ButtonFunctions : MonoBehaviour
         {
             GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
             GameManager.instance.activeMenu.SetActive(false);
-            GameManager.instance.PauseMenu();
+            GameManager.instance.ChangeMenu("PauseMenu");
 
             PlayerPrefs.SetFloat("MusicVolume", GameManager.instance.musicVol);
             PlayerPrefs.SetFloat("SFXVolume", GameManager.instance.sfxVol);
@@ -161,12 +161,12 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void DifficultyButton()
     {
-        GameManager.instance.DifficultyMenu();
+        GameManager.instance.ChangeMenu("Diff");
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
     }
     public void ReturnToLoseScreen()
     {
-        GameManager.instance.ReturnToLoseScreen();
+        GameManager.instance.ChangeMenu("Lose");
         GameManager.instance.playSoundAudSource.PlayOneShot(GameManager.instance.buttonSoundAud, GameManager.instance.playerScript.GetJumpVol());
     }
     public void MainEasy()
