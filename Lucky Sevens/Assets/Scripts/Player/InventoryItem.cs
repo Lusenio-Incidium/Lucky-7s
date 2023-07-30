@@ -16,4 +16,5 @@ public class InventoryItem
     public string name;
     public string toolTip;
     public Sprite icon;
+    public int slotNum;
 }

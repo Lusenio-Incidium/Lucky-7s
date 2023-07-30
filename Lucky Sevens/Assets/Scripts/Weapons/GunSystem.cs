@@ -92,7 +92,6 @@ public class GunSystem : MonoBehaviour
         ammunition = magSize * 5;
         readyToShoot = true;
         currentlyShooting = false;
-        //GameManager.instance.UpdateAmmoCount();
     }
 
     private void Update()

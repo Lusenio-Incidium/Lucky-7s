@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
 {
+    #region Variables
     static PlayerController pc;
 
     [Header("- - - Componets - - -")]
@@ -16,8 +17,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     [SerializeField] Transform playerCenterPos;
 
     [Header("- - - Atributes - - -")]
-    public List<GunStats> gunList = new List<GunStats>();
-
     [Range(1, 100)][SerializeField] float HP;
     [SerializeField][Range(1.0f, 10.0f)] float playerSpeed;
     [SerializeField][Range(1.5f, 5.0f)] float sprintMod;
@@ -41,10 +40,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     [SerializeField][Range(0f, 1f)] float deathVol;
     [SerializeField][Range(0f, 1f)] float musicVol;
 
-    [Header("GunSpawnables")]
-    [SerializeField] GameObject ShotgunSpawn;
-    [SerializeField] GameObject tommySpawn;
-
     [Header("DamageOverlay")]
     public float duration;
     public float fadeSpeed;
@@ -58,17 +53,14 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
 
     [Header("Inventory and Equipment")]
     [SerializeField] GunStats[] equipedGuns = new GunStats[4];
-    [SerializeField] List<InventoryItem> inventory = new List<InventoryItem>();
-    [SerializeField] int maxItemCount;
+    [SerializeField] InventoryItem[] inventory = new InventoryItem[20];
 
     //private variables
-    GunSystem gunSystem;
     Vector3 playerVelocity;
     Vector3 move;
     Vector3 pushBack;
     Color backHpOrig;
     bool isGrounded;
-    bool hasJumpedInAir;
     bool isDead;
     bool stepPlaying;
     bool isSprinting;
@@ -77,6 +69,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     bool dontDamage;
     bool canJump;
     bool canMove;
+    bool hasGun;
     int jumpTimes;
     int speedHash;
     int currWeaponsEquiped;
@@ -88,7 +81,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     float playerSpeedOrig;
     float durationTimer;
     float speed;
-
+    #endregion
     void Start()
     {
         if (MainMenuManager.instance != null)
@@ -110,7 +103,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             spawnPlayer();
             animator = GetComponent<Animator>();
             speedHash = Animator.StringToHash("speed");
-            gunSystem = GetComponent<GunSystem>();
             canJump = true;
             canMove = true;
         }
@@ -119,29 +111,30 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-
-
-
     }
 
     void Update()
     {
-        if(canMove)
-            movement();
         if (!GameManager.instance.isPaused)
-            interact();
-        if (!isCrawl)
-            sprint();
-
-        crawl();
-
-        checks();
-
-        DamageFlash();
-
-        if (GameManager.instance.backPlayerHPBar.fillAmount != (float)HP / HPOrig || GameManager.instance.playerHPBar.fillAmount != (float)HP / HPOrig)
         {
-            updatePlayerUI();
+            if (canMove)
+                movement();
+
+            interact();
+
+            if (!isCrawl)
+                sprint();
+
+            crawl();
+
+            checks();
+
+            DamageFlash();
+
+            if (GameManager.instance.backPlayerHPBar.fillAmount != (float)HP / HPOrig || GameManager.instance.playerHPBar.fillAmount != (float)HP / HPOrig)
+            {
+                updatePlayerUI();
+            }
         }
     }
 
@@ -183,8 +176,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             if (isGrounded)
             {
                 jumpTimes = 0;
-                hasJumpedInAir = false;
-
+               
                 aud.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Length)], jumpVol);
                 jumpTimes++;
                 playerVelocity.y = jumpHeight;
@@ -194,15 +186,9 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             {
                 aud.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Length)], jumpVol);
                 jumpTimes++;
-                hasJumpedInAir=true;
                 playerVelocity.y = jumpHeight;
                 bonked = false;
             }
-        }
-        if (isGrounded)
-        {
-            jumpTimes= 0;
-            hasJumpedInAir = false;
         }
 
         //gravity
@@ -216,7 +202,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         RaycastHit headBonk;
         if (Physics.Raycast(Camera.main.transform.position, Vector3.up, out headBonk, headBonkLength, headIneraction))
         {
-
             return true;
         }
         return false;
@@ -322,29 +307,27 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     #region damage
     public void takeDamage(float amount, Transform pos = null)
     {
-        if (isDead)
+        if (isDead || dontDamage)
         {
             return;
         }
-        if (!dontDamage)
-        {
-            HP -= amount;
-            aud.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)], hurtVol);
-            lerpTimer = 0f;
-            durationTimer = 0f;
-            updatePlayerUI();
-            GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 1);
-            GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 1);
+        HP -= amount;
+        aud.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)], hurtVol);
+        lerpTimer = 0f;
+        durationTimer = 0f;
+        updatePlayerUI();
+        GameManager.instance.damagePanel.color = new Color(GameManager.instance.damagePanel.color.r, GameManager.instance.damagePanel.color.g, GameManager.instance.damagePanel.color.b, 1);
+        GameManager.instance.damageBlood.color = new Color(GameManager.instance.damageBlood.color.r, GameManager.instance.damageBlood.color.g, GameManager.instance.damageBlood.color.b, 1);
 
-            StartCoroutine(Invincibility());
-            if (HP <= 0)
-            {
-                aud.PlayOneShot(deathSounds[Random.Range(0, deathSounds.Length)], deathVol);
-                pushBack = Vector3.zero;
-                StartCoroutine(GameManager.instance.DeathSequence());
-                isDead = true;
-            }
+        StartCoroutine(Invincibility());
+        if (HP <= 0)
+        {
+            aud.PlayOneShot(deathSounds[Random.Range(0, deathSounds.Length)], deathVol);
+            pushBack = Vector3.zero;
+            StartCoroutine(GameManager.instance.DeathSequence());
+            isDead = true;
         }
+ 
     }
     public void instaKill()
     {
@@ -364,9 +347,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         dontDamage = true;
         yield return new WaitForSeconds(1f);
         dontDamage = false;
-/*        controller.detectCollisions = false;
-        yield return new WaitForSeconds(1f);
-        controller.detectCollisions = true;*/
     }
     #endregion
 
@@ -421,14 +401,14 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
      */
     public bool turnGunIntoInventory(GunStats gunToConvert) 
     {
-        if (currItemCount < maxItemCount) 
+        if (currItemCount < inventory.Length) 
         {
-            InventoryItem item = new InventoryItem();
+            InventoryItem item = new();
             item.type = InventoryItem.itemType.Weapon;
             item.toolTip = gunToConvert.gunToolTip;
             item.name = gunToConvert.gunName;
             item.icon = gunToConvert.gunSprite;
-            inventory.Add(item);
+            inventory[currItemCount] = item;
             currItemCount++;
             return true;
         }
@@ -442,14 +422,14 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     */
     public bool turnConsumableIntoInventory() 
     {
-        if (currItemCount < maxItemCount)
+        if (currItemCount < inventory.Length)
         {
 
             return true;
         }
         return false;
     }
-
+    #region Setters
     public void speedChange(float amount)
     {
         playerSpeed += amount;
@@ -468,6 +448,8 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     {
         canMove = controlEnabled;
     }
+    #endregion
+
     void interact()
     {
         RaycastHit hit;
@@ -492,59 +474,9 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             GameManager.instance.interactTxt.gameObject.SetActive(false);
         }
     }
-    //void switchGun()
-    //{
-    //    int previousGunNum = selectedGunNum;
-    //    if (Input.GetAxis("Mouse ScrollWheel") > 0)
-    //    {
-    //        selectedGunNum = (selectedGunNum + 1) % gunList.Count;
-    //    }
-    //    else if (Input.GetAxis("Mouse ScrollWheel") < 0)
-    //    {
-    //        selectedGunNum--;
-    //        if (selectedGunNum < 0)
-    //        {
-    //            selectedGunNum = gunList.Count - 1;
-    //        }
-    //    }
-    //    if (previousGunNum != selectedGunNum)
-    //    {
-    //        gunSystem.EquipWeapon(selectedGunNum);
-    //    }
-    //}
 
     public bool RemoveGun(GunStats gtr)
     {
-        for (int x = 0; x < gunSystem.weapons.Count; x++)
-        {
-            if (gtr.tag == gunSystem.weapons[x].tag)
-            {
-                if (gunSystem.weapons.Count > 1)
-                {
-                    gunSystem.weapons.RemoveAt(x);
-                    if (gunSystem.currentWeapon == x)
-                    {
-                        if (gunSystem.weapons.Count > 0)
-                        {
-                            if (gunSystem.currentWeapon == 0)
-                            {
-                                gunSystem.currentWeapon = gunSystem.weapons.Count - 1;
-                            }
-                            else
-                            {
-                                gunSystem.currentWeapon--;
-                            }
-                            gunSystem.EquipWeapon(gunSystem.currentWeapon);
-                        }
-                    }
-                }
-                else
-                {
-                    gunSystem.DestroyCurrentWeapon();
-                }
-                return true;
-            }
-        }
         return false;
     }
 
@@ -557,7 +489,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     {
         return (int)HP;
     }
-
     public float GetMaxHP()
     {
         return HPOrig;
@@ -574,7 +505,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     {
         return musicVol;
     }
-
     public float GetJumpVol()
     {
         return jumpVol;
@@ -646,10 +576,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
                     RemoveEffect();
                 }
             }
-            /*    if (activeEffect != null)
-                {
-                    RemoveEffect();
-                }*/
         }
     }
 
@@ -691,18 +617,16 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             GameManager.instance.backPlayerHPBar.fillAmount = currHealth;
             GameManager.instance.playerHPBar.fillAmount = Mathf.Lerp(frontfill, currHealth, delayBarSpeed);
         }
-
-
     }
     public void shopRegister(ShopPickup updates)
     {
         if (updates.ar)
         {
-            Instantiate(tommySpawn, transform.position, transform.rotation);
+           
         }
         if (updates.shotgun)
         {
-            Instantiate(ShotgunSpawn, transform.position, transform.rotation);
+            
         }
         if (updates.fullheal)
         {
@@ -715,7 +639,6 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     }
     void DamageFlash()
     {
-        //damage flash
         if (GameManager.instance.damagePanel.color.a > 0 || HP <= 10)
         {
             float panelAlpha = GameManager.instance.damagePanel.color.a;
@@ -765,13 +688,10 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         if (!isSprinting && !isCrawl && activeEffect == null)
             playerSpeed = playerSpeedOrig;
 
-        if (transform.position.y < -10 || (GameManager.instance.playerAmmo <= 0 && gunSystem.hasGun))
+        if (transform.position.y < -10 || (GameManager.instance.playerAmmo <= 0 && hasGun))
             instaKill();
 
-        if (gunList.Count > 0)
-            //switchGun();
         DamageFlash();
-
     }
     void OnTriggerStay(Collider collision)
     {
