@@ -21,18 +21,10 @@ public class GunPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //other.GetComponent<GunSystem>().PickUpWeapon(gunStat);
-            GunSystem gunSystem = other.GetComponent<GunSystem>();
-            if (gunSystem != null)
+            ResetGunStats();
+            if (GameManager.instance.playerScript.addGunToEquiped(gunStat) || GameManager.instance.playerScript.turnGunIntoInventory(gunStat))
             {
-                bool hasWeaponTag = gunSystem.HasWeaponWithTag(gunStat.tag);
-
-                if (!hasWeaponTag)
-                {
-                    ResetGunStats();
-                    gunSystem.PickUpWeapon(gunStat);
-                    Destroy(gameObject);
-                }
+                Destroy(gameObject);
             }
         }
     }

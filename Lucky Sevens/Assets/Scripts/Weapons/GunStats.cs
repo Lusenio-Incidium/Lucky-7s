@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class GunStats : ScriptableObject
 {
+    [Header("-----Inventory Info-----")]
+    public string gunName;
+    public string gunToolTip;
+    public Sprite gunSprite;
     [Header("-----Gun-----")]
     public GameObject model;
     public string tag;

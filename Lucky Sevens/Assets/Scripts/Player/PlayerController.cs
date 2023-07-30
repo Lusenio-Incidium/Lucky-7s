@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
@@ -54,6 +55,12 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     [SerializeField] LayerMask headIneraction;
     [SerializeField] float headBonkRayLengthJumping;
     [SerializeField] float headBonkRayLengthCrouching;
+
+    [Header("Inventory and Equipment")]
+    [SerializeField] GunStats[] equipedGuns = new GunStats[4];
+    [SerializeField] List<InventoryItem> inventory = new List<InventoryItem>();
+    [SerializeField] int maxItemCount;
+
     //private variables
     GunSystem gunSystem;
     Vector3 playerVelocity;
@@ -66,8 +73,14 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     bool stepPlaying;
     bool isSprinting;
     bool isCrawl;
+    bool bonked;
+    bool dontDamage;
+    bool canJump;
+    bool canMove;
     int jumpTimes;
     int speedHash;
+    int currWeaponsEquiped;
+    int currItemCount;
     float HPOrig;
     float origSpeed;
     float timePassed;
@@ -75,10 +88,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     float playerSpeedOrig;
     float durationTimer;
     float speed;
-    bool bonked;
-    bool dontDamage;
-    bool canJump;
-    bool canMove;
+
     void Start()
     {
         if (MainMenuManager.instance != null)
@@ -392,6 +402,54 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     #endregion
 
     #region gameSystems
+
+    public bool addGunToEquiped(GunStats gunToAdd) 
+    {
+        if (currWeaponsEquiped < equipedGuns.Length) 
+        {
+            equipedGuns[currWeaponsEquiped] = gunToAdd;
+            currWeaponsEquiped++;
+            return true;
+        }
+        return false;
+    }
+
+    /* turnGunIntoInventory
+     * Takes 1 argument (GunStats) of the gun that needs to be turned into an InventoryItem class
+     * If the player has room in their inventory, then the gunStats will be setup as a new InventoryItem and
+     * added to the inventory and the function will return true, otherwise the function will return false.
+     */
+    public bool turnGunIntoInventory(GunStats gunToConvert) 
+    {
+        if (currItemCount < maxItemCount) 
+        {
+            InventoryItem item = new InventoryItem();
+            item.type = InventoryItem.itemType.Weapon;
+            item.toolTip = gunToConvert.gunToolTip;
+            item.name = gunToConvert.gunName;
+            item.icon = gunToConvert.gunSprite;
+            inventory.Add(item);
+            currItemCount++;
+            return true;
+        }
+        return false;
+    }
+
+    /* turnGunIntoInventory
+    * Takes 1 argument (ConsumableType) of the consumable that needs to be turned into an InventoryItem class
+    * If the player has room in their inventory, then the consimable will be setup as a new InventoryItem and
+    * added to the inventory and the function will return true, otherwise the function will return false.
+    */
+    public bool turnConsumableIntoInventory() 
+    {
+        if (currItemCount < maxItemCount)
+        {
+
+            return true;
+        }
+        return false;
+    }
+
     public void speedChange(float amount)
     {
         playerSpeed += amount;
