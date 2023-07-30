@@ -7,6 +7,7 @@ public class InventoryItem
 {
     public enum itemType 
     {
+        Empty,
         Weapon,
         Consumable,
         Colectable
@@ -17,4 +18,5 @@ public class InventoryItem
     public string toolTip;
     public Sprite icon;
     public int slotNum;
+    public int mod;
 }

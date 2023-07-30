@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     [SerializeField] GunStats[] equipedGuns = new GunStats[4];
     [SerializeField] InventoryItem[] inventory = new InventoryItem[20];
 
+
     //private variables
     Vector3 playerVelocity;
     Vector3 move;
@@ -408,6 +409,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             item.toolTip = gunToConvert.gunToolTip;
             item.name = gunToConvert.gunName;
             item.icon = gunToConvert.gunSprite;
+            item.slotNum = currItemCount;
             inventory[currItemCount] = item;
             currItemCount++;
             return true;
@@ -420,14 +422,69 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     * If the player has room in their inventory, then the consimable will be setup as a new InventoryItem and
     * added to the inventory and the function will return true, otherwise the function will return false.
     */
-    public bool turnConsumableIntoInventory() 
+    public bool turnConsumableIntoInventory(string type, int mod) 
     {
         if (currItemCount < inventory.Length)
         {
-
+            InventoryItem item = new();
+            if (type == "Health")
+            {
+                item.name = "Health";
+                item.type = InventoryItem.itemType.Consumable;
+                item.mod = mod;
+                item.slotNum = currItemCount;
+                item.icon = null;
+                inventory[currItemCount] = item;
+                currItemCount++;
+            }
+            else if (type == "Speed")
+            {
+                item.name = "Speed";
+                item.type = InventoryItem.itemType.Consumable;
+                item.mod = mod;
+                item.slotNum = currItemCount;
+                item.icon = null;
+                inventory[currItemCount] = item;
+                currItemCount++;
+            }
+            else 
+                return false;
+            
             return true;
         }
         return false;
+    }
+
+    public bool setInventory() 
+    {
+        for (int i = 0; i < inventory.Length; i++) 
+        {
+            InventoryItem.itemType type = inventory[i].type;
+            switch (type) 
+            {
+                case InventoryItem.itemType.Empty:
+                    if (inventory[i].name != "Empty" || inventory[i].name != null)
+                        return false;
+
+                    GameManager.instance.inventorySlots[i].sprite = inventory[i].icon;
+                    break;
+                case InventoryItem.itemType.Weapon:
+
+                    GameManager.instance.inventorySlots[i].sprite = inventory[i].icon;
+                    break;
+                case InventoryItem.itemType.Consumable:
+
+                    GameManager.instance.inventorySlots[i].sprite = inventory[i].icon;
+                    break;
+                case InventoryItem.itemType.Colectable:
+
+                    GameManager.instance.inventorySlots[i].sprite = inventory[i].icon;
+                    break;
+                default:
+                    return false;
+            }
+        }
+        return true;
     }
     #region Setters
     public void speedChange(float amount)

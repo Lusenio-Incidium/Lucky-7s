@@ -5,16 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.ComponentModel;
-/*public enum LevelSelect
-{
-    Tutorial = 0,
-    Training,
-    Level1,
-    Level2,
-    Level3,
-    Level4,
-    SlotsBoss
-}*/
 
 public class GameManager : MonoBehaviour
 {
@@ -92,6 +82,7 @@ public class GameManager : MonoBehaviour
     public GameObject ending;
     public string[] tips;
     public TextMeshProUGUI tipsText;
+    public Image[] inventorySlots = new Image[20];
 
     public int enemiesRemaining;
     public bool coinCollected;
