@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     [Header("Inventory and Equipment")]
     [SerializeField] GunStats[] equipedGuns = new GunStats[4];
     [SerializeField] InventoryItem[] inventory = new InventoryItem[20];
+    [SerializeField] Sprite emptySlot;
 
 
     //private variables
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     bool canJump;
     bool canMove;
     bool hasGun;
+    bool openedInv;
     int jumpTimes;
     int speedHash;
     int currWeaponsEquiped;
@@ -129,6 +131,8 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             crawl();
 
             checks();
+
+            ToggleInventory();
 
             DamageFlash();
 
@@ -360,6 +364,10 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         transform.rotation = GameManager.instance.playerSpawnPos.transform.rotation;
         controller.enabled = true;
         isDead = false;
+        if (!setInventory()) 
+        {
+            Debug.LogError("CRITICAL ERROR, FAILED TO LOAD INVENTORY");
+        }
         if (!respawnWithSameHealth)
         {
             HP = HPOrig;
@@ -463,10 +471,13 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             switch (type) 
             {
                 case InventoryItem.itemType.Empty:
-                    if (inventory[i].name != "Empty" || inventory[i].name != null)
-                        return false;
+                    if (inventory[i].name != "Empty" || inventory[i].name != string.Empty)
+                        //return false;
 
-                    GameManager.instance.inventorySlots[i].sprite = inventory[i].icon;
+                    GameManager.instance.inventorySlots[i].sprite = emptySlot;
+                    GameManager.instance.inventorySlots[i].fillCenter = false;
+                    GameManager.instance.inventorySlots[i].pixelsPerUnitMultiplier = .5f;
+                    GameManager.instance.inventorySlots[i].type = UnityEngine.UI.Image.Type.Sliced;
                     break;
                 case InventoryItem.itemType.Weapon:
 
@@ -651,6 +662,31 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         }
     }
     #endregion
+
+    public void ToggleInventory() 
+    {
+        if (Input.GetKeyDown(KeyCode.I)) 
+        {
+            openedInv = !openedInv;
+            if (openedInv)
+                GameManager.instance.ChangeMenu("Inventory");
+            else
+                GameManager.instance.PreviousMenu();
+
+
+            int accumulator = 0;
+            for (int j = 0; j < 5; j++)
+            {
+                accumulator = accumulator + 1;
+                for (int i = 0; i < 3; i++)
+                {
+                    accumulator = accumulator + 2;
+                }
+
+            }
+            Debug.Log(accumulator);
+        }
+    }
 
     public void updatePlayerUI()
     {
