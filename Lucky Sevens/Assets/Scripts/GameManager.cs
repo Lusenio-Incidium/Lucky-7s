@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     public PlayerController playerScript;
     public Animator playerAnim;
     public GameObject playerSpawnPos;
-    public GunSystem gunSystem;
     public int storeTokens;
     public int playerMag;
     public int playerMagOrign;
@@ -158,13 +157,11 @@ public class GameManager : MonoBehaviour
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleOrig = Time.timeScale;
         playerAnim = player.GetComponent<Animator>();
-        gunSystem = player.GetComponent<GunSystem>();
         enemiesRemaining = 0;
         timeElapsed = 0;
         ammoGatheredTotal = 0;
         ammoUsedTotal = 0;
         //GameManager.instance.playerScript.HPOrig = GameManager.instance.playerScript.HP
-        gunSystem.updateOrig();
         UpdateAmmoCount();
 
         //shopRefresh
@@ -198,7 +195,6 @@ public class GameManager : MonoBehaviour
     public void onLoad() 
     {
         playerMagOrign = playerMag;
-        //gunSystem.updateOrig();
         playerAmmoOrign = playerAmmo;
     }
 
@@ -407,19 +403,19 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateAmmoCount()
     {
-        if (gunSystem.hasGun) 
-        {
-            if (!gunSystem.weapons[gunSystem.currentWeapon].destroyOnEmpty)
-            {
-                ammoReserveCount.text = playerAmmo.ToString();
-                ammoMagCount.text = playerMag.ToString();
-            }
-            else
-            {
-                ammoReserveCount.text = gunSystem.GetAmmo().ToString();
-                ammoMagCount.text = gunSystem.GetMagCount().ToString();
-            }
-        }
+       //if (playerScript.hasGun) 
+       //{
+       //    if (!gunSystem.weapons[gunSystem.currentWeapon].destroyOnEmpty)
+       //    {
+       //        ammoReserveCount.text = playerAmmo.ToString();
+       //        ammoMagCount.text = playerMag.ToString();
+       //    }
+       //    else
+       //    {
+       //        ammoReserveCount.text = gunSystem.GetAmmo().ToString();
+       //        ammoMagCount.text = gunSystem.GetMagCount().ToString();
+       //    }
+       //}
     }
 
     public void updateTimer()
@@ -429,7 +425,7 @@ public class GameManager : MonoBehaviour
     }
     public void CharReloading()
     {
-        if(gunSystem.hasGun == true)
+        //if(gunSystem.hasGun == true)
            StartCoroutine(Reload());
     }
 
@@ -439,7 +435,8 @@ public class GameManager : MonoBehaviour
         {
             activeMenu = ReloadText;
             activeMenu.SetActive(true);
-            yield return new WaitForSeconds(gunSystem.GetReloadTime());
+           // yield return new WaitForSeconds(gunSystem.GetReloadTime());
+           yield return new WaitForSeconds(0.1f);
             activeMenu = ReloadText;
             activeMenu.SetActive(false);
             activeMenu = null;
@@ -448,7 +445,7 @@ public class GameManager : MonoBehaviour
     }
     public void CharZeroReserve()
     {
-        if (gunSystem.hasGun == true)
+        //if (gunSystem.hasGun == true)
             StartCoroutine(ZeroReserve());
     }
     IEnumerator ZeroReserve()
@@ -522,7 +519,6 @@ public class GameManager : MonoBehaviour
         playerCam.transform.localPosition = Camera.localPosition;
         playerCam.transform.LookAt(player.transform);
         playerCam.transform.GetChild(1).gameObject.SetActive(false);
-        gunSystem.enabled = false;
         timerDisplay.enabled = false;
         activeRetical.gameObject.SetActive(false);
         healthMenu.SetActive(false);
@@ -538,7 +534,6 @@ public class GameManager : MonoBehaviour
             playerCam.transform.localPosition = origCamPos;
         }
         playerCam.transform.GetChild(1).gameObject.SetActive(true);
-        gunSystem.enabled = true;
         timerDisplay.enabled = true;
         activeRetical.gameObject.SetActive(true);
         lowHealthFlashMenu.SetActive(true);

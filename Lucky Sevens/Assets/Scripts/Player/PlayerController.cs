@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     int speedHash;
     int currWeaponsEquiped;
     int currItemCount;
+    int selectedGun;
     float HPOrig;
     float origSpeed;
     float timePassed;
@@ -151,6 +152,8 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             checks();
 
             ToggleInventory();
+
+            gunInput();
 
             DamageFlash();
 
@@ -416,6 +419,15 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         {
             equipedGuns[currWeaponsEquiped] = gunToAdd;
             currWeaponsEquiped++;
+            if (!hasGun)
+            {
+                hasGun = true;
+                GameManager.instance.ammoDisplay.SetActive(true);
+
+            }
+            if(selectedGun == 0) selectedGun = 1;
+            GameManager.instance.playerAmmo += 100;
+            GameManager.instance.UpdateAmmoCount();
             return true;
         }
         return false;
@@ -438,6 +450,8 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             item.slotNum = currItemCount;
             item.gun = gunToConvert;
             inventory[currItemCount] = item;
+            GameManager.instance.playerAmmo += 100;
+            GameManager.instance.UpdateAmmoCount();
             currItemCount++;
             return true;
         }
@@ -577,8 +591,12 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
 
     void gunInput() 
     {
+        if (hasGun) 
+        {
+            
         
-    
+        }
+        
     }
 
 
@@ -812,7 +830,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         if (!isSprinting && !isCrawl && activeEffect == null)
             playerSpeed = playerSpeedOrig;
 
-        if (transform.position.y < -10 || (GameManager.instance.playerAmmo <= 0 && hasGun))
+        if (transform.position.y < -10)
             instaKill();
 
         DamageFlash();

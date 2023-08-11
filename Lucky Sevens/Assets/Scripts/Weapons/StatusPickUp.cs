@@ -10,12 +10,12 @@ public class StatusPickUp : MonoBehaviour,ICollectable
     private GameObject effectPart;
     public void onCollect()
     {
-        if (GameManager.instance.gunSystem.weapons.Count > 0)
-        {
-            GameManager.instance.gunSystem.AddStatus(statusToGive);
-            Destroy(gameObject);
-            Destroy(effectPart);
-        }
+        //if (GameManager.instance.gunSystem.weapons.Count > 0)
+        //{
+        //    GameManager.instance.gunSystem.AddStatus(statusToGive);
+        //    Destroy(gameObject);
+        //    Destroy(effectPart);
+        //}
     }
     private void OnTriggerEnter(Collider other)
     {

@@ -24,7 +24,7 @@ public class ReticleSpread : MonoBehaviour
 
     private void Update()
     {
-        if (isMoving || cC.velocity.sqrMagnitude != 0 || GameManager.instance.gunSystem.currentlyShooting)
+        if (isMoving || cC.velocity.sqrMagnitude != 0) // || GameManager.instance.gunSystem.currentlyShooting
             currentSize = Mathf.Lerp(currentSize,maxSize,Time.deltaTime * speed);
         else
             currentSize = Mathf.Lerp(currentSize,restingSize,Time.deltaTime * speed);   

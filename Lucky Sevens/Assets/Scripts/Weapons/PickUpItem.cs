@@ -25,7 +25,7 @@ public class PickUpItem : MonoBehaviour
         if(other.CompareTag("MainCamera"))
         {
             canGrab = true;
-            GameManager.instance.gunSystem.SetReadyToShoot(false);
+            //GameManager.instance.gunSystem.SetReadyToShoot(false);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -34,7 +34,7 @@ public class PickUpItem : MonoBehaviour
         {
             if (!isPickedUp)
             {
-                GameManager.instance.gunSystem.SetReadyToShoot(true);
+                //GameManager.instance.gunSystem.SetReadyToShoot(true);
                 canGrab = false;
             }
         }

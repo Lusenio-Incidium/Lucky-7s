@@ -27,7 +27,7 @@ public class TargetGameController : MonoBehaviour
         if(games[game - 1].targets.Count <= 0) 
         {
             games[game - 1].gameWon = true;
-            GameManager.instance.gunSystem.AddBullets(games[game - 1].ammoReward);
+            //GameManager.instance.gunSystem.AddBullets(games[game - 1].ammoReward);
             checkGameStatus();
         }
 
