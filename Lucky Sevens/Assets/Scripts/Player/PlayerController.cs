@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
 {
@@ -28,6 +29,21 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     [SerializeField] float pushBackResolve;
     [SerializeField] int throwPower;
     [SerializeField] StatusEffectObj activeEffect;
+
+    [Header("Guns")]
+
+    [SerializeField] CameraController cameraController;
+    [Header("-----HipFire-----")]
+    [SerializeField] Vector3 originolPosition;
+    [SerializeField] Quaternion originolRotation;
+    [Header("-----ADS-----")]
+    [SerializeField] Vector3 aimPosition;
+    [SerializeField] Quaternion aimRotation;
+    StatusEffectObj statusEffect;
+    [Header("-----Weapon Model-----")]
+    [SerializeField] MeshFilter gunModel;
+    [SerializeField] MeshRenderer gunMat;
+
 
     [Header("Audio")]
     [SerializeField] AudioClip[] footsteps;
@@ -63,6 +79,8 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     Vector3 pushBack;
     Color backHpOrig;
     bool isGrounded;
+    bool equipedMelee;
+    bool EquipedConsumable;
     bool isDead;
     bool stepPlaying;
     bool isSprinting;
@@ -418,8 +436,29 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             item.name = gunToConvert.gunName;
             item.icon = gunToConvert.gunSprite;
             item.slotNum = currItemCount;
+            item.gun = gunToConvert;
             inventory[currItemCount] = item;
             currItemCount++;
+            return true;
+        }
+        return false;
+    }
+
+    /* turnGunIntoGunstats
+     * takes two arguments, this function is basically used to 
+     * Equip a gun from the invnetory. Takes into account the
+     * "Floating Item" System ill be using for the inventory.
+     */
+    public bool turnGunIntoGunstats(InventoryItem gunToConvert, int slotNum) 
+    {
+        if(gunToConvert.type == InventoryItem.itemType.Weapon) 
+        {
+            if (equipedGuns[slotNum] != null) 
+            {
+                if (!turnGunIntoInventory(equipedGuns[slotNum])) return false;
+                equipedGuns[slotNum] = null;
+            }
+            equipedGuns[slotNum] = gunToConvert.gun;
             return true;
         }
         return false;
@@ -471,29 +510,22 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             switch (type) 
             {
                 case InventoryItem.itemType.Empty:
-                    if (inventory[i].name != "Empty" || inventory[i].name != string.Empty)
-                        //return false;
-
-                    GameManager.instance.inventorySlots[i].sprite = emptySlot;
-                    GameManager.instance.inventorySlots[i].fillCenter = false;
-                    GameManager.instance.inventorySlots[i].pixelsPerUnitMultiplier = .5f;
-                    GameManager.instance.inventorySlots[i].type = UnityEngine.UI.Image.Type.Sliced;
+            
                     break;
                 case InventoryItem.itemType.Weapon:
-
-                    GameManager.instance.inventorySlots[i].sprite = inventory[i].icon;
+                    
                     break;
                 case InventoryItem.itemType.Consumable:
-
-                    GameManager.instance.inventorySlots[i].sprite = inventory[i].icon;
+              
                     break;
                 case InventoryItem.itemType.Colectable:
-
-                    GameManager.instance.inventorySlots[i].sprite = inventory[i].icon;
+                   
                     break;
                 default:
                     return false;
             }
+            GameManager.instance.inventorySlots[i].color = Color.white;
+            GameManager.instance.inventorySlots[i].sprite = inventory[i].icon;
         }
         return true;
     }
@@ -542,6 +574,13 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
             GameManager.instance.interactTxt.gameObject.SetActive(false);
         }
     }
+
+    void gunInput() 
+    {
+        
+    
+    }
+
 
     public bool RemoveGun(GunStats gtr)
     {
@@ -668,23 +707,15 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         if (Input.GetKeyDown(KeyCode.I)) 
         {
             openedInv = !openedInv;
+            if (GameManager.instance.activeMenu == null) 
+            {
+                openedInv = true;
+            }
+            setInventory();
             if (openedInv)
                 GameManager.instance.ChangeMenu("Inventory");
             else
                 GameManager.instance.PreviousMenu();
-
-
-            int accumulator = 0;
-            for (int j = 0; j < 5; j++)
-            {
-                accumulator = accumulator + 1;
-                for (int i = 0; i < 3; i++)
-                {
-                    accumulator = accumulator + 2;
-                }
-
-            }
-            Debug.Log(accumulator);
         }
     }
 

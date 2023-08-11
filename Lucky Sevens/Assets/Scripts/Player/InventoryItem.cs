@@ -19,4 +19,5 @@ public class InventoryItem
     public Sprite icon;
     public int slotNum;
     public int mod;
+    public GunStats gun;
 }
