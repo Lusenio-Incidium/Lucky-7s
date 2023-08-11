@@ -31,7 +31,8 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     [SerializeField] StatusEffectObj activeEffect;
 
     [Header("Guns")]
-
+    public bool hasGun;
+    public int selectedGun;
     [SerializeField] CameraController cameraController;
     [Header("-----HipFire-----")]
     [SerializeField] Vector3 originolPosition;
@@ -68,7 +69,7 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     [SerializeField] float headBonkRayLengthCrouching;
 
     [Header("Inventory and Equipment")]
-    [SerializeField] GunStats[] equipedGuns = new GunStats[4];
+    public GunStats[] equipedGuns = new GunStats[4];
     [SerializeField] InventoryItem[] inventory = new InventoryItem[20];
     [SerializeField] Sprite emptySlot;
 
@@ -89,13 +90,11 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
     bool dontDamage;
     bool canJump;
     bool canMove;
-    bool hasGun;
     bool openedInv;
     int jumpTimes;
     int speedHash;
     int currWeaponsEquiped;
     int currItemCount;
-    int selectedGun;
     float HPOrig;
     float origSpeed;
     float timePassed;
@@ -597,6 +596,15 @@ public class PlayerController : MonoBehaviour, IDamage, IPhysics, IStatusEffect
         
         }
         
+    }
+
+    public void AddBullets(int amount)
+    {
+        GameManager.instance.playerAmmo += amount;
+
+        GameManager.instance.UpdateAmmoCount();
+
+        GameManager.instance.ammoGatheredTotal += amount;
     }
 
 

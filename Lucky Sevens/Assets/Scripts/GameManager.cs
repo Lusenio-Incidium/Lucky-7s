@@ -403,19 +403,19 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateAmmoCount()
     {
-       //if (playerScript.hasGun) 
-       //{
-       //    if (!gunSystem.weapons[gunSystem.currentWeapon].destroyOnEmpty)
-       //    {
-       //        ammoReserveCount.text = playerAmmo.ToString();
-       //        ammoMagCount.text = playerMag.ToString();
-       //    }
+       if (playerScript.hasGun) 
+       {
+           if (playerScript.equipedGuns[playerScript.selectedGun] == null || !playerScript.equipedGuns[playerScript.selectedGun].destroyOnEmpty)
+           {
+               ammoReserveCount.text = playerAmmo.ToString();
+               ammoMagCount.text = playerMag.ToString();
+           }
        //    else
        //    {
        //        ammoReserveCount.text = gunSystem.GetAmmo().ToString();
        //        ammoMagCount.text = gunSystem.GetMagCount().ToString();
        //    }
-       //}
+       }
     }
 
     public void updateTimer()
