@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigger
 {
@@ -121,10 +120,6 @@ public class Cannons : MonoBehaviour, IDamage, ICannonKey, IBattle, IButtonTrigg
                 ICannonKey key = targetObject.GetComponent<ICannonKey>();
                 if(key != null) {
                     key.OnCannonDeath();
-                }
-                else
-                {
-                    Debug.Log("err");
                 }
             }
             invincible = true;

@@ -7,6 +7,7 @@ public class HubManager : MonoBehaviour
     [SerializeField] RandomSelection randomizer;
     [SerializeField] Animator bossDoor;
     [SerializeField] GameObject[] tokens;
+    [SerializeField] int levelsToUnlockBoss = 4;
     [Header("Audio")]
     [SerializeField] AudioSource HeavyDoor = null;
     [SerializeField] AudioClip DoorOpen = null;
@@ -35,7 +36,7 @@ public class HubManager : MonoBehaviour
             tokens[GameManager.instance.GetLastestLevel() - 1].GetComponent<Animator>().enabled = true;
         }
         GameManager.instance.UpdateCompleteLevels();
-        if(completed.Count >= 4)
+        if(completed.Count >= levelsToUnlockBoss)
         {
             randomizer.enabled = false;
 
@@ -54,14 +55,6 @@ public class HubManager : MonoBehaviour
             }
         }
         
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            StartCoroutine(OpenBossDoor());
-        }
     }
 
     IEnumerator OpenBossDoor()

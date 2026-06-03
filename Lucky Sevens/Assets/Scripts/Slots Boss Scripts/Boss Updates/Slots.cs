@@ -82,16 +82,14 @@ public class Slots : MonoBehaviour, IBoss
         StartCoroutine(attackLogic(phase));
     }
 
-    public void unStun() 
+    public void unStun()
     {
         hatchs[BossManager.instance.currPhase - 1].GetComponent<Animator>().SetBool("HatchOpen", false);
         stunned = false;
         cannonRemains = true;
         for (int i = 0; i < cannons.Length; i++)
             cannons[i].GetComponentInChildren<CannonController>().Respawn(reinforce);
-
         attacking = false;
-        attackPhase(BossManager.instance.currPhase);
     }
 
     void slotResults() 
@@ -154,8 +152,8 @@ public class Slots : MonoBehaviour, IBoss
     }
     public void stunPhase()
     {
+        if (stunned) return;
         stunned = true;
-        
         StartCoroutine(hatchDelay());
     }
 
@@ -173,20 +171,32 @@ public class Slots : MonoBehaviour, IBoss
     {
         BossManager.instance.currPhase += 1;
         reinforce = true;
-        if(BossManager.instance.currPhase > BossManager.instance.numOfPhases) 
+        updating = false;
+        StopAllCoroutines();
+
+        if (BossManager.instance.currPhase > BossManager.instance.numOfPhases)
         {
             WinnersToken.instance.Spawn();
             hasStarted = false;
             GameManager.instance.BossBarContainer.SetActive(false);
             return;
         }
-        updating = false;
-        StopAllCoroutines();
+
+        // Close hatch and reset state for the new phase
+        hatchs[BossManager.instance.currPhase - 2].GetComponent<Animator>().SetBool("HatchOpen", false);
+        stunned = false;
+        cannonRemains = true;
+        attacking = false;
         wheels[BossManager.instance.currPhase - 2].SetActive(false);
-        attackPhase(BossManager.instance.currPhase);
+
+        for (int i = 0; i < cannons.Length; i++)
+            cannons[i].GetComponentInChildren<CannonController>().Respawn(reinforce);
+
         if (BossManager.instance.currPhase == 3)
             for (int i = 0; i < cannons.Length; i++)
                 cannons[i].GetComponentInChildren<CannonController>().StartMoving();
+
+        attackPhase(BossManager.instance.currPhase);
     }
 
     void updateHP()
@@ -212,7 +222,6 @@ public class Slots : MonoBehaviour, IBoss
     }
     IEnumerator attackLogic(int phase)
     {
-        Debug.Log("Start attack");
         yield return new WaitForSeconds(5f);
         attacking = true;
         for (int i = 0; i < wheels.Length; i++)
@@ -223,7 +232,6 @@ public class Slots : MonoBehaviour, IBoss
             attackPhase2();
         else if (phase == 3)
             attackPhase3();
-        Debug.Log("End Attack");
         StartCoroutine(attackDelay());
     }
 

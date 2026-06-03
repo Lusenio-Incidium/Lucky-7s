@@ -1,10 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Security.Principal;
 using UnityEngine;
-using UnityEngine.UIElements;
 using static ObjectPoolManager;
 
 public class ObjectPoolManager : MonoBehaviour
@@ -239,14 +235,12 @@ public class ObjectPoolManager : MonoBehaviour
         //If all obj are active it makes a new one and sets it to be active as well as organizes it to it respective empty
         if (spawnableObj == null)
         {
-            Debug.Log("Object could not be loaded.");
-            return null;
-            /*GameObject parentObject = SetParentObjectType(poolType);
+            GameObject parentObject = SetParentObjectType(poolType);
             spawnableObj = Instantiate(objToSpawn, spawnPos, spawnRot);
             if(parentObject != null)
             {
                 spawnableObj.transform.SetParent(parentObject.transform);
-            }*/
+            }
         }
         else
         {

@@ -66,7 +66,7 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger,
     // Update is called once per frame
     void Update()
     {
-        if (battleBegin && !spawning)
+        if (battleBegin && !spawning && spawnAmount > 0)
         {
             StartCoroutine(Spawn());
         }
@@ -132,7 +132,6 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger,
         {
             return;
         }
-        Debug.Log("Trigger Entered.");
         onTriggerEnter = FunctionActions(onTriggerEnter);
     }
 
@@ -149,7 +148,6 @@ public class BattleManager : MonoBehaviour, IBattle, ICannonKey, IButtonTrigger,
             {
                 affectObj.OnBattleBegin();
             }
-            Debug.Log(battleBegin);
         }
         battleBegin = true;
     }

@@ -23,7 +23,7 @@ public class BouncingChip : MonoBehaviour
     
     private void LateUpdate()
     {
-        prevVelo = rb.velocity;
+        prevVelo = rb.linearVelocity;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -32,7 +32,7 @@ public class BouncingChip : MonoBehaviour
         {
             rb.useGravity = false;
             rb.freezeRotation = true;
-            rb.velocity = new Vector3(Random.Range(0, speed), 0, Random.Range(0, speed));
+            rb.linearVelocity = new Vector3(Random.Range(0, speed), 0, Random.Range(0, speed));
             transform.rotation = Quaternion.Euler(0, 0, 0);
             touchdown = true;
             return;
@@ -49,6 +49,6 @@ public class BouncingChip : MonoBehaviour
             }
         }
             reflectDirect = Vector3.Reflect(prevVelo.normalized, collision.contacts[0].normal);
-            rb.velocity = reflectDirect * speed;
+            rb.linearVelocity = reflectDirect * speed;
     }
 }

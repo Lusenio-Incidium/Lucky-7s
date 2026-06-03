@@ -15,7 +15,6 @@ public class RemoveGun : MonoBehaviour
             }
             else
             {
-                Debug.Log("Gun not found");
             }
             if (destroyEvenIfFail)
             {

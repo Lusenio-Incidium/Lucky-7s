@@ -11,7 +11,7 @@ public class BreakBottle : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        rb.velocity = (transform.forward * velocity);
+        rb.linearVelocity = (transform.forward * velocity);
     }
 
     private void OnCollisionEnter(Collision other)

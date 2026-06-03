@@ -19,7 +19,6 @@ public class SlotsDamageSpot : MonoBehaviour, IDamage
         {
             destroyed = true;
             Instantiate(boom, transform.position, transform.rotation);
-            BossManager.instance.onUnstun();
             BossManager.instance.onBossDamage();
         }
         else

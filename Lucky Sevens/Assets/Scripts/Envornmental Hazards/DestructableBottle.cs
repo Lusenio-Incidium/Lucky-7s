@@ -39,7 +39,6 @@ public class DestructableBottle : MonoBehaviour, IButtonTrigger, ICannonKey, IBa
                 return Functions.None;
             case Functions.Destroy:
                 Instantiate(debrisSpawn, transform.position, debrisSpawn.transform.rotation);
-                Debug.Log("Spawning");
                 bottleVol = GameManager.instance.playerScript.GetJumpVol();
                 bottleShatter.PlayOneShot(bottleShatterSounds[Random.Range(0, bottleShatterSounds.Length - 1)], bottleVol);
                 gameObject.GetComponent<Renderer>().enabled = false;
@@ -101,14 +100,9 @@ public class DestructableBottle : MonoBehaviour, IButtonTrigger, ICannonKey, IBa
 
     public void instaKill()
     {
-        Debug.Log("Tf you do to instakill this thing.");
     }
 
     public void takeDamage(float damage, Transform position = null)
     {
-        if (isShootable)
-        {
-            Debug.Log("Feature not implemented. Plz check again later thx :3");
-        }
     }
 }

@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
     [SerializeField] Transform shootPos;
+    [SerializeField] Transform headshotPos;
     [SerializeField] public bool Complicated;
     [SerializeField] public bool isMelee;
     [SerializeField] public bool healer;
@@ -124,9 +125,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
         
     }
     //Simple enemy AI, Enemies can always see player, always go to player, etc. No roaming.
-    void simple() 
+    void simple()
     {
-        Debug.Log("Simple");
             speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
             anim.SetFloat("Speed", speed);
             if (!healer)
@@ -273,8 +273,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
                 agent.speed /= hitEffect.slowEffect;
                 shootSpeed *= hitEffect.slowEffect;
             }
-            timePassed = Time.deltaTime;
-            while ( Time.deltaTime - timePassed <= effectTime && hitEffect != null)
+            timePassed = Time.time;
+            while ( Time.time - timePassed <= effectTime && hitEffect != null)
             {
                 if (hitEffect.damage != 0)
                 {
@@ -445,7 +445,8 @@ public class EnemyAI : MonoBehaviour,IDamage,IStatusEffect,IPhysics,IBattleEnemy
     }
     public Vector3 GetEnemyHeadHeight()
     {
-       GameObject pop = transform.GetChild(5).transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(1).transform.GetChild(0).gameObject;
-       return pop.transform.position;
+        if (headshotPos != null)
+            return headshotPos.position;
+        return headPos.position;
     }
 }

@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     void OnEnable()
     {
         _timerCoroutine = StartCoroutine(TimerCoroutine());
-        rb.velocity = transform.forward * mSpeed;
+        rb.linearVelocity = transform.forward * mSpeed;
     }
     private void OnTriggerEnter(Collider other)
     {

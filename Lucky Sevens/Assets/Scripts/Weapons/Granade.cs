@@ -12,7 +12,7 @@ public class Granade : MonoBehaviour
 
     IEnumerator Start()
     {
-        rb.velocity = (transform.forward * velocity);
+        rb.linearVelocity = (transform.forward * velocity);
         yield return new WaitForSeconds(fuseTimer);
         Instantiate(explosion, transform.position, explosion.transform.rotation);
         Destroy(gameObject);

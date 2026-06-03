@@ -70,7 +70,6 @@ public class ItemMover : MonoBehaviour, IButtonTrigger, ICannonKey, IBattle
                 {
                     case MoveMethods.RunOnce:
                         moving = false;
-                        Debug.Log("Stopped");
                         return;
                     case MoveMethods.Loop:
                         stage = 0;
@@ -116,7 +115,6 @@ public class ItemMover : MonoBehaviour, IButtonTrigger, ICannonKey, IBattle
                 return Functions.None;
             case Functions.Start:
                 moving = true;
-                Debug.Log("Triggered SG2");
                 break;
             case Functions.Stop:
                 moving = false;
@@ -143,7 +141,6 @@ public class ItemMover : MonoBehaviour, IButtonTrigger, ICannonKey, IBattle
     public void OnBattleBegin()
     {
         onBattleBegin = FunctionAction(onBattleBegin);
-        Debug.Log("Triggered SG1");
     }
 
     public void OnBattleEnd()

@@ -29,13 +29,11 @@ public class ArenaSpawner : MonoBehaviour
     {
         prefab = conditions.GetSpawnObj();
         spawnAmount = conditions.GetSpawnCount();
-        Debug.Log(conditions.GetSpawnCount() + " " + spawnAmount);
         intervalTime = conditions.GetSpawnDelay();
         spawnMethod = conditions.GetSpawnStyles();
         rangeRadius = conditions.GetAccuracy();
         batchSize = conditions.GetBatchSize();
         spawnLocations = conditions.GetSpawnLocations();
-        Debug.Log(name + " has recieved new spawning instructions.");
     }
 
     public void ForceStop()
